@@ -274,7 +274,7 @@ export function setupAuthRoutes(app: express.Express) {
         createSessionCookie(sessionId, SESSION_MAX_AGE_MS)
       );
 
-      
+
       res.json({ success: true });
     } catch (error: any) {
       console.error('Error in /api/auth/guest:', error);
