@@ -12,8 +12,8 @@ const app = express();
 
 app.use(cors({
   origin: [
-    "http://localhost:5173",
-    "https://your-frontend-vercel-domain.vercel.app"
+    "https://dev-garden-35o4.vercel.app",
+    "http://localhost:5173"
   ],
   credentials: true
 }));
