@@ -71,7 +71,7 @@ export default function App() {
     };
 
     // Instantiate and connect SupabaseSocket
-    const s = new SupabaseSocket(session.supabaseUrl, session.supabaseAnonKey, self);
+    const s = new SupabaseSocket((session.supabaseUrl || '').trim(), (session.supabaseAnonKey || '').trim(), self);
 
     s.on('connect', () => {
       console.log('Socket stream established successfully!');

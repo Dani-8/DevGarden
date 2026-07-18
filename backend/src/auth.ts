@@ -4,6 +4,9 @@ import { exchangeOAuthCode, fetchGitHubStats } from './github.js';
 import { saveUser, createSession, getSessionUser, deleteSession } from './db.js';
 import { calculateLevel } from './leveling.js';
 
+const SUPABASE_URL = (process.env.SUPABASE_URL || '').trim();
+const SUPABASE_ANON_KEY = (process.env.SUPABASE_ANON_KEY || '').trim();
+
 function generateSessionId() {
   return crypto.randomBytes(32).toString('hex');
 }
@@ -179,8 +182,8 @@ export function setupAuthRoutes(app: express.Express) {
       const cookies = parseCookies(req.headers.cookie);
       const sessionId = cookies[SESSION_COOKIE_NAME];
 
-      const supabaseUrl = process.env.SUPABASE_URL || '';
-      const supabaseAnonKey = process.env.SUPABASE_ANON_KEY || '';
+      const supabaseUrl = SUPABASE_URL;
+      const supabaseAnonKey = SUPABASE_ANON_KEY;
 
       if (!sessionId) {
         return res.json({ loggedIn: false, supabaseUrl, supabaseAnonKey });
@@ -194,8 +197,8 @@ export function setupAuthRoutes(app: express.Express) {
       res.json({ loggedIn: true, user, supabaseUrl, supabaseAnonKey });
     } catch (error: any) {
       console.error('Error in /api/auth/me:', error);
-      const supabaseUrl = process.env.SUPABASE_URL || '';
-      const supabaseAnonKey = process.env.SUPABASE_ANON_KEY || '';
+      const supabaseUrl = SUPABASE_URL;
+      const supabaseAnonKey = SUPABASE_ANON_KEY;
       res.json({ loggedIn: false, error: error.message, supabaseUrl, supabaseAnonKey });
     }
   });
