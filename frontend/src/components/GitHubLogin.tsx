@@ -19,7 +19,8 @@ export default function GitHubLogin({ onSuccess }: GitHubLoginProps) {
     setGuestLoading(true);
     setError(null);
     try {
-      const response = await fetch('/api/auth/guest', { method: 'POST' });
+      const apiBase = import.meta.env.VITE_API_URL || '';
+      const response = await fetch(`${apiBase}/api/auth/guest`, { method: 'POST', credentials: 'include' });
       if (!response.ok) {
         throw new Error('Failed to log in as Guest.');
       }
@@ -37,7 +38,8 @@ export default function GitHubLogin({ onSuccess }: GitHubLoginProps) {
     setError(null);
 
     try {
-      const response = await fetch('/api/auth/url');
+      const apiBase = import.meta.env.VITE_API_URL || '';
+      const response = await fetch(`${apiBase}/api/auth/url`, { credentials: 'include' });
       if (!response.ok) {
         throw new Error('Failed to retrieve GitHub OAuth authorization URL from server.');
       }

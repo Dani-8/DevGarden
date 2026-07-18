@@ -15,7 +15,8 @@ export default function Leaderboard({ onClose }: LeaderboardProps) {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch('/api/leaderboard');
+      const apiBase = import.meta.env.VITE_API_URL || '';
+      const response = await fetch(`${apiBase}/api/leaderboard`, { credentials: 'include' });
       if (!response.ok) {
         throw new Error('Failed to retrieve rankings from server.');
       }

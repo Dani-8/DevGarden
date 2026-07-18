@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { SupabaseSocket } from '../SupabaseSocket.js';
+import { SupabaseSocket } from './SupabaseSocket.js';
 import { Github, Trophy, LogOut, Sparkles, User, HelpCircle } from 'lucide-react';
 
 import { PlayerState, UserProfile } from './types.js';
@@ -28,7 +28,8 @@ export default function App() {
   // 1. Fetch Session Status on boot
   const checkAuth = async () => {
     try {
-      const res = await fetch('/api/auth/me');
+      const apiBase = import.meta.env.VITE_API_URL || '';
+      const res = await fetch(`${apiBase}/api/auth/me`, { credentials: 'include' });
       const data = await res.json();
       setSession(data);
     } catch (e) {
@@ -127,7 +128,8 @@ export default function App() {
 
   const handleLogout = async () => {
     try {
-      await fetch('/api/auth/logout', { method: 'POST' });
+      const apiBase = import.meta.env.VITE_API_URL || '';
+      await fetch(`${apiBase}/api/auth/logout`, { method: 'POST', credentials: 'include' });
       setSession({ loggedIn: false });
       setSelfPlayer(null);
       setPlayersList([]);
