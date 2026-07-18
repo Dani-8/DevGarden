@@ -7,6 +7,7 @@ interface GitHubLoginProps {
 
 export default function GitHubLogin({ onSuccess }: GitHubLoginProps) {
   const [loading, setLoading] = useState(false);
+  const [guestLoading, setGuestLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showGuide, setShowGuide] = useState(false);
 
@@ -14,12 +15,31 @@ export default function GitHubLogin({ onSuccess }: GitHubLoginProps) {
   const devUrl = 'https://ais-dev-gca6tjjvrnq2mfd6yvxqy4-489397614410.asia-southeast1.run.app';
   const preUrl = 'https://ais-pre-gca6tjjvrnq2mfd6yvxqy4-489397614410.asia-southeast1.run.app';
 
+  const handleGuestLogin = async () => {
+    setGuestLoading(true);
+    setError(null);
+    try {
+      const apiBase = import.meta.env.VITE_API_URL || '';
+      const response = await fetch(`${apiBase}/api/auth/guest`, { method: 'POST', credentials: 'include' });
+      if (!response.ok) {
+        throw new Error('Failed to log in as Guest.');
+      }
+      onSuccess();
+    } catch (err: any) {
+      console.error(err);
+      setError(err.message || 'Guest Login Failed');
+    } finally {
+      setGuestLoading(false);
+    }
+  };
+
   const handleLogin = async () => {
     setLoading(true);
     setError(null);
 
     try {
-      const response = await fetch('/api/auth/url');
+      const apiBase = import.meta.env.VITE_API_URL || '';
+      const response = await fetch(`${apiBase}/api/auth/url`, { credentials: 'include' });
       if (!response.ok) {
         throw new Error('Failed to retrieve GitHub OAuth authorization URL from server.');
       }
@@ -88,15 +108,27 @@ export default function GitHubLogin({ onSuccess }: GitHubLoginProps) {
           )}
 
           {/* Big Action Button */}
-          <button
-            onClick={handleLogin}
-            disabled={loading}
-            id="login-btn"
-            className="w-full py-3 px-5 bg-[var(--color-natural-accent)] hover:bg-[var(--color-natural-accent)]/80 active:scale-[0.98] transition-all text-[var(--color-natural-ink)] border-2 border-[var(--color-natural-ink)] font-bold text-sm rounded-xl flex items-center justify-center gap-2 natural-shadow-sm cursor-pointer disabled:opacity-50"
-          >
-            <Github className="w-4 h-4 fill-[var(--color-natural-ink)]" />
-            {loading ? 'Opening Security Popup...' : 'Login with GitHub'}
-          </button>
+          <div className="flex flex-col gap-3">
+            <button
+              onClick={handleLogin}
+              disabled={loading || guestLoading}
+              id="login-btn"
+              className="w-full py-3 px-5 bg-[var(--color-natural-accent)] hover:bg-[var(--color-natural-accent)]/80 active:scale-[0.98] transition-all text-[var(--color-natural-ink)] border-2 border-[var(--color-natural-ink)] font-bold text-sm rounded-xl flex items-center justify-center gap-2 natural-shadow-sm cursor-pointer disabled:opacity-50"
+            >
+              <Github className="w-4 h-4 fill-[var(--color-natural-ink)]" />
+              {loading ? 'Opening Security Popup...' : 'Login with GitHub'}
+            </button>
+
+            <button
+              onClick={handleGuestLogin}
+              disabled={loading || guestLoading}
+              id="guest-login-btn"
+              className="w-full py-3 px-5 bg-white hover:bg-slate-50 active:scale-[0.98] transition-all text-slate-700 border-2 border-slate-300 font-bold text-sm rounded-xl flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+            >
+              <Sparkles className="w-4 h-4 text-amber-500 fill-amber-500" />
+              {guestLoading ? 'Entering Guest Room...' : 'Enter as Guest (Quick Demo Bypass)'}
+            </button>
+          </div>
 
           <button
             onClick={() => setShowGuide(!showGuide)}

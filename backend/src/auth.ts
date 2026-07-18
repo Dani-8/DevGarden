@@ -24,6 +24,14 @@ export function parseCookies(cookieHeader?: string): Record<string, string> {
 const SESSION_COOKIE_NAME = 'devgarden_session';
 const SESSION_MAX_AGE_MS = 30 * 24 * 60 * 60 * 1000; // 30 days
 
+function createSessionCookie(value: string, maxAge: number) {
+  const isProduction = process.env.NODE_ENV === "production";
+
+  return `${SESSION_COOKIE_NAME}=${value}; Path=/; Max-Age=${maxAge / 1000}; HttpOnly; ${isProduction ? "Secure;" : ""
+    } SameSite=${isProduction ? "None" : "Lax"}`;
+}
+
+
 export function getRedirectUri(req: express.Request): string {
   const requestHost = req.get('host') || '';
   const isLocal = requestHost.includes('localhost') || requestHost.includes('127.0.0.1');
@@ -100,7 +108,10 @@ export function setupAuthRoutes(app: express.Express) {
 
       // Set cookie. CRITICAL for iframes in AI Studio:
       // sameSite: 'none' and secure: true MUST be specified.
-      res.setHeader('Set-Cookie', `${SESSION_COOKIE_NAME}=${sessionId}; Path=/; Max-Age=${SESSION_MAX_AGE_MS / 1000}; HttpOnly; Secure; SameSite=None`);
+      res.setHeader(
+        'Set-Cookie',
+        createSessionCookie(sessionId, SESSION_MAX_AGE_MS)
+      );
 
       // Return popup callback script to notify main frame
       res.send(`
@@ -199,7 +210,14 @@ export function setupAuthRoutes(app: express.Express) {
         await deleteSession(sessionId);
       }
 
-      res.setHeader('Set-Cookie', `${SESSION_COOKIE_NAME}=; Path=/; Max-Age=0; HttpOnly; Secure; SameSite=None`);
+      const isProduction = process.env.NODE_ENV === "production";
+
+      res.setHeader(
+        'Set-Cookie',
+        `${SESSION_COOKIE_NAME}=; Path=/; Max-Age=0; HttpOnly; ${isProduction ? "Secure;" : ""
+        } SameSite=${isProduction ? "None" : "Lax"}`
+      );
+
       res.json({ success: true });
     } catch (error: any) {
       console.error('Error in /api/auth/logout:', error);
@@ -248,7 +266,11 @@ export function setupAuthRoutes(app: express.Express) {
       const sessionId = generateSessionId();
       await createSession(sessionId, guestId, SESSION_MAX_AGE_MS);
 
-      res.setHeader('Set-Cookie', `${SESSION_COOKIE_NAME}=${sessionId}; Path=/; Max-Age=${SESSION_MAX_AGE_MS / 1000}; HttpOnly; Secure; SameSite=None`);
+      res.setHeader(
+        'Set-Cookie',
+        createSessionCookie(sessionId, SESSION_MAX_AGE_MS)
+      );
+      
       res.json({ success: true });
     } catch (error: any) {
       console.error('Error in /api/auth/guest:', error);
