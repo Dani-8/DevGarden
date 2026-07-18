@@ -1,6 +1,0 @@
-{
-  "name": "DevGarden",
-  "description": "A multiplayer 2D pixel-art garden world where developers walk around as customizable avatars reflecting their real-world GitHub stats, connect with other developers, chat, and compare statistics.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}
