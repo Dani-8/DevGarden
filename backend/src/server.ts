@@ -78,8 +78,10 @@ async function startServer() {
 }
 
 // Start the server (handles local development / container runtime)
-startServer().catch(err => {
-  console.error('Error in startServer:', err);
-});
+if (!process.env.VERCEL) {
+  startServer().catch(err => {
+    console.error('Error in startServer:', err);
+  });
+}
 
 export default app;
