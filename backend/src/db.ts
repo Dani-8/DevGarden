@@ -88,6 +88,7 @@ const inMemoryUsers: Record<string, UserRow> = {
   }
 };
 
+
 const inMemorySessions: Record<string, { github_id: string; expires_at: number }> = {};
 
 let supabaseClient: any = null;
