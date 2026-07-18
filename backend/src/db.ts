@@ -100,11 +100,18 @@ export function getSupabase() {
   if (!isSupabaseConfigured()) {
     return null;
   }
+
   if (!supabaseClient) {
     const supabaseUrl = process.env.SUPABASE_URL!;
-    const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY!;
+    const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+    if (!supabaseKey) {
+      throw new Error("SUPABASE_SERVICE_ROLE_KEY is missing");
+    }
+
     supabaseClient = createClient(supabaseUrl, supabaseKey);
   }
+
   return supabaseClient;
 }
 

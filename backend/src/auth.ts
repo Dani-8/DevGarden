@@ -270,6 +270,7 @@ export function setupAuthRoutes(app: express.Express) {
         'Set-Cookie',
         createSessionCookie(sessionId, SESSION_MAX_AGE_MS)
       );
+
       
       res.json({ success: true });
     } catch (error: any) {
