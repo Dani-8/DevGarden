@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { SupabaseSocket } from './SupabaseSocket.js';
+import { SupabaseSocket } from '../SupabaseSocket.js';
 import { Github, Trophy, LogOut, Sparkles, User, HelpCircle } from 'lucide-react';
 
 import { PlayerState, UserProfile } from './types.js';
