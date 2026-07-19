@@ -30,8 +30,17 @@ export default function App() {
     try {
       const apiBase = import.meta.env.VITE_API_URL || '';
       const res = await fetch(`${apiBase}/api/auth/me`, { credentials: 'include' });
-      const data = await res.json();
-      setSession(data);
+      if (!res.ok) {
+        setSession({ loggedIn: false });
+        return;
+      }
+      const contentType = res.headers.get('content-type');
+      if (contentType && contentType.includes('application/json')) {
+        const data = await res.json();
+        setSession(data);
+      } else {
+        setSession({ loggedIn: false });
+      }
     } catch (e) {
       console.error('Session verification error:', e);
       setSession({ loggedIn: false });

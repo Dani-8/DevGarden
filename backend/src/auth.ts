@@ -38,7 +38,14 @@ function createSessionCookie(value: string, maxAge: number) {
 export function getRedirectUri(req: express.Request): string {
   const requestHost = req.get('host') || '';
   const isLocal = requestHost.includes('localhost') || requestHost.includes('127.0.0.1');
-  const host = isLocal ? `${req.protocol}://${requestHost}` : (process.env.APP_URL || `${req.protocol}://${requestHost}`);
+  
+  // Behind reverse proxies (like nginx in AI Studio), x-forwarded-proto is usually 'https'.
+  // Default to 'https' for non-local if x-forwarded-proto says so, or if not local.
+  const protocol = isLocal 
+    ? req.protocol 
+    : (req.get('x-forwarded-proto') || 'https');
+
+  const host = isLocal ? `${protocol}://${requestHost}` : (process.env.APP_URL || `${protocol}://${requestHost}`);
   return `${host}/auth/callback`;
 }
 

@@ -98,7 +98,10 @@ app.get('*', (req, res, next) => {
 
 // Local development only
 if (!process.env.VERCEL) {
-  const PORT = process.env.PORT ? parseInt(process.env.PORT) : 3001;
+  // In development, we run the backend on port 3001 so Vite (on port 3000) can proxy to it.
+  // In production (such as Cloud Run), we listen on process.env.PORT.
+  const isProd = process.env.NODE_ENV === 'production';
+  const PORT = isProd ? (process.env.PORT ? parseInt(process.env.PORT) : 3000) : 3001;
 
   initializeServer()
     .then(() => {

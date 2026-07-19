@@ -11,9 +11,11 @@ export default function GitHubLogin({ onSuccess }: GitHubLoginProps) {
   const [error, setError] = useState<string | null>(null);
   const [showGuide, setShowGuide] = useState(false);
 
-  // Get active preview URLs from window or fallbacks
-  const devUrl = 'https://ais-dev-gca6tjjvrnq2mfd6yvxqy4-489397614410.asia-southeast1.run.app';
-  const preUrl = 'https://ais-pre-gca6tjjvrnq2mfd6yvxqy4-489397614410.asia-southeast1.run.app';
+  // Get active preview URLs dynamically from the browser window's origin
+  const currentOrigin = window.location.origin;
+  const isDev = currentOrigin.includes('ais-dev-');
+  const devUrl = isDev ? currentOrigin : currentOrigin.replace('ais-pre-', 'ais-dev-');
+  const preUrl = !isDev ? currentOrigin : currentOrigin.replace('ais-dev-', 'ais-pre-');
 
   const handleGuestLogin = async () => {
     setGuestLoading(true);
@@ -41,7 +43,14 @@ export default function GitHubLogin({ onSuccess }: GitHubLoginProps) {
       const apiBase = import.meta.env.VITE_API_URL || '';
       const response = await fetch(`${apiBase}/api/auth/url`, { credentials: 'include' });
       if (!response.ok) {
-        throw new Error('Failed to retrieve GitHub OAuth authorization URL from server.');
+        let errMsg = 'Failed to retrieve GitHub OAuth authorization URL from server.';
+        try {
+          const errData = await response.json();
+          if (errData && errData.error) {
+            errMsg = errData.error;
+          }
+        } catch (_) {}
+        throw new Error(errMsg);
       }
 
       const { url } = await response.json();
