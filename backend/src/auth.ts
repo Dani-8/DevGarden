@@ -172,7 +172,7 @@ export function setupAuthRoutes(app: express.Express) {
             </div>
             <script>
               if (window.opener) {
-                window.opener.postMessage({ type: 'OAUTH_AUTH_SUCCESS' }, '*');
+                window.opener.postMessage({ type: 'OAUTH_AUTH_SUCCESS', token: '${sessionId}' }, '*');
                 window.close();
               } else {
                 window.location.href = '/';
@@ -196,11 +196,31 @@ export function setupAuthRoutes(app: express.Express) {
     }
   });
 
+  // Helper to extract session ID from request (cookie, authorization header, custom header, or query param)
+  const getSessionIdFromRequest = (req: express.Request): string | undefined => {
+    const cookies = parseCookies(req.headers.cookie);
+    if (cookies[SESSION_COOKIE_NAME]) {
+      return cookies[SESSION_COOKIE_NAME];
+    }
+    if (req.headers.authorization) {
+      const parts = req.headers.authorization.split(' ');
+      if (parts[0] === 'Bearer' && parts[1]) {
+        return parts[1];
+      }
+    }
+    if (req.headers['x-session-id']) {
+      return req.headers['x-session-id'] as string;
+    }
+    if (req.query.token) {
+      return req.query.token as string;
+    }
+    return undefined;
+  };
+
   // 3. Get currently logged-in user
   app.get('/api/auth/me', async (req, res) => {
     try {
-      const cookies = parseCookies(req.headers.cookie);
-      const sessionId = cookies[SESSION_COOKIE_NAME];
+      const sessionId = getSessionIdFromRequest(req);
 
       const supabaseUrl = SUPABASE_URL;
       const supabaseAnonKey = SUPABASE_ANON_KEY;
@@ -226,8 +246,7 @@ export function setupAuthRoutes(app: express.Express) {
   // 4. Logout
   app.post('/api/auth/logout', async (req, res) => {
     try {
-      const cookies = parseCookies(req.headers.cookie);
-      const sessionId = cookies[SESSION_COOKIE_NAME];
+      const sessionId = getSessionIdFromRequest(req);
 
       if (sessionId) {
         await deleteSession(sessionId);
@@ -295,7 +314,7 @@ export function setupAuthRoutes(app: express.Express) {
       );
 
 
-      res.json({ success: true });
+      res.json({ success: true, token: sessionId });
     } catch (error: any) {
       console.error('Error in /api/auth/guest:', error);
       res.status(500).json({ error: error.message || 'Failed to enter as guest' });

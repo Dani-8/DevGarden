@@ -29,7 +29,13 @@ export default function App() {
   const checkAuth = async () => {
     try {
       const apiBase = import.meta.env.VITE_API_URL || '';
-      const res = await fetch(`${apiBase}/api/auth/me`, { credentials: 'include' });
+      const token = localStorage.getItem('devgarden_token');
+      const headers: Record<string, string> = {};
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+        headers['X-Session-ID'] = token;
+      }
+      const res = await fetch(`${apiBase}/api/auth/me`, { headers, credentials: 'include' });
       if (!res.ok) {
         setSession({ loggedIn: false });
         return;
@@ -138,7 +144,14 @@ export default function App() {
   const handleLogout = async () => {
     try {
       const apiBase = import.meta.env.VITE_API_URL || '';
-      await fetch(`${apiBase}/api/auth/logout`, { method: 'POST', credentials: 'include' });
+      const token = localStorage.getItem('devgarden_token');
+      const headers: Record<string, string> = {};
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+        headers['X-Session-ID'] = token;
+      }
+      await fetch(`${apiBase}/api/auth/logout`, { method: 'POST', headers, credentials: 'include' });
+      localStorage.removeItem('devgarden_token');
       setSession({ loggedIn: false });
       setSelfPlayer(null);
       setPlayersList([]);

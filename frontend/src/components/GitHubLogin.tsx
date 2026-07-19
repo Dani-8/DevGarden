@@ -26,6 +26,10 @@ export default function GitHubLogin({ onSuccess }: GitHubLoginProps) {
       if (!response.ok) {
         throw new Error('Failed to log in as Guest.');
       }
+      const data = await response.json();
+      if (data && data.token) {
+        localStorage.setItem('devgarden_token', data.token);
+      }
       onSuccess();
     } catch (err: any) {
       console.error(err);
@@ -77,6 +81,9 @@ export default function GitHubLogin({ onSuccess }: GitHubLoginProps) {
         ) {
           if (event.data?.type === 'OAUTH_AUTH_SUCCESS') {
             window.removeEventListener('message', handleAuthMessage);
+            if (event.data && event.data.token) {
+              localStorage.setItem('devgarden_token', event.data.token);
+            }
             onSuccess();
           }
         }
