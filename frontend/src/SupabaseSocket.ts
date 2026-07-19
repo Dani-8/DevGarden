@@ -7,6 +7,7 @@ export class SupabaseSocket {
   private listeners: Record<string, Function[]> = {};
   private selfPlayer: PlayerState;
   private isConnected = false;
+  private hasInitializedWorld = false;
 
   constructor(supabaseUrl: string, supabaseAnonKey: string, selfPlayer: PlayerState) {
     if (supabaseUrl && supabaseAnonKey) {
@@ -182,21 +183,31 @@ export class SupabaseSocket {
               });
 
             const selfInList = players.find(p => p.id === this.selfPlayer.id) || this.selfPlayer;
-            this.trigger('world_init', {
-              self: selfInList,
-              players: players,
-              sleepingNPCs: sleepingNPCs,
-            });
+            if (!this.hasInitializedWorld) {
+              this.hasInitializedWorld = true;
+              this.trigger('world_init', {
+                self: selfInList,
+                players: players,
+                sleepingNPCs: sleepingNPCs,
+              });
+            } else {
+              this.trigger('players_sync', players);
+            }
 
             this.trigger('sleeping_npcs_update', sleepingNPCs);
           })
           .catch(err => {
             console.error('Error fetching leaderboard for sleeping NPCs:', err);
-            this.trigger('world_init', {
-              self: this.selfPlayer,
-              players: players,
-              sleepingNPCs: [],
-            });
+            if (!this.hasInitializedWorld) {
+              this.hasInitializedWorld = true;
+              this.trigger('world_init', {
+                self: this.selfPlayer,
+                players: players,
+                sleepingNPCs: [],
+              });
+            } else {
+              this.trigger('players_sync', players);
+            }
           });
       })
       .on('presence', { event: 'join' }, ({ key, newPresences }) => {
@@ -288,23 +299,6 @@ export class SupabaseSocket {
     if (!this.channel) return;
 
     if (event === 'player_move') {
-      this.channel.track({
-        id: this.selfPlayer.id,
-        username: this.selfPlayer.username,
-        avatar_url: this.selfPlayer.avatar_url,
-        level: this.selfPlayer.level,
-        score: this.selfPlayer.score,
-        title: this.selfPlayer.title,
-        visual_tier: this.selfPlayer.visual_tier,
-        x: data.x,
-        y: data.y,
-        anim: data.anim,
-        commits: this.selfPlayer.commits,
-        stars: this.selfPlayer.stars,
-        followers: this.selfPlayer.followers,
-        repos: this.selfPlayer.repos,
-      });
-
       this.channel.send({
         type: 'broadcast',
         event: 'player_moved',
@@ -325,6 +319,12 @@ export class SupabaseSocket {
           isEmote: !!data.isEmote,
         },
       });
+      // Trigger locally so the sender immediately sees their own speech bubble/emoji popup
+      this.trigger('player_chatted', {
+        id: this.selfPlayer.id,
+        text: data.text,
+        isEmote: !!data.isEmote,
+      });
     }
   }
 
@@ -334,6 +334,7 @@ export class SupabaseSocket {
       this.channel = null;
     }
     this.isConnected = false;
+    this.hasInitializedWorld = false;
     this.trigger('disconnect');
   }
 }

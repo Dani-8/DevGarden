@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import { PlayerState } from '../../types.js';
+import { showPlayerBubble } from '../Messaging.js';
 
 export default class GardenScene extends Phaser.Scene {
   private socket!: any;
@@ -244,6 +245,7 @@ export default class GardenScene extends Phaser.Scene {
     }
 
     const container = this.add.container(p.x, p.y);
+    container.setData('tier', p.visual_tier);
     this.otherPlayers.set(p.id, container);
 
     // Under-avatar aura
@@ -408,94 +410,7 @@ export default class GardenScene extends Phaser.Scene {
   }
 
   private showChatBubble(container: Phaser.GameObjects.Container, text: string, isEmote: boolean) {
-    // Remove existing chat bubble inside container if any
-    const oldBubble = container.getByName('chat_bubble');
-    if (oldBubble) {
-      oldBubble.destroy();
-    }
-
-    const bubbleGroup = this.add.container(0, -45);
-    bubbleGroup.setName('chat_bubble');
-
-    let content: Phaser.GameObjects.GameObject;
-
-    if (isEmote) {
-      // Create a pixel emote icon
-      const emoteImg = this.add.image(0, -5, `emote_${text}`);
-      emoteImg.setScale(1.2);
-      bubbleGroup.add(emoteImg);
-      content = emoteImg;
-
-      // Small bounce intro
-      bubbleGroup.setScale(0);
-      this.tweens.add({
-        targets: bubbleGroup,
-        scale: 1,
-        duration: 200,
-        ease: 'Back.easeOut'
-      });
-    } else {
-      // Wrap text to look elegant
-      const bubbleText = this.add.text(0, -3, text, {
-        fontSize: '9px',
-        color: '#000000',
-        align: 'center',
-        wordWrap: { width: 100 }
-      });
-      bubbleText.setOrigin(0.5);
-
-      const bgWidth = Math.max(24, bubbleText.width + 12);
-      const bgHeight = Math.max(14, bubbleText.height + 6);
-
-      // Cute speech bubble background
-      const bg = this.add.graphics();
-      bg.fillStyle(0xffffff, 0.95);
-      bg.lineStyle(1.5, 0x000000, 1.0);
-      
-      // Draw rounded speech rectangle
-      bg.fillRoundedRect(-bgWidth / 2, -bgHeight / 2 - 2, bgWidth, bgHeight, 4);
-      bg.strokeRoundedRect(-bgWidth / 2, -bgHeight / 2 - 2, bgWidth, bgHeight, 4);
-
-      // Small triangular speech bubble tail pointing down
-      bg.fillStyle(0xffffff, 1.0);
-      bg.beginPath();
-      bg.moveTo(-4, bgHeight / 2 - 2);
-      bg.lineTo(4, bgHeight / 2 - 2);
-      bg.lineTo(0, bgHeight / 2 + 3);
-      bg.closePath();
-      bg.fill();
-      bg.stroke();
-
-      bubbleGroup.add(bg);
-      bubbleGroup.add(bubbleText);
-      content = bubbleText;
-
-      // Elastic slide-up
-      bubbleGroup.y = -35;
-      this.tweens.add({
-        targets: bubbleGroup,
-        y: -48,
-        duration: 150,
-        ease: 'Quad.easeOut'
-      });
-    }
-
-    container.add(bubbleGroup);
-
-    // Self-destruct chat bubble after 4 seconds
-    this.time.delayedCall(4000, () => {
-      if (bubbleGroup && bubbleGroup.active) {
-        this.tweens.add({
-          targets: bubbleGroup,
-          alpha: 0,
-          scaleY: 0,
-          duration: 200,
-          onComplete: () => {
-            bubbleGroup.destroy();
-          }
-        });
-      }
-    });
+    showPlayerBubble(this, container, text, isEmote);
   }
 
   private setupSocketListeners() {
@@ -512,24 +427,37 @@ export default class GardenScene extends Phaser.Scene {
         });
 
         const sprite = container.list.find(item => item instanceof Phaser.GameObjects.Sprite) as Phaser.GameObjects.Sprite;
-        const playerState = Array.from(this.otherPlayers.entries()).find(([id]) => id === data.id);
-        const tier = data.id.startsWith('sleeping_') ? 'green' : 'green'; // Simple fallback or fetch tier
-
-        // Find tier of this player if we know it
-        let finalTier = 'green';
-        this.socket.emit('request_tier', { id: data.id }); // optional, but we can look up their initial join state
-
-        // Standard lookup
-        const lookup = (sprite as any).anims?.currentAnim?.key;
-        if (lookup) {
-          const parts = lookup.split('_');
-          finalTier = parts[parts.length - 1] || 'green';
-        }
+        const tier = container.getData('tier') || 'green';
 
         if (sprite && data.anim) {
-          sprite.play(`${data.anim}_${finalTier}`, true);
+          sprite.play(`${data.anim}_${tier}`, true);
         }
       }
+    });
+
+    this.socket.on('players_sync', (players: PlayerState[]) => {
+      const activeIds = new Set(players.map(p => p.id));
+
+      players.forEach(p => {
+        if (p.id !== this.currentUserId) {
+          if (!this.otherPlayers.has(p.id)) {
+            this.spawnRemotePlayer(p);
+          } else {
+            const container = this.otherPlayers.get(p.id);
+            if (container) {
+              container.setData('tier', p.visual_tier);
+            }
+          }
+        }
+      });
+
+      // Remove players who are no longer online
+      this.otherPlayers.forEach((container, id) => {
+        if (!activeIds.has(id)) {
+          container.destroy();
+          this.otherPlayers.delete(id);
+        }
+      });
     });
 
     this.socket.on('player_joined', (p: PlayerState) => {
