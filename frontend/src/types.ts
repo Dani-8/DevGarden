@@ -13,6 +13,7 @@ export interface UserProfile {
   visual_tier: string; // "green" | "blue" | "purple" | "crimson" | "cosmic"
   last_seen: number;
   updated_at: number;
+  cosmetics?: string[];
 }
 
 export interface PlayerState {
@@ -32,6 +33,7 @@ export interface PlayerState {
   stars?: number;
   followers?: number;
   repos?: number;
+  cosmetics?: string[];
 }
 
 export interface ChatBubbleState {

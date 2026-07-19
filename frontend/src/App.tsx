@@ -84,6 +84,14 @@ export default function App() {
       stars: session.user.stars,
       followers: session.user.followers,
       repos: session.user.repos,
+      cosmetics: (() => {
+        try {
+          const stored = localStorage.getItem('devgarden_unlocked_cosmetics');
+          return stored ? JSON.parse(stored) : [];
+        } catch {
+          return [];
+        }
+      })(),
     };
 
     // Instantiate and connect SupabaseSocket
@@ -141,6 +149,16 @@ export default function App() {
       s.disconnect();
     };
   }, [session]);
+
+  const handleUnlockCosmetics = (cosmetics: string[]) => {
+    if (selfPlayer) {
+      const updated = { ...selfPlayer, cosmetics };
+      setSelfPlayer(updated);
+      if (socket) {
+        socket.updateCosmetics(cosmetics);
+      }
+    }
+  };
 
   const handleLogout = async () => {
     try {
@@ -207,6 +225,7 @@ export default function App() {
           setShowLeaderboardPanel={setShowLeaderboardPanel}
           isNearLeaderboard={isNearLeaderboard}
           onLogout={handleLogout}
+          onUnlockCosmetics={handleUnlockCosmetics}
         />
       )}
 

@@ -33,6 +33,15 @@ export default class GardenScene extends Phaser.Scene {
   private onSelectPlayerCallback?: (player: PlayerState) => void;
   private onNearLeaderboardCallback?: (isNear: boolean) => void;
 
+  // Star Tree (Co-op Nurturing Sprout) state
+  private goldenWaterActive: boolean = false;
+  private communityWaterScore: number = 240;
+  private starTreeSprite: Phaser.GameObjects.Image | null = null;
+  private starTreePromptText: Phaser.GameObjects.Text | null = null;
+  private starTreeWaterParticles: Phaser.GameObjects.Particles.ParticleEmitter | null = null;
+  private goldTrailEmitter: Phaser.GameObjects.Particles.ParticleEmitter | null = null;
+  private lastWateredTime: number = 0;
+
   // Obstacles
   private obstaclesGroup!: Phaser.Physics.Arcade.StaticGroup;
   private leaderboardTreeObj!: Phaser.GameObjects.Image;
@@ -125,6 +134,37 @@ export default class GardenScene extends Phaser.Scene {
     // 6. Setup Socket Event Listeners
     this.setupSocketListeners();
 
+    // --- Community Star Tree (GitHub Sprout) Initialization ---
+    this.goldenWaterActive = localStorage.getItem('devgarden_golden_water') === 'unlocked';
+    
+    // Listen for custom event from React UI
+    window.addEventListener('golden_water_unlocked', () => {
+      this.goldenWaterActive = true;
+      if (this.playerContainer) {
+        this.showChatBubble(this.playerContainer, "✨ Unlocked Golden Water! 💦", false);
+      }
+      this.initGoldTrail();
+    });
+
+    // Create the Star Tree Sprout
+    this.createStarTree();
+
+    // Load initial Star Tree Score
+    fetch((import.meta.env.VITE_API_URL || '') + '/api/star-tree')
+      .then(res => res.json())
+      .then(data => {
+        if (data && typeof data.waterScore === 'number') {
+          this.updateStarTreeScore(data.waterScore);
+        }
+      })
+      .catch(err => console.error('Error fetching star-tree:', err));
+
+    if (this.goldenWaterActive) {
+      this.time.delayedCall(500, () => {
+        this.initGoldTrail();
+      });
+    }
+
     // Enable physics colliders
     if (this.playerContainer) {
       this.physics.add.collider(this.playerContainer, this.obstaclesGroup);
@@ -193,6 +233,39 @@ export default class GardenScene extends Phaser.Scene {
       this.onNearLeaderboardCallback(isNearLeaderboard);
     }
 
+    // Proximity check to Community Star Tree
+    if (this.starTreeSprite && this.starTreePromptText) {
+      const distToStarTree = Phaser.Math.Distance.Between(
+        this.playerContainer.x,
+        this.playerContainer.y,
+        this.starTreeSprite.x,
+        this.starTreeSprite.y
+      );
+
+      const isNearStarTree = distToStarTree < 90;
+      this.starTreePromptText.setVisible(isNearStarTree);
+      if (isNearStarTree) {
+        const stageName = this.getStarTreeStageName(this.communityWaterScore);
+        const actionPrompt = "Press [SPACE] or Click Sprout to Nurture 💦";
+        this.starTreePromptText.setText(
+          `🌱 ${stageName}\n💧 Total Growth: ${this.communityWaterScore}\n👉 ${actionPrompt}`
+        );
+      }
+    }
+
+    // Spacebar to water the tree if standing close
+    if (this.cursors.space && Phaser.Input.Keyboard.JustDown(this.cursors.space)) {
+      const distToStarTree = Phaser.Math.Distance.Between(
+        this.playerContainer.x,
+        this.playerContainer.y,
+        512,
+        260
+      );
+      if (distToStarTree < 90) {
+        this.waterStarTree();
+      }
+    }
+
     // 7. Network position sync throttle (send position updates every 45ms or on animation state change)
     const now = Date.now();
     const posChanged = Math.abs(this.playerContainer.x - this.lastX) > 1 || Math.abs(this.playerContainer.y - this.lastY) > 1;
@@ -244,7 +317,7 @@ export default class GardenScene extends Phaser.Scene {
     this.playerContainer.add(this.playerSprite);
 
     // Name tag & Level text
-    this.addOverheadInfo(this.playerContainer, p.username, p.level, p.title, p.visual_tier, false);
+    this.addOverheadInfo(this.playerContainer, p.username, p.level, p.title, p.visual_tier, false, p.cosmetics);
 
     // Setup clicking self (no action needed, but matches style)
     this.playerSprite.setInteractive();
@@ -276,7 +349,7 @@ export default class GardenScene extends Phaser.Scene {
     sprite.play(`${anim}_${p.visual_tier}`, true);
 
     // Overhead labels
-    this.addOverheadInfo(container, p.username, p.level, p.title, p.visual_tier, false);
+    this.addOverheadInfo(container, p.username, p.level, p.title, p.visual_tier, false, p.cosmetics);
 
     // Clicking remote user displays profile
     sprite.setInteractive({ useHandCursor: true });
@@ -308,7 +381,7 @@ export default class GardenScene extends Phaser.Scene {
     sprite.play(`idle_down_${npc.visual_tier}`);
 
     // Overhead labels
-    this.addOverheadInfo(container, npc.username, npc.level, npc.title, npc.visual_tier, true);
+    this.addOverheadInfo(container, npc.username, npc.level, npc.title, npc.visual_tier, true, npc.cosmetics);
 
     // Mini sleeping Zzz visual particle effect!
     const zzzText = this.add.text(8, -32, 'Zzz', {
@@ -347,7 +420,8 @@ export default class GardenScene extends Phaser.Scene {
     level: number,
     title: string,
     tier: string,
-    isSleeping: boolean
+    isSleeping: boolean,
+    cosmetics?: string[]
   ) {
     // Determine level color
     let badgeColor = '#81c784'; // light green
@@ -381,6 +455,25 @@ export default class GardenScene extends Phaser.Scene {
     badgeText.setResolution(2);
     badgeText.setOrigin(0.5);
     container.add(badgeText);
+
+    // 3. Render Unlocked Cosmetics
+    if (cosmetics && cosmetics.includes('gardener_hat')) {
+      const hatText = this.add.text(0, -14, '👒', {
+        fontSize: '11px',
+      });
+      hatText.setOrigin(0.5, 0.5);
+      hatText.setResolution(2);
+      container.add(hatText);
+    }
+
+    if (cosmetics && cosmetics.includes('watering_can')) {
+      const canText = this.add.text(10, -5, '🚰', {
+        fontSize: '9px',
+      });
+      canText.setOrigin(0.5, 0.5);
+      canText.setResolution(2);
+      container.add(canText);
+    }
   }
 
   private addAuraParticles(container: Phaser.GameObjects.Container, tier: string, isSelf: boolean, isNPC: boolean = false) {
@@ -526,6 +619,18 @@ export default class GardenScene extends Phaser.Scene {
       npcs.forEach(npc => {
         this.spawnSleepingNPC(npc);
       });
+    });
+
+    this.socket.on('tree_watered', (data: { id: string; score: number; isGolden: boolean }) => {
+      this.updateStarTreeScore(data.score);
+      this.playTreeWaterEffect(data.isGolden);
+      
+      if (data.id !== this.currentUserId) {
+        const other = this.otherPlayers.get(data.id);
+        if (other) {
+          this.showChatBubble(other, "💦 I nurtured the Sprout Tree!", false);
+        }
+      }
     });
   }
 
@@ -726,6 +831,230 @@ export default class GardenScene extends Phaser.Scene {
     this.obstaclesGroup.add(bench);
   }
 
+  private createStarTree() {
+    const treeX = 512;
+    const treeY = 260;
+
+    // Create the sprite with an initial texture (based on community water score)
+    const initialStageKey = this.getStarTreeStageKey(this.communityWaterScore);
+    this.starTreeSprite = this.add.image(treeX, treeY, initialStageKey);
+    this.starTreeSprite.setOrigin(0.5, 0.85);
+    this.starTreeSprite.setDepth(treeY);
+    this.physics.add.existing(this.starTreeSprite, true);
+
+    const treeBody = this.starTreeSprite.body as Phaser.Physics.Arcade.StaticBody;
+    const tw = 24;
+    const th = 20;
+    const tox = 20;
+    const toy = 45;
+
+    treeBody.updateFromGameObject = function(this: Phaser.Physics.Arcade.StaticBody) {
+      const gameObject = this.gameObject as any;
+      this.width = tw;
+      this.height = th;
+      this.halfWidth = tw / 2;
+      this.halfHeight = th / 2;
+      this.x = (gameObject.x - (gameObject.originX * gameObject.displayWidth)) + tox;
+      this.y = (gameObject.y - (gameObject.originY * gameObject.displayHeight)) + toy;
+      this.center.setTo(this.x + this.halfWidth, this.y + this.halfHeight);
+      return this;
+    };
+    treeBody.updateFromGameObject();
+    this.obstaclesGroup.add(this.starTreeSprite);
+
+    // Make the tree sprite interactive so players can water it by clicking!
+    this.starTreeSprite.setInteractive({ useHandCursor: true });
+    this.starTreeSprite.on('pointerdown', () => {
+      this.waterStarTree();
+    });
+
+    // Add floating text prompt above the tree
+    this.starTreePromptText = this.add.text(treeX, treeY - 55, '', {
+      fontSize: '9px',
+      fontFamily: 'monospace',
+      color: '#fef08a',
+      backgroundColor: 'rgba(15, 23, 42, 0.85)',
+      padding: { x: 5, y: 3 },
+      align: 'center'
+    });
+    this.starTreePromptText.setOrigin(0.5, 0.5);
+    this.starTreePromptText.setDepth(2000);
+    this.starTreePromptText.setVisible(false);
+
+    // Create water splash particle emitter attached to the tree
+    this.starTreeWaterParticles = this.add.particles(treeX, treeY - 15, 'water_particle', {
+      scale: { start: 1, end: 0 },
+      alpha: { start: 0.8, end: 0.1 },
+      speed: { min: 40, max: 100 },
+      angle: { min: -180, max: 0 },
+      gravityY: 150,
+      lifespan: 500,
+      frequency: -1, // trigger manually
+    });
+    this.starTreeWaterParticles.setDepth(treeY + 2);
+  }
+
+  private getStarTreeStageKey(score: number): string {
+    if (score < 100) return 'star_tree_stage_1';
+    if (score < 500) return 'star_tree_stage_2';
+    if (score < 1500) return 'star_tree_stage_3';
+    return 'star_tree_stage_4';
+  }
+
+  private getStarTreeStageName(score: number): string {
+    if (score < 100) return 'GitHub Seedling Sprout';
+    if (score < 500) return 'Vibrant GitHub Sapling';
+    if (score < 1500) return 'Majestic Glowing Star Tree';
+    return 'Ultimate Cosmic Octocat Tree';
+  }
+
+  private updateStarTreeScore(score: number) {
+    this.communityWaterScore = score;
+    
+    // Update texture if stage has changed
+    const currentKey = this.starTreeSprite?.texture.key;
+    const nextKey = this.getStarTreeStageKey(score);
+    if (this.starTreeSprite && currentKey !== nextKey) {
+      this.starTreeSprite.setTexture(nextKey);
+      
+      // Update its display parameters if stage changes
+      if (nextKey === 'star_tree_stage_4') {
+        this.starTreeSprite.setOrigin(0.5, 0.85);
+      }
+      
+      // Play a cute grow animation (scale up/down quickly)
+      this.tweens.add({
+        targets: this.starTreeSprite,
+        scaleY: 1.2,
+        scaleX: 1.2,
+        duration: 250,
+        yoyo: true,
+        ease: 'Quad.easeOut'
+      });
+    }
+  }
+
+  private waterStarTree() {
+    if (!this.playerContainer) return;
+
+    // Check distance between player and tree
+    const dist = Phaser.Math.Distance.Between(
+      this.playerContainer.x,
+      this.playerContainer.y,
+      512,
+      260
+    );
+
+    if (dist > 90) {
+      // If too far, show bubble prompting them to walk closer
+      this.showChatBubble(this.playerContainer, "I need to walk closer to water the Sprout Tree! 🚶‍♂️", false);
+      return;
+    }
+
+    // Debounce to prevent rapid spamming (max once every 0.8 seconds)
+    const now = Date.now();
+    if (now - this.lastWateredTime < 800) return;
+    this.lastWateredTime = now;
+
+    // Determine increment
+    const isGolden = this.goldenWaterActive;
+    const increment = isGolden ? 10 : 1;
+
+    // Play local character animation tipping effect
+    this.tweens.add({
+      targets: this.playerSprite,
+      angle: -15,
+      yoyo: true,
+      duration: 150,
+      repeat: 1,
+      ease: 'Quad.easeInOut',
+      onComplete: () => {
+        if (this.playerSprite) this.playerSprite.setAngle(0);
+      }
+    });
+
+    // Optimistically update locally and trigger effect
+    const newScore = this.communityWaterScore + increment;
+    this.updateStarTreeScore(newScore);
+    this.playTreeWaterEffect(isGolden);
+
+    // Call API to save to backend
+    fetch((import.meta.env.VITE_API_URL || '') + '/api/star-tree/water', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ increment })
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data && typeof data.waterScore === 'number') {
+          this.updateStarTreeScore(data.waterScore);
+          
+          // Emit socket update to let everyone else see the water splash in real time!
+          if (this.socket && this.socket.channel) {
+            this.socket.channel.send({
+              type: 'broadcast',
+              event: 'tree_watered',
+              payload: {
+                id: this.currentUserId,
+                score: data.waterScore,
+                isGolden,
+              }
+            });
+          }
+        }
+      })
+      .catch(err => console.error('Failed to water tree:', err));
+
+    // Show a cute visual floating number popping up!
+    const popText = this.add.text(512, 190, isGolden ? '⭐ +10 Growth!' : '💦 +1 Growth!', {
+      fontSize: '11px',
+      fontFamily: 'monospace',
+      fontStyle: 'bold',
+      color: isGolden ? '#f59e0b' : '#38bdf8'
+    });
+    popText.setOrigin(0.5);
+    popText.setDepth(3000);
+    this.tweens.add({
+      targets: popText,
+      y: 130,
+      alpha: 0,
+      duration: 1200,
+      ease: 'Cubic.easeOut',
+      onComplete: () => popText.destroy()
+    });
+  }
+
+  private playTreeWaterEffect(isGolden: boolean) {
+    if (!this.starTreeWaterParticles) return;
+    
+    // Change particle configuration on-the-fly or explode
+    this.starTreeWaterParticles.explode(20);
+    
+    // Add flashing overlay effect to the tree sprite
+    if (this.starTreeSprite) {
+      this.starTreeSprite.setTint(isGolden ? 0xfef08a : 0xbfdbfe);
+      this.time.delayedCall(150, () => {
+        if (this.starTreeSprite) this.starTreeSprite.clearTint();
+      });
+    }
+  }
+
+  private initGoldTrail() {
+    if (!this.playerContainer || this.goldTrailEmitter) return;
+    
+    this.goldTrailEmitter = this.add.particles(0, 0, 'glow_particle', {
+      scale: { start: 0.6, end: 0 },
+      alpha: { start: 0.6, end: 0 },
+      tint: 0xf59e0b, // gorgeous gold
+      speed: 10,
+      lifespan: 400,
+      frequency: 50, // emit every 50ms as they walk
+      blendMode: 'ADD',
+      follow: this.playerContainer
+    });
+    this.goldTrailEmitter.setDepth(this.playerContainer.depth - 1);
+  }
+
   private createProceduralTextures() {
     // 1. Particle Glow dot
     this.drawCircleTexture('glow_particle', 8, '#ffffff', true);
@@ -745,6 +1074,7 @@ export default class GardenScene extends Phaser.Scene {
     this.drawBenchProp('bench_horizontal', 48, 18, true);
     this.drawBenchProp('bench_vertical', 18, 48, false);
     this.drawLeaderboardTree();
+    this.drawStarTreeStages();
 
     // 5. Emote Textures
     this.drawEmoteIcon('wave', '👋');
@@ -1230,5 +1560,132 @@ export default class GardenScene extends Phaser.Scene {
         frameRate: 1,
       });
     });
+  }
+
+  private drawStarTreeStages() {
+    // Stage 1: Seedling Sprout
+    {
+      const canvas = this.textures.createCanvas('star_tree_stage_1', 64, 64);
+      const ctx = canvas.getContext();
+      
+      // Ground dirt mound shadow
+      ctx.fillStyle = 'rgba(0,0,0,0.15)';
+      ctx.beginPath(); ctx.arc(32, 54, 12, 0, Math.PI * 2); ctx.fill();
+      
+      ctx.fillStyle = '#854d0e'; // Dirt mound
+      ctx.beginPath(); ctx.arc(32, 54, 8, 0, Math.PI * 2); ctx.fill();
+
+      // Tiny green shoot
+      ctx.fillStyle = '#22c55e'; // Bright green
+      ctx.fillRect(31, 40, 2, 14);
+      
+      // Left leaf
+      ctx.beginPath();
+      ctx.ellipse(27, 43, 5, 3, -Math.PI / 6, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Right leaf
+      ctx.beginPath();
+      ctx.ellipse(37, 41, 5, 3, Math.PI / 6, 0, Math.PI * 2);
+      ctx.fill();
+      
+      canvas.refresh();
+    }
+
+    // Stage 2: Vibrant Sapling
+    {
+      const canvas = this.textures.createCanvas('star_tree_stage_2', 64, 64);
+      const ctx = canvas.getContext();
+
+      // Ground shadow
+      ctx.fillStyle = 'rgba(0,0,0,0.18)';
+      ctx.beginPath(); ctx.arc(32, 54, 14, 0, Math.PI * 2); ctx.fill();
+
+      // Brown stalk
+      ctx.fillStyle = '#78350f';
+      ctx.fillRect(30, 36, 4, 18);
+
+      // Fluffy mid leaves
+      ctx.fillStyle = '#15803d'; // Green foliage
+      ctx.beginPath(); ctx.arc(32, 28, 12, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(24, 30, 8, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(40, 30, 8, 0, Math.PI * 2); ctx.fill();
+
+      ctx.fillStyle = '#22c55e'; // Bright highlights
+      ctx.beginPath(); ctx.arc(30, 25, 8, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(35, 26, 6, 0, Math.PI * 2); ctx.fill();
+
+      canvas.refresh();
+    }
+
+    // Stage 3: Majestic Glowing Star Tree
+    {
+      const canvas = this.textures.createCanvas('star_tree_stage_3', 64, 80);
+      const ctx = canvas.getContext();
+
+      // Shadow
+      ctx.fillStyle = 'rgba(0,0,0,0.2)';
+      ctx.beginPath(); ctx.arc(32, 70, 18, 0, Math.PI * 2); ctx.fill();
+
+      // Tree trunk
+      ctx.fillStyle = '#451a03';
+      ctx.fillRect(29, 44, 6, 26);
+      ctx.fillStyle = '#78350f';
+      ctx.fillRect(29, 44, 3, 26);
+
+      // Leaves (Glowing deep emerald & golden hints)
+      ctx.fillStyle = '#065f46'; // Emerald shadow
+      ctx.beginPath(); ctx.arc(32, 30, 22, 0, Math.PI * 2); ctx.fill();
+
+      ctx.fillStyle = '#059669'; // Emerald body
+      ctx.beginPath(); ctx.arc(24, 28, 16, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(40, 30, 15, 0, Math.PI * 2); ctx.fill();
+
+      ctx.fillStyle = '#34d399'; // Emerald highlight
+      ctx.beginPath(); ctx.arc(32, 20, 12, 0, Math.PI * 2); ctx.fill();
+
+      // Golden sparkle dots
+      ctx.fillStyle = '#fbbf24';
+      ctx.fillRect(22, 18, 2, 2);
+      ctx.fillRect(42, 24, 2, 2);
+      ctx.fillRect(30, 34, 2, 2);
+
+      canvas.refresh();
+    }
+
+    // Stage 4: Ultimate Cosmic Octocat Tree
+    {
+      const canvas = this.textures.createCanvas('star_tree_stage_4', 80, 96);
+      const ctx = canvas.getContext();
+
+      // Large ambient shadow
+      ctx.fillStyle = 'rgba(0,0,0,0.25)';
+      ctx.beginPath(); ctx.arc(40, 84, 24, 0, Math.PI * 2); ctx.fill();
+
+      // Golden trunk
+      ctx.fillStyle = '#d97706'; // Golden trunk
+      ctx.fillRect(36, 52, 8, 32);
+      ctx.fillStyle = '#f59e0b'; // golden branch highlights
+      ctx.fillRect(36, 52, 4, 32);
+
+      // Celestial Purple/Indigo Canopy
+      ctx.fillStyle = '#311b92'; // Deep space indigo base
+      ctx.beginPath(); ctx.arc(40, 36, 28, 0, Math.PI * 2); ctx.fill();
+
+      ctx.fillStyle = '#4a148c'; // Rich purple
+      ctx.beginPath(); ctx.arc(26, 32, 20, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(54, 34, 18, 0, Math.PI * 2); ctx.fill();
+
+      ctx.fillStyle = '#00e5ff'; // Cyan glowing highlights
+      ctx.beginPath(); ctx.arc(40, 22, 16, 0, Math.PI * 2); ctx.fill();
+
+      // Spinning crown/gold sparkles
+      ctx.fillStyle = '#ffd700'; // Pure gold highlights
+      ctx.fillRect(24, 24, 3, 3);
+      ctx.fillRect(56, 26, 3, 3);
+      ctx.fillRect(38, 14, 4, 4); // Peak top star
+
+      canvas.refresh();
+    }
   }
 }

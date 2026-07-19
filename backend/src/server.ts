@@ -63,8 +63,22 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
+// Shared community watering score state
+let communityWaterScore = 240;
+
 // 3. API routes
 setupAuthRoutes(app);
+
+app.get('/api/star-tree', (req, res) => {
+  res.json({ waterScore: communityWaterScore });
+});
+
+app.post('/api/star-tree/water', (req, res) => {
+  const { increment } = req.body;
+  const inc = Math.min(Math.max(Number(increment || 1), 1), 10);
+  communityWaterScore += inc;
+  res.json({ waterScore: communityWaterScore });
+});
 
 app.get('/api/leaderboard', async (req, res) => {
   try {

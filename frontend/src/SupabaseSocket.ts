@@ -139,6 +139,7 @@ export class SupabaseSocket {
               stars: p.stars,
               followers: p.followers,
               repos: p.repos,
+              cosmetics: p.cosmetics || [],
             });
           }
         });
@@ -228,6 +229,7 @@ export class SupabaseSocket {
               stars: p.stars,
               followers: p.followers,
               repos: p.repos,
+              cosmetics: p.cosmetics || [],
             });
           }
         });
@@ -244,6 +246,9 @@ export class SupabaseSocket {
       })
       .on('broadcast', { event: 'player_chatted' }, ({ payload }) => {
         this.trigger('player_chatted', payload);
+      })
+      .on('broadcast', { event: 'tree_watered' }, ({ payload }) => {
+        this.trigger('tree_watered', payload);
       });
 
     this.channel.subscribe(async (status) => {
@@ -263,9 +268,35 @@ export class SupabaseSocket {
           stars: this.selfPlayer.stars,
           followers: this.selfPlayer.followers,
           repos: this.selfPlayer.repos,
+          cosmetics: this.selfPlayer.cosmetics || [],
         });
       }
     });
+  }
+
+  updateCosmetics(cosmetics: string[]) {
+    this.selfPlayer.cosmetics = cosmetics;
+    if (this.client && this.channel) {
+      this.channel.track({
+        id: this.selfPlayer.id,
+        username: this.selfPlayer.username,
+        avatar_url: this.selfPlayer.avatar_url,
+        level: this.selfPlayer.level,
+        score: this.selfPlayer.score,
+        title: this.selfPlayer.title,
+        visual_tier: this.selfPlayer.visual_tier,
+        x: this.selfPlayer.x,
+        y: this.selfPlayer.y,
+        anim: this.selfPlayer.anim || 'idle_down',
+        commits: this.selfPlayer.commits,
+        stars: this.selfPlayer.stars,
+        followers: this.selfPlayer.followers,
+        repos: this.selfPlayer.repos,
+        cosmetics: cosmetics,
+      }).catch(err => {
+        console.error('Error re-tracking with new cosmetics:', err);
+      });
+    }
   }
 
   emit(event: string, data: any) {
