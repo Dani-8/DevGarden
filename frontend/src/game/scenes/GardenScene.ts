@@ -1521,29 +1521,29 @@ export default class GardenScene extends Phaser.Scene {
         frameRate: 1,
       });
 
-      // Walk Left (Row 1)
+      // Walk Left (Row 1 is drawn facing right, Row 2 is drawn facing left, so we use Row 2 for Left)
       this.anims.create({
         key: `walk_left_${tier}`,
-        frames: this.anims.generateFrameNumbers(`player_${tier}`, { start: 3, end: 5 }),
-        frameRate: 8,
-        repeat: -1,
-      });
-      this.anims.create({
-        key: `idle_left_${tier}`,
-        frames: [{ key: `player_${tier}`, frame: 4 }],
-        frameRate: 1,
-      });
-
-      // Walk Right (Row 2)
-      this.anims.create({
-        key: `walk_right_${tier}`,
         frames: this.anims.generateFrameNumbers(`player_${tier}`, { start: 6, end: 8 }),
         frameRate: 8,
         repeat: -1,
       });
       this.anims.create({
-        key: `idle_right_${tier}`,
+        key: `idle_left_${tier}`,
         frames: [{ key: `player_${tier}`, frame: 7 }],
+        frameRate: 1,
+      });
+
+      // Walk Right (Row 1 is drawn facing right, so we use Row 1 for Right)
+      this.anims.create({
+        key: `walk_right_${tier}`,
+        frames: this.anims.generateFrameNumbers(`player_${tier}`, { start: 3, end: 5 }),
+        frameRate: 8,
+        repeat: -1,
+      });
+      this.anims.create({
+        key: `idle_right_${tier}`,
+        frames: [{ key: `player_${tier}`, frame: 4 }],
         frameRate: 1,
       });
 
