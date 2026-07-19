@@ -56,7 +56,8 @@ export class SupabaseSocket {
 
         const players = [this.selfPlayer];
 
-        fetch('/api/leaderboard')
+        const apiBase = import.meta.env.VITE_API_URL || '';
+        fetch(`${apiBase}/api/leaderboard`)
           .then(res => res.json())
           .then(topUsers => {
             const activeIds = new Set(players.map(p => p.id));

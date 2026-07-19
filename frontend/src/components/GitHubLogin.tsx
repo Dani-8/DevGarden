@@ -58,13 +58,27 @@ export default function GitHubLogin({ onSuccess }: GitHubLoginProps) {
       // Setup window listener to catch the popup success callback event
       const handleAuthMessage = (event: MessageEvent) => {
         const origin = event.origin;
-        if (!origin.endsWith('.run.app') && !origin.includes('localhost')) {
-          return;
-        }
+        const apiBase = import.meta.env.VITE_API_URL || '';
+        let isAllowedOrigin = false;
+        
+        try {
+          if (apiBase && origin === new URL(apiBase).origin) {
+            isAllowedOrigin = true;
+          }
+        } catch (_) {}
 
-        if (event.data?.type === 'OAUTH_AUTH_SUCCESS') {
-          window.removeEventListener('message', handleAuthMessage);
-          onSuccess();
+        if (
+          isAllowedOrigin ||
+          origin.includes('localhost') ||
+          origin.includes('127.0.0.1') ||
+          origin.endsWith('.run.app') ||
+          origin.endsWith('.vercel.app') ||
+          origin.includes('ai.studio')
+        ) {
+          if (event.data?.type === 'OAUTH_AUTH_SUCCESS') {
+            window.removeEventListener('message', handleAuthMessage);
+            onSuccess();
+          }
         }
       };
 

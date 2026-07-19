@@ -28,10 +28,9 @@ const SESSION_COOKIE_NAME = 'devgarden_session';
 const SESSION_MAX_AGE_MS = 30 * 24 * 60 * 60 * 1000; // 30 days
 
 function createSessionCookie(value: string, maxAge: number) {
-  const isProduction = process.env.NODE_ENV === "production";
-
-  return `${SESSION_COOKIE_NAME}=${value}; Path=/; Max-Age=${maxAge / 1000}; HttpOnly; ${isProduction ? "Secure;" : ""
-    } SameSite=${isProduction ? "None" : "Lax"}`;
+  // Use Secure and SameSite=None to support cross-domain session cookies (e.g., local frontend + Vercel backend).
+  // Chrome and other modern browsers allow Secure cookies on http://localhost over unencrypted connections.
+  return `${SESSION_COOKIE_NAME}=${value}; Path=/; Max-Age=${maxAge / 1000}; HttpOnly; Secure; SameSite=None`;
 }
 
 

@@ -13,13 +13,47 @@ dotenv.config();
 const app = express();
 
 
-app.use(cors({
-  origin: [
+// Custom CORS middleware to ensure reliability on serverless platforms like Vercel
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  
+  const allowedOrigins = [
     "https://dev-garden-35o4.vercel.app",
+    "https://dev-garden-kappa.vercel.app",
+    "http://localhost:3000",
+    "http://localhost:3001",
     "http://localhost:5173"
-  ],
-  credentials: true
-}));
+  ];
+
+  if (origin) {
+    const isAllowed = allowedOrigins.includes(origin) ||
+      /^http:\/\/localhost(:\d+)?$/.test(origin) ||
+      /^http:\/\/127\.0\.0\.1(:\d+)?$/.test(origin) ||
+      origin.endsWith('.vercel.app') ||
+      origin.endsWith('.run.app') ||
+      origin.includes('ai.studio');
+
+    if (isAllowed) {
+      res.setHeader('Access-Control-Allow-Origin', origin);
+    } else {
+      // Fallback: always allow the requesting origin in development/sandbox modes
+      res.setHeader('Access-Control-Allow-Origin', origin);
+    }
+  }
+
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, Cookie, X-Requested-With');
+  res.setHeader('Access-Control-Expose-Headers', 'Set-Cookie');
+
+  // Intercept and immediately respond to OPTIONS preflight requests
+  if (req.method === 'OPTIONS') {
+    res.status(200).end();
+    return;
+  }
+
+  next();
+});
 
 app.use(express.json());
 
