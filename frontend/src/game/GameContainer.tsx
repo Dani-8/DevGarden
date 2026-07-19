@@ -32,11 +32,18 @@ export default function GameContainer({
       gameRef.current.destroy(true);
     }
 
+    const initialWidth = containerRef.current.clientWidth || window.innerWidth;
+    const initialHeight = containerRef.current.clientHeight || window.innerHeight;
+
     const config: Phaser.Types.Core.GameConfig = {
       type: Phaser.AUTO,
-      width: 800,
-      height: 600,
+      width: initialWidth,
+      height: initialHeight,
       parent: containerRef.current,
+      scale: {
+        mode: Phaser.Scale.RESIZE,
+        autoCenter: Phaser.Scale.CENTER_BOTH,
+      },
       physics: {
         default: 'arcade',
         arcade: {
@@ -50,6 +57,16 @@ export default function GameContainer({
 
     const game = new Phaser.Game(config);
     gameRef.current = game;
+
+    // Set up a robust ResizeObserver to capture container resizing
+    const resizeObserver = new ResizeObserver((entries) => {
+      if (!entries || entries.length === 0) return;
+      const { width, height } = entries[0].contentRect;
+      if (gameRef.current && gameRef.current.scale) {
+        gameRef.current.scale.resize(width, height);
+      }
+    });
+    resizeObserver.observe(containerRef.current);
 
     // Start scene with synchronized initial state
     game.scene.start('GardenScene', {
@@ -114,6 +131,7 @@ export default function GameContainer({
 
     // Cleanup on component unmount
     return () => {
+      resizeObserver.disconnect();
       window.removeEventListener('focusin', onFocusIn);
       window.removeEventListener('focusout', onFocusOut);
       window.removeEventListener('keydown', handleKeyboardCapture, true);
@@ -133,45 +151,42 @@ export default function GameContainer({
   };
 
   return (
-    <div className="relative flex flex-col items-center justify-center w-full max-w-[816px] mx-auto">
-      {/* Golden display frame */}
-      <div className="w-full bg-slate-950 border-4 border-slate-800 rounded-xl overflow-hidden shadow-2xl p-1 relative">
-        <div 
-          ref={containerRef} 
-          id="phaser-game-stage" 
-          tabIndex={0}
-          onClick={handleCanvasClick}
-          className="w-[800px] h-[600px] mx-auto bg-slate-900 rounded-md outline-none focus:ring-2 focus:ring-emerald-500/50 transition-all cursor-pointer"
-        />
-        
-        {/* Ambient Top HUD */}
-        <div className="absolute top-4 left-6 right-6 flex items-center justify-between pointer-events-none select-none">
-          <div className="bg-slate-950/80 backdrop-blur-md border border-slate-800/80 px-3 py-1.5 rounded-lg flex items-center gap-2 pointer-events-auto">
-            <span className="flex h-2 w-2 relative">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-            </span>
-            <span className="text-[10px] font-mono text-emerald-400 font-bold uppercase tracking-wider">Lawn Server Online</span>
-          </div>
+    <div className="absolute inset-0 w-full h-full overflow-hidden bg-slate-900">
+      <div 
+        ref={containerRef} 
+        id="phaser-game-stage" 
+        tabIndex={0}
+        onClick={handleCanvasClick}
+        className="w-full h-full outline-none focus:ring-0 focus:border-0 transition-all cursor-pointer"
+      />
+      
+      {/* Ambient Top HUD */}
+      <div className="absolute top-4 left-6 right-6 flex items-center justify-between pointer-events-none select-none z-10">
+        {/* Lawn Server Online box removed as requested */}
+        <div />
 
+        {/* Commented out the hitbox debug button in the UI so it can be enabled later if needed */}
+        {/* 
+        <div className="flex items-center gap-2 pointer-events-auto">
           <button
             onClick={() => setDebugMode(!debugMode)}
-            className={`pointer-events-auto px-3 py-1.5 rounded-lg text-[10px] font-mono font-bold uppercase border transition-all cursor-pointer shadow-md select-none flex items-center gap-1.5 ${
+            className={`px-3 py-1.5 rounded-lg text-[10px] font-mono font-bold uppercase border transition-all cursor-pointer shadow-md select-none flex items-center gap-1.5 ${
               debugMode 
                 ? 'bg-amber-500/90 hover:bg-amber-500 border-amber-400 text-slate-950 animate-pulse' 
-                : 'bg-slate-950/80 hover:bg-slate-900 border-slate-800 text-slate-400 hover:text-slate-200'
+                : 'bg-slate-950/85 hover:bg-slate-900 border-slate-800 text-slate-400 hover:text-slate-200'
             }`}
           >
             <span>🛠️</span>
             <span>{debugMode ? 'Hide Hitboxes' : 'Show Hitboxes'}</span>
           </button>
         </div>
+        */}
       </div>
       
       {/* Control overlay label */}
-      <div className="mt-2 text-center select-none pointer-events-none">
-        <p className="text-[11px] font-mono text-slate-500">
-          🎮 <span className="text-slate-400 font-semibold">Arrow Keys / WASD</span> to walk • Click developers to inspect contributions • Get close to the <span className="text-amber-500">Leaderboard Tree</span> 🌳
+      <div className="absolute bottom-20 left-1/2 -translate-x-1/2 text-center select-none pointer-events-none z-10 bg-slate-950/75 backdrop-blur-md px-4 py-1.5 rounded-full border border-slate-800/80">
+        <p className="text-[10px] font-mono text-slate-400">
+          🎮 <span className="text-slate-200 font-semibold">Arrow Keys / WASD</span> to walk • Click developers to inspect contributions • Stand close to the <span className="text-amber-400">Leaderboard Tree</span> 🌳
         </p>
       </div>
     </div>

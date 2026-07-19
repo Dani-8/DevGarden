@@ -8,6 +8,7 @@ import GameContainer from './game/GameContainer.js';
 import EmoteWheel from './components/EmoteWheel.js';
 import ProfileCard from './components/ProfileCard.js';
 import Leaderboard from './components/Leaderboard.js';
+import Sidebar from './components/Sidebar.js';
 
 export default function App() {
   const [session, setSession] = useState<{ loggedIn: boolean; user?: UserProfile; supabaseUrl?: string; supabaseAnonKey?: string } | null>(null);
@@ -170,89 +171,66 @@ export default function App() {
     );
   }
 
-  return (
-    <div className="min-h-screen bg-[var(--color-natural-bg)] text-[var(--color-natural-ink)] flex flex-col antialiased selection:bg-[var(--color-natural-accent)] selection:text-[var(--color-natural-ink)] font-serif">
-      
-      {/* HEADER HUD BAR */}
-      <header className="w-full bg-[var(--color-natural-foliage)] border-b-4 border-black/10 px-6 h-[60px] flex items-center justify-between sticky top-0 z-40 select-none text-white">
-        
-        {/* App Title */}
-        <div className="flex items-center gap-2">
-          <div className="w-6 h-6 bg-[var(--color-natural-grass)] border-[3px] border-white flex-shrink-0" />
-          <div>
-            <h1 className="text-lg font-bold tracking-wider text-white font-serif">
-              DevGarden
-            </h1>
+  if (!session.loggedIn) {
+    return (
+      <div className="min-h-screen bg-[var(--color-natural-bg)] text-[var(--color-natural-ink)] flex flex-col antialiased selection:bg-[var(--color-natural-accent)] selection:text-[var(--color-natural-ink)] font-serif">
+        {/* Simple compact header for login screen */}
+        <header className="w-full bg-[var(--color-natural-foliage)] border-b-4 border-black/10 px-6 h-[60px] flex items-center justify-between select-none text-white shadow-md">
+          <div className="flex items-center gap-2">
+            <div className="w-6 h-6 bg-[var(--color-natural-grass)] border-[3px] border-white flex-shrink-0" />
+            <h1 className="text-lg font-bold tracking-wider text-white font-serif">DevGarden</h1>
           </div>
-        </div>
+        </header>
 
-        {/* Right Actions / Login Details */}
-        <div className="flex items-center gap-4">
-          {session.loggedIn && session.user && (
-            <div className="flex items-center gap-3">
-              {/* User Pill */}
-              <div className="hidden sm:flex bg-black/20 px-3 py-1 rounded-full items-center gap-2.5 font-sans text-xs">
-                <img
-                  src={session.user.avatar_url}
-                  alt={session.user.username}
-                  className="w-5 h-5 rounded-full border border-white object-cover"
-                  referrerPolicy="no-referrer"
-                />
-                <span className="text-white font-bold">{session.user.username}</span>
-                <span className="bg-[var(--color-natural-accent)] text-[var(--color-natural-ink)] px-1.5 py-0.2 rounded font-bold text-[9px] uppercase">
-                  LVL {session.user.level}
-                </span>
-              </div>
+        <main className="flex-1 flex flex-col items-center justify-center p-4 relative bg-[var(--color-natural-bg)]">
+          <GitHubLogin onSuccess={checkAuth} />
+        </main>
 
-              <div className="h-4 w-[1px] bg-white/20 hidden sm:block" />
+        <footer className="w-full bg-[var(--color-natural-bg)] py-4 px-6 border-t-4 border-[var(--color-natural-border)] text-center select-none mt-auto">
+          <p className="text-xs font-serif text-slate-600">
+            DevGarden © 2026 • Connected to Natural Tones Oasis
+          </p>
+        </footer>
+      </div>
+    );
+  }
 
-              {/* Hall of Fame Scoreboard Toggle */}
+  // Logged-in full screen game view layout
+  return (
+    <div className="fixed inset-0 w-screen h-screen bg-slate-950 text-white flex overflow-hidden antialiased font-sans">
+      
+      {/* COLLAPSIBLE SIDEBAR */}
+      {session.user && (
+        <Sidebar
+          user={session.user}
+          showLeaderboardPanel={showLeaderboardPanel}
+          setShowLeaderboardPanel={setShowLeaderboardPanel}
+          isNearLeaderboard={isNearLeaderboard}
+          onLogout={handleLogout}
+        />
+      )}
+
+      {/* FULL VIEWPORT MAIN PORTAL */}
+      <main className="relative flex-1 h-full overflow-hidden">
+        {serverStatusMessage ? (
+          <div className="absolute inset-0 flex items-center justify-center bg-slate-950/90 z-40 p-4">
+            <div className="max-w-md w-full bg-white border-3 border-[var(--color-natural-border)] rounded-2xl p-6 text-center natural-shadow-lg text-[var(--color-natural-ink)]">
+              <h2 className="text-lg font-bold text-red-700 mb-2 font-serif">Gardener Connection Interrupted</h2>
+              <p className="text-sm text-slate-600 mb-6 leading-relaxed">{serverStatusMessage}</p>
               <button
-                onClick={() => setShowLeaderboardPanel(!showLeaderboardPanel)}
-                className={`py-1.5 px-3 rounded-lg border-2 transition-all flex items-center gap-1.5 font-serif text-xs font-bold cursor-pointer ${
-                  showLeaderboardPanel || isNearLeaderboard
-                    ? 'bg-[var(--color-natural-accent)] border-[var(--color-natural-ink)] text-[var(--color-natural-ink)] natural-shadow-sm'
-                    : 'bg-white border-[var(--color-natural-border)] hover:border-[var(--color-natural-ink)] text-[var(--color-natural-ink)] hover:bg-[var(--color-natural-bg)]'
-                }`}
+                onClick={() => {
+                  setServerStatusMessage(null);
+                  checkAuth();
+                }}
+                className="py-2 px-5 bg-[var(--color-natural-foliage)] hover:bg-[var(--color-natural-foliage)]/90 text-white font-bold text-xs rounded-lg font-mono active:scale-95 transition-all cursor-pointer border-2 border-black/10 shadow-sm"
               >
-                <Trophy className="w-3.5 h-3.5" />
-                <span className="hidden md:inline">Scoreboard</span>
-              </button>
-
-              {/* Signout action */}
-              <button
-                onClick={handleLogout}
-                className="p-1.5 rounded-lg bg-white border-2 border-[var(--color-natural-border)] hover:border-red-700/60 hover:bg-red-50 text-[var(--color-natural-ink)] hover:text-red-600 transition-all cursor-pointer"
-                title="Log Out"
-              >
-                <LogOut className="w-3.5 h-3.5" />
+                Retry Reconnect
               </button>
             </div>
-          )}
-        </div>
-      </header>
-
-      {/* MAIN GAME VIEW */}
-      <main className="flex-1 flex flex-col items-center justify-center p-4 relative bg-[var(--color-natural-bg)]">
-        {!session.loggedIn ? (
-          <GitHubLogin onSuccess={checkAuth} />
-        ) : serverStatusMessage ? (
-          <div className="max-w-md w-full bg-white border-3 border-[var(--color-natural-border)] rounded-2xl p-6 text-center natural-shadow-lg font-sans text-[var(--color-natural-ink)]">
-            <h2 className="text-lg font-bold text-red-700 mb-2 font-serif">Gardener Connection Interrupted</h2>
-            <p className="text-sm text-slate-600 mb-6 leading-relaxed">{serverStatusMessage}</p>
-            <button
-              onClick={() => {
-                setServerStatusMessage(null);
-                checkAuth();
-              }}
-              className="py-2 px-5 bg-[var(--color-natural-foliage)] hover:bg-[var(--color-natural-foliage)]/90 text-white font-bold text-xs rounded-lg font-mono active:scale-95 transition-all cursor-pointer border-2 border-black/10"
-            >
-              Retry Reconnect
-            </button>
           </div>
         ) : socket && selfPlayer ? (
-          <div className="flex flex-col items-center w-full relative">
-            {/* Phaser Game container */}
+          <>
+            {/* Phaser Game Container (takes absolute inset-0) */}
             <GameContainer
               socket={socket}
               selfPlayer={selfPlayer}
@@ -262,40 +240,40 @@ export default function App() {
               onNearLeaderboard={setIsNearLeaderboard}
             />
 
-            {/* Chat hotbar and Emote dock */}
-            <EmoteWheel socket={socket} />
+            {/* FLOATING CHAT & EMOTE BAR (Centered at the bottom) */}
+            <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-20 w-[calc(100%-2rem)] max-w-[650px] md:max-w-[700px] pointer-events-auto">
+              <EmoteWheel socket={socket} />
+            </div>
 
-            {/* Hall of Fame scoreboard overlay (toggled or when user walks up to tree) */}
-            {(showLeaderboardPanel || isNearLeaderboard) && (
-              <Leaderboard onClose={() => setShowLeaderboardPanel(false)} />
-            )}
-
-            {/* Proximity notice alert */}
+            {/* LEADERBOARD TREE INTERACTION NOTIFICATION */}
             {isNearLeaderboard && !showLeaderboardPanel && (
-              <div className="absolute top-16 bg-[var(--color-natural-accent)] border-2 border-[var(--color-natural-ink)] text-[var(--color-natural-ink)] font-mono text-[10px] px-3 py-1.5 rounded-lg shadow-xl animate-bounce backdrop-blur-md">
-                🌳 Press Scoreboard button or stand close to view Hall of Fame!
+              <div className="fixed bottom-32 left-1/2 -translate-x-1/2 z-20 bg-[var(--color-natural-accent)] border-2 border-[var(--color-natural-ink)] text-[var(--color-natural-ink)] font-mono text-[10px] px-3 py-1.5 rounded-lg shadow-xl animate-bounce backdrop-blur-md flex items-center gap-2">
+                <span>🌳</span>
+                <span>Stand close to the Leaderboard Tree or click Scoreboard to view!</span>
               </div>
             )}
 
-            {/* Clicked Avatar profile stats cards */}
-            {selectedPlayer && (
-              <ProfileCard player={selectedPlayer} onClose={() => setSelectedPlayer(null)} />
+            {/* OVERLAYS: Scoreboard / Leaderboard Tree Details */}
+            {(showLeaderboardPanel || isNearLeaderboard) && (
+              <div className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+                <Leaderboard onClose={() => setShowLeaderboardPanel(false)} />
+              </div>
             )}
-          </div>
+
+            {/* OVERLAYS: Selected Player Profile Panel */}
+            {selectedPlayer && (
+              <div className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
+                <ProfileCard player={selectedPlayer} onClose={() => setSelectedPlayer(null)} />
+              </div>
+            )}
+          </>
         ) : (
-          <div className="text-center py-20 font-mono text-xs text-slate-500">
-            <RefreshCwSpinner className="w-6 h-6 animate-spin mx-auto mb-2 text-slate-400" />
-            Initializing lawn coordinates...
+          <div className="absolute inset-0 flex flex-col items-center justify-center bg-slate-950 text-slate-400 font-mono text-xs">
+            <RefreshCwSpinner className="w-6 h-6 animate-spin mb-3 text-emerald-400" />
+            <span>Syncing yard coordinates...</span>
           </div>
         )}
       </main>
-
-      {/* BOTTOM FOOTER CREDITS */}
-      <footer className="w-full bg-[var(--color-natural-bg)] py-4 px-6 border-t-4 border-[var(--color-natural-border)] text-center select-none mt-auto">
-        <p className="text-xs font-serif text-slate-600">
-          DevGarden © 2026 • Connected to Natural Tones Oasis
-        </p>
-      </footer>
     </div>
   );
 }

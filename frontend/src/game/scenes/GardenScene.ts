@@ -95,6 +95,22 @@ export default class GardenScene extends Phaser.Scene {
       this.cameras.main.startFollow(this.playerContainer, true, 0.1, 0.1);
     }
 
+    // Hook into Phaser's resize event to dynamically scale/zoom the garden to fit & cover the viewport perfectly
+    const updateZoom = (width: number, height: number) => {
+      // Scale camera zoom so the 1024x768 design size fills the container with no black borders
+      const zoomX = width / 1024;
+      const zoomY = height / 768;
+      const zoom = Math.max(zoomX, zoomY, 1); // Keep zoom at least 1x
+      this.cameras.main.setZoom(zoom);
+    };
+
+    this.scale.on('resize', (gameSize: any) => {
+      updateZoom(gameSize.width, gameSize.height);
+    });
+
+    // Run initial zoom matching
+    updateZoom(this.scale.width, this.scale.height);
+
     // 5. Setup keyboard input hooks
     if (this.input.keyboard) {
       this.cursors = this.input.keyboard.createCursorKeys();
@@ -296,10 +312,12 @@ export default class GardenScene extends Phaser.Scene {
 
     // Mini sleeping Zzz visual particle effect!
     const zzzText = this.add.text(8, -32, 'Zzz', {
+      fontFamily: 'system-ui, -apple-system, sans-serif',
       fontSize: '8px',
       fontStyle: 'bold',
       color: '#58a6ff'
     });
+    zzzText.setResolution(2);
     container.add(zzzText);
 
     // Float the Zzzs up and down
@@ -341,22 +359,26 @@ export default class GardenScene extends Phaser.Scene {
     // 1. Badge Nameplate text
     const labelText = isSleeping ? `[Sleeping] ${username}` : username;
     const nameText = this.add.text(0, -22, labelText, {
+      fontFamily: 'system-ui, -apple-system, sans-serif',
       fontSize: '10px',
       fontStyle: 'bold',
       color: '#ffffff',
       stroke: '#000000',
       strokeThickness: 2,
     });
+    nameText.setResolution(2);
     nameText.setOrigin(0.5);
     container.add(nameText);
 
     // 2. Level and title badge
     const badgeText = this.add.text(0, -33, `Lvl ${level} ${title}`, {
+      fontFamily: 'system-ui, -apple-system, sans-serif',
       fontSize: '8px',
       color: badgeColor,
       stroke: '#000000',
       strokeThickness: 2,
     });
+    badgeText.setResolution(2);
     badgeText.setOrigin(0.5);
     container.add(badgeText);
   }

@@ -54,9 +54,11 @@ export function showPlayerBubble(
 
     // Large high-res emoji text
     const emojiText = scene.add.text(0, -2, emojiStr, {
+      fontFamily: 'system-ui, -apple-system, sans-serif',
       fontSize: '16px',
       color: '#000000',
     });
+    emojiText.setResolution(2);
     emojiText.setOrigin(0.5);
 
     bubbleGroup.add(bg);
@@ -84,12 +86,14 @@ export function showPlayerBubble(
   } else {
     // Regular text speech bubble
     const bubbleText = scene.add.text(0, -3, text, {
+      fontFamily: 'system-ui, -apple-system, sans-serif',
       fontSize: '10px',
       fontStyle: 'bold',
       color: '#0f172a', // Clean dark indigo/slate ink
       align: 'center',
       wordWrap: { width: 130 }
     });
+    bubbleText.setResolution(2);
     bubbleText.setOrigin(0.5);
 
     // Padding calculations
