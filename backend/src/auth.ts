@@ -35,6 +35,20 @@ function createSessionCookie(value: string, maxAge: number) {
 
 
 export function getRedirectUri(req: express.Request): string {
+  // 1. Explicit Redirect URI overrides (highest priority)
+  if (process.env.GITHUB_REDIRECT_URI) {
+    return process.env.GITHUB_REDIRECT_URI;
+  }
+  if (process.env.REDIRECT_URI) {
+    return process.env.REDIRECT_URI;
+  }
+
+  // 2. Explicit APP_URL override (second priority)
+  if (process.env.APP_URL) {
+    const cleanAppUrl = process.env.APP_URL.replace(/\/$/, '');
+    return `${cleanAppUrl}/auth/callback`;
+  }
+
   const requestHost = req.get('host') || '';
   const isLocal = requestHost.includes('localhost') || requestHost.includes('127.0.0.1');
   
@@ -44,7 +58,7 @@ export function getRedirectUri(req: express.Request): string {
     ? req.protocol 
     : (req.get('x-forwarded-proto') || 'https');
 
-  const host = isLocal ? `${protocol}://${requestHost}` : (process.env.APP_URL || `${protocol}://${requestHost}`);
+  const host = `${protocol}://${requestHost}`;
   return `${host}/auth/callback`;
 }
 
