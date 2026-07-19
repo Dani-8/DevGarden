@@ -146,7 +146,7 @@ export default function GitHubLogin({ onSuccess }: GitHubLoginProps) {
         <div className="text-center relative z-10">
           {/* Logo Header */}
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-[var(--color-natural-foliage)] border-2 border-white text-[var(--color-natural-accent)] mb-4 animate-pulse">
-            <Sparkles className="w-8 h-8" />
+            {/* <Sparkles className="w-8 h-8" /> */}
           </div>
 
           <h1 className="text-3xl font-bold font-serif tracking-tight text-[var(--color-natural-ink)] mb-2">
