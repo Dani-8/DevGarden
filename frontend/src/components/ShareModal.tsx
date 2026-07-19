@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Share2, Twitter, Linkedin, Check, Gift, Sparkles, X, Trash2 } from 'lucide-react';
+import { Share2, Twitter, Linkedin, Check, Gift, Sparkles, X, Trash2, Copy } from 'lucide-react';
 import { UserProfile } from '../types.js';
 
 interface ShareModalProps {
@@ -13,6 +13,8 @@ export default function ShareModal({ isOpen, onClose, user, onUnlock }: ShareMod
   const [unlocked, setUnlocked] = useState(false);
   const [equipped, setEquipped] = useState(true);
   const [hasShared, setHasShared] = useState(false);
+  const [activeTab, setActiveTab] = useState<'linkedin' | 'x'>('linkedin');
+  const [copied, setCopied] = useState(false);
 
   // Load initial state
   useEffect(() => {
@@ -32,10 +34,27 @@ export default function ShareModal({ isOpen, onClose, user, onUnlock }: ShareMod
   if (!isOpen) return null;
 
   const repoUrl = "https://github.com/Dani-8/DevGarden";
-  const postText = `I'm nurturing my developer greenhouse in DevGarden! 🌳 Let's plant seeds and grow together. Star the repo to help us cultivate more features: ${repoUrl} @Dani-8`;
+  const liveUrl = "https://dev-garden-35o4.vercel.app/";
+
+  const linkedinText = `I just stumbled upon DevGarden through a developer's GitHub profile and oh my god, this is easily the coolest interactive multiplayer greenhouse for coders! 🌿💻
+
+It's a cozy developer workspace built by @Dani-8 (https://github.com/Dani-8). You walk around as your actual GitHub avatar, chat in real-time, and work together to water & grow a community Sprout Tree!
+
+Play the live game here: ${liveUrl}
+And help us nurture the Sprout Tree by starring the repo: ${repoUrl} ⭐
+
+Let's cultivate something amazing together!
+
+#webdev #gamedev #indiegamedev #phaserjs #reactjs #github #programming #ai #coding #opensource #gamification`;
+
+  const xText = `I just found DevGarden by @Dani-8—an interactive multiplayer greenhouse for coders! 🌿 Walk around as your GitHub avatar, chat real-time, and nurture the Sprout Tree! 💦
+
+Play here: ${liveUrl}
+Repo: ${repoUrl} ⭐
+#gamedev #reactjs #github #coding`;
 
   const handleShareX = () => {
-    const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(postText)}`;
+    const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(xText)}`;
     window.open(url, '_blank', 'noopener,noreferrer');
     setHasShared(true);
   };
@@ -44,6 +63,14 @@ export default function ShareModal({ isOpen, onClose, user, onUnlock }: ShareMod
     const url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(repoUrl)}`;
     window.open(url, '_blank', 'noopener,noreferrer');
     setHasShared(true);
+  };
+
+  const handleCopy = () => {
+    const textToCopy = activeTab === 'linkedin' ? linkedinText : xText;
+    navigator.clipboard.writeText(textToCopy).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
   };
 
   const handleClaimReward = () => {
@@ -147,12 +174,54 @@ export default function ShareModal({ isOpen, onClose, user, onUnlock }: ShareMod
         </div>
 
         {/* 2. DRAFT CAPTION PREVIEW */}
-        <div className="flex flex-col gap-1">
-          <span className="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-wide">
-            Draft Caption Preview
-          </span>
-          <div className="bg-slate-50 border-2 border-slate-200 p-2.5 rounded-lg text-[10px] font-mono text-slate-600 leading-normal break-words select-all">
-            {postText}
+        <div className="flex flex-col gap-2">
+          <div className="flex items-center justify-between">
+            <span className="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-wide">
+              Draft Caption Preview
+            </span>
+            <div className="flex gap-1.5">
+              <button
+                onClick={() => setActiveTab('linkedin')}
+                className={`px-2 py-0.5 rounded text-[9px] font-mono font-bold transition-all cursor-pointer ${
+                  activeTab === 'linkedin'
+                    ? 'bg-blue-50 text-blue-700 border border-blue-200 shadow-sm'
+                    : 'bg-slate-50 text-slate-500 border border-transparent hover:bg-slate-100'
+                }`}
+              >
+                LinkedIn (Long)
+              </button>
+              <button
+                onClick={() => setActiveTab('x')}
+                className={`px-2 py-0.5 rounded text-[9px] font-mono font-bold transition-all cursor-pointer ${
+                  activeTab === 'x'
+                    ? 'bg-slate-900 text-white border border-slate-950 shadow-sm'
+                    : 'bg-slate-50 text-slate-500 border border-transparent hover:bg-slate-100'
+                }`}
+              >
+                X / Twitter (Short)
+              </button>
+            </div>
+          </div>
+          <div className="relative bg-slate-50 border-2 border-slate-200 p-2.5 rounded-lg text-[10px] font-mono text-slate-600 leading-normal break-words select-all max-h-[140px] overflow-y-auto">
+            {activeTab === 'linkedin' ? linkedinText : xText}
+            
+            <button
+              onClick={handleCopy}
+              className="absolute right-2 top-2 bg-white/95 border border-slate-200 hover:border-slate-300 px-1.5 py-0.5 rounded text-[9px] font-mono font-bold text-slate-600 shadow-sm transition-all cursor-pointer flex items-center gap-1 hover:text-slate-800"
+              title="Copy caption"
+            >
+              {copied ? (
+                <>
+                  <Check className="w-2.5 h-2.5 text-emerald-600 animate-scaleIn" />
+                  Copied!
+                </>
+              ) : (
+                <>
+                  <Copy className="w-2.5 h-2.5 text-slate-400" />
+                  Copy
+                </>
+              )}
+            </button>
           </div>
         </div>
 

@@ -895,16 +895,16 @@ export default class GardenScene extends Phaser.Scene {
   }
 
   private getStarTreeStageKey(score: number): string {
-    if (score < 100) return 'star_tree_stage_1';
-    if (score < 500) return 'star_tree_stage_2';
-    if (score < 1500) return 'star_tree_stage_3';
+    if (score < 50) return 'star_tree_stage_1';
+    if (score < 150) return 'star_tree_stage_2';
+    if (score < 400) return 'star_tree_stage_3';
     return 'star_tree_stage_4';
   }
 
   private getStarTreeStageName(score: number): string {
-    if (score < 100) return 'GitHub Seedling Sprout';
-    if (score < 500) return 'Vibrant GitHub Sapling';
-    if (score < 1500) return 'Majestic Glowing Star Tree';
+    if (score < 50) return 'GitHub Seedling Sprout';
+    if (score < 150) return 'Vibrant GitHub Sapling';
+    if (score < 400) return 'Majestic Glowing Star Tree';
     return 'Ultimate Cosmic Octocat Tree';
   }
 

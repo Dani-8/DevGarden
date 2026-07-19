@@ -64,7 +64,7 @@ app.use((req, res, next) => {
 app.use(express.json());
 
 // Shared community watering score state
-let communityWaterScore = 240;
+let communityWaterScore = 25;
 
 // 3. API routes
 setupAuthRoutes(app);
