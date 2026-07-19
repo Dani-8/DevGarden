@@ -9,7 +9,12 @@ export class SupabaseSocket {
   private isConnected = false;
 
   constructor(supabaseUrl: string, supabaseAnonKey: string, selfPlayer: PlayerState) {
-    this.client = createClient(supabaseUrl, supabaseAnonKey);
+    if (supabaseUrl && supabaseAnonKey) {
+      this.client = createClient(supabaseUrl, supabaseAnonKey);
+    } else {
+      console.warn('Supabase URL or Anon Key is missing. SupabaseSocket will run in LOCAL/MOCK fallback mode.');
+      this.client = null;
+    }
     this.selfPlayer = selfPlayer;
   }
 
@@ -41,6 +46,69 @@ export class SupabaseSocket {
 
   connect() {
     if (this.channel) return;
+
+    if (!this.client) {
+      setTimeout(() => {
+        if (!this.isConnected) {
+          this.isConnected = true;
+          this.trigger('connect');
+        }
+
+        const players = [this.selfPlayer];
+
+        fetch('/api/leaderboard')
+          .then(res => res.json())
+          .then(topUsers => {
+            const activeIds = new Set(players.map(p => p.id));
+            const sleepingNPCs = topUsers
+              .filter((u: any) => !activeIds.has(u.github_id))
+              .slice(0, 4)
+              .map((u: any, i: number) => {
+                const positions = [
+                  { x: 180, y: 150 },
+                  { x: 620, y: 150 },
+                  { x: 180, y: 450 },
+                  { x: 620, y: 450 },
+                ];
+                const pos = positions[i] || { x: 100 + i * 80, y: 100 };
+                return {
+                  id: `sleeping_${u.github_id}`,
+                  username: u.username,
+                  avatar_url: u.avatar_url,
+                  level: u.level,
+                  score: u.score,
+                  title: u.title,
+                  visual_tier: u.visual_tier,
+                  x: pos.x,
+                  y: pos.y,
+                  isNPC: true,
+                  isSleeping: true,
+                  commits: u.commits,
+                  stars: u.stars,
+                  followers: u.followers,
+                  repos: u.repos,
+                };
+              });
+
+            this.trigger('world_init', {
+              self: this.selfPlayer,
+              players: players,
+              sleepingNPCs: sleepingNPCs,
+            });
+
+            this.trigger('sleeping_npcs_update', sleepingNPCs);
+          })
+          .catch(err => {
+            console.error('Error fetching leaderboard for sleeping NPCs (Mock mode):', err);
+            this.trigger('world_init', {
+              self: this.selfPlayer,
+              players: players,
+              sleepingNPCs: [],
+            });
+          });
+      }, 300);
+      return;
+    }
 
     const channelName = 'room:garden';
     this.channel = this.client.channel(channelName);
@@ -189,6 +257,33 @@ export class SupabaseSocket {
   }
 
   emit(event: string, data: any) {
+    if (!this.client) {
+      if (event === 'player_move') {
+        this.selfPlayer.x = data.x;
+        this.selfPlayer.y = data.y;
+      } else if (event === 'player_chat') {
+        setTimeout(() => {
+          this.trigger('player_chatted', {
+            id: this.selfPlayer.id,
+            text: data.text,
+            isEmote: !!data.isEmote,
+          });
+
+          // Mock automated reply from sleeping NPC
+          if (Math.random() < 0.5) {
+            setTimeout(() => {
+              this.trigger('player_chatted', {
+                id: 'sleeping_octocat',
+                text: data.isEmote ? 'wave' : 'Welcome to your DevGarden! 🌳 Let\'s code and plant together! 🚀',
+                isEmote: data.isEmote,
+              });
+            }, 1200);
+          }
+        }, 50);
+      }
+      return;
+    }
+
     if (!this.channel) return;
 
     if (event === 'player_move') {
