@@ -43,6 +43,99 @@ export default function GitHubLogin({ onSuccess }: GitHubLoginProps) {
     setLoading(true);
     setError(null);
 
+    // Open Popup immediately (synchronously in response to click event) to prevent browser blocking
+    const popup = window.open(
+      'about:blank',
+      'devgarden_github_auth',
+      'width=600,height=750,resizable=yes,scrollbars=yes'
+    );
+
+    if (!popup) {
+      setError('OAuth popup was blocked by your browser. Please enable popups for this site and try again.');
+      setLoading(false);
+      return;
+    }
+
+    // Populate the popup with a clean, themed loading state while we fetch the URL
+    try {
+      popup.document.write(`
+        <html>
+          <head>
+            <title>Connecting to GitHub...</title>
+            <style>
+              body {
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+                background: #0d1117;
+                color: #c9d1d9;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+                margin: 0;
+              }
+              .spinner {
+                border: 4px solid rgba(255,255,255,0.1);
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+                border-left-color: #58a6ff;
+                animation: spin 1s linear infinite;
+                margin-bottom: 16px;
+              }
+              @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+              }
+              p {
+                font-size: 14px;
+                color: #8b949e;
+              }
+            </style>
+          </head>
+          <body>
+            <div class="spinner"></div>
+            <p>Connecting to GitHub Secure Authentication...</p>
+          </body>
+        </html>
+      `);
+    } catch (e) {
+      console.warn('Could not write placeholder to popup:', e);
+    }
+
+    // Setup window listener to catch the popup success callback event
+    const handleAuthMessage = (event: MessageEvent) => {
+      const origin = event.origin;
+      const apiBase = import.meta.env.VITE_API_URL || '';
+      let isAllowedOrigin = false;
+      
+      try {
+        if (apiBase && origin === new URL(apiBase).origin) {
+          isAllowedOrigin = true;
+        }
+      } catch (_) {}
+
+      if (
+        isAllowedOrigin ||
+        origin.includes('localhost') ||
+        origin.includes('127.0.0.1') ||
+        origin.endsWith('.run.app') ||
+        origin.endsWith('.vercel.app') ||
+        origin.includes('ai.studio')
+      ) {
+        if (event.data?.type === 'OAUTH_AUTH_SUCCESS') {
+          window.removeEventListener('message', handleAuthMessage);
+          if (event.data && event.data.token) {
+            localStorage.setItem('devgarden_token', event.data.token);
+          }
+          onSuccess();
+        }
+      }
+    };
+
+    window.addEventListener('message', handleAuthMessage);
+
+    // Asynchronously fetch the authorization URL from the backend
     try {
       const apiBase = import.meta.env.VITE_API_URL || '';
       const response = await fetch(`${apiBase}/api/auth/url`, { credentials: 'include' });
@@ -58,52 +151,16 @@ export default function GitHubLogin({ onSuccess }: GitHubLoginProps) {
       }
 
       const { url } = await response.json();
+      
+      // Update the popup location to the actual GitHub OAuth page
+      popup.location.href = url;
 
-      // Setup window listener to catch the popup success callback event
-      const handleAuthMessage = (event: MessageEvent) => {
-        const origin = event.origin;
-        const apiBase = import.meta.env.VITE_API_URL || '';
-        let isAllowedOrigin = false;
-        
-        try {
-          if (apiBase && origin === new URL(apiBase).origin) {
-            isAllowedOrigin = true;
-          }
-        } catch (_) {}
-
-        if (
-          isAllowedOrigin ||
-          origin.includes('localhost') ||
-          origin.includes('127.0.0.1') ||
-          origin.endsWith('.run.app') ||
-          origin.endsWith('.vercel.app') ||
-          origin.includes('ai.studio')
-        ) {
-          if (event.data?.type === 'OAUTH_AUTH_SUCCESS') {
-            window.removeEventListener('message', handleAuthMessage);
-            if (event.data && event.data.token) {
-              localStorage.setItem('devgarden_token', event.data.token);
-            }
-            onSuccess();
-          }
-        }
-      };
-
-      window.addEventListener('message', handleAuthMessage);
-
-      // Open Popup directly on the GitHub OAuth Page
-      const popup = window.open(
-        url,
-        'devgarden_github_auth',
-        'width=600,height=750,resizable=yes,scrollbars=yes'
-      );
-
-      if (!popup) {
-        throw new Error('OAuth popup was blocked by browser. Please enable popups for this site.');
-      }
     } catch (err: any) {
       console.error(err);
       setError(err.message || 'OAuth Connection Failed');
+      try {
+        popup.close();
+      } catch (_) {}
     } finally {
       setLoading(false);
     }

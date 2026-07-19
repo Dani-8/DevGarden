@@ -43,7 +43,7 @@ app.use((req, res, next) => {
 
   res.setHeader('Access-Control-Allow-Credentials', 'true');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, Cookie, X-Requested-With');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, Cookie, X-Requested-With, X-Session-ID, x-session-id');
   res.setHeader('Access-Control-Expose-Headers', 'Set-Cookie');
 
   // Intercept and immediately respond to OPTIONS preflight requests
