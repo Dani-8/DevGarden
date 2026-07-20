@@ -97,7 +97,7 @@ Important notes and checklist:
 Project layout:
 - `backend/` — Express + Socket.io server (runs on port `3001` in dev)
 - `frontend/` — Vite + React app (runs on port `3000` in dev)
-- 
+
 
 Run the projects for local development — open two terminal windows and run the backend and frontend separately.
 
@@ -126,15 +126,19 @@ Environment files summary:
 Security reminder: never commit `backend/.env` with `CLIENT_SECRET` or `SUPABASE_SERVICE_ROLE_KEY` to source control.
 
 ---
-<br>
+
+
+<p align="center">
+  <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExaHNtM2Y4bDA2Z2kxdWQybGZtN2trNml6aTNsejJoM3E1aTI3NHNrdCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/JVRGPnZtPrVCvXFhH7/giphy.gif" alt="DevGarden" />
+</p>
 
 **Spread the word**
 
 If you find DevGarden useful, please help the project grow:
 
 - **Star** the repository on GitHub to support the project.
-- **Share** a short post on LinkedIn or X (Twitter) linking to the repo — mention interesting features like live multiplayer, GitHub-based rewards, and Supabase realtime presence.
 - **Create an issue or PR** if you spot bugs or want to contribute features.
+- **Share** a short post on LinkedIn or X (Twitter) linking to the repo — mention interesting features like live multiplayer, GitHub-based rewards, and Supabase realtime presence.
 
 
 "Check out DevGarden — a multiplayer pixel-art greenhouse for developers with GitHub-powered avatars, realtime chat, and coding challenges.
