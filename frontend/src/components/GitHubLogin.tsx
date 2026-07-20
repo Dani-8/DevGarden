@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { Github, Sparkles } from 'lucide-react';
+import Favicon from "../../assets/Favicon.png"
+
 
 interface GitHubLoginProps {
   onSuccess: () => void;
@@ -149,7 +151,7 @@ export default function GitHubLogin({ onSuccess }: GitHubLoginProps) {
           
           {/* Logo Header - original rounded style, slightly smaller */}
           <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-[var(--color-natural-foliage)] border-2 border-white text-[var(--color-natural-accent)] mb-3 animate-pulse">
-            <img src="../../assets/Favicon.png" alt="" />
+            <img src={Favicon} alt="" />
           </div>
  
           {/* Press Start 2P Pixelated Title but nicely scaled */}

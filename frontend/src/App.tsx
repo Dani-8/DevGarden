@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { SupabaseSocket } from './SupabaseSocket.js';
 import { Github, Trophy, LogOut, Sparkles, User, HelpCircle } from 'lucide-react';
+import LOGO from "../assets/LOGO.png"
 
 import { PlayerState, UserProfile } from './types.js';
 import GitHubLogin from './components/GitHubLogin.js';
@@ -195,7 +196,7 @@ export default function App() {
         {/* Simple compact header for login screen */}
         <header className="w-full bg-[var(--color-natural-foliage)] border-b-4 border-black/10 px-6 h-[60px] flex items-center justify-between select-none text-white shadow-md">
           <div className="flex items-center gap-2">
-            <img src="../assets/LOGO.png" alt="" class="w-[230px]" />
+            <img src={LOGO} alt="" class="w-[230px]" />
           </div>
         </header>
 
