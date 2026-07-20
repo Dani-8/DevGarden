@@ -1,15 +1,33 @@
 # DevGarden 🌳
 
-Welcome to **DevGarden** — a multiplayer 2D pixel-art sandbox where developers log in via GitHub OAuth, synchronize live as cute retro character avatars, chat, express themselves with pixel emotes, and compare stats on a Hall of Fame scoreboard. Every developer's level, guild title, clothing styles, and shiny magical auras are procedurally generated directly from their actual, real-world GitHub contribution histories.
+Welcome to **DevGarden** — an interactive multiplayer 2D pixel-art greenhouse sandbox for developers! Log in via GitHub, walk around as your custom retro character avatar, chat in real-time with peers, and showcase your profile on a live scoreboard. 
+
+Every developer's character level, guild titles, cosmetic clothing sets, and sparkling magical trails are procedurally generated directly from their real-world GitHub contribution history.
+
+---
+
+## ✨ New Major Features
+
+### 🧠 Custom AI Specialty Challenges
+Nurture the Sprout Tree with **10x Golden Water** by conquering specialized coding challenges.
+- **Dynamic Specialties**: Type *any* custom technology specialty (e.g., Svelte, Go, Rust, GCP, Docker, CSS).
+- **Gemini-Powered Challenges**: Generates a quick custom conceptual Q&A or single-line code completion challenge tailor-made for your field.
+- **Instant Rewards**: Solve the challenge to unleash spectacular golden trail visual effects and gain a **10x growth multiplier** for the community garden!
+
+### 🎨 Visual Cohesion & Hover States
+- **Aesthetic Avatar Filtering**: All GitHub profile pictures are dynamically styled with a custom-engineered sepia, foliage-green hue-shift filter matching our cozy natural color palette perfectly.
+- **Interactive Micro-Transitions**: Hovering over any avatar on the scoreboard, sidebar, or inspector smooths out the colors to reveal their original image with fluid transition feedback.
+- **Readable Interface**: Upgraded proximity prompts with comfortable human fonts for maximum legibility and comfort.
 
 ---
 
 ## 🛠️ Stack Architecture
 
 - **Backend**: Node.js + Express + Socket.io (for real-time coordinate position syncing & chat rate-limiting)
-- **Database Engine**: Built-in `node:sqlite` (native SQLite client in Node 22+ — zero compilation or native addon issues)
-- **Frontend Engine**: Phaser 3 (2D physics, animation manager, particle engines, and custom canvas-drawn pixel texture sets)
-- **Visuals UI**: React + Tailwind CSS + Lucide Icons (onboarding, scoreboard panels, profile inspector badges)
+- **AI Core**: `@google/genai` TypeScript SDK (seamless Gemini 3.5 Flash prompt synthesis & schema-strict challenge verification)
+- **Database Engine**: Native `node:sqlite` in Node 22+ (zero-dependency persistent storage engine)
+- **Frontend Engine**: Phaser 3 (2D physics, particle effects, and dynamic canvas-drawn pixel textures)
+- **UI Framework**: React + Tailwind CSS + Lucide Icons (onboarding, challenge cards, and profiles)
 
 ---
 
@@ -31,14 +49,13 @@ Click on the **Secrets / Settings** gear inside the AI Studio top panel to injec
 - `CLIENT_ID`: Your GitHub app's Client ID.
 - `CLIENT_SECRET`: Your GitHub app's generated Client Secret.
 
-*(Note: `APP_URL` and `GEMINI_API_KEY` are automatically managed and injected by the AI Studio platform. You do not need to supply them.)*
+*(Note: `APP_URL` and `GEMINI_API_KEY` are automatically managed and injected by the AI Studio platform.)*
 
 ---
 
 ## 💻 Local Commands
 
 ### Installation
-Ensure dependencies are up to date:
 ```bash
 npm install
 ```
@@ -51,13 +68,11 @@ npm run dev
 Open **`http://localhost:3000`** in your browser.
 
 ### Compile & Build Production
-Compiles client assets and bundles the TypeScript backend server using `esbuild` into a single, high-performance CommonJS file inside `/dist`:
 ```bash
 npm run build
 ```
 
 ### Start Production Server
-Launch the bundled, lightweight server standalone:
 ```bash
 npm run start
 ```
