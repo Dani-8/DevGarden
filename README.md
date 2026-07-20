@@ -35,26 +35,50 @@ Nurture the Sprout Tree with **10x Golden Water** by conquering specialized codi
 
 Since OAuth flows cannot safely run inside parent-restricted sandbox frames, DevGarden implements a secure, popup-based OAuth authorization mechanism. To enable logins in your environment, perform these steps:
 
-### 1. Register a GitHub OAuth App
+### 1. Register a GitHub OAuth App (local development)
 1. Go to your GitHub profile settings: **[GitHub Developer Applications Dashboard](https://github.com/settings/developers)**.
-2. Click **New OAuth App** and configure:
+2. Click **New OAuth App** and configure for local development:
    - **Application Name**: `DevGarden`
-   - **Homepage URL**: `http://localhost:3000`
-   - **Authorization Callback URL**: `http://localhost:3000/auth/callback`
+   - **Homepage URL**: `http://localhost:3000`  (frontend)
+   - **Authorization Callback URL**: `http://localhost:3001/auth/callback`  (backend)
 
-*(Note: If you deploy to production, register your production callback URL separately.)*
+Note: The OAuth callback must point to the backend endpoint that completes the server-side exchange. In this project the frontend runs on `http://localhost:3000` and the backend runs on `http://localhost:3001`.
 
-### 2. Configure Environment Variables
-Local development (recommended): create a `.env` file at the project root or export these variables in your shell before running locally:
+### 2. Configure Environment Variables (local)
+Set environment variables carefully so local auth and redirects use the correct ports. Update `backend/.env` (critical for login) and optionally `frontend/.env` for client-side values.
+
+Backend (`backend/.env`) — required values and examples:
 
 ```
+# backend/.env (local example)
+APP_URL=http://localhost:3000
+
 CLIENT_ID=your_github_client_id
 CLIENT_SECRET=your_github_client_secret
-APP_URL=http://localhost:3000
+
+# IMPORTANT: must match the OAuth app's Authorization Callback URL
+GITHUB_REDIRECT_URI=http://localhost:3001/auth/callback
+
+SUPABASE_URL=your_supabase_url
+SUPABASE_ANON_KEY=your_supabase_anon_key
+SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
+
 GEMINI_API_KEY=your_gemini_api_key
+
 ```
 
-- Make sure your GitHub OAuth app's Authorization Callback URL matches `http://localhost:3000/auth/callback` (or `http://127.0.0.1:3000/auth/callback`).
+Frontend (`frontend/.env`) — optional client runtime values used by Vite (prefix with `VITE_`):
+
+```
+# frontend/.env (optional)
+VITE_APP_URL=http://localhost:3000
+VITE_BACKEND_URL=http://localhost:3001
+```
+
+Important notes and checklist:
+- The `GITHUB_REDIRECT_URI` in `backend/.env` **must** equal the Authorization Callback URL you register on GitHub (`http://localhost:3001/auth/callback`).
+- `APP_URL` should be the frontend origin (`http://localhost:3000`) so backend redirects return users to the correct frontend page after auth.
+- Keep `CLIENT_SECRET` and `SUPABASE_SERVICE_ROLE_KEY` secret. Do not commit `backend/.env` with secrets to source control.
 
 ---
 
