@@ -146,6 +146,14 @@ export default class GardenScene extends Phaser.Scene {
       this.initGoldTrail();
     });
 
+    window.addEventListener('golden_water_locked', () => {
+      this.goldenWaterActive = false;
+      if (this.playerContainer) {
+        this.showChatBubble(this.playerContainer, "🔒 Golden Water Locked!", false);
+      }
+      this.deactivateGoldTrail();
+    });
+
     // Create the Star Tree Sprout
     this.createStarTree();
 
@@ -690,14 +698,14 @@ export default class GardenScene extends Phaser.Scene {
     const fountainX = 527;
     const fountainY = 400;
     const fountain = this.add.image(fountainX, fountainY, 'fountain_prop');
-    fountain.setOrigin(0.5, 0.65);
+    fountain.setOrigin(0.5, 0.6);
     fountain.setDepth(fountainY);
     this.physics.add.existing(fountain, true);
     
     // Set fountain collider bounds using custom updateFromGameObject override
     const fountainBody = fountain.body as Phaser.Physics.Arcade.StaticBody;
     const fw = 44;
-    const fh = 28;
+    const fh = 30;
     const fox = 10;
     const foy = 30;
 
@@ -764,11 +772,11 @@ export default class GardenScene extends Phaser.Scene {
     this.obstaclesGroup.add(this.leaderboardTreeObj);
 
     // Floating Crown above Leaderboard Tree to draw users to walk up
-    const goldenCrown = this.add.image(512, 50, 'leaderboard_crown_icon');
+    const goldenCrown = this.add.image(512, 44, 'leaderboard_crown_icon');
     goldenCrown.setDepth(2000);
     this.tweens.add({
       targets: goldenCrown,
-      y: 42,
+      y: 35,
       duration: 1200,
       yoyo: true,
       repeat: -1,
@@ -1055,6 +1063,13 @@ export default class GardenScene extends Phaser.Scene {
     this.goldTrailEmitter.setDepth(this.playerContainer.depth - 1);
   }
 
+  private deactivateGoldTrail() {
+    if (this.goldTrailEmitter) {
+      this.goldTrailEmitter.destroy();
+      this.goldTrailEmitter = null;
+    }
+  }
+
   private createProceduralTextures() {
     // 1. Particle Glow dot
     this.drawCircleTexture('glow_particle', 8, '#ffffff', true);
@@ -1170,7 +1185,7 @@ export default class GardenScene extends Phaser.Scene {
     // 1. Semi-transparent ground shadow
     ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
     ctx.beginPath();
-    ctx.arc(32, 70, 16, 0, Math.PI * 2);
+    ctx.arc(32, 62, 13, 0, Math.PI * 2);
     ctx.fill();
 
     // 2. Trunk
@@ -1207,41 +1222,41 @@ export default class GardenScene extends Phaser.Scene {
     // 1. Ground shadow
     ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
     ctx.beginPath();
-    ctx.arc(32, 45, 24, 0, Math.PI * 2);
+    ctx.arc(32, 40, 23, 0, Math.PI * 2);
     ctx.fill();
 
     // 2. Stone circular base pool
     ctx.fillStyle = '#90a4ae'; // slate gray stone border
     ctx.beginPath();
-    ctx.arc(32, 45, 20, 0, Math.PI * 2);
+    ctx.arc(32, 40, 20, 0, Math.PI * 2);
     ctx.fill();
 
     ctx.fillStyle = '#01579b'; // pool water blue
     ctx.beginPath();
-    ctx.arc(32, 45, 16, 0, Math.PI * 2);
+    ctx.arc(32, 40, 16, 0, Math.PI * 2);
     ctx.fill();
 
     // Water swirls inside
     ctx.fillStyle = '#0288d1';
     ctx.beginPath();
-    ctx.arc(28, 43, 8, 0, Math.PI * 2);
+    ctx.arc(28, 38, 8, 0, Math.PI * 2);
     ctx.fill();
 
     // 3. Central stone fountain pillar
     ctx.fillStyle = '#b0bec5';
-    ctx.fillRect(28, 20, 8, 20);
+    ctx.fillRect(28, 15, 8, 20);
     ctx.fillStyle = '#78909c';
-    ctx.fillRect(32, 20, 4, 20);
+    ctx.fillRect(32, 15, 4, 20);
 
     // Top small basin
     ctx.fillStyle = '#90a4ae';
     ctx.beginPath();
-    ctx.arc(32, 20, 10, 0, Math.PI * 2);
+    ctx.arc(32, 15, 10, 0, Math.PI * 2);
     ctx.fill();
 
     ctx.fillStyle = '#00b0ff'; // bubbling water top basin
     ctx.beginPath();
-    ctx.arc(32, 20, 7, 0, Math.PI * 2);
+    ctx.arc(32, 15, 7, 0, Math.PI * 2);
     ctx.fill();
 
     canvas.refresh();
