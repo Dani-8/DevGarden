@@ -42,7 +42,7 @@ export default function Leaderboard({ onClose }: LeaderboardProps) {
           <Trophy className="w-5 h-5 text-[var(--color-natural-foliage)]" />
           <div>
             <h2 className="text-base font-bold text-[var(--color-natural-ink)] font-serif">Garden Hall of Fame</h2>
-            <p className="text-[10px] text-slate-500 font-mono">Legendary developers registered in-world</p>
+            <p className="text-[10px] text-slate-500 font-sans">Legendary developers registered in-world</p>
           </div>
         </div>
         
@@ -67,7 +67,7 @@ export default function Leaderboard({ onClose }: LeaderboardProps) {
       </div>
 
       {/* Board list */}
-      <div className="flex-1 overflow-y-auto pr-1 space-y-2 font-mono natural-scroll">
+      <div className="flex-1 overflow-y-auto pr-1 space-y-2 font-sans natural-scroll">
         {loading && list.length === 0 ? (
           <div className="text-center py-10 text-xs text-slate-500">
             <RefreshCw className="w-6 h-6 animate-spin mx-auto mb-2 text-[var(--color-natural-border)]" />
@@ -108,7 +108,7 @@ export default function Leaderboard({ onClose }: LeaderboardProps) {
                   <img
                     src={u.avatar_url || 'https://github.com/identicons/guest.png'}
                     alt={u.username}
-                    className="w-8 h-8 rounded-lg border border-[var(--color-natural-border)] object-cover"
+                    className="w-8 h-8 rounded-lg border border-[var(--color-natural-border)] object-cover grayscale sepia hue-rotate-[70deg] saturate-[2.5] brightness-[0.9] contrast-[1.1] opacity-85 hover:filter-none hover:opacity-100 transition-all duration-300 cursor-pointer"
                     referrerPolicy="no-referrer"
                   />
 
@@ -122,7 +122,7 @@ export default function Leaderboard({ onClose }: LeaderboardProps) {
                         </span>
                       )}
                     </span>
-                    <span className="text-[9px] text-slate-500 block leading-none mt-0.5">
+                    <span className="text-[9px] text-slate-500 block leading-none mt-0.5 font-sans">
                       {u.title} • {u.commits} commits
                     </span>
                   </div>
@@ -131,7 +131,7 @@ export default function Leaderboard({ onClose }: LeaderboardProps) {
                 {/* score values */}
                 <div className="text-right">
                   <span className="text-xs font-bold text-[var(--color-natural-foliage)] block">{u.score} pts</span>
-                  <span className="text-[9px] text-slate-400 uppercase block">Lvl {u.level}</span>
+                  <span className="text-[9px] text-slate-400 uppercase block font-sans">Lvl {u.level}</span>
                 </div>
               </div>
             );
@@ -141,7 +141,7 @@ export default function Leaderboard({ onClose }: LeaderboardProps) {
 
       {/* Footer sign */}
       <div className="text-center pt-4 border-t-2 border-[var(--color-natural-border)]/30 mt-4">
-        <p className="text-[9px] font-mono text-slate-500">
+        <p className="text-[9px] font-sans text-slate-500">
           Gain points on GitHub to rise in rank automatically. Updates on fresh logins!
         </p>
       </div>
