@@ -97,50 +97,46 @@ Important notes and checklist:
 Project layout:
 - `backend/` — Express + Socket.io server (runs on port `3001` in dev)
 - `frontend/` — Vite + React app (runs on port `3000` in dev)
+- 
 
-Install dependencies in each folder (run these in separate terminals or sequentially):
+Run the projects for local development — open two terminal windows and run the backend and frontend separately.
+
+- Terminal A (backend): start the backend dev server (watches TypeScript changes)
 
 ```bash
 cd backend
 npm install
+npm run dev
+```
 
-cd ../frontend
+- Terminal B (frontend): start the Vite dev server
+
+```bash
+cd frontend
 npm install
-```
-
-Run the projects for local development (open two terminals):
-
-Terminal A — start backend (dev server watches TypeScript):
-
-```bash
-cd backend
 npm run dev
 ```
 
-Terminal B — start frontend (Vite dev server):
-
-```bash
-cd frontend
-npm run dev
-```
-
-Open the frontend at: `http://localhost:3000` — it will call the backend at `http://localhost:3001` (see `VITE_API_URL`).
-
-Build for production and serve the built frontend from the backend (single host):
-
-```bash
-cd frontend
-npm run build
-
-cd ../backend
-npm run build
-npm run start
-```
-
-After building, the backend will serve the files from `frontend/dist` if present. In production the backend will listen on `process.env.PORT` (or `3000` if set to production in this codebase).
+Open the frontend at `http://localhost:3000`. The frontend calls the backend at `http://localhost:3001` (see `VITE_API_URL`).
 
 Environment files summary:
 - `backend/.env` — required for server runtime and OAuth redirect (`GITHUB_REDIRECT_URI=http://localhost:3001/auth/callback`).
 - `frontend/.env` — optional client values (`VITE_API_URL=http://localhost:3001`, `SUPABASE_*` keys).
 
 Security reminder: never commit `backend/.env` with `CLIENT_SECRET` or `SUPABASE_SERVICE_ROLE_KEY` to source control.
+
+---
+
+**Spread the word**
+
+If you find DevGarden useful, please help the project grow:
+
+- **Star** the repository on GitHub to support the project.
+- **Share** a short post on LinkedIn or X (Twitter) linking to the repo — mention interesting features like live multiplayer, GitHub-based rewards, and Supabase realtime presence.
+- **Create an issue or PR** if you spot bugs or want to contribute features.
+
+
+"Check out DevGarden — a multiplayer pixel-art greenhouse for developers with GitHub-powered avatars, realtime chat, and coding challenges.
+
+Check out DevGarden live: https://dev-garden-35o4.vercel.app/
+Support the project on GitHub: https://github.com/Dani-8/DevGarden 🚀"
