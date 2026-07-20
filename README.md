@@ -128,27 +128,27 @@ Security reminder: never commit `backend/.env` with `CLIENT_SECRET` or `SUPABASE
 ---
 
 
-<p align="center">
-  <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExaHNtM2Y4bDA2Z2kxdWQybGZtN2trNml6aTNsejJoM3E1aTI3NHNrdCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/JVRGPnZtPrVCvXFhH7/giphy.gif" alt="DevGarden" />
-</p>
-
-**Spread the word**
-
-If you find DevGarden useful, please help the project grow:
-
-- **Star** the repository on GitHub to support the project.
-- **Create an issue or PR** if you spot bugs or want to contribute features.
-- **Share** a short post on LinkedIn or X (Twitter) linking to the repo — mention interesting features like live multiplayer, GitHub-based rewards, and Supabase realtime presence.
-
-
-"Check out DevGarden — a multiplayer pixel-art greenhouse for developers with GitHub-powered avatars, realtime chat, and coding challenges.
-
-Check out DevGarden live: https://dev-garden-35o4.vercel.app/
-Support the project on GitHub: https://github.com/Dani-8/DevGarden 🚀"
-
-<br>
-<br>
-<br>
+<table>
+  <tr>
+    <td valign="top" width="60%">
+      <strong>Spread the word</strong>
+      <p>If you find DevGarden useful, please help the project grow:</p>
+      <ul>
+        <li><strong>Star</strong> the repository on GitHub to support the project.</li>
+        <li><strong>Create an issue or PR</strong> if you spot bugs or want to contribute features.</li>
+        <li><strong>Share</strong> a short post on LinkedIn or X (Twitter) linking to the repo — mention interesting features like live multiplayer, GitHub-based rewards, and Supabase realtime presence.</li>
+      </ul>
+      <p>"Check out DevGarden — a multiplayer pixel-art greenhouse for developers with GitHub-powered avatars, realtime chat, and coding challenges.</p>
+      <p>
+        <strong>Play the live game here:</strong> <a href="https://dev-garden-35o4.vercel.app/">https://dev-garden-35o4.vercel.app/</a><br />
+        <strong>Support the project on GitHub:</strong> <a href="https://github.com/Dani-8/DevGarden">https://github.com/Dani-8/DevGarden</a> 🚀"
+      </p>
+    </td>
+    <td valign="top" width="40%">
+      <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExaHNtM2Y4bDA2Z2kxdWQybGZtN2trNml6aTNsejJoM3E1aTI3NHNrdCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/JVRGPnZtPrVCvXFhH7/giphy.gif" alt="DevGarden" width="100%" />
+    </td>
+  </tr>
+</table>
 
 <p align="center">
   <img src="C23685F185851D00011B4DC47620C5AF27C4CB51.gif" alt="DevGarden" />
