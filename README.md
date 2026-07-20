@@ -39,17 +39,22 @@ Since OAuth flows cannot safely run inside parent-restricted sandbox frames, Dev
 1. Go to your GitHub profile settings: **[GitHub Developer Applications Dashboard](https://github.com/settings/developers)**.
 2. Click **New OAuth App** and configure:
    - **Application Name**: `DevGarden`
-   - **Homepage URL**: `https://ais-dev-gca6tjjvrnq2mfd6yvxqy4-489397614410.asia-southeast1.run.app`
-   - **Authorization Callback URL**: `https://ais-dev-gca6tjjvrnq2mfd6yvxqy4-489397614410.asia-southeast1.run.app/auth/callback`
+   - **Homepage URL**: `http://localhost:3000`
+   - **Authorization Callback URL**: `http://localhost:3000/auth/callback`
 
-*(Note: If deploying/sharing, also register `https://ais-pre-gca6tjjvrnq2mfd6yvxqy4-489397614410.asia-southeast1.run.app/auth/callback`)*
+*(Note: If you deploy to production, register your production callback URL separately.)*
 
-### 2. Configure Environment Variables in AI Studio
-Click on the **Secrets / Settings** gear inside the AI Studio top panel to inject:
-- `CLIENT_ID`: Your GitHub app's Client ID.
-- `CLIENT_SECRET`: Your GitHub app's generated Client Secret.
+### 2. Configure Environment Variables
+Local development (recommended): create a `.env` file at the project root or export these variables in your shell before running locally:
 
-*(Note: `APP_URL` and `GEMINI_API_KEY` are automatically managed and injected by the AI Studio platform.)*
+```
+CLIENT_ID=your_github_client_id
+CLIENT_SECRET=your_github_client_secret
+APP_URL=http://localhost:3000
+GEMINI_API_KEY=your_gemini_api_key
+```
+
+- Make sure your GitHub OAuth app's Authorization Callback URL matches `http://localhost:3000/auth/callback` (or `http://127.0.0.1:3000/auth/callback`).
 
 ---
 
