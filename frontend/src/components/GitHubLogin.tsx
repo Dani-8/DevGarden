@@ -160,7 +160,7 @@ export default function GitHubLogin({ onSuccess }: GitHubLoginProps) {
           {/* VT323 Cozy Pixelated description block within rounded box - scaled down to be crisp */}
           <div className="bg-[var(--color-natural-bg)] border-2 border-dashed border-[var(--color-natural-border)]/50 p-4 mb-5 text-left rounded-xl">
             <p className="text-slate-700 text-md md:text-md font-pixel leading-normal">
-              🌿 "Sprout as a pixel avatar, synchronize in real-time, chat with other builders, and level up your gear powered by your real-world GitHub contribution history."
+              🌿 "Step into a cozy pixel greengarden. Walk around, talk with other devs, and watch your avatar grow with your GitHub contributions."
             </p>
           </div>
  
@@ -182,14 +182,14 @@ export default function GitHubLogin({ onSuccess }: GitHubLoginProps) {
             >
               <div className="flex items-center justify-center gap-2">
                 <Github className="w-4 h-4 fill-[var(--color-natural-ink)] stroke-none" />
-                <span>{loading ? 'OPENING POPUP...' : 'ENTER DEVGARDEN'}</span>
+                <span>{loading ? 'Connecting...' : 'ENTER GARDEN'}</span>
               </div>
             </button>
           </div>
  
           <div className="mt-4 text-center">
             <span className="text-[10px] text-slate-400 font-pixel uppercase tracking-widest">
-              👾 Press Start to Begin
+              🌿 a cozy space to hang out & touch some virtual grass
             </span>
           </div>
  
