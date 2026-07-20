@@ -64,16 +64,25 @@ SUPABASE_ANON_KEY=your_supabase_anon_key
 SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
 
 GEMINI_API_KEY=your_gemini_api_key
-
 ```
 
-Frontend (`frontend/.env`) — optional client runtime values used by Vite (prefix with `VITE_`):
+Frontend (`frontend/.env`) — client-side values used by Vite (prefix with `VITE_`):
 
 ```
-# frontend/.env (optional)
+# frontend/.env (client-side)
 VITE_APP_URL=http://localhost:3000
-VITE_BACKEND_URL=http://localhost:3001
+
+# URL your frontend will call for API requests (backend origin)
+VITE_API_URL=http://localhost:3001
+
+# Supabase client config (used for Realtime / Presence / client queries)
+SUPABASE_URL=https://your-supabase-project.supabase.co
+SUPABASE_ANON_KEY=your_supabase_anon_key
 ```
+
+Notes:
+- `VITE_API_URL` should point to your running backend (`http://localhost:3001`) so the frontend calls local APIs during development.
+- `SUPABASE_ANON_KEY` is intended for safe client-side use (read, realtime, presence). Never expose `SUPABASE_SERVICE_ROLE_KEY` or `CLIENT_SECRET` in the frontend; keep them only in `backend/.env`.
 
 Important notes and checklist:
 - The `GITHUB_REDIRECT_URI` in `backend/.env` **must** equal the Authorization Callback URL you register on GitHub (`http://localhost:3001/auth/callback`).
