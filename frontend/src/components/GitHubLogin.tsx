@@ -149,12 +149,12 @@ export default function GitHubLogin({ onSuccess }: GitHubLoginProps) {
           
           {/* Logo Header - original rounded style, slightly smaller */}
           <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-[var(--color-natural-foliage)] border-2 border-white text-[var(--color-natural-accent)] mb-3 animate-pulse">
-            <Sparkles className="w-6 h-6" />
+            <img src="../../assets/Favicon.png" alt="" />
           </div>
  
           {/* Press Start 2P Pixelated Title but nicely scaled */}
           <h1 className="text-sm md:text-base font-press tracking-wider text-[var(--color-natural-ink)] mb-3 select-none">
-            DEVGARDEN<span className="text-[var(--color-natural-grass)]">.</span>
+            DEVGARDEN<span className="text-[var(--color-natural-foliage)]">.</span>
           </h1>
  
           {/* VT323 Cozy Pixelated description block within rounded box - scaled down to be crisp */}

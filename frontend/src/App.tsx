@@ -195,8 +195,7 @@ export default function App() {
         {/* Simple compact header for login screen */}
         <header className="w-full bg-[var(--color-natural-foliage)] border-b-4 border-black/10 px-6 h-[60px] flex items-center justify-between select-none text-white shadow-md">
           <div className="flex items-center gap-2">
-            <div className="w-6 h-6 bg-[var(--color-natural-grass)] border-[3px] border-white flex-shrink-0" />
-            <h1 className="text-lg font-bold tracking-wider text-white font-serif">DevGarden</h1>
+            <img src="../assets/LOGO.png" alt="" class="w-[250px]" />
           </div>
         </header>
 
