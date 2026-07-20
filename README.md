@@ -23,7 +23,7 @@ Nurture the Sprout Tree with **10x Golden Water** by conquering specialized codi
 
 ## 🛠️ Stack Architecture
 
-- **Backend**: Node.js + Express + Socket.io (for real-time coordinate position syncing & chat rate-limiting)
+- **Backend**: Node.js + Express (for real-time coordinate position syncing & chat rate-limiting)
 - **AI Core**: `@google/genai` TypeScript SDK (seamless Gemini 3.5 Flash prompt synthesis & schema-strict challenge verification)
 - **Database Engine**: Native `node:sqlite` in Node 22+ (zero-dependency persistent storage engine)
 - **Frontend Engine**: Phaser 3 (2D physics, particle effects, and dynamic canvas-drawn pixel textures)
