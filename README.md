@@ -126,6 +126,7 @@ Environment files summary:
 Security reminder: never commit `backend/.env` with `CLIENT_SECRET` or `SUPABASE_SERVICE_ROLE_KEY` to source control.
 
 ---
+<br>
 
 **Spread the word**
 
@@ -140,3 +141,11 @@ If you find DevGarden useful, please help the project grow:
 
 Check out DevGarden live: https://dev-garden-35o4.vercel.app/
 Support the project on GitHub: https://github.com/Dani-8/DevGarden 🚀"
+
+<br>
+<br>
+<br>
+
+<p align="center">
+  <img src="C23685F185851D00011B4DC47620C5AF27C4CB51.gif" alt="DevGarden" />
+</p>
