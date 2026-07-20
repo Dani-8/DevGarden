@@ -266,7 +266,7 @@ export default function App() {
 
             {/* LEADERBOARD TREE INTERACTION NOTIFICATION */}
             {isNearLeaderboard && !showLeaderboardPanel && (
-              <div className="fixed bottom-32 left-1/2 -translate-x-1/2 z-20 bg-[var(--color-natural-accent)] border-2 border-[var(--color-natural-ink)] text-[var(--color-natural-ink)] font-mono text-[10px] px-3 py-1.5 rounded-lg shadow-xl animate-bounce backdrop-blur-md flex items-center gap-2">
+              <div className="fixed bottom-32 left-1/2 -translate-x-1/2 z-20 bg-[var(--color-natural-accent)] border-2 border-[var(--color-natural-ink)] text-[var(--color-natural-ink)] font-sans font-semibold text-[11px] px-3.5 py-2 rounded-xl shadow-xl animate-bounce backdrop-blur-md flex items-center gap-2">
                 <span>🌳</span>
                 <span>Stand close to the Leaderboard Tree or click Scoreboard to view!</span>
               </div>

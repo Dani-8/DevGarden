@@ -78,7 +78,7 @@ export default function ProfileCard({ player, onClose }: ProfileCardProps) {
           <img
             src={player.avatar_url || 'https://github.com/identicons/guest.png'}
             alt={player.username}
-            className="w-16 h-16 rounded-xl object-cover"
+            className="w-16 h-16 rounded-xl object-cover grayscale sepia hue-rotate-[70deg] saturate-[2.5] brightness-[0.9] contrast-[1.1] opacity-85 hover:filter-none hover:opacity-100 transition-all duration-300 cursor-pointer"
             referrerPolicy="no-referrer"
           />
           {/* Level Crown Badge */}
