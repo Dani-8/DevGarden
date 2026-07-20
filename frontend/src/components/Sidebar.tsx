@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
-import { Trophy, LogOut, ChevronLeft, ChevronRight, Sparkles, Share2, Star, Loader2, Check, AlertCircle, ExternalLink } from 'lucide-react';
+import { Trophy, LogOut, ChevronLeft, ChevronRight, Sparkles, Share2, Star } from 'lucide-react';
 import { UserProfile } from '../types.js';
 import ShareModal from './ShareModal.js';
+import ChallengeModal from './ChallengeModal.js';
 
 interface SidebarProps {
   user: UserProfile;
@@ -23,109 +24,16 @@ export default function Sidebar({
   const [collapsed, setCollapsed] = useState(false);
   const [isShareOpen, setIsShareOpen] = useState(false);
   const [goldenWater, setGoldenWater] = useState(false);
-  const [verifying, setVerifying] = useState<'idle' | 'opened' | 'checking' | 'failed'>('idle');
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [isChallengeOpen, setIsChallengeOpen] = useState(false);
 
   useEffect(() => {
     const isUnlocked = localStorage.getItem('devgarden_golden_water') === 'unlocked';
     setGoldenWater(isUnlocked);
-
-    if (isUnlocked) {
-      const verifyStillStarred = async () => {
-        const isGuest = user.username.toLowerCase().startsWith('guest');
-        if (isGuest) return;
-
-        try {
-          const stillStarred = await checkGitHubStar(user.username);
-          if (!stillStarred) {
-            localStorage.removeItem('devgarden_golden_water');
-            setGoldenWater(false);
-            
-            // Dispatch golden_water_locked custom event
-            const event = new CustomEvent('golden_water_locked');
-            window.dispatchEvent(event);
-          }
-        } catch (err) {
-          console.warn('Could not verify still starred status:', err);
-        }
-      };
-
-      const timer = setTimeout(verifyStillStarred, 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [user.username]);
-
-  const checkGitHubStar = async (username: string): Promise<boolean> => {
-    try {
-      // Attempt 1: Fetch stargazers list of the repo
-      const stargazersRes = await fetch('https://api.github.com/repos/Dani-8/DevGarden/stargazers?per_page=100');
-      if (stargazersRes.ok) {
-        const stargazers = await stargazersRes.json() as Array<{ login: string }>;
-        const hasStarred = stargazers.some(s => s.login?.toLowerCase() === username.toLowerCase());
-        if (hasStarred) return true;
-      }
-    } catch (err) {
-      console.warn('Error checking stargazers:', err);
-    }
-
-    try {
-      // Attempt 2: Fetch user's starred repos list
-      const starredRes = await fetch(`https://api.github.com/users/${username}/starred?per_page=100`);
-      if (starredRes.ok) {
-        const starred = await starredRes.json() as Array<{ full_name: string }>;
-        const hasStarred = starred.some(r => r.full_name?.toLowerCase() === 'dani-8/devgarden');
-        if (hasStarred) return true;
-      }
-    } catch (err) {
-      console.warn('Error checking user starred:', err);
-    }
-
-    return false;
-  };
-
-  const handleUnlockGoldenWater = () => {
-    window.open('https://github.com/Dani-8/DevGarden', '_blank', 'noopener,noreferrer');
-    setVerifying('opened');
-    setErrorMessage(null);
-  };
-
-  const handleVerifyStar = async () => {
-    setVerifying('checking');
-    setErrorMessage(null);
-
-    // Check if user is a guest
-    const isGuest = user.username.toLowerCase().startsWith('guest');
-    if (isGuest) {
-      setTimeout(() => {
-        unlockGoldenWaterSuccess();
-      }, 800);
-      return;
-    }
-
-    try {
-      const hasStarred = await checkGitHubStar(user.username);
-      if (hasStarred) {
-        unlockGoldenWaterSuccess();
-      } else {
-        setVerifying('failed');
-        setErrorMessage("Star not found. Click 'Star' on GitHub, wait a moment, then retry!");
-      }
-    } catch (err) {
-      console.error(err);
-      setVerifying('failed');
-      setErrorMessage("Network issue checking star. Try again, or use manual bypass below!");
-    }
-  };
-
-  const handleBypassVerify = () => {
-    unlockGoldenWaterSuccess();
-  };
+  }, []);
 
   const unlockGoldenWaterSuccess = () => {
     localStorage.setItem('devgarden_golden_water', 'unlocked');
     setGoldenWater(true);
-    setVerifying('idle');
-    setErrorMessage(null);
 
     // Custom event to let Phaser know immediately
     const event = new CustomEvent('golden_water_unlocked');
@@ -238,21 +146,13 @@ export default function Sidebar({
         {/* Star to Grow Golden Water Widget */}
         {collapsed ? (
           <button
-            onClick={goldenWater ? undefined : handleUnlockGoldenWater}
+            onClick={() => setIsChallengeOpen(true)}
             className={`w-full py-2 px-2.5 rounded-lg border-2 transition-all flex items-center justify-center cursor-pointer select-none ${
               goldenWater
                 ? 'bg-amber-400 border-amber-300 text-slate-900 shadow-[0_0_10px_rgba(251,191,36,0.5)] animate-pulse'
-                : verifying !== 'idle'
-                ? 'bg-amber-500/80 border-amber-400 text-slate-900 animate-bounce'
                 : 'bg-slate-950/40 border-amber-500/30 text-amber-300 hover:bg-slate-950/60'
             }`}
-            title={
-              goldenWater 
-                ? "Golden Water Active! (10x growth)" 
-                : verifying !== 'idle'
-                ? "Verify Star (Expand sidebar!)"
-                : "Star Repo to Unlock Golden Water (+10x)"
-            }
+            title={goldenWater ? "Golden Water Active! (10x growth)" : "Take AI Challenge to Unlock Golden Water (+10x)"}
           >
             <Star className="w-3.5 h-3.5 flex-shrink-0 fill-current text-amber-300" />
           </button>
@@ -274,15 +174,6 @@ export default function Sidebar({
                   Golden Water
                 </span>
               </div>
-              {verifying !== 'idle' && (
-                <button 
-                  onClick={() => { setVerifying('idle'); setErrorMessage(null); }}
-                  className="text-[9px] text-slate-400 hover:text-white font-mono"
-                  title="Cancel verification"
-                >
-                  Cancel
-                </button>
-              )}
             </div>
             
             {goldenWater ? (
@@ -294,65 +185,17 @@ export default function Sidebar({
                   ✨ 10X ACTIVE ✨
                 </div>
               </>
-            ) : verifying === 'idle' ? (
+            ) : (
               <>
                 <p className="text-[9px] text-slate-300 leading-normal font-sans">
                   Nurture the Sprout Tree with **10x growth points** and unlock a spectacular golden trail!
                 </p>
                 <button
-                  onClick={handleUnlockGoldenWater}
+                  onClick={() => setIsChallengeOpen(true)}
                   className="w-full py-1.5 px-2 rounded-lg text-[10px] font-mono font-bold transition-all border-2 cursor-pointer bg-slate-950 border-amber-500/50 hover:border-amber-400 text-amber-300 hover:text-white hover:bg-amber-500/10 flex items-center justify-center gap-1"
                 >
-                  <ExternalLink className="w-3 h-3" />
-                  ⭐ Star Repo to Unlock
+                  ⭐ Unlock via Challenge
                 </button>
-              </>
-            ) : verifying === 'opened' ? (
-              <>
-                <p className="text-[9px] text-amber-200 leading-normal font-sans">
-                  1. GitHub repo opened in new tab.
-                  <br />
-                  2. Click **Star** ⭐ on GitHub.
-                  <br />
-                  3. Click below to verify!
-                </p>
-                <button
-                  onClick={handleVerifyStar}
-                  className="w-full py-1.5 px-2 rounded-lg text-[10px] font-mono font-bold transition-all border-2 cursor-pointer bg-amber-400 border-amber-300 text-slate-950 hover:brightness-105 active:scale-98 flex items-center justify-center gap-1"
-                >
-                  🔍 Verify My Star
-                </button>
-              </>
-            ) : verifying === 'checking' ? (
-              <>
-                <p className="text-[9px] text-slate-300 leading-normal font-sans text-center">
-                  Connecting to GitHub API to check star status...
-                </p>
-                <div className="flex items-center justify-center py-1">
-                  <Loader2 className="w-5 h-5 text-amber-400 animate-spin" />
-                </div>
-              </>
-            ) : (
-              <>
-                {errorMessage && (
-                  <p className="text-[8px] text-red-400 leading-tight font-sans">
-                    {errorMessage}
-                  </p>
-                )}
-                <div className="flex flex-col gap-1 mt-1">
-                  <button
-                    onClick={handleVerifyStar}
-                    className="w-full py-1.5 px-2 rounded-lg text-[10px] font-mono font-bold transition-all border-2 cursor-pointer bg-amber-500/20 border-amber-500/40 text-amber-300 hover:bg-amber-500/30 flex items-center justify-center gap-1"
-                  >
-                    🔄 Retry Check
-                  </button>
-                  <button
-                    onClick={handleBypassVerify}
-                    className="w-full py-1 bg-transparent hover:bg-white/5 text-slate-400 hover:text-slate-300 text-[8px] font-mono rounded"
-                  >
-                    I starred it! (Direct Bypass)
-                  </button>
-                </div>
               </>
             )}
           </div>
@@ -400,6 +243,13 @@ export default function Sidebar({
         onClose={() => setIsShareOpen(false)}
         user={user}
         onUnlock={onUnlockCosmetics}
+      />
+    )}
+
+    {isChallengeOpen && (
+      <ChallengeModal
+        onClose={() => setIsChallengeOpen(false)}
+        onSuccess={unlockGoldenWaterSuccess}
       />
     )}
     </>

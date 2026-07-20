@@ -38,19 +38,19 @@ export default function ShareModal({ isOpen, onClose, user, onUnlock }: ShareMod
 
   const linkedinText = `I just stumbled upon DevGarden through a developer's GitHub profile and oh my god, this is easily the coolest interactive multiplayer greenhouse for coders! 🌿💻
 
-It's a cozy developer workspace built by @Dani-8 (https://github.com/Dani-8). You walk around as your actual GitHub avatar, chat in real-time, and work together to water & grow a community Sprout Tree!
+It's a cozy developer workspace built by @Dani-8 (https://github.com/Dani-8). You walk around as your actual GitHub avatar, chat in real-time, solve fun AI-powered coding challenges, and work together to water & grow a community Sprout Tree!
 
 Play the live game here: ${liveUrl}
-And help us nurture the Sprout Tree by starring the repo: ${repoUrl} ⭐
+And help us nurture the Sprout Tree: ${repoUrl} 🚀
 
 Let's cultivate something amazing together!
 
 #webdev #gamedev #indiegamedev #phaserjs #reactjs #github #programming #ai #coding #opensource #gamification`;
 
-  const xText = `I just found DevGarden by @Dani-8—an interactive multiplayer greenhouse for coders! 🌿 Walk around as your GitHub avatar, chat real-time, and nurture the Sprout Tree! 💦
+  const xText = `I just found DevGarden by @Dani-8—an interactive multiplayer greenhouse for coders! 🌿 Walk around as your GitHub avatar, solve AI coding challenges, and nurture the Sprout Tree! 💦
 
 Play here: ${liveUrl}
-Repo: ${repoUrl} ⭐
+Repo: ${repoUrl} 🚀
 #gamedev #reactjs #github #coding`;
 
   const handleShareX = () => {

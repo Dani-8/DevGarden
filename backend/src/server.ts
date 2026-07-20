@@ -7,6 +7,7 @@ import { fileURLToPath } from 'url';
 
 import { initDB, getTopUsers, cleanExpiredSessions } from './db.js';
 import { setupAuthRoutes } from './auth.js';
+import { generateChallenge, verifyChallenge } from './challenge.js';
 
 dotenv.config();
 
@@ -32,21 +33,27 @@ app.use(async (req, res, next) => {
   }
 });
 
-// 2. Strict CORS middleware
-app.use((req, res, next) => {
-  const origin = req.headers.origin;
-  
-  const allowedOrigins = [
-    "https://dev-garden-35o4.vercel.app",
-    "https://dev-garden-kappa.vercel.app",
-    "http://localhost:3000",
-    "http://localhost:3001",
-    "http://localhost:5173"
-  ];
+  // 2. Dynamic CORS middleware
+  app.use((req, res, next) => {
+    const origin = req.headers.origin;
+    
+    let isAllowed = false;
+    if (origin) {
+      if (
+        origin.startsWith('http://localhost:') ||
+        origin.startsWith('http://127.0.0.1:') ||
+        origin.endsWith('.run.app') ||
+        origin.endsWith('.vercel.app') ||
+        origin === 'https://dev-garden-35o4.vercel.app' ||
+        origin === 'https://dev-garden-kappa.vercel.app'
+      ) {
+        isAllowed = true;
+      }
+    }
 
-  if (origin && allowedOrigins.includes(origin)) {
-    res.setHeader('Access-Control-Allow-Origin', origin);
-  }
+    if (isAllowed && origin) {
+      res.setHeader('Access-Control-Allow-Origin', origin);
+    }
 
   res.setHeader('Access-Control-Allow-Credentials', 'true');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
@@ -68,6 +75,31 @@ let communityWaterScore = 25;
 
 // 3. API routes
 setupAuthRoutes(app);
+
+app.get('/api/challenge/generate', async (req, res) => {
+  try {
+    const field = String(req.query.field || 'general');
+    const challenge = await generateChallenge(field);
+    res.json(challenge);
+  } catch (error: any) {
+    console.error('Challenge generation error:', error);
+    res.status(500).json({ error: error.message || 'Failed to generate challenge' });
+  }
+});
+
+app.post('/api/challenge/verify', async (req, res) => {
+  try {
+    const { field, question, answer } = req.body;
+    if (!field || !question || !answer) {
+      return res.status(400).json({ error: 'Missing field, question, or answer' });
+    }
+    const result = await verifyChallenge(field, question, answer);
+    res.json(result);
+  } catch (error: any) {
+    console.error('Challenge verification error:', error);
+    res.status(500).json({ error: error.message || 'Failed to verify challenge' });
+  }
+});
 
 app.get('/api/star-tree', (req, res) => {
   res.json({ waterScore: communityWaterScore });
