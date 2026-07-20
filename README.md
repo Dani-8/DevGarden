@@ -91,26 +91,56 @@ Important notes and checklist:
 
 ---
 
-## 💻 Local Commands
 
-### Installation
+## 💻 Local Commands (clear per-folder workflow)
+
+Project layout:
+- `backend/` — Express + Socket.io server (runs on port `3001` in dev)
+- `frontend/` — Vite + React app (runs on port `3000` in dev)
+
+Install dependencies in each folder (run these in separate terminals or sequentially):
+
 ```bash
+cd backend
+npm install
+
+cd ../frontend
 npm install
 ```
 
-### Run Development Live
-Launch the Express backend + Socket.io server with integrated Vite HMR middleware:
+Run the projects for local development (open two terminals):
+
+Terminal A — start backend (dev server watches TypeScript):
+
 ```bash
+cd backend
 npm run dev
 ```
-Open **`http://localhost:3000`** in your browser.
 
-### Compile & Build Production
+Terminal B — start frontend (Vite dev server):
+
 ```bash
-npm run build
+cd frontend
+npm run dev
 ```
 
-### Start Production Server
+Open the frontend at: `http://localhost:3000` — it will call the backend at `http://localhost:3001` (see `VITE_API_URL`).
+
+Build for production and serve the built frontend from the backend (single host):
+
 ```bash
+cd frontend
+npm run build
+
+cd ../backend
+npm run build
 npm run start
 ```
+
+After building, the backend will serve the files from `frontend/dist` if present. In production the backend will listen on `process.env.PORT` (or `3000` if set to production in this codebase).
+
+Environment files summary:
+- `backend/.env` — required for server runtime and OAuth redirect (`GITHUB_REDIRECT_URI=http://localhost:3001/auth/callback`).
+- `frontend/.env` — optional client values (`VITE_API_URL=http://localhost:3001`, `SUPABASE_*` keys).
+
+Security reminder: never commit `backend/.env` with `CLIENT_SECRET` or `SUPABASE_SERVICE_ROLE_KEY` to source control.
