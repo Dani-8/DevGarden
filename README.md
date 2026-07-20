@@ -1,4 +1,10 @@
-# DevGarden 🌳
+<p align="center">
+  <img src="LOGO.png" alt="DevGarden LOGO" width="70%" height="150px" style="display: inline-block;" />
+</p>
+
+<p align="center">
+  <img src="Header.png" alt="DevGarden Header" width="100%" height="450px" style="border-radius: 15px;" />
+</p>
 
 Welcome to **DevGarden** — an interactive multiplayer 2D pixel-art greenhouse sandbox for developers! Log in via GitHub, walk around as your custom retro character avatar, chat in real-time with peers, and showcase your profile on a live scoreboard. 
 
