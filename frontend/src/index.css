@@ -4,6 +4,8 @@
   --font-serif: "Georgia", Cambria, "Times New Roman", Times, serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-pixel: "VT323", monospace;
+  --font-press: "Press Start 2P", monospace;
 
   --color-natural-bg: #fdfbf7;
   --color-natural-grass: #a7c957;
