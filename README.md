@@ -1,9 +1,9 @@
 <p align="center">
-  <img src="LOGO.png" alt="DevGarden LOGO" width="70%" height="150px" style="display: inline-block;" />
+  <img src="./assets/pics/LOGO.png" alt="DevGarden LOGO" width="70%" height="150px" style="display: inline-block;" />
 </p>
 
 <p align="center">
-  <img src="Header.png" alt="DevGarden Header" width="100%" height="450px" style="border-radius: 15px;" />
+  <img src="./assets/pics/Header.png" alt="DevGarden Header" width="100%" height="450px" />
 </p>
 
 Welcome to **DevGarden** — an interactive multiplayer 2D pixel-art greenhouse sandbox for developers! Log in via GitHub, walk around as your custom retro character avatar, chat in real-time with peers, and showcase your profile on a live scoreboard. 
@@ -29,11 +29,10 @@ Nurture the Sprout Tree with **10x Golden Water** by conquering specialized codi
 
 ## 🛠️ Stack Architecture
 
-- **Backend**: Node.js + Express with Supabase (for realtime presence & chat rate-limiting)
-- **AI Core**: `@google/genai` TypeScript SDK (seamless Gemini 3.5 Flash prompt synthesis & schema-strict challenge verification)
-- **Database Engine**: Native `node:sqlite` in Node 22+ (zero-dependency persistent storage engine)
-- **Frontend Engine**: Phaser 3 (2D physics, particle effects, and dynamic canvas-drawn pixel textures)
-- **UI Framework**: React + Tailwind CSS + Lucide Icons (onboarding, challenge cards, and profiles)
+- **Backend**: Node.js + Express with Supabase and `dotenv` (serves auth, realtime game state, and API routes)
+- **AI Core**: `@google/genai` TypeScript SDK (Gemini prompt synthesis and challenge verification)
+- **Frontend Engine**: Vite + Phaser 3 (2D physics, particle effects, and dynamic canvas textures)
+- **UI Framework**: React + Tailwind CSS + Lucide Icons + motion (interactive UI, menus, and HUD)
 
 ---
 
@@ -157,5 +156,5 @@ Security reminder: never commit `backend/.env` with `CLIENT_SECRET` or `SUPABASE
 </table>
 
 <p align="center">
-  <img src="C23685F185851D00011B4DC47620C5AF27C4CB51.gif" alt="DevGarden" />
+  <img src="./assets/pics/C23685F185851D00011B4DC47620C5AF27C4CB51.gif" alt="DevGarden" />
 </p>
