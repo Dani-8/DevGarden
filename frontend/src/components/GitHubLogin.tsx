@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Github, Sparkles } from 'lucide-react';
 import PixelBackdrop from './PixelBackdrop';
 import Favicon from "../../assets/Favicon.png"
+import LOGO from "../../assets/LOGO.png"
 
 interface GitHubLoginProps {
   onSuccess: () => void;
