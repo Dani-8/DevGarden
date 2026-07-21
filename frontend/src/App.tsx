@@ -200,7 +200,7 @@ export default function App() {
           </div>
         </header>
 
-        <main className="flex-1 flex flex-col items-center justify-center p-4 relative bg-[var(--color-natural-bg)]">
+        <main className="flex-1 flex flex-col items-center justify-center relative bg-[var(--color-natural-bg)]">
           <GitHubLogin onSuccess={checkAuth} />
         </main>
 

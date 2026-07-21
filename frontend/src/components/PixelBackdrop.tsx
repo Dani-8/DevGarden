@@ -193,7 +193,7 @@ export default function PixelBackdrop() {
       </div>
 
       {/* 5. Natural ground decor detail (stylized soft grass elements) */}
-      <div className={`absolute bottom-0 left-0 right-0 h-4 bg-gradient-to-t ${themeStyles.groundOverlay} flex justify-around items-end px-12 opacity-60 transition-colors duration-[2000ms]`}>
+      <div className={`absolute bottom-0 left-0 right-0 h-4 mb-4 bg-gradient-to-t ${themeStyles.groundOverlay} flex justify-around items-end px-12 opacity-60 transition-colors duration-[2000ms]`}>
         {themeStyles.emojis.map((emoji, idx) => (
           <span key={idx} className={idx % 2 === 1 ? "text-xs opacity-50" : "text-sm"}>
             {emoji}
