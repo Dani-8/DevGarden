@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 interface Cloud {
   id: number;
+  x: number; // percentage from left
   y: number; // percentage from top
   scale: number; // scale multiplier
   duration: number; // animation duration in seconds
@@ -40,12 +41,15 @@ export default function PixelBackdrop() {
 
     // 2. Generate cozy drifting clouds
     const generatedClouds: Cloud[] = [
-      { id: 1, y: 15, scale: 3.2, duration: 85, delay: 0, opacity: 0.35 },
-      { id: 2, y: 35, scale: 0.8, duration: 45, delay: -15, opacity: 0.5 },
-      { id: 3, y: 52, scale: 2.0, duration: 65, delay: -30, opacity: 0.4 },
-      { id: 4, y: 68, scale: 0.6, duration: 38, delay: -10, opacity: 0.55 },
-      { id: 5, y: 80, scale: 2.6, duration: 110, delay: -45, opacity: 0.3 },
-      { id: 6, y: 22, scale: 1.2, duration: 50, delay: -25, opacity: 0.45 },
+      { id: 1, x: -8, y: 10, scale: 2.2, duration: 95, delay: 0, opacity: 0.34 },
+      { id: 2, x: 14, y: 24, scale: 0.85, duration: 46, delay: -12, opacity: 0.56 },
+      { id: 3, x: 32, y: 38, scale: 1.2, duration: 72, delay: -24, opacity: 0.4 },
+      { id: 4, x: 48, y: 54, scale: 0.65, duration: 40, delay: -8, opacity: 0.6 },
+      { id: 5, x: 64, y: 68, scale: 2.9, duration: 108, delay: -36, opacity: 0.3 },
+      { id: 6, x: 78, y: 18, scale: 1.15, duration: 58, delay: -20, opacity: 0.45 },
+      { id: 7, x: 88, y: 80, scale: 0.72, duration: 42, delay: -14, opacity: 0.52 },
+      { id: 8, x: 96, y: 32, scale: 1.1, duration: 112, delay: -46, opacity: 0.33 },
+      { id: 9, x: 46, y: 52, scale: 1.5, duration: 72, delay: -16, opacity: 0.7 },
     ];
     setClouds(generatedClouds);
 
@@ -158,36 +162,43 @@ export default function PixelBackdrop() {
         {clouds.map((cloud) => (
           <div
             key={cloud.id}
-            className="absolute left-0"
+            className="absolute"
             style={{
+              left: `${cloud.x}%`,
               top: `${cloud.y}%`,
               opacity: cloud.opacity,
               animation: `drift ${cloud.duration}s linear infinite`,
               animationDelay: `${cloud.delay}s`,
-              transform: `scale(${cloud.scale})`,
             }}
           >
-            {/* 8-bit / pixelated cloud vector */}
-            <svg
-              width="90"
-              height="40"
-              viewBox="0 0 90 40"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="drop-shadow-sm"
+            <div
+              style={{
+                transform: `scale(${cloud.scale})`,
+                transformOrigin: 'top left',
+              }}
             >
-              {/* Cloud Block Outline & Fill */}
-              <path
-                d="M30 10H50V20H30V10ZM20 20H70V30H20V20ZM10 30H80V40H10V30ZM40 0H60V10H40V0Z"
-                fill="currentColor"
-                className={themeStyles.cloudsColor}
-              />
-              <path
-                d="M30 12H50V20H30V12ZM20 20H70V28H20V20ZM10 28H80V36H10V28ZM40 4H60V12H40V4Z"
-                fill={theme === 'night' ? '#181934' : 'white'}
-                className="transition-colors duration-[2000ms]"
-              />
-            </svg>
+              {/* 8-bit / pixelated cloud vector */}
+              <svg
+                width="90"
+                height="40"
+                viewBox="0 0 90 40"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="drop-shadow-sm"
+              >
+                {/* Cloud Block Outline & Fill */}
+                <path
+                  d="M30 10H50V20H30V10ZM20 20H70V30H20V20ZM10 30H80V40H10V30ZM40 0H60V10H40V0Z"
+                  fill="currentColor"
+                  className={themeStyles.cloudsColor}
+                />
+                <path
+                  d="M30 12H50V20H30V12ZM20 20H70V28H20V20ZM10 28H80V36H10V28ZM40 4H60V12H40V4Z"
+                  fill={theme === 'night' ? '#181934' : 'white'}
+                  className="transition-colors duration-[2000ms]"
+                />
+              </svg>
+            </div>
           </div>
         ))}
       </div>
@@ -200,6 +211,8 @@ export default function PixelBackdrop() {
           </span>
         ))}
       </div>
+
+      
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Github, Sparkles } from 'lucide-react';
 import PixelBackdrop from './PixelBackdrop';
+import Favicon from "../../assets/Favicon.png"
 
 interface GitHubLoginProps {
   onSuccess: () => void;
@@ -154,7 +155,7 @@ export default function GitHubLogin({ onSuccess }: GitHubLoginProps) {
           
           {/* Logo Header - original rounded style, slightly smaller */}
           <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-[var(--color-natural-foliage)] border-2 border-white text-[var(--color-natural-accent)] mb-3 animate-pulse">
-            <Sparkles className="w-6 h-6" />
+            <img src={Favicon} alt="" />
           </div>
  
           {/* Press Start 2P Pixelated Title but nicely scaled */}
@@ -164,7 +165,7 @@ export default function GitHubLogin({ onSuccess }: GitHubLoginProps) {
  
           {/* VT323 Cozy Pixelated description block within rounded box - scaled down to be crisp */}
           <div className="bg-[var(--color-natural-bg)] border-2 border-dashed border-[var(--color-natural-border)]/50 p-4 mb-5 text-left rounded-xl">
-            <p className="text-slate-700 text-lg md:text-xl font-pixel leading-normal">
+            <p className="text-slate-700 text-md md:text-lg font-pixel leading-normal">
               🌿 "Step into a cozy pixel greenhouse. Walk around, talk with other devs, and watch your avatar grow with your GitHub contributions."
             </p>
           </div>

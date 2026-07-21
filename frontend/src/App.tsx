@@ -204,11 +204,6 @@ export default function App() {
           <GitHubLogin onSuccess={checkAuth} />
         </main>
 
-        <footer className="w-full bg-[var(--color-natural-bg)] py-4 px-6 border-t-4 border-[var(--color-natural-border)] text-center select-none mt-auto">
-          <p className="text-xs font-serif text-slate-600">
-            DevGarden © 2026 • Connected to Natural Tones Oasis
-          </p>
-        </footer>
       </div>
     );
   }
@@ -216,7 +211,7 @@ export default function App() {
   // Logged-in full screen game view layout
   return (
     <div className="fixed inset-0 w-screen h-screen bg-slate-950 text-white flex overflow-hidden antialiased font-sans">
-      
+
       {/* COLLAPSIBLE SIDEBAR */}
       {session.user && (
         <Sidebar
