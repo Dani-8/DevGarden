@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Trophy, LogOut, ChevronLeft, ChevronRight, Sparkles, Share2, Star } from 'lucide-react';
+import { Trophy, LogOut, ChevronLeft, ChevronRight, Sparkles, Share2, Star, Hammer } from 'lucide-react';
 
 import Favicon from "../../assets/Favicon.png"
 import LOGO from "../../assets/LOGO.png"
@@ -29,6 +29,20 @@ export default function Sidebar({
   const [isShareOpen, setIsShareOpen] = useState(false);
   const [goldenWater, setGoldenWater] = useState(false);
   const [isChallengeOpen, setIsChallengeOpen] = useState(false);
+  const [isGardenKitOpen, setIsGardenKitOpen] = useState(false);
+
+  useEffect(() => {
+    const handleStateChange = (e: any) => {
+      setIsGardenKitOpen(!!e.detail?.isOpen);
+    };
+    window.addEventListener('garden-kit-state-changed', handleStateChange);
+    return () => window.removeEventListener('garden-kit-state-changed', handleStateChange);
+  }, []);
+
+  const handleToggleGardenKit = () => {
+    const event = new CustomEvent('toggle-garden-kit');
+    window.dispatchEvent(event);
+  };
 
   useEffect(() => {
     const isUnlocked = localStorage.getItem('devgarden_golden_water') === 'unlocked';
@@ -60,7 +74,7 @@ export default function Sidebar({
           </div>
         )}
         {collapsed && (
-          <img src={Favicon} alt="DevGarden" className="flex items-center w-full h-full object-cover" />
+          <img src={Favicon} alt="DevGarden" className="flex items-center w-9 h-9 object-cover" />
         )}
       </div>
 
@@ -117,6 +131,27 @@ export default function Sidebar({
 
       {/* Navigation Buttons / Actions */}
       <nav className="flex-1 px-2.5 py-3 flex flex-col gap-1.5">
+        {/* Garden Kit Toggle button */}
+        <button
+          onClick={handleToggleGardenKit}
+          className={`w-full py-2 px-2.5 rounded-lg border-2 transition-all flex items-center gap-2 font-serif text-[11px] font-bold cursor-pointer select-none ${
+            collapsed ? 'justify-center' : ''
+          } ${
+            isGardenKitOpen
+              ? 'bg-[#e29624] border-[#3a2f28] text-slate-950 scale-[1.01] shadow-md'
+              : 'bg-white/10 border-transparent hover:bg-white/15 text-white'
+          }`}
+          title="Garden Cozy Decoration Kit [K]"
+        >
+          <Hammer className="w-3.5 h-3.5 flex-shrink-0" />
+          {!collapsed && (
+            <div className="flex items-center justify-between flex-1">
+              <span className="animate-fadeIn">Garden Kit</span>
+              <span className="bg-black/25 px-1 py-0.2 rounded text-[8px] font-mono font-bold text-white/70">[K]</span>
+            </div>
+          )}
+        </button>
+
         {/* Scoreboard Toggle button */}
         <button
           onClick={() => setShowLeaderboardPanel(!showLeaderboardPanel)}
