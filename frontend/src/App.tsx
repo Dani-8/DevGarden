@@ -192,15 +192,15 @@ export default function App() {
 
   if (!session.loggedIn) {
     return (
-      <div className="min-h-screen bg-[var(--color-natural-bg)] text-[var(--color-natural-ink)] flex flex-col antialiased selection:bg-[var(--color-natural-accent)] selection:text-[var(--color-natural-ink)] font-serif">
+      <div className="h-screen w-screen bg-[var(--color-natural-bg)] text-[var(--color-natural-ink)] flex flex-col antialiased selection:bg-[var(--color-natural-accent)] selection:text-[var(--color-natural-ink)] font-serif overflow-hidden">
         {/* Simple compact header for login screen */}
         <header className="w-full bg-[var(--color-natural-foliage)] border-b-4 border-black/10 px-6 h-[60px] flex items-center justify-between select-none text-white shadow-md">
           <div className="flex items-center gap-2">
-            <img src={LOGO} alt="" class="w-[230px]" />
+            <img src={LOGO} alt="" className="w-[230px]" />
           </div>
         </header>
 
-        <main className="flex-1 flex flex-col items-center justify-center relative bg-[var(--color-natural-bg)]">
+        <main className="flex-1 flex flex-col items-center justify-center relative bg-[var(--color-natural-bg)] overflow-hidden">
           <GitHubLogin onSuccess={checkAuth} />
         </main>
 

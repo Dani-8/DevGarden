@@ -140,7 +140,7 @@ export default function GitHubLogin({ onSuccess }: GitHubLoginProps) {
   };
 
   return (
-    <div className="relative w-full min-h-[90vh] flex flex-col items-center justify-center px-4 py-6 overflow-hidden">
+    <div className="relative w-full flex-1 flex flex-col items-center justify-center px-4 py-6 overflow-hidden">
       {/* 1. Scrolling Pixel/Cloud Game Backdrop */}
       <PixelBackdrop />
 
