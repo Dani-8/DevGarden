@@ -1,5 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Trophy, LogOut, ChevronLeft, ChevronRight, Sparkles, Share2, Star } from 'lucide-react';
+
+import Favicon from "../../assets/Favicon.png"
+import LOGO from "../../assets/LOGO.png"
+
 import { UserProfile } from '../types.js';
 import ShareModal from './ShareModal.js';
 import ChallengeModal from './ChallengeModal.js';
@@ -44,21 +48,19 @@ export default function Sidebar({
     <>
       <aside
       className={`h-full z-30 flex flex-col bg-[var(--color-natural-foliage)] border-r-4 border-black/15 transition-all duration-300 select-none text-white flex-shrink-0 ${
-        collapsed ? 'w-[56px]' : 'w-[200px]'
+        collapsed ? 'w-[65px]' : 'w-[200px]'
       }`}
     >
       {/* Sidebar Header / Logo */}
-      <div className="p-3 border-b-2 border-white/10 flex items-center justify-between min-h-[52px]">
+      <div className="p-3 border-b-2 border-white/10 min-h-[52px]">
         {!collapsed && (
-          <div className="flex items-center gap-2 animate-fadeIn">
-            <div className="w-5 h-5 bg-[var(--color-natural-grass)] border-2 border-white flex-shrink-0 rounded-sm shadow-sm" />
-            <h1 className="text-sm font-bold tracking-wider text-white font-serif">
-              DevGarden
-            </h1>
+          <div className={`flex items-center ${collapsed ? 'gap-0' : 'gap-2'} animate-fadeIn`}>
+            <img src={Favicon} alt="DevGarden" className="w-8 h-8 object-cover" />
+            <img src={LOGO} alt="DevGarden Logo" className="w-[120px] object-cover" />
           </div>
         )}
         {collapsed && (
-          <div className="w-5 h-5 bg-[var(--color-natural-grass)] border-2 border-white flex-shrink-0 rounded-sm mx-auto shadow-sm" />
+          <img src={Favicon} alt="DevGarden" className="flex items-center w-full h-full object-cover" />
         )}
       </div>
 
@@ -229,7 +231,7 @@ export default function Sidebar({
         {/* Toggle Collapse control */}
         <button
           onClick={() => setCollapsed(!collapsed)}
-          className="w-full mt-0.5 py-1 rounded bg-black/15 hover:bg-black/25 text-white/60 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
+          className="w-full mt-0.5 py-2 rounded bg-black/15 hover:bg-black/25 text-white/60 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
           title={collapsed ? 'Expand Sidebar' : 'Collapse Sidebar'}
         >
           {collapsed ? <ChevronRight className="w-3.5 h-3.5" /> : <ChevronLeft className="w-3.5 h-3.5" />}
