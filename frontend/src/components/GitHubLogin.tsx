@@ -141,65 +141,84 @@ export default function GitHubLogin({ onSuccess }: GitHubLoginProps) {
   };
 
   return (
-    <div className="relative w-full flex-1 flex flex-col items-center justify-center px-4 py-6 overflow-hidden">
+    <div className="relative w-full flex-1 flex flex-col items-center justify-center px-4 py-12 overflow-hidden">
       {/* 1. Scrolling Pixel/Cloud Game Backdrop */}
       <PixelBackdrop />
 
-      {/* 2. Beautiful original rounded natural-shadowed card - now more compact with max-w-md */}
-      <div className="w-full max-w-md bg-white border-2 border-[var(--color-natural-border)] rounded-2xl natural-shadow-lg overflow-hidden p-6 relative z-10">
+      {/* 2. Beautiful retro-cozy gaming card - crafted with double wood/brass styled borders & retro chunky shadow */}
+      <div className="w-full max-w-md bg-[#faf6eb] border-4 border-[#3a2f28] rounded-2xl shadow-[8px_8px_0px_0px_rgba(58,47,40,0.18)] p-1 relative z-10 overflow-hidden transform hover:scale-[1.01] transition-transform duration-300">
         
-        {/* Soft atmospheric gradient glows in the background */}
-        <div className="absolute top-0 left-1/4 w-28 h-28 bg-[var(--color-natural-grass)]/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 right-1/4 w-28 h-28 bg-[var(--color-natural-accent)]/10 rounded-full blur-3xl pointer-events-none" />
- 
-        <div className="text-center relative z-10">
+        {/* Retro brass corner brackets for authentication card */}
+        <div className="absolute top-2 left-2 w-3 h-3 border-t-2 border-l-2 border-amber-800/60" />
+        <div className="absolute top-2 right-2 w-3 h-3 border-t-2 border-r-2 border-amber-800/60" />
+        <div className="absolute bottom-2 left-2 w-3 h-3 border-b-2 border-l-2 border-amber-800/60" />
+        <div className="absolute bottom-2 right-2 w-3 h-3 border-b-2 border-r-2 border-amber-800/60" />
+
+        {/* Soft atmospheric radial warm hearth glow */}
+        <div className="absolute inset-0 bg-radial-gradient from-amber-100/30 to-transparent pointer-events-none select-none" />
+
+        {/* Inner dashed guide line matching quality layout */}
+        <div className="border-2 border-dashed border-[#8c6d53]/20 rounded-xl p-5 md:p-6 relative z-10">
           
-          {/* Logo Header - original rounded style, slightly smaller */}
-          <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-[var(--color-natural-foliage)] border-2 border-white text-[var(--color-natural-accent)] mb-3 animate-pulse">
-            <img src={Favicon} alt="" />
-          </div>
- 
-          {/* Press Start 2P Pixelated Title but nicely scaled */}
-          <h1 className="text-sm md:text-base font-press tracking-wider text-[var(--color-natural-ink)] mb-3 select-none">
-            DEVGARDEN<span className="text-[var(--color-natural-grass)]">.</span>
-          </h1>
- 
-          {/* VT323 Cozy Pixelated description block within rounded box - scaled down to be crisp */}
-          <div className="bg-[var(--color-natural-bg)] border-2 border-dashed border-[var(--color-natural-border)]/50 p-4 mb-5 text-left rounded-xl">
-            <p className="text-slate-700 text-md md:text-lg font-pixel leading-normal">
-              🌿 "Step into a cozy pixel greenhouse. Walk around, talk with other devs, and watch your avatar grow with your GitHub contributions."
-            </p>
-          </div>
- 
-          {/* Error notice */}
-          {error && (
-            <div className="mb-4 p-3 rounded-xl bg-red-50 border border-red-200 text-red-800 text-xs font-pixel text-left">
-              <p className="font-bold uppercase tracking-wide">⚠️ OAuth Configuration Error:</p>
-              <p className="mt-0.5">{error}</p>
+          <div className="text-center">
+            
+            {/* Animated floating plant sprout badge */}
+            <div className="relative inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-[#e3d8c1] border-2 border-[#3a2f28] text-[var(--color-natural-accent)] mb-4 shadow-[3px_3px_0px_0px_rgba(58,47,40,0.15)] animate-bounce [animation-duration:3s]">
+              <img src={Favicon} alt="DevGarden" className="w-8 h-8 select-none pointer-events-none" />
+              {/* Floating decorative pixel sparks */}
+              <span className="absolute -top-1 -right-1 text-[8px] animate-ping opacity-35">🟡</span>
+              <span className="absolute -bottom-1 -left-1 text-xs animate-pulse">🌱</span>
             </div>
-          )}
- 
-          {/* Big Action Button - cozy rounded design, scaled down */}
-          <div className="flex flex-col gap-3">
-            <button
-              onClick={handleLogin}
-              disabled={loading}
-              id="login-btn"
-              className="w-full py-2.5 px-5 bg-[var(--color-natural-accent)] hover:bg-[var(--color-natural-accent)]/80 active:scale-[0.98] transition-all text-[var(--color-natural-ink)] border-2 border-[var(--color-natural-ink)] font-pixel text-lg font-bold uppercase tracking-wider rounded-xl flex items-center justify-center gap-2 natural-shadow-sm cursor-pointer disabled:opacity-50"
-            >
-              <div className="flex items-center justify-center gap-2">
-                <Github className="w-4 h-4 fill-[var(--color-natural-ink)] stroke-none" />
-                <span>{loading ? 'Connecting...' : 'Enter Garden'}</span>
+   
+            {/* Display Title with wooden styling */}
+            <h1 className="text-lg md:text-xl font-press tracking-wider text-[#3a2f28] mb-1 select-none">
+              DEVGARDEN<span className="text-[var(--color-natural-grass)]">.</span>
+            </h1>
+            <p className="text-[10px] text-amber-900/60 font-pixel uppercase tracking-widest mb-4">
+              Multiplayer Code Greenhouse
+            </p>
+   
+            {/* Cozy Parchment Paper scroll block */}
+            <div className="bg-[#fefcf7] border-2 border-[#3a2f28]/10 p-4 mb-6 text-left rounded-xl shadow-inner relative overflow-hidden">
+              <div className="absolute top-0 left-0 right-0 h-[3px] bg-amber-900/5" />
+              <p className="text-[#514339] text-md md:text-lg font-pixel leading-relaxed">
+                🌿 "Step into a cozy greenhouse. Connect with GitHub to walk around, grow pixel plants with your commits, chat with fellow gardeners, and watch your character blossom."
+              </p>
+            </div>
+   
+            {/* Error notice */}
+            {error && (
+              <div className="mb-5 p-3 rounded-xl bg-rose-50 border-2 border-rose-900/20 text-rose-800 text-xs font-pixel text-left shadow-sm">
+                <p className="font-bold uppercase tracking-wide flex items-center gap-1">
+                  <span>⚠️ Connection Issue:</span>
+                </p>
+                <p className="mt-1 leading-relaxed text-rose-700/90">{error}</p>
               </div>
-            </button>
+            )}
+   
+            {/* Chunky tactile retro 3D action button */}
+            <div className="flex flex-col gap-3">
+              <button
+                onClick={handleLogin}
+                disabled={loading}
+                id="login-btn"
+                className="w-full py-3 px-5 bg-[#ffae34] hover:bg-[#ffb94f] active:bg-[#e29624] text-[#3a2f28] border-2 border-[#3a2f28] font-pixel text-lg font-bold uppercase tracking-wider rounded-xl flex items-center justify-center gap-2 shadow-[4px_4px_0px_0px_#3a2f28] hover:shadow-[5px_5px_0px_0px_#3a2f28] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_#3a2f28] transition-all cursor-pointer disabled:opacity-50 select-none"
+              >
+                <div className="flex items-center justify-center gap-2">
+                  <Github className="w-5 h-5 fill-[#3a2f28] stroke-none animate-pulse" />
+                  <span>{loading ? 'Entering...' : 'Enter DevGarden'}</span>
+                </div>
+              </button>
+            </div>
+   
+            {/* Footer with a cozy tip */}
+            <div className="mt-5 text-center">
+              <span className="text-[10px] text-amber-900/40 font-pixel uppercase tracking-widest block">
+                ☕ Touch some virtual grass today
+              </span>
+            </div>
+   
           </div>
- 
-          <div className="mt-4 text-center">
-            <span className="text-[10px] text-slate-400 font-pixel uppercase tracking-widest">
-              🌿 a cozy space to hang out & touch some virtual grass
-            </span>
-          </div>
- 
         </div>
       </div>
     </div>
