@@ -249,6 +249,12 @@ export class SupabaseSocket {
       })
       .on('broadcast', { event: 'tree_watered' }, ({ payload }) => {
         this.trigger('tree_watered', payload);
+      })
+      .on('broadcast', { event: 'decor_placed' }, ({ payload }) => {
+        this.trigger('decor_placed', payload);
+      })
+      .on('broadcast', { event: 'decor_removed' }, ({ payload }) => {
+        this.trigger('decor_removed', payload);
       });
 
     this.channel.subscribe(async (status) => {
@@ -323,6 +329,14 @@ export class SupabaseSocket {
             }, 1200);
           }
         }, 50);
+      } else if (event === 'decor_place') {
+        setTimeout(() => {
+          this.trigger('decor_placed', data);
+        }, 50);
+      } else if (event === 'decor_remove') {
+        setTimeout(() => {
+          this.trigger('decor_removed', data);
+        }, 50);
       }
       return;
     }
@@ -355,6 +369,18 @@ export class SupabaseSocket {
         id: this.selfPlayer.id,
         text: data.text,
         isEmote: !!data.isEmote,
+      });
+    } else if (event === 'decor_place') {
+      this.channel.send({
+        type: 'broadcast',
+        event: 'decor_placed',
+        payload: data,
+      });
+    } else if (event === 'decor_remove') {
+      this.channel.send({
+        type: 'broadcast',
+        event: 'decor_removed',
+        payload: data,
       });
     }
   }

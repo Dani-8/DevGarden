@@ -182,6 +182,22 @@ export default function App() {
     }
   };
 
+  const handleBypassLogin = async () => {
+    try {
+      const apiBase = import.meta.env.VITE_API_URL || '';
+      const res = await fetch(`${apiBase}/api/auth/guest`, { method: 'POST', credentials: 'include' });
+      if (res.ok) {
+        const data = await res.json();
+        if (data.token) {
+          localStorage.setItem('devgarden_token', data.token);
+          await checkAuth();
+        }
+      }
+    } catch (e) {
+      console.error('Error bypassing login:', e);
+    }
+  };
+
   if (!session) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-slate-950 font-mono text-slate-500 text-xs">
@@ -197,6 +213,15 @@ export default function App() {
         <div className="absolute top-6 left-6 z-20 pointer-events-none select-none">
           <img src={LOGO} alt="DevGarden Logo" className="w-[220px] drop-shadow-[0_4px_6px_rgba(0,0,0,0.15)]" />
         </div>
+
+        {/* Discreet Bypass Button in top-right corner */}
+        <button
+          onClick={handleBypassLogin}
+          className="absolute top-4 right-4 z-50 text-[10px] text-amber-950/10 hover:text-amber-950/40 font-mono transition-colors border border-transparent hover:border-amber-950/10 px-2.5 py-1 rounded cursor-pointer select-none"
+          title="Bypass Authentication"
+        >
+          🔑 Bypass
+        </button>
 
         <main className="flex-1 flex flex-col items-center justify-center relative bg-[var(--color-natural-bg)] overflow-hidden">
           <GitHubLogin onSuccess={checkAuth} />
@@ -252,7 +277,7 @@ export default function App() {
             />
 
             {/* FLOATING CHAT & EMOTE BAR (Centered at the bottom) */}
-            <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-20 w-[calc(100%-2rem)] max-w-[650px] md:max-w-[700px] pointer-events-auto">
+            <div className="fixed bottom-4 left-1/2 -translate-x-1/3 z-20 w-[calc(100%-2rem)] max-w-[600px] md:max-w-[650px] pointer-events-auto">
               <EmoteWheel socket={socket} />
             </div>
 

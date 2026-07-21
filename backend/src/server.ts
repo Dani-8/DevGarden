@@ -5,13 +5,40 @@ import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
 
-import { initDB, getTopUsers, cleanExpiredSessions } from './db.js';
+import { initDB, getTopUsers, cleanExpiredSessions, getSessionUser, getDecorations, saveDecoration, deleteDecoration } from './db.js';
 import { setupAuthRoutes } from './auth.js';
 import { generateChallenge, verifyChallenge } from './challenge.js';
 
 dotenv.config();
 
 const app = express();
+
+// Helper to extract session ID from request for decorations API
+const getSessionIdFromRequest = (req: express.Request): string | undefined => {
+  const cookiesHeader = req.headers.cookie || '';
+  const cookies: Record<string, string> = {};
+  cookiesHeader.split(';').forEach(c => {
+    const parts = c.split('=');
+    const name = parts.shift()?.trim();
+    if (name) cookies[name] = decodeURIComponent(parts.join('='));
+  });
+  if (cookies['devgarden_session']) {
+    return cookies['devgarden_session'];
+  }
+  if (req.headers.authorization) {
+    const parts = req.headers.authorization.split(' ');
+    if (parts[0] === 'Bearer' && parts[1]) {
+      return parts[1];
+    }
+  }
+  if (req.headers['x-session-id']) {
+    return req.headers['x-session-id'] as string;
+  }
+  if (req.query.token) {
+    return req.query.token as string;
+  }
+  return undefined;
+};
 
 // Initialize backend services
 let initialized = false;
@@ -120,6 +147,81 @@ app.get('/api/leaderboard', async (req, res) => {
     res.status(500).json({
       error: error.message || 'Failed to fetch leaderboard'
     });
+  }
+});
+
+// GET /api/decorations
+app.get('/api/decorations', async (req, res) => {
+  try {
+    const list = await getDecorations();
+    res.json(list);
+  } catch (error: any) {
+    res.status(500).json({ error: error.message || 'Failed to fetch decorations' });
+  }
+});
+
+// POST /api/decorations
+app.post('/api/decorations', async (req, res) => {
+  try {
+    const sessionId = getSessionIdFromRequest(req);
+    if (!sessionId) {
+      return res.status(401).json({ error: 'Unauthorized: No session token provided' });
+    }
+    const user = await getSessionUser(sessionId);
+    if (!user) {
+      return res.status(401).json({ error: 'Unauthorized: Invalid session' });
+    }
+
+    const { id, item_type, x, y } = req.body;
+    if (!id || !item_type || typeof x !== 'number' || typeof y !== 'number') {
+      return res.status(400).json({ error: 'Missing required decoration fields (id, item_type, x, y)' });
+    }
+
+    const decor = {
+      id,
+      item_type,
+      x: Math.round(x),
+      y: Math.round(y),
+      placed_by: user.github_id,
+      placed_by_username: user.username,
+      created_at: Date.now()
+    };
+
+    await saveDecoration(decor);
+    res.json({ success: true, decoration: decor });
+  } catch (error: any) {
+    res.status(500).json({ error: error.message || 'Failed to save decoration' });
+  }
+});
+
+// DELETE /api/decorations/:id
+app.delete('/api/decorations/:id', async (req, res) => {
+  try {
+    const sessionId = getSessionIdFromRequest(req);
+    if (!sessionId) {
+      return res.status(401).json({ error: 'Unauthorized: No session token provided' });
+    }
+    const user = await getSessionUser(sessionId);
+    if (!user) {
+      return res.status(401).json({ error: 'Unauthorized: Invalid session' });
+    }
+
+    const id = req.params.id;
+    const decors = await getDecorations();
+    const existing = decors.find(d => d.id === id);
+    if (!existing) {
+      return res.status(404).json({ error: 'Decoration not found' });
+    }
+
+    // Allow deleting if they are the owner, or if it is a default item
+    if (existing.placed_by !== user.github_id && !id.startsWith('default_')) {
+      return res.status(403).json({ error: 'Forbidden: You can only remove decorations you placed!' });
+    }
+
+    await deleteDecoration(id);
+    res.json({ success: true });
+  } catch (error: any) {
+    res.status(500).json({ error: error.message || 'Failed to delete decoration' });
   }
 });
 

@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { PlayerState } from '../../types.js';
+import { PlayerState, DecorationRow } from '../../types.js';
 import { showPlayerBubble } from '../Messaging.js';
 
 export default class GardenScene extends Phaser.Scene {
@@ -49,6 +49,11 @@ export default class GardenScene extends Phaser.Scene {
   // Obstacles
   private obstaclesGroup!: Phaser.Physics.Arcade.StaticGroup;
   private leaderboardTreeObj!: Phaser.GameObjects.Image;
+
+  // Decoration placement state
+  private activeDecorTool: string | null = null;
+  private decorGhostPreview: Phaser.GameObjects.Container | null = null;
+  private decorationsMap: Map<string, Phaser.GameObjects.Container> = new Map();
 
   constructor() {
     super({ key: 'GardenScene' });
@@ -184,6 +189,9 @@ export default class GardenScene extends Phaser.Scene {
 
     // Initialize day/night atmosphere lighting & effects
     this.initAtmosphere();
+
+    // Initialize our cozy decoration placement system!
+    this.setupDecorationSystem();
   }
 
   update() {
@@ -1773,5 +1781,422 @@ export default class GardenScene extends Phaser.Scene {
         ease: 'Sine.easeInOut'
       });
     }
+  }
+
+  // --- COZY DECORATION PLACEMENT SYSTEM ---
+
+  private setupDecorationSystem() {
+    // 1. Listen for active tool changes from React UI
+    window.addEventListener('select-decor-tool', (e: any) => {
+      const toolId = e.detail?.toolId || null;
+      this.activeDecorTool = toolId;
+      this.updateGhostPreview();
+    });
+
+    // 2. Sync mouse movement to update the ghost preview coordinates
+    this.input.on('pointermove', (pointer: Phaser.Input.Pointer) => {
+      if (this.decorGhostPreview) {
+        // Snap to 16px grid for clean building!
+        const snapX = Math.round(pointer.worldX / 16) * 16;
+        const snapY = Math.round(pointer.worldY / 16) * 16;
+        this.decorGhostPreview.setPosition(snapX, snapY);
+        this.decorGhostPreview.setDepth(snapY + 20); // render slightly above floor depth
+      }
+    });
+
+    // 3. Handle clicks on the ground to place items
+    this.input.on('pointerdown', (pointer: Phaser.Input.Pointer, currentlyOver: any[]) => {
+      if (!this.activeDecorTool) return;
+
+      // Ignore clicks on existing UI/interactive items if we're not using the hammer
+      if (currentlyOver.length > 0 && this.activeDecorTool !== 'hammer') {
+        // Check if we clicked on another player or NPC, if so ignore placement
+        const hasInteractiveOverlap = currentlyOver.some(obj => {
+          return obj.texture && (obj.texture.key.startsWith('player_') || obj.texture.key === 'star_tree_sprout');
+        });
+        if (hasInteractiveOverlap) return;
+      }
+
+      const snapX = Math.round(pointer.worldX / 16) * 16;
+      const snapY = Math.round(pointer.worldY / 16) * 16;
+
+      if (this.activeDecorTool === 'hammer') {
+        // Demolish check: did we click a decoration?
+        let clickedDecorId: string | null = null;
+        for (const [id, container] of this.decorationsMap.entries()) {
+          // Check proximity to the click
+          const dist = Phaser.Math.Distance.Between(snapX, snapY, container.x, container.y);
+          if (dist < 20) {
+            clickedDecorId = id;
+            break;
+          }
+        }
+
+        if (clickedDecorId) {
+          const container = this.decorationsMap.get(clickedDecorId);
+          const placedBy = container?.getData('placed_by');
+          const username = container?.getData('placed_by_username') || 'someone';
+
+          // Allow users to delete their own items (or default items starting with 'default_')
+          if (placedBy === this.selfPlayer?.id || clickedDecorId.startsWith('default_')) {
+            this.removeDecorItem(clickedDecorId);
+          } else {
+            // Show a speech bubble indicating who owns this item
+            if (this.playerContainer) {
+              this.showChatBubble(this.playerContainer, `🔒 This cozy item belongs to @${username}!`, false);
+            }
+          }
+        }
+      } else {
+        // Place item
+        // Prevent placing items outside world bounds (0, 0, 1024, 768)
+        if (snapX < 32 || snapX > 992 || snapY < 32 || snapY > 736) return;
+
+        // Prevent placing directly on top of the leaderboard tree or co-op sprout
+        const distToLeaderboard = Phaser.Math.Distance.Between(snapX, snapY, this.leaderboardTreeObj.x, this.leaderboardTreeObj.y);
+        if (distToLeaderboard < 50) {
+          if (this.playerContainer) {
+            this.showChatBubble(this.playerContainer, "❌ Too close to the Leaderboard Tree!", false);
+          }
+          return;
+        }
+
+        if (this.starTreeSprite) {
+          const distToStarTree = Phaser.Math.Distance.Between(snapX, snapY, this.starTreeSprite.x, this.starTreeSprite.y);
+          if (distToStarTree < 50) {
+            if (this.playerContainer) {
+              this.showChatBubble(this.playerContainer, "❌ Too close to the Co-op Sprout Tree!", false);
+            }
+            return;
+          }
+        }
+
+        this.placeDecorItem(this.activeDecorTool, snapX, snapY);
+      }
+    });
+
+    // 4. Fetch initial decorations list from server
+    const apiBase = import.meta.env.VITE_API_URL || '';
+    fetch(`${apiBase}/api/decorations`)
+      .then(res => res.json())
+      .then((decors: DecorationRow[]) => {
+        if (decors && Array.isArray(decors)) {
+          decors.forEach(decor => {
+            this.drawDecoration(decor);
+          });
+        }
+      })
+      .catch(err => {
+        console.error('Error loading decorations from API:', err);
+      });
+
+    // 5. Connect real-time socket events for sync
+    this.socket.on('decor_placed', (decor: DecorationRow) => {
+      this.drawDecoration(decor);
+    });
+
+    this.socket.on('decor_removed', (data: { id: string }) => {
+      const container = this.decorationsMap.get(data.id);
+      if (container) {
+        this.playDecorBreakEffect(container.x, container.y);
+        container.destroy();
+        this.decorationsMap.delete(data.id);
+      }
+    });
+  }
+
+  private updateGhostPreview() {
+    // Clear old preview if any
+    if (this.decorGhostPreview) {
+      this.decorGhostPreview.destroy();
+      this.decorGhostPreview = null;
+    }
+
+    if (!this.activeDecorTool || this.activeDecorTool === 'hammer') {
+      return;
+    }
+
+    // Ensure input and activePointer exist
+    if (!this.input || !this.input.activePointer) {
+      return;
+    }
+
+    // Determine emoji
+    const emojiMap: Record<string, string> = {
+      campfire: '🔥',
+      lantern: '🏮',
+      picnic: '🧺',
+      bench: '🪑',
+      sunflower: '🌻',
+      mushroom: '🍄',
+      duckpool: '🦆',
+    };
+
+    const emoji = emojiMap[this.activeDecorTool] || '❓';
+    
+    // Create ghost container
+    const x = this.input.activePointer.worldX;
+    const y = this.input.activePointer.worldY;
+    this.decorGhostPreview = this.add.container(x, y);
+
+    // Subtle ghost shadow
+    const shadow = this.add.ellipse(0, 4, 16, 6, 0x000000, 0.15);
+    this.decorGhostPreview.add(shadow);
+
+    // Ghost emoji with alpha transparency
+    const text = this.add.text(0, -8, emoji, {
+      fontSize: '24px'
+    }).setOrigin(0.5).setAlpha(0.5);
+    this.decorGhostPreview.add(text);
+
+    // Subtle placement circle guide
+    const ring = this.add.circle(0, 0, 18, 0x00e5ff, 0.1);
+    const stroke = this.add.circle(0, 0, 18);
+    stroke.setStrokeStyle(1, 0x00e5ff, 0.4);
+    this.decorGhostPreview.add(ring);
+    this.decorGhostPreview.add(stroke);
+  }
+
+  private drawDecoration(decor: DecorationRow) {
+    // Prevent duplicate rendering
+    if (this.decorationsMap.has(decor.id)) {
+      this.decorationsMap.get(decor.id)?.destroy();
+    }
+
+    const emojiMap: Record<string, string> = {
+      campfire: '🔥',
+      lantern: '🏮',
+      picnic: '🧺',
+      bench: '🪑',
+      sunflower: '🌻',
+      mushroom: '🍄',
+      duckpool: '🦆',
+    };
+
+    const emoji = emojiMap[decor.item_type] || '🪵';
+
+    // Create container at coordinate
+    const container = this.add.container(decor.x, decor.y);
+    container.setData('id', decor.id);
+    container.setData('placed_by', decor.placed_by);
+    container.setData('placed_by_username', decor.placed_by_username);
+    container.setDepth(decor.y);
+
+    // Beautiful grounded shadow
+    const shadow = this.add.ellipse(0, 5, 20, 8, 0x000000, 0.25);
+    container.add(shadow);
+
+    // Pulsing or glowing visual effects for active items
+    if (decor.item_type === 'campfire') {
+      // Warm glowing fire pulse
+      const glow = this.add.circle(0, 4, 18, 0xff5722, 0.15);
+      container.add(glow);
+      this.tweens.add({
+        targets: glow,
+        scale: 1.3,
+        alpha: 0.04,
+        duration: 900 + Math.random() * 300,
+        yoyo: true,
+        repeat: -1,
+        ease: 'Sine.easeInOut'
+      });
+    } else if (decor.item_type === 'lantern') {
+      // Warm yellow lamp pulse
+      const glow = this.add.circle(0, -6, 12, 0xffeb3b, 0.15);
+      container.add(glow);
+      this.tweens.add({
+        targets: glow,
+        scale: 1.25,
+        alpha: 0.05,
+        duration: 1200 + Math.random() * 400,
+        yoyo: true,
+        repeat: -1,
+        ease: 'Sine.easeInOut'
+      });
+    } else if (decor.item_type === 'mushroom') {
+      // Magical neon pink/purple pulse
+      const glow = this.add.circle(0, -2, 14, 0xe040fb, 0.15);
+      container.add(glow);
+      this.tweens.add({
+        targets: glow,
+        scale: 1.2,
+        alpha: 0.03,
+        duration: 1500,
+        yoyo: true,
+        repeat: -1,
+        ease: 'Sine.easeInOut'
+      });
+    }
+
+    // Primary emoji visual
+    const emojiText = this.add.text(0, -10, emoji, {
+      fontSize: '26px'
+    }).setOrigin(0.5);
+    emojiText.setResolution(2);
+    container.add(emojiText);
+
+    // Hover Tooltip: Shows "Placed by: @username" only on hover (as requested!)
+    const isSelf = decor.placed_by === this.selfPlayer?.id;
+    const authorText = isSelf ? 'You' : `@${decor.placed_by_username}`;
+    const tooltip = this.add.text(0, -28, `Placed by ${authorText}`, {
+      fontFamily: 'monospace',
+      fontSize: '8px',
+      color: '#ffeb3b',
+      backgroundColor: '#0f172acc',
+      padding: { x: 5, y: 2.5 },
+      stroke: '#000000',
+      strokeThickness: 1.5,
+    }).setOrigin(0.5).setResolution(2).setVisible(false).setDepth(2000);
+    container.add(tooltip);
+
+    // Setup interactive zone on emoji text
+    emojiText.setInteractive({ useHandCursor: true });
+    
+    emojiText.on('pointerover', () => {
+      tooltip.setVisible(true);
+      // If we have the hammer active and it belongs to us (or is default), color it slightly red to indicate demolition
+      if (this.activeDecorTool === 'hammer' && (isSelf || decor.id.startsWith('default_'))) {
+        emojiText.setTint(0xff7b72);
+      }
+    });
+
+    emojiText.on('pointerout', () => {
+      tooltip.setVisible(false);
+      emojiText.clearTint();
+    });
+
+    // Also support clicking for demolition
+    emojiText.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
+      pointer.event.stopPropagation();
+      
+      if (this.activeDecorTool === 'hammer') {
+        if (isSelf || decor.id.startsWith('default_')) {
+          this.removeDecorItem(decor.id);
+        } else {
+          // Tell them who placed it
+          if (this.playerContainer) {
+            this.showChatBubble(this.playerContainer, `🔒 This cozy item belongs to @${decor.placed_by_username}!`, false);
+          }
+        }
+      }
+    });
+
+    this.decorationsMap.set(decor.id, container);
+  }
+
+  private async placeDecorItem(itemType: string, x: number, y: number) {
+    const id = `decor_${this.selfPlayer?.id || 'anon'}_${Date.now()}_${Math.floor(Math.random() * 1000)}`;
+    
+    const payload = {
+      id,
+      item_type: itemType,
+      x,
+      y,
+      placed_by: this.selfPlayer?.id || 'anon',
+      placed_by_username: this.selfPlayer?.username || 'Anonymous',
+    };
+
+    // Render locally immediately for instant responsive game feedback
+    const decorRow: DecorationRow = {
+      ...payload,
+      created_at: Date.now()
+    };
+    this.drawDecoration(decorRow);
+    this.playDecorPlaceEffect(x, y);
+
+    // Broadcast over sockets so other active players see it instantly!
+    this.socket.emit('decor_place', decorRow);
+
+    // Cancel React hotbar selection state
+    window.dispatchEvent(new CustomEvent('cancel-decor-tool'));
+
+    // Call REST API to save persistently in database
+    try {
+      const apiBase = import.meta.env.VITE_API_URL || '';
+      const token = localStorage.getItem('devgarden_token');
+      const headers: Record<string, string> = {
+        'Content-Type': 'application/json'
+      };
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+        headers['X-Session-ID'] = token;
+      }
+
+      const res = await fetch(`${apiBase}/api/decorations`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify(payload)
+      });
+
+      if (!res.ok) {
+        console.error('Failed to persist decoration in database.');
+      }
+    } catch (e) {
+      console.error('Network error persisting decoration:', e);
+    }
+  }
+
+  private async removeDecorItem(id: string) {
+    // Remove locally
+    const container = this.decorationsMap.get(id);
+    if (container) {
+      this.playDecorBreakEffect(container.x, container.y);
+      container.destroy();
+      this.decorationsMap.delete(id);
+    }
+
+    // Broadcast over sockets
+    this.socket.emit('decor_remove', { id });
+
+    // Cancel React hotbar selection state
+    window.dispatchEvent(new CustomEvent('cancel-decor-tool'));
+
+    // Call REST API to delete persistently
+    try {
+      const apiBase = import.meta.env.VITE_API_URL || '';
+      const token = localStorage.getItem('devgarden_token');
+      const headers: Record<string, string> = {};
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+        headers['X-Session-ID'] = token;
+      }
+
+      const res = await fetch(`${apiBase}/api/decorations/${id}`, {
+        method: 'DELETE',
+        headers
+      });
+
+      if (!res.ok) {
+        console.error('Failed to remove decoration from database.');
+      }
+    } catch (e) {
+      console.error('Network error deleting decoration:', e);
+    }
+  }
+
+  private playDecorPlaceEffect(x: number, y: number) {
+    // Cute spark particles on placement
+    const spark = this.add.particles(x, y, 'glow_particle', {
+      scale: { start: 0.25, end: 0 },
+      alpha: { start: 0.8, end: 0 },
+      tint: 0x4caf50,
+      speed: { min: 20, max: 50 },
+      lifespan: 500,
+      maxParticles: 8,
+    });
+    this.time.delayedCall(600, () => spark.destroy());
+  }
+
+  private playDecorBreakEffect(x: number, y: number) {
+    // Cozy wood chip breaking particle effect
+    const chips = this.add.particles(x, y, 'glow_particle', {
+      scale: { start: 0.2, end: 0 },
+      alpha: { start: 0.7, end: 0 },
+      tint: 0x8d6e63, // wood brown chips
+      speed: { min: 30, max: 80 },
+      lifespan: 400,
+      maxParticles: 10,
+    });
+    this.time.delayedCall(500, () => chips.destroy());
   }
 }

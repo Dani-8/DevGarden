@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import Phaser from 'phaser';
 import GardenScene from './scenes/GardenScene.js';
 import { PlayerState } from '../types.js';
+import DecorHotbar from '../components/decor/DecorHotbar.js';
 
 interface GameContainerProps {
   socket: any;
@@ -166,8 +167,8 @@ export default function GameContainer({
         <div />
 
         {/* Commented out the hitbox debug button in the UI so it can be enabled later if needed */}
-        
-        {/* <div className="flex items-center gap-2 pointer-events-auto">
+        {/* 
+        <div className="flex items-center gap-2 pointer-events-auto">
           <button
             onClick={() => setDebugMode(!debugMode)}
             className={`px-3 py-1.5 rounded-lg text-[10px] font-mono font-bold uppercase border transition-all cursor-pointer shadow-md select-none flex items-center gap-1.5 ${
@@ -179,14 +180,17 @@ export default function GameContainer({
             <span>🛠️</span>
             <span>{debugMode ? 'Hide Hitboxes' : 'Show Hitboxes'}</span>
           </button>
-        </div> */}
-       
+        </div>
+        */}
       </div>
       
+      {/* Decor hotbar */}
+      <DecorHotbar />
+      
       {/* Control overlay label */}
-      <div className="absolute bottom-20 left-1/2 -translate-x-1/2 text-center select-none pointer-events-none z-10 bg-slate-950/75 backdrop-blur-md px-4 py-1.5 rounded-full border border-slate-800/80">
+      <div className="absolute bottom-24 left-1/2 -translate-x-1/2 text-center select-none pointer-events-none z-10 bg-slate-950/75 backdrop-blur-md px-4 py-1.5 rounded-full border border-slate-800/80">
         <p className="text-[10px] font-mono text-slate-400">
-          🎮 <span className="text-slate-200 font-semibold">Arrow Keys / WASD</span> to walk • Click developers to inspect contributions • Stand close to the <span className="text-amber-400">Leaderboard Tree</span> 🌳
+          🎮 <span className="text-slate-200 font-semibold">Arrow Keys / WASD</span> to walk • Click developers to inspect contributions • Press <span className="text-amber-400 font-bold">[K]</span> to open/close the Cozy Garden Kit ✨
         </p>
       </div>
     </div>

@@ -39,8 +39,8 @@ export default function EmoteWheel({ socket }: EmoteWheelProps) {
   };
 
   return (
-    <div className="w-full max-w-[620px] mt-2 flex flex-col sm:flex-row items-center gap-3 bg-white border-3 border-[var(--color-natural-border)] p-2.5 rounded-xl shadow-md text-[var(--color-natural-ink)] font-sans">
-      
+    <div className="w-full min-w-[620px] mt-2 flex flex-col sm:flex-row items-center gap-3 bg-white border-3 border-[var(--color-natural-border)] p-2.5 rounded-xl shadow-md text-[var(--color-natural-ink)] font-sans">
+
       {/* 1. EMOTE SELECTORS SECTION */}
       <div className="flex items-center gap-2 border-b sm:border-b-0 sm:border-r border-[var(--color-natural-border)]/50 pb-2 sm:pb-0 sm:pr-3 flex-wrap justify-center">
         <span className="text-[9px] font-mono text-slate-500 uppercase tracking-wider flex items-center gap-1">
@@ -69,7 +69,7 @@ export default function EmoteWheel({ socket }: EmoteWheelProps) {
             onChange={e => setInputText(e.target.value)}
             maxLength={80}
             placeholder="Type a bubble message (Enter to send...)"
-            className="w-full bg-[var(--color-natural-bg)] border-2 border-[var(--color-natural-border)]/60 rounded-lg px-2.5 py-1.5 text-xs text-[var(--color-natural-ink)] placeholder-slate-450 focus:outline-none focus:border-[var(--color-natural-foliage)] font-mono"
+            className="w-full bg-[var(--color-natural-bg)] border-2 border-[var(--color-natural-border)]/60 rounded-lg px-2.5 py-1.5 text-xs text-[var(--color-natural-ink)] placeholder:text-[10px] placeholder-slate-450 focus:outline-none focus:border-[var(--color-natural-foliage)] font-mono"
           />
           {statusMessage && (
             <span className="absolute -top-6 left-0 text-[9px] text-red-700 font-mono">
