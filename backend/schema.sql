@@ -32,9 +32,35 @@ CREATE TABLE IF NOT EXISTS sessions (
 ALTER TABLE users ENABLE ROW LEVEL SECURITY;
 ALTER TABLE sessions ENABLE ROW LEVEL SECURITY;
 
+-- Create decorations table
+CREATE TABLE IF NOT EXISTS decorations (
+  id TEXT PRIMARY KEY,
+  item_type TEXT NOT NULL,
+  x INTEGER NOT NULL,
+  y INTEGER NOT NULL,
+  placed_by TEXT NOT NULL REFERENCES users(github_id) ON DELETE CASCADE,
+  placed_by_username TEXT NOT NULL,
+  created_at BIGINT NOT NULL
+);
+
+ALTER TABLE decorations ENABLE ROW LEVEL SECURITY;
+
 -- Service Role has full access automatically.
 -- If you want your clients to subscribe to Realtime via Anon key,
 -- make sure you enable Replication for Realtime on these tables:
 -- 1. Go to Database -> Replication -> Source -> Publications (supabase_realtime)
--- 2. Toggle on "users" and "sessions" tables or run:
-alter publication supabase_realtime add table users;
+-- 2. Toggle on "users", "sessions", and "decorations" tables or run:
+DO $$
+BEGIN
+  BEGIN
+    ALTER PUBLICATION supabase_realtime ADD TABLE public.users;
+  EXCEPTION
+    WHEN duplicate_object THEN NULL;
+  END;
+
+  BEGIN
+    ALTER PUBLICATION supabase_realtime ADD TABLE public.decorations;
+  EXCEPTION
+    WHEN duplicate_object THEN NULL;
+  END;
+END $$;
