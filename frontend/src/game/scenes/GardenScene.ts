@@ -42,6 +42,10 @@ export default class GardenScene extends Phaser.Scene {
   private goldTrailEmitter: Phaser.GameObjects.Particles.ParticleEmitter | null = null;
   private lastWateredTime: number = 0;
 
+  // Atmosphere & Day/Night elements
+  private atmosphereOverlay: Phaser.GameObjects.Rectangle | null = null;
+  private fireflies: Phaser.GameObjects.Arc[] = [];
+
   // Obstacles
   private obstaclesGroup!: Phaser.Physics.Arcade.StaticGroup;
   private leaderboardTreeObj!: Phaser.GameObjects.Image;
@@ -177,6 +181,9 @@ export default class GardenScene extends Phaser.Scene {
     if (this.playerContainer) {
       this.physics.add.collider(this.playerContainer, this.obstaclesGroup);
     }
+
+    // Initialize day/night atmosphere lighting & effects
+    this.initAtmosphere();
   }
 
   update() {
@@ -877,13 +884,16 @@ export default class GardenScene extends Phaser.Scene {
     });
 
     // Add floating text prompt above the tree
-    this.starTreePromptText = this.add.text(treeX, treeY - 55, '', {
-      fontSize: '9px',
-      fontFamily: 'monospace',
-      color: '#fef08a',
-      backgroundColor: 'rgba(15, 23, 42, 0.85)',
-      padding: { x: 5, y: 3 },
-      align: 'center'
+    this.starTreePromptText = this.add.text(treeX, treeY - 60, '', {
+      fontSize: '11px',
+      fontFamily: 'system-ui, -apple-system, sans-serif',
+      fontStyle: 'bold',
+      color: '#ffffff',
+      backgroundColor: 'rgba(15, 23, 42, 0.92)',
+      padding: { x: 8, y: 6 },
+      align: 'center',
+      stroke: '#000000',
+      strokeThickness: 1
     });
     this.starTreePromptText.setOrigin(0.5, 0.5);
     this.starTreePromptText.setDepth(2000);
@@ -1016,7 +1026,7 @@ export default class GardenScene extends Phaser.Scene {
     // Show a cute visual floating number popping up!
     const popText = this.add.text(512, 190, isGolden ? '⭐ +10 Growth!' : '💦 +1 Growth!', {
       fontSize: '11px',
-      fontFamily: 'monospace',
+      fontFamily: 'system-ui, -apple-system, sans-serif',
       fontStyle: 'bold',
       color: isGolden ? '#f59e0b' : '#38bdf8'
     });
@@ -1701,6 +1711,67 @@ export default class GardenScene extends Phaser.Scene {
       ctx.fillRect(38, 14, 4, 4); // Peak top star
 
       canvas.refresh();
+    }
+  }
+
+  private initAtmosphere() {
+    const hours = new Date().getHours();
+    
+    let color = 0xfffaf0;
+    let alpha = 0.02;
+    let isNight = false;
+
+    if (hours >= 5 && hours < 9) {
+      // Morning Dew (warm rose/peach pink)
+      color = 0xff9e7d;
+      alpha = 0.15;
+    } else if (hours >= 9 && hours < 17) {
+      // Clear Greenhouse Day (crystal warm white)
+      color = 0xfffaf0;
+      alpha = 0.02;
+    } else if (hours >= 17 && hours < 20) {
+      // Golden Hour (warm sunset gold)
+      color = 0xf28e2b;
+      alpha = 0.22;
+    } else {
+      // Midnight (cozy deep navy/violet)
+      color = 0x07091e;
+      alpha = 0.42;
+      isNight = true;
+    }
+
+    // Create full viewport overlay rectangle spanning the world bounds (1024x768)
+    this.atmosphereOverlay = this.add.rectangle(0, 0, 1024, 768, color, alpha);
+    this.atmosphereOverlay.setOrigin(0, 0);
+    this.atmosphereOverlay.setDepth(1500); // Overlay characters and trees but let tags sit readable
+    this.atmosphereOverlay.setScrollFactor(1); // Anchored to world layout
+
+    if (isNight) {
+      this.spawnFireflies();
+    }
+  }
+
+  private spawnFireflies() {
+    // Spawn 15 drifting glowing fireflies at random locations in the greenhouse
+    for (let i = 0; i < 15; i++) {
+      const rx = Phaser.Math.Between(50, 974);
+      const ry = Phaser.Math.Between(50, 718);
+      
+      const firefly = this.add.circle(rx, ry, 2.5, 0xfff97d, 0.85);
+      firefly.setDepth(1600); // Floating above atmosphere overlay
+      this.fireflies.push(firefly);
+      
+      this.tweens.add({
+        targets: firefly,
+        x: rx + Phaser.Math.Between(-40, 40),
+        y: ry + Phaser.Math.Between(-40, 40),
+        alpha: { from: 0.2, to: 1.0 },
+        scale: { from: 0.6, to: 1.2 },
+        duration: Phaser.Math.Between(3000, 6000),
+        yoyo: true,
+        repeat: -1,
+        ease: 'Sine.easeInOut'
+      });
     }
   }
 }

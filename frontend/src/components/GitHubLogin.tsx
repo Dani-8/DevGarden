@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Github, Sparkles } from 'lucide-react';
-import Favicon from "../../assets/Favicon.png"
-
+import PixelBackdrop from './PixelBackdrop';
 
 interface GitHubLoginProps {
   onSuccess: () => void;
@@ -10,6 +9,7 @@ interface GitHubLoginProps {
 export default function GitHubLogin({ onSuccess }: GitHubLoginProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
 
   const handleLogin = async () => {
     setLoading(true);
@@ -139,9 +139,12 @@ export default function GitHubLogin({ onSuccess }: GitHubLoginProps) {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[85vh] px-4 py-6">
-      {/* Beautiful original rounded natural-shadowed card - now more compact with max-w-md */}
-      <div className="w-full max-w-md bg-white border-2 border-[var(--color-natural-border)] rounded-2xl natural-shadow-lg overflow-hidden p-6 relative">
+    <div className="relative w-full min-h-[90vh] flex flex-col items-center justify-center px-4 py-6 overflow-hidden">
+      {/* 1. Scrolling Pixel/Cloud Game Backdrop */}
+      <PixelBackdrop />
+
+      {/* 2. Beautiful original rounded natural-shadowed card - now more compact with max-w-md */}
+      <div className="w-full max-w-md bg-white border-2 border-[var(--color-natural-border)] rounded-2xl natural-shadow-lg overflow-hidden p-6 relative z-10">
         
         {/* Soft atmospheric gradient glows in the background */}
         <div className="absolute top-0 left-1/4 w-28 h-28 bg-[var(--color-natural-grass)]/10 rounded-full blur-3xl pointer-events-none" />
@@ -151,18 +154,18 @@ export default function GitHubLogin({ onSuccess }: GitHubLoginProps) {
           
           {/* Logo Header - original rounded style, slightly smaller */}
           <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-[var(--color-natural-foliage)] border-2 border-white text-[var(--color-natural-accent)] mb-3 animate-pulse">
-            <img src={Favicon} alt="" />
+            <Sparkles className="w-6 h-6" />
           </div>
  
           {/* Press Start 2P Pixelated Title but nicely scaled */}
           <h1 className="text-sm md:text-base font-press tracking-wider text-[var(--color-natural-ink)] mb-3 select-none">
-            DEVGARDEN<span className="text-[var(--color-natural-foliage)]">.</span>
+            DEVGARDEN<span className="text-[var(--color-natural-grass)]">.</span>
           </h1>
  
           {/* VT323 Cozy Pixelated description block within rounded box - scaled down to be crisp */}
           <div className="bg-[var(--color-natural-bg)] border-2 border-dashed border-[var(--color-natural-border)]/50 p-4 mb-5 text-left rounded-xl">
-            <p className="text-slate-700 text-md md:text-md font-pixel leading-normal">
-              🌿 "Step into a cozy pixel greengarden. Walk around, talk with other devs, and watch your avatar grow with your GitHub contributions."
+            <p className="text-slate-700 text-lg md:text-xl font-pixel leading-normal">
+              🌿 "Step into a cozy pixel greenhouse. Walk around, talk with other devs, and watch your avatar grow with your GitHub contributions."
             </p>
           </div>
  
@@ -184,7 +187,7 @@ export default function GitHubLogin({ onSuccess }: GitHubLoginProps) {
             >
               <div className="flex items-center justify-center gap-2">
                 <Github className="w-4 h-4 fill-[var(--color-natural-ink)] stroke-none" />
-                <span>{loading ? 'Connecting...' : 'ENTER GARDEN'}</span>
+                <span>{loading ? 'Connecting...' : 'Enter Garden'}</span>
               </div>
             </button>
           </div>
