@@ -10,10 +10,18 @@ export interface UserProfile {
   level: number;
   score: number;
   title: string;
-  visual_tier: string; // "green" | "blue" | "purple" | "crimson" | "cosmic"
+  visual_tier: 'green' | 'blue' | 'purple' | 'crimson' | 'cosmic' | string;
   last_seen: number;
   updated_at: number;
   cosmetics?: string[];
+}
+
+export interface AuthSession {
+  loggedIn: boolean;
+  user?: UserProfile;
+  supabaseUrl?: string;
+  supabaseAnonKey?: string;
+  error?: string;
 }
 
 export interface PlayerState {
@@ -50,4 +58,15 @@ export interface DecorationRow {
   placed_by: string;
   placed_by_username: string;
   created_at: number;
+}
+
+export interface ChallengeQuestion {
+  field: string;
+  question: string;
+  options: string[];
+}
+
+export interface VerificationResult {
+  correct: boolean;
+  explanation: string;
 }

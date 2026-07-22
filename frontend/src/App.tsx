@@ -3,13 +3,13 @@ import { SupabaseSocket } from './SupabaseSocket.js';
 import { Github, Trophy, LogOut, Sparkles, User, HelpCircle } from 'lucide-react';
 import LOGO from "../assets/LOGO.png"
 
-import { PlayerState, UserProfile } from './types.js';
-import GitHubLogin from './components/GitHubLogin.js';
+import { PlayerState, UserProfile } from './types/index.js';
+import GitHubLogin from './components/auth/GitHubLogin.js';
 import GameContainer from './game/GameContainer.js';
-import EmoteWheel from './components/EmoteWheel.js';
-import ProfileCard from './components/ProfileCard.js';
-import Leaderboard from './components/Leaderboard.js';
-import Sidebar from './components/Sidebar.js';
+import EmoteWheel from './components/social/EmoteWheel.js';
+import ProfileCard from './components/profile/ProfileCard.js';
+import Leaderboard from './components/leaderboard/Leaderboard.js';
+import Sidebar from './components/layout/Sidebar.js';
 
 export default function App() {
   const [session, setSession] = useState<{ loggedIn: boolean; user?: UserProfile; supabaseUrl?: string; supabaseAnonKey?: string } | null>(null);

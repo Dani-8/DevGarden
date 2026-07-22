@@ -56,7 +56,6 @@ export class SupabaseSocket {
         }
 
         const players = [this.selfPlayer];
-
         const apiBase = import.meta.env.VITE_API_URL || '';
         fetch(`${apiBase}/api/leaderboard`)
           .then(res => res.json())
@@ -211,7 +210,7 @@ export class SupabaseSocket {
             }
           });
       })
-      .on('presence', { event: 'join' }, ({ key, newPresences }) => {
+      .on('presence', { event: 'join' }, ({ newPresences }) => {
         newPresences.forEach((p: any) => {
           if (p.id !== this.selfPlayer.id) {
             this.trigger('player_joined', {
@@ -234,7 +233,7 @@ export class SupabaseSocket {
           }
         });
       })
-      .on('presence', { event: 'leave' }, ({ key, leftPresences }) => {
+      .on('presence', { event: 'leave' }, ({ leftPresences }) => {
         leftPresences.forEach((p: any) => {
           this.trigger('player_left', { id: p.id });
         });
@@ -318,7 +317,6 @@ export class SupabaseSocket {
             isEmote: !!data.isEmote,
           });
 
-          // Mock automated reply from sleeping NPC
           if (Math.random() < 0.5) {
             setTimeout(() => {
               this.trigger('player_chatted', {
@@ -364,7 +362,6 @@ export class SupabaseSocket {
           isEmote: !!data.isEmote,
         },
       });
-      // Trigger locally so the sender immediately sees their own speech bubble/emoji popup
       this.trigger('player_chatted', {
         id: this.selfPlayer.id,
         text: data.text,
