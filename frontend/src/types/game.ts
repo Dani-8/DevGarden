@@ -1,0 +1,25 @@
+export interface PlayerState {
+  id: string; // github_id
+  username: string;
+  avatar_url: string;
+  level: number;
+  score: number;
+  title: string;
+  visual_tier: string;
+  x: number;
+  y: number;
+  anim: string;
+  isNPC?: boolean;
+  isSleeping?: boolean;
+  commits?: number;
+  stars?: number;
+  followers?: number;
+  repos?: number;
+  cosmetics?: string[];
+}
+
+export interface ChatBubbleState {
+  text: string;
+  isEmote: boolean;
+  timestamp: number;
+}
