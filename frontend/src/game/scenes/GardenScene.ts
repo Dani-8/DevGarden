@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
-import { PlayerState, DecorationRow } from '../../types.js';
-import { showPlayerBubble } from '../Messaging.js';
+import { PlayerState, DecorationRow } from '../../types/index.js';
+import { showPlayerBubble } from '../messaging/Messaging.js';
 
 export default class GardenScene extends Phaser.Scene {
   private socket!: any;

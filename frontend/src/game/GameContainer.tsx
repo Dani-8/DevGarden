@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Phaser from 'phaser';
 import GardenScene from './scenes/GardenScene.js';
-import { PlayerState } from '../types.js';
+import { PlayerState } from '../types/index.js';
 import DecorHotbar from '../components/decor/DecorHotbar.js';
 
 interface GameContainerProps {
