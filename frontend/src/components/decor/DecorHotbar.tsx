@@ -24,7 +24,6 @@ export default function DecorHotbar() {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [hoveredItem, setHoveredItem] = useState<HotbarItem | null>(null);
 
-  // Sync state changes with Sidebar button
   useEffect(() => {
     const event = new CustomEvent('garden-kit-state-changed', {
       detail: { isOpen }
@@ -32,7 +31,6 @@ export default function DecorHotbar() {
     window.dispatchEvent(event);
   }, [isOpen]);
 
-  // Trigger active tool change when selectedId changes
   useEffect(() => {
     const event = new CustomEvent('select-decor-tool', {
       detail: { toolId: selectedId }
@@ -40,7 +38,6 @@ export default function DecorHotbar() {
     window.dispatchEvent(event);
   }, [selectedId]);
 
-  // Support custom toggle event from Sidebar and K key shortcut
   useEffect(() => {
     const handleToggle = () => {
       setIsOpen(prev => {
@@ -54,20 +51,17 @@ export default function DecorHotbar() {
     };
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      // Don't intercept when user is typing in inputs or text areas
       const activeEl = document.activeElement;
       if (activeEl && (activeEl.tagName === 'INPUT' || activeEl.tagName === 'TEXTAREA' || (activeEl as HTMLElement).isContentEditable)) {
         return;
       }
 
-      // Check for K key to toggle Garden Kit
       if (e.key === 'k' || e.key === 'K') {
         e.preventDefault();
         handleToggle();
         return;
       }
 
-      // Only handle numeric slots if the Garden Kit hotbar is currently open
       if (!isOpen) return;
 
       const keyNum = parseInt(e.key);
@@ -75,7 +69,6 @@ export default function DecorHotbar() {
         e.preventDefault();
         const item = DECOR_ITEMS[keyNum - 1];
         if (item) {
-          // If already selected, toggle off (revert to walking/default)
           setSelectedId(prev => prev === item.id ? null : item.id);
         }
       } else if (e.key === 'Escape') {
@@ -91,7 +84,6 @@ export default function DecorHotbar() {
     };
   }, [isOpen]);
 
-  // Listen for external cancellations of placement mode (e.g. from Phaser on successful placement or cancel)
   useEffect(() => {
     const handleCancel = () => {
       setSelectedId(null);
@@ -106,17 +98,15 @@ export default function DecorHotbar() {
 
   return (
     <div className="absolute top-4 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 select-none pointer-events-auto z-20 w-[90%] max-w-lg">
-      {/* 1. Cozy Help Information Panel (positioned beautifully above hotbar) */}
       {isOpen && showInfo && (
         <div className="bg-[#faf6eb] border-4 border-[#3a2f28] p-3.5 rounded-xl shadow-[6px_6px_0px_0px_rgba(58,47,40,0.15)] max-w-md text-left relative animate-fade-in mb-1">
-          {/* Close Info */}
-          <button 
-            onClick={() => setShowInfo(false)} 
+          <button
+            onClick={() => setShowInfo(false)}
             className="absolute top-1.5 right-1.5 w-5 h-5 bg-[#3a2f28]/10 hover:bg-[#3a2f28]/20 rounded-full text-[10px] text-[#3a2f28] flex items-center justify-center cursor-pointer font-bold border-0"
           >
             ✕
           </button>
-          
+
           <h4 className="text-[#3a2f28] font-press text-[10px] uppercase mb-1.5 flex items-center gap-1.5">
             <span>✨ Garden Kit Guide</span>
           </h4>
@@ -129,11 +119,9 @@ export default function DecorHotbar() {
         </div>
       )}
 
-      {/* 2. Minecraft-style Hotbar Panel */}
       {isOpen && (
         <div className="flex flex-col items-center gap-1.5 animate-fade-in relative">
           <div className="flex items-center gap-1.5 bg-slate-900/90 p-1.5 rounded-xl border-2 border-slate-700/60 shadow-2xl backdrop-blur-md relative">
-            {/* Absolutely positioned Dynamic Item Tooltip Description */}
             {hoveredItem && (
               <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-slate-950/95 border border-slate-800 text-slate-100 rounded-lg px-3 py-1.5 shadow-xl w-64 text-center backdrop-blur-md pointer-events-none z-30 animate-fade-in">
                 <p className="text-xs font-bold text-amber-400">{hoveredItem.name}</p>
@@ -144,7 +132,7 @@ export default function DecorHotbar() {
             {DECOR_ITEMS.map((item, index) => {
               const isSelected = selectedId === item.id;
               const isHammer = item.id === 'hammer';
-              
+
               return (
                 <button
                   id={`hotbar-slot-${item.id}`}
@@ -152,23 +140,19 @@ export default function DecorHotbar() {
                   onClick={() => handleSelect(item)}
                   onMouseEnter={() => setHoveredItem(item)}
                   onMouseLeave={() => setHoveredItem(null)}
-                  className={`relative w-11 h-11 rounded-lg flex items-center justify-center text-xl transition-all duration-150 cursor-pointer border ${
-                    isSelected
+                  className={`relative w-11 h-11 rounded-lg flex items-center justify-center text-xl transition-all duration-150 cursor-pointer border ${isSelected
                       ? 'bg-amber-500/30 border-amber-400 shadow-inner scale-105 ring-2 ring-amber-400/50'
                       : 'bg-slate-950/60 border-slate-800 hover:bg-slate-800/80 hover:border-slate-700 hover:scale-105'
-                  }`}
+                    }`}
                 >
-                  {/* Hotbar index badge */}
                   <span className="absolute top-0.5 left-1 text-[8px] font-mono text-slate-500 font-bold">
                     {index + 1}
                   </span>
 
-                  {/* Emoji graphic */}
                   <span className={`select-none filter drop-shadow ${isSelected ? 'animate-pulse' : ''}`}>
                     {item.emoji}
                   </span>
 
-                  {/* Pulse overlay indicator for active placement */}
                   {isSelected && !isHammer && (
                     <span className="absolute inset-0 border border-amber-400 rounded-lg animate-ping opacity-30 pointer-events-none" />
                   )}
@@ -176,14 +160,12 @@ export default function DecorHotbar() {
               );
             })}
 
-            {/* Integrated Help Slot Button */}
             <button
               onClick={() => setShowInfo(prev => !prev)}
-              className={`w-11 h-11 rounded-lg flex items-center justify-center text-lg transition-all duration-150 cursor-pointer border ${
-                showInfo
+              className={`w-11 h-11 rounded-lg flex items-center justify-center text-lg transition-all duration-150 cursor-pointer border ${showInfo
                   ? 'bg-amber-500/30 border-amber-400 ring-2 ring-amber-400/50 scale-105'
                   : 'bg-slate-950/60 border-slate-800 hover:bg-slate-800/80 hover:border-slate-700 hover:scale-105'
-              }`}
+                }`}
               title="How to Use"
             >
               ❓
@@ -192,12 +174,11 @@ export default function DecorHotbar() {
         </div>
       )}
 
-      {/* 3. Active item placing message */}
       {isOpen && selectedId && (
         <div className="bg-amber-500/15 border border-amber-500/25 px-3 py-1 rounded-full backdrop-blur-md animate-pulse">
           <p className="text-[10px] font-mono text-amber-400 font-semibold">
-            {selectedId === 'hammer' 
-              ? '🔨 Click any item you placed in the garden to remove it!' 
+            {selectedId === 'hammer'
+              ? '🔨 Click any item you placed in the garden to remove it!'
               : `✨ Click on the grass to place your ${DECOR_ITEMS.find(d => d.id === selectedId)?.name}! [ESC] to cancel`
             }
           </p>
@@ -206,4 +187,3 @@ export default function DecorHotbar() {
     </div>
   );
 }
-
