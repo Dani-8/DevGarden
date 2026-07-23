@@ -660,23 +660,60 @@ export default class GardenScene extends Phaser.Scene {
   // --- PROCEDURAL GAME GRAPHICS ENGINE (NO STATIC URLS NEEDED) ---
 
   private drawTilemap() {
-    // Render ground grid
+    // Render ground grid (32 cols x 24 rows)
     for (let tx = 0; tx < 32; tx++) {
       for (let ty = 0; ty < 24; ty++) {
         const px = tx * 32;
         const py = ty * 32;
 
-        // Path coordinates: A nice loop path around the fountain center (fountain at 512, 384)
-        const isPathX = (tx >= 6 && tx <= 26) && (ty === 7 || ty === 17);
-        const isPathY = (ty >= 7 && ty <= 17) && (tx === 6 || tx === 26);
-        const isCenterAisle = (tx === 16 && ty >= 7 && ty <= 17) || (ty === 12 && tx >= 6 && tx <= 26);
+        // 1. River Stream (tx = 24..26)
+        if (tx >= 24 && tx <= 26) {
+          // Bridges cross over at top path (ty = 7) and bottom path (ty = 17)
+          if (ty === 7 || ty === 17) {
+            this.add.image(px + 16, py + 16, 'bridge_wood_tile').setDepth(-10);
+            continue;
+          }
+
+          if (tx === 24) {
+            this.add.image(px + 16, py + 16, 'river_bank_west').setDepth(-10);
+          } else if (tx === 26) {
+            this.add.image(px + 16, py + 16, 'river_bank_east').setDepth(-10);
+          } else {
+            const isWater2 = (tx + ty) % 2 === 0;
+            this.add.image(px + 16, py + 16, isWater2 ? 'river_water_2' : 'river_water_1').setDepth(-10);
+
+            // Procedural lily pad
+            if ((tx * 13 + ty * 29) % 7 === 0) {
+              this.add.image(px + 16, py + 16, 'lily_pad_tile').setDepth(-9);
+            }
+          }
+          continue;
+        }
+
+        // 2. Eastern Garden Bank (tx >= 27)
+        if (tx >= 27) {
+          const isEastPath = (ty === 7 || ty === 17);
+          if (isEastPath) {
+            this.add.image(px + 16, py + 16, 'dirt_tile').setDepth(-10);
+          } else {
+            const rng = (tx * 17 + ty * 31) % 100;
+            if (rng < 12) {
+              this.add.image(px + 16, py + 16, 'grass_tile_pink').setDepth(-10);
+            } else {
+              this.add.image(px + 16, py + 16, 'grass_tile').setDepth(-10);
+            }
+          }
+          continue;
+        }
+
+        // 3. Western Main Garden (tx < 24) - Exact original path & grass layout
+        const isPathX = (tx >= 6 && tx <= 23) && (ty === 7 || ty === 17);
+        const isPathY = (ty >= 7 && ty <= 17) && (tx === 6 || tx === 23);
+        const isCenterAisle = (tx === 16 && ty >= 7 && ty <= 17) || (ty === 12 && tx >= 6 && tx <= 23);
 
         if (isPathX || isPathY || isCenterAisle) {
-          // Dirt tile
           this.add.image(px + 16, py + 16, 'dirt_tile').setDepth(-10);
         } else {
-          // Grass tile
-          // Sprinkle decorative flower details procedurally
           const rng = (tx * 17 + ty * 31) % 100;
           if (rng < 8) {
             this.add.image(px + 16, py + 16, 'grass_tile_yellow').setDepth(-10);
@@ -692,12 +729,14 @@ export default class GardenScene extends Phaser.Scene {
 
   private createGardenProps() {
     // 1. Boundary Trees forest
-    // Top border trees
+    // Top border trees (skip river channel around x=768-832)
     for (let x = 32; x <= 1024; x += 96) {
+      if (x >= 736 && x <= 864) continue;
       this.spawnTree(x, 24);
     }
-    // Bottom border trees
+    // Bottom border trees (skip river channel around x=768-832)
     for (let x = 32; x <= 1024; x += 96) {
+      if (x >= 736 && x <= 864) continue;
       this.spawnTree(x, 744);
     }
     // Left border trees
@@ -759,6 +798,40 @@ export default class GardenScene extends Phaser.Scene {
     this.spawnBench(380, 478, 'bench_horizontal');
     // Bottom-Right Bench
     this.spawnBench(644, 478, 'bench_horizontal');
+    // Eastern Riverside Benches over the Bridges
+    this.spawnBench(920, 230, 'bench_horizontal');
+    this.spawnBench(920, 550, 'bench_horizontal');
+
+    // 4. River Physics Colliders (Blocks walking into water, leaves bridges open!)
+    // North water block (y: 0 to 224)
+    const northWater = this.add.zone(800, 112, 96, 224);
+    this.physics.add.existing(northWater, true);
+    this.obstaclesGroup.add(northWater);
+
+    // Mid water block between bridges (y: 256 to 544)
+    const midWater = this.add.zone(800, 400, 96, 288);
+    this.physics.add.existing(midWater, true);
+    this.obstaclesGroup.add(midWater);
+
+    // South water block (y: 576 to 768)
+    const southWater = this.add.zone(800, 672, 96, 192);
+    this.physics.add.existing(southWater, true);
+    this.obstaclesGroup.add(southWater);
+
+    // Sparkling River Water Particle Emitter
+    const riverSparkles = this.add.particles(800, 384, 'water_particle', {
+      scale: { start: 0.8, end: 0.1 },
+      alpha: { start: 0.7, end: 0 },
+      speedY: { min: 20, max: 50 },
+      speedX: { min: -10, max: 10 },
+      lifespan: 1200,
+      frequency: 150,
+      emitZone: {
+        type: 'random',
+        source: new Phaser.Geom.Rectangle(-32, -350, 64, 700) as any
+      }
+    });
+    riverSparkles.setDepth(-8);
 
     // 4. Leaderboard Tree / Signpost (at 512, 120)
     this.leaderboardTreeObj = this.add.image(512, 110, 'leaderboard_tree');
@@ -1095,11 +1168,19 @@ export default class GardenScene extends Phaser.Scene {
     // 2. Water bubble particle
     this.drawCircleTexture('water_particle', 4, '#a5f3fc', false);
 
-    // 3. TileTextures: grass, yellow grass, pink grass, dirt
+    // 3. TileTextures: grass, yellow grass, pink grass, dirt, river water, banks, and wooden bridges
     this.drawGrassTile('grass_tile', '#428554', []);
     this.drawGrassTile('grass_tile_yellow', '#428554', [{ x: 8, y: 12, c: '#ffd700' }, { x: 24, y: 20, c: '#ffd700' }]);
     this.drawGrassTile('grass_tile_pink', '#428554', [{ x: 12, y: 24, c: '#f472b6' }, { x: 20, y: 6, c: '#ffffff' }]);
     this.drawDirtTile();
+
+    // River & Bridge Textures
+    this.drawWaterTile('river_water_1', '#0284c7', '#38bdf8');
+    this.drawWaterTile('river_water_2', '#0369a1', '#0284c7');
+    this.drawRiverBankTile('river_bank_west', true);
+    this.drawRiverBankTile('river_bank_east', false);
+    this.drawBridgeWoodTile();
+    this.drawLilyPadTile();
 
     // 4. Props: Trees, Fountain, Benches, Signposts
     this.drawTreeProp();
@@ -1188,10 +1269,88 @@ export default class GardenScene extends Phaser.Scene {
     // Small pixel noise to make it look gritty/organic
     ctx.fillStyle = '#cdad7e';
     const noises = [{ x: 5, y: 12 }, { x: 18, y: 4 }, { x: 25, y: 22 }, { x: 10, y: 28 }, { x: 29, y: 14 }];
-    noises.forEach(n => {
-      ctx.fillRect(n.x, n.y, 2, 1);
-      ctx.fillRect(n.x - 1, n.y + 1, 1, 1);
-    });
+    canvas.refresh();
+  }
+
+  private drawWaterTile(key: string, baseColor: string, waveColor: string) {
+    const canvas = this.textures.createCanvas(key, 32, 32);
+    const ctx = canvas.getContext();
+
+    ctx.fillStyle = baseColor;
+    ctx.fillRect(0, 0, 32, 32);
+
+    ctx.fillStyle = waveColor;
+    ctx.fillRect(4, 8, 12, 2);
+    ctx.fillRect(20, 16, 8, 2);
+    ctx.fillRect(8, 24, 10, 2);
+
+    canvas.refresh();
+  }
+
+  private drawRiverBankTile(key: string, isWest: boolean) {
+    const canvas = this.textures.createCanvas(key, 32, 32);
+    const ctx = canvas.getContext();
+
+    // Base water
+    ctx.fillStyle = '#0284c7';
+    ctx.fillRect(0, 0, 32, 32);
+
+    // Grass and mud shore edge
+    ctx.fillStyle = '#428554';
+    if (isWest) {
+      ctx.fillRect(0, 0, 16, 32);
+      ctx.fillStyle = '#854d0e';
+      ctx.fillRect(14, 0, 4, 32);
+    } else {
+      ctx.fillRect(16, 0, 16, 32);
+      ctx.fillStyle = '#854d0e';
+      ctx.fillRect(14, 0, 4, 32);
+    }
+
+    canvas.refresh();
+  }
+
+  private drawBridgeWoodTile() {
+    const canvas = this.textures.createCanvas('bridge_wood_tile', 32, 32);
+    const ctx = canvas.getContext();
+
+    // Sturdy wooden bridge plank base
+    ctx.fillStyle = '#854d0e';
+    ctx.fillRect(0, 0, 32, 32);
+
+    // Dark plank separation lines
+    ctx.fillStyle = '#532d08';
+    ctx.fillRect(0, 0, 32, 2);
+    ctx.fillRect(0, 10, 32, 2);
+    ctx.fillRect(0, 20, 32, 2);
+    ctx.fillRect(0, 30, 32, 2);
+
+    // Wooden grain detail highlights
+    ctx.fillStyle = '#a16207';
+    ctx.fillRect(4, 4, 12, 2);
+    ctx.fillRect(18, 14, 10, 2);
+    ctx.fillRect(6, 24, 14, 2);
+
+    canvas.refresh();
+  }
+
+  private drawLilyPadTile() {
+    const canvas = this.textures.createCanvas('lily_pad_tile', 32, 32);
+    const ctx = canvas.getContext();
+
+    // Base river water
+    ctx.fillStyle = '#0284c7';
+    ctx.fillRect(0, 0, 32, 32);
+
+    // Green rounded lily pad
+    ctx.fillStyle = '#22c55e';
+    ctx.beginPath();
+    ctx.arc(16, 16, 10, 0, Math.PI * 1.8);
+    ctx.fill();
+
+    // Pink water lily blossom
+    ctx.fillStyle = '#f472b6';
+    ctx.fillRect(14, 14, 4, 4);
 
     canvas.refresh();
   }
