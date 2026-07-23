@@ -120,6 +120,15 @@ export class WorldPropsManager {
     devArch.setOrigin(0.5, 0.85);
     devArch.setDepth(680);
 
+    // Gate pillars collision (left & right pillars of the archway, leaving middle open for road)
+    const leftPillar = scene.add.zone(472, 665, 18, 24);
+    scene.physics.add.existing(leftPillar, true);
+    obstaclesGroup.add(leftPillar);
+
+    const rightPillar = scene.add.zone(580, 665, 18, 24);
+    scene.physics.add.existing(rightPillar, true);
+    obstaclesGroup.add(rightPillar);
+
     // Gate Trees flanking the Dev Garden entrance
     this.spawnTree(scene, obstaclesGroup, 458, 670);
     this.spawnTree(scene, obstaclesGroup, 594, 670);
@@ -131,6 +140,25 @@ export class WorldPropsManager {
     codeCafe.setOrigin(0.5, 0.85);
     codeCafe.setDepth(672);
     scene.physics.add.existing(codeCafe, true);
+
+    const cafeBody = codeCafe.body as Phaser.Physics.Arcade.StaticBody;
+    const cw = 105;
+    const ch = 28;
+    const cox = 10;
+    const coy = 72;
+
+    cafeBody.updateFromGameObject = function (this: Phaser.Physics.Arcade.StaticBody) {
+      const gameObject = this.gameObject as any;
+      this.width = cw;
+      this.height = ch;
+      this.halfWidth = cw / 2;
+      this.halfHeight = ch / 2;
+      this.x = (gameObject.x - (gameObject.originX * gameObject.displayWidth)) + cox;
+      this.y = (gameObject.y - (gameObject.originY * gameObject.displayHeight)) + coy;
+      this.center.setTo(this.x + this.halfWidth, this.y + this.halfHeight);
+      return this;
+    };
+    cafeBody.updateFromGameObject();
     obstaclesGroup.add(codeCafe);
 
     // Fireflies
@@ -320,6 +348,22 @@ export class WorldPropsManager {
     lamp.setOrigin(0.5, 0.9);
     lamp.setDepth(y);
     scene.physics.add.existing(lamp, true);
+
+    const lampBody = lamp.body as Phaser.Physics.Arcade.StaticBody;
+    const lw = 10;
+    const lh = 10;
+    lampBody.updateFromGameObject = function (this: Phaser.Physics.Arcade.StaticBody) {
+      const gameObject = this.gameObject as any;
+      this.width = lw;
+      this.height = lh;
+      this.halfWidth = lw / 2;
+      this.halfHeight = lh / 2;
+      this.x = gameObject.x - 5;
+      this.y = gameObject.y - 12;
+      this.center.setTo(this.x + 5, this.y + 5);
+      return this;
+    };
+    lampBody.updateFromGameObject();
     obstaclesGroup.add(lamp);
 
     const glow = scene.add.particles(x, y - 48, 'glow_particle', {
