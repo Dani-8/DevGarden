@@ -43,7 +43,7 @@ export default function Leaderboard({ onClose }: LeaderboardProps) {
             <p className="text-[10px] text-slate-500 font-sans">Legendary developers registered in-world</p>
           </div>
         </div>
-        
+
         <div className="flex items-center gap-1">
           <button
             onClick={fetchLeaderboard}
@@ -88,11 +88,10 @@ export default function Leaderboard({ onClose }: LeaderboardProps) {
             return (
               <div
                 key={u.github_id}
-                className={`flex items-center justify-between p-3 rounded-xl border-2 transition-all ${
-                  isTop3
+                className={`flex items-center justify-between p-3 rounded-xl border-2 transition-all ${isTop3
                     ? 'bg-[var(--color-natural-accent)]/30 border-[var(--color-natural-foliage)]/40'
                     : 'bg-[var(--color-natural-bg)]/60 border-[var(--color-natural-border)]/30'
-                }`}
+                  }`}
               >
                 <div className="flex items-center gap-3">
                   <div className="w-6 flex items-center justify-center text-xs font-bold text-[var(--color-natural-ink)]/80">
