@@ -413,13 +413,10 @@ export default function App() {
 }
 
 const DEV_GARDEN_LOADING_PHRASES = [
-  "🌿 Watering pixel sprouts & planting seeds...",
-  "☕ Warming up the Code Cafe espresso machine...",
-  "🌳 Polishing Golden Oak leaves & leaderboard...",
-  "🦆 Feeding ducklings near the Zen river...",
-  "🧘 Pre-clearing cozy wooden garden benches...",
-  "🌸 Blooming Sakura blossoms in East garden...",
-  "✨ Syncing DevGarden yard coordinates..."
+  "🌱 Sprouting DevGarden world...",
+  "☕ Preparing Code Cafe...",
+  "🌳 Connecting to open yard...",
+  "✨ Syncing player state..."
 ];
 
 function DevGardenLoadingMessage() {

@@ -264,7 +264,18 @@ export default class GardenScene extends Phaser.Scene {
           this.playerManager.showChatBubble(this.playerContainer, "🚶 Stood up!", false);
         } else {
           this.isSitting = true;
-          this.playerContainer.setPosition(nearBench.x, nearBench.y - 4);
+          let sitX = nearBench.x;
+          let sitY = nearBench.y - 4;
+
+          if (nearBench.type === 'bench_horizontal') {
+            sitX = Phaser.Math.Clamp(this.playerContainer.x, nearBench.x - 20, nearBench.x + 20);
+            sitY = nearBench.y - 4;
+          } else {
+            sitX = nearBench.x;
+            sitY = Phaser.Math.Clamp(this.playerContainer.y, nearBench.y - 20, nearBench.y + 20);
+          }
+
+          this.playerContainer.setPosition(sitX, sitY);
           body.setVelocity(0, 0);
           this.playerManager.showChatBubble(this.playerContainer, "🧘 Resting at Dev Garden...", false);
         }

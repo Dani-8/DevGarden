@@ -136,17 +136,17 @@ export class WorldPropsManager {
     this.spawnStreetLamp(scene, obstaclesGroup, 320, 672);
     this.spawnStreetLamp(scene, obstaclesGroup, 720, 672);
 
-    const codeCafe = scene.add.image(180, 670, 'code_cafe_building');
+    const codeCafe = scene.add.image(180, 665, 'code_cafe_building');
     codeCafe.setOrigin(0.5, 0.85);
-    codeCafe.setScale(1.25);
+    codeCafe.setScale(1.5, 1.35);
     codeCafe.setDepth(672);
     scene.physics.add.existing(codeCafe, true);
 
     const cafeBody = codeCafe.body as Phaser.Physics.Arcade.StaticBody;
-    const cw = 105;
-    const ch = 38;
-    const cox = 8;
-    const coy = 55;
+    const cw = 135;
+    const ch = 42;
+    const cox = 12;
+    const coy = 60;
 
     cafeBody.updateFromGameObject = function (this: Phaser.Physics.Arcade.StaticBody) {
       const gameObject = this.gameObject as any;
@@ -347,38 +347,47 @@ export class WorldPropsManager {
   private static spawnStreetLamp(scene: Phaser.Scene, obstaclesGroup: Phaser.Physics.Arcade.StaticGroup, x: number, y: number) {
     const lamp = scene.add.image(x, y, 'street_lamp');
     lamp.setOrigin(0.5, 0.9);
+    lamp.setScale(1.35);
     lamp.setDepth(y);
     scene.physics.add.existing(lamp, true);
 
     const lampBody = lamp.body as Phaser.Physics.Arcade.StaticBody;
-    const lw = 10;
-    const lh = 10;
+    const lw = 12;
+    const lh = 12;
     lampBody.updateFromGameObject = function (this: Phaser.Physics.Arcade.StaticBody) {
       const gameObject = this.gameObject as any;
       this.width = lw;
       this.height = lh;
       this.halfWidth = lw / 2;
       this.halfHeight = lh / 2;
-      this.x = gameObject.x - 5;
+      this.x = gameObject.x - 6;
       this.y = gameObject.y - 12;
-      this.center.setTo(this.x + 5, this.y + 5);
+      this.center.setTo(this.x + 6, this.y + 6);
       return this;
     };
     lampBody.updateFromGameObject();
     obstaclesGroup.add(lamp);
 
-    // Warm street light glows only during evening/night hours (17:00 - 07:00)
+    // Warm street light glows during evening/night, with ambient soft light aura
     const hours = new Date().getHours();
     const isNight = hours >= 17 || hours < 7;
 
     if (isNight) {
-      const glow = scene.add.particles(x, y - 48, 'glow_particle', {
-        scale: { start: 1.3, end: 0.8 },
-        alpha: { start: 0.5, end: 0.15 },
-        tint: 0xff9e1b, // Warm orange-yellow glow
-        speed: 4,
-        lifespan: 1100,
-        frequency: 250,
+      // Soft radial aura around lamp top
+      const aura = scene.add.graphics();
+      aura.fillStyle(0xffa500, 0.25);
+      aura.fillCircle(x, y - 56, 22);
+      aura.fillStyle(0xfff3a0, 0.4);
+      aura.fillCircle(x, y - 56, 10);
+      aura.setDepth(y - 2);
+
+      const glow = scene.add.particles(x, y - 56, 'glow_particle', {
+        scale: { start: 1.6, end: 0.8 },
+        alpha: { start: 0.6, end: 0.1 },
+        tint: 0xffa500, // Warm orange-yellow light
+        speed: 5,
+        lifespan: 1000,
+        frequency: 200,
         blendMode: 'ADD'
       });
       glow.setDepth(y - 1);
