@@ -50,6 +50,12 @@ export default class GardenScene extends Phaser.Scene {
   private obstaclesGroup!: Phaser.Physics.Arcade.StaticGroup;
   private leaderboardTreeObj!: Phaser.GameObjects.Image;
 
+  // Benches and sitting state
+  private benchesList: Array<{ x: number; y: number; type: string; sprite: Phaser.GameObjects.Image }> = [];
+  private isSitting: boolean = false;
+  private eKey!: Phaser.Input.Keyboard.Key;
+  private sitPromptText!: Phaser.GameObjects.Text;
+
   // Decoration placement state
   private activeDecorTool: string | null = null;
   private decorGhostPreview: Phaser.GameObjects.Container | null = null;
@@ -138,7 +144,21 @@ export default class GardenScene extends Phaser.Scene {
         S: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S),
         D: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D),
       };
+      this.eKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
     }
+
+    // Sitting UI prompt text floating above benches when standing near
+    this.sitPromptText = this.add.text(0, 0, 'Press [E] to Sit 🧘', {
+      fontSize: '11px',
+      fontFamily: 'system-ui, sans-serif',
+      fontStyle: 'bold',
+      color: '#ffffff',
+      backgroundColor: 'rgba(0, 0, 0, 0.75)',
+      padding: { x: 6, y: 3 }
+    });
+    this.sitPromptText.setOrigin(0.5, 1);
+    this.sitPromptText.setDepth(3000);
+    this.sitPromptText.setVisible(false);
 
     // 6. Setup Socket Event Listeners
     this.setupSocketListeners();
@@ -226,9 +246,53 @@ export default class GardenScene extends Phaser.Scene {
       vy *= 0.7071;
     }
 
-    // Update player body velocities (physics are attached to the container)
+    // Standing up if moving
+    if (this.isSitting && (vx !== 0 || vy !== 0)) {
+      this.isSitting = false;
+    }
+
+    // Interactive Bench Sitting check
+    let nearBench: { x: number; y: number; type: string } | null = null;
+    for (const bench of this.benchesList) {
+      const dist = Phaser.Math.Distance.Between(this.playerContainer.x, this.playerContainer.y, bench.x, bench.y);
+      if (dist < 40) {
+        nearBench = bench;
+        break;
+      }
+    }
+
     const body = this.playerContainer.body as Phaser.Physics.Arcade.Body;
-    body.setVelocity(vx, vy);
+
+    if (nearBench) {
+      this.sitPromptText.setPosition(this.playerContainer.x, this.playerContainer.y - 35);
+      this.sitPromptText.setText(this.isSitting ? 'Press [E] to Stand Up 🚶' : 'Press [E] to Sit 🧘');
+      this.sitPromptText.setVisible(true);
+
+      if (this.eKey && Phaser.Input.Keyboard.JustDown(this.eKey)) {
+        if (this.isSitting) {
+          this.isSitting = false;
+          this.showChatBubble(this.playerContainer, "🚶 Stood up!", false);
+        } else {
+          this.isSitting = true;
+          this.playerContainer.setPosition(nearBench.x, nearBench.y - 4);
+          body.setVelocity(0, 0);
+          this.showChatBubble(this.playerContainer, "🧘 Resting at Dev Garden...", false);
+        }
+      }
+    } else {
+      if (this.sitPromptText) this.sitPromptText.setVisible(false);
+      if (this.isSitting) {
+        this.isSitting = false;
+      }
+    }
+
+    if (this.isSitting) {
+      vx = 0;
+      vy = 0;
+      body.setVelocity(0, 0);
+    } else {
+      body.setVelocity(vx, vy);
+    }
 
     // Play walk/idle anims
     const tier = this.selfPlayer?.visual_tier || 'green';
@@ -666,10 +730,16 @@ export default class GardenScene extends Phaser.Scene {
         const px = tx * 32;
         const py = ty * 32;
 
-        // 1. River Stream (tx = 24..26)
+        // 1. South Town Boulevard & Sidewalks (ty >= 21)
+        if (ty >= 21) {
+          this.add.image(px + 16, py + 16, 'cobblestone_tile').setDepth(-10);
+          continue;
+        }
+
+        // 2. River Stream (tx = 24..26)
         if (tx >= 24 && tx <= 26) {
-          // Bridges cross over at top path (ty = 7) and bottom path (ty = 17)
-          if (ty === 7 || ty === 17) {
+          // Spacious 3-tile wide Wooden Bridges at top (ty = 6, 7, 8) and bottom (ty = 16, 17, 18)
+          if ((ty >= 6 && ty <= 8) || (ty >= 16 && ty <= 18)) {
             this.add.image(px + 16, py + 16, 'bridge_wood_tile').setDepth(-10);
             continue;
           }
@@ -690,14 +760,16 @@ export default class GardenScene extends Phaser.Scene {
           continue;
         }
 
-        // 2. Eastern Garden Bank (tx >= 27)
+        // 3. Eastern Zen Sanctuary (tx >= 27)
         if (tx >= 27) {
-          const isEastPath = (ty === 7 || ty === 17);
-          if (isEastPath) {
-            this.add.image(px + 16, py + 16, 'dirt_tile').setDepth(-10);
+          const isEastBridgePath = (ty >= 6 && ty <= 8) || (ty >= 16 && ty <= 18);
+          const isZenCourtyard = tx >= 27 && tx <= 30 && ty >= 9 && ty <= 15;
+
+          if (isEastBridgePath || isZenCourtyard) {
+            this.add.image(px + 16, py + 16, 'zen_gravel_tile').setDepth(-10);
           } else {
             const rng = (tx * 17 + ty * 31) % 100;
-            if (rng < 12) {
+            if (rng < 25) {
               this.add.image(px + 16, py + 16, 'grass_tile_pink').setDepth(-10);
             } else {
               this.add.image(px + 16, py + 16, 'grass_tile').setDepth(-10);
@@ -706,10 +778,10 @@ export default class GardenScene extends Phaser.Scene {
           continue;
         }
 
-        // 3. Western Main Garden (tx < 24) - Exact original path & grass layout
+        // 4. Western Main Garden (tx < 24) - Exact original path & grass layout
         const isPathX = (tx >= 6 && tx <= 23) && (ty === 7 || ty === 17);
         const isPathY = (ty >= 7 && ty <= 17) && (tx === 6 || tx === 23);
-        const isCenterAisle = (tx === 16 && ty >= 7 && ty <= 17) || (ty === 12 && tx >= 6 && tx <= 23);
+        const isCenterAisle = (tx === 16 && ty >= 7 && ty <= 20) || (ty === 12 && tx >= 6 && tx <= 23);
 
         if (isPathX || isPathY || isCenterAisle) {
           this.add.image(px + 16, py + 16, 'dirt_tile').setDepth(-10);
@@ -798,23 +870,24 @@ export default class GardenScene extends Phaser.Scene {
     this.spawnBench(380, 478, 'bench_horizontal');
     // Bottom-Right Bench
     this.spawnBench(644, 478, 'bench_horizontal');
-    // Eastern Riverside Benches over the Bridges
-    this.spawnBench(920, 230, 'bench_horizontal');
-    this.spawnBench(920, 550, 'bench_horizontal');
 
-    // 4. River Physics Colliders (Blocks walking into water, leaves bridges open!)
-    // North water block (y: 0 to 224)
-    const northWater = this.add.zone(816, 112, 65, 225);
+    // Eastern Zen Sanctuary Benches
+    this.spawnBench(930, 320, 'bench_horizontal');
+    this.spawnBench(930, 460, 'bench_horizontal');
+
+    // 4. River Physics Colliders (Blocks walking into water, leaves 3-tile wide bridges wide open!)
+    // North water block (y: 0 to 192)
+    const northWater = this.add.zone(816, 96, 65, 192);
     this.physics.add.existing(northWater, true);
     this.obstaclesGroup.add(northWater);
 
-    // Mid water block between bridges (y: 256 to 544)
-    const midWater = this.add.zone(816, 400, 65, 288);
+    // Mid water block between bridges (y: 288 to 512)
+    const midWater = this.add.zone(816, 400, 65, 224);
     this.physics.add.existing(midWater, true);
     this.obstaclesGroup.add(midWater);
 
-    // South water block (y: 576 to 768)
-    const southWater = this.add.zone(816, 672, 65, 192);
+    // South water block (y: 608 to 672)
+    const southWater = this.add.zone(816, 640, 65, 64);
     this.physics.add.existing(southWater, true);
     this.obstaclesGroup.add(southWater);
 
@@ -832,6 +905,67 @@ export default class GardenScene extends Phaser.Scene {
       }
     });
     riverSparkles.setDepth(-8);
+
+    // Swimming Ducks on the River
+    const duck1 = this.add.image(816, 140, 'duck_prop');
+    duck1.setDepth(140);
+    this.tweens.add({
+      targets: duck1,
+      y: 350,
+      duration: 12000,
+      yoyo: true,
+      repeat: -1,
+      ease: 'Sine.easeInOut'
+    });
+
+    const duck2 = this.add.image(816, 620, 'duck_prop');
+    duck2.setDepth(620);
+    this.tweens.add({
+      targets: duck2,
+      y: 420,
+      duration: 9000,
+      yoyo: true,
+      repeat: -1,
+      ease: 'Sine.easeInOut'
+    });
+
+    // 5. Eastern Zen Sanctuary (Sakura Cherry Blossom trees & Bamboo Groves)
+    this.spawnSakuraTree(930, 160);
+    this.spawnSakuraTree(930, 520);
+    this.spawnBamboo(985, 220);
+    this.spawnBamboo(985, 280);
+    this.spawnBamboo(985, 380);
+    this.spawnBamboo(985, 440);
+
+    // 6. South Town Boulevard (Entrance Arch, Street Lamps, Code Cafe Storefront)
+    const devArch = this.add.image(526, 665, 'dev_garden_arch');
+    devArch.setOrigin(0.5, 0.85);
+    devArch.setDepth(680);
+
+    this.spawnStreetLamp(320, 672);
+    this.spawnStreetLamp(720, 672);
+
+    const codeCafe = this.add.image(180, 672, 'code_cafe_building');
+    codeCafe.setOrigin(0.5, 0.85);
+    codeCafe.setDepth(672);
+    this.physics.add.existing(codeCafe, true);
+    this.obstaclesGroup.add(codeCafe);
+
+    // 7. Fireflies Ambient Lighting Particles
+    const fireflyEmitter = this.add.particles(512, 384, 'firefly_particle', {
+      scale: { start: 1, end: 0.2 },
+      alpha: { start: 0.8, end: 0 },
+      speedX: { min: -12, max: 12 },
+      speedY: { min: -12, max: 12 },
+      lifespan: 3000,
+      frequency: 250,
+      blendMode: 'ADD',
+      emitZone: {
+        type: 'random',
+        source: new Phaser.Geom.Rectangle(-450, -320, 900, 640) as any
+      }
+    });
+    fireflyEmitter.setDepth(2500);
 
     // 4. Leaderboard Tree / Signpost (at 512, 120)
     this.leaderboardTreeObj = this.add.image(512, 110, 'leaderboard_tree');
@@ -925,6 +1059,93 @@ export default class GardenScene extends Phaser.Scene {
     };
     benchBody.updateFromGameObject();
     this.obstaclesGroup.add(bench);
+
+    // Save bench in interactive list for sitting!
+    this.benchesList.push({ x, y, type: benchType, sprite: bench });
+  }
+
+  private spawnSakuraTree(x: number, y: number) {
+    const tree = this.add.image(x, y, 'sakura_tree_prop');
+    tree.setOrigin(0.5, 0.85);
+    tree.setDepth(y);
+    this.physics.add.existing(tree, true);
+
+    const treeBody = tree.body as Phaser.Physics.Arcade.StaticBody;
+    const tw = 10;
+    const th = 15;
+    const tox = 28;
+    const toy = 56;
+
+    treeBody.updateFromGameObject = function(this: Phaser.Physics.Arcade.StaticBody) {
+      const gameObject = this.gameObject as any;
+      this.width = tw;
+      this.height = th;
+      this.halfWidth = tw / 2;
+      this.halfHeight = th / 2;
+      this.x = (gameObject.x - (gameObject.originX * gameObject.displayWidth)) + tox;
+      this.y = (gameObject.y - (gameObject.originY * gameObject.displayHeight)) + toy;
+      this.center.setTo(this.x + this.halfWidth, this.y + this.halfHeight);
+      return this;
+    };
+    treeBody.updateFromGameObject();
+    this.obstaclesGroup.add(tree);
+
+    // Falling Sakura Petals Emitter
+    const petals = this.add.particles(x, y - 40, 'sakura_petal', {
+      scale: { start: 1, end: 0.3 },
+      alpha: { start: 0.9, end: 0 },
+      speedX: { min: -25, max: -5 },
+      speedY: { min: 15, max: 35 },
+      lifespan: 2500,
+      frequency: 300,
+      emitZone: {
+        type: 'random',
+        source: new Phaser.Geom.Rectangle(-20, -10, 40, 20) as any
+      }
+    });
+    petals.setDepth(y + 10);
+  }
+
+  private spawnBamboo(x: number, y: number) {
+    const bamboo = this.add.image(x, y, 'bamboo_prop');
+    bamboo.setOrigin(0.5, 0.9);
+    bamboo.setDepth(y);
+    this.physics.add.existing(bamboo, true);
+
+    const bambooBody = bamboo.body as Phaser.Physics.Arcade.StaticBody;
+    bambooBody.updateFromGameObject = function(this: Phaser.Physics.Arcade.StaticBody) {
+      const gameObject = this.gameObject as any;
+      this.width = 12;
+      this.height = 10;
+      this.halfWidth = 6;
+      this.halfHeight = 5;
+      this.x = gameObject.x - 6;
+      this.y = gameObject.y - 10;
+      this.center.setTo(this.x + 6, this.y + 5);
+      return this;
+    };
+    bambooBody.updateFromGameObject();
+    this.obstaclesGroup.add(bamboo);
+  }
+
+  private spawnStreetLamp(x: number, y: number) {
+    const lamp = this.add.image(x, y, 'street_lamp');
+    lamp.setOrigin(0.5, 0.9);
+    lamp.setDepth(y);
+    this.physics.add.existing(lamp, true);
+    this.obstaclesGroup.add(lamp);
+
+    // Warm streetlamp glow light aura
+    const glow = this.add.particles(x, y - 48, 'glow_particle', {
+      scale: { start: 1.2, end: 0.8 },
+      alpha: { start: 0.35, end: 0.1 },
+      tint: 0xfef08a,
+      speed: 5,
+      lifespan: 1000,
+      frequency: 300,
+      blendMode: 'ADD'
+    });
+    glow.setDepth(y - 1);
   }
 
   private createStarTree() {
@@ -1182,6 +1403,18 @@ export default class GardenScene extends Phaser.Scene {
     this.drawBridgeWoodTile();
     this.drawLilyPadTile();
 
+    // Zen, Boulevard, Duck, Sakura & Firefly Textures
+    this.drawZenGravelTile();
+    this.drawCobblestoneTile();
+    this.drawSakuraTreeProp();
+    this.drawBambooProp();
+    this.drawDevGardenArch();
+    this.drawStreetLampProp();
+    this.drawCodeCafeStorefront();
+    this.drawDuckProp();
+    this.drawPetalParticle();
+    this.drawFireflyParticle();
+
     // 4. Props: Trees, Fountain, Benches, Signposts
     this.drawTreeProp();
     this.drawFountainProp();
@@ -1352,6 +1585,284 @@ export default class GardenScene extends Phaser.Scene {
     ctx.fillStyle = '#f472b6';
     ctx.fillRect(14, 14, 4, 4);
 
+    canvas.refresh();
+  }
+
+  private drawZenGravelTile() {
+    const canvas = this.textures.createCanvas('zen_gravel_tile', 32, 32);
+    const ctx = canvas.getContext();
+
+    // Base light grey stone
+    ctx.fillStyle = '#e2e8f0';
+    ctx.fillRect(0, 0, 32, 32);
+
+    // Zen rake grooves
+    ctx.fillStyle = '#cbd5e1';
+    ctx.fillRect(0, 6, 32, 2);
+    ctx.fillRect(0, 16, 32, 2);
+    ctx.fillRect(0, 26, 32, 2);
+
+    // Pebble accents
+    ctx.fillStyle = '#94a3b8';
+    ctx.fillRect(6, 12, 3, 2);
+    ctx.fillRect(22, 22, 3, 2);
+
+    canvas.refresh();
+  }
+
+  private drawCobblestoneTile() {
+    const canvas = this.textures.createCanvas('cobblestone_tile', 32, 32);
+    const ctx = canvas.getContext();
+
+    // Mortar dark gray
+    ctx.fillStyle = '#334155';
+    ctx.fillRect(0, 0, 32, 32);
+
+    // Cobble stone blocks
+    ctx.fillStyle = '#64748b';
+    ctx.fillRect(1, 1, 14, 6);
+    ctx.fillRect(17, 1, 14, 6);
+    ctx.fillRect(1, 9, 7, 6);
+    ctx.fillRect(10, 9, 14, 6);
+    ctx.fillRect(26, 9, 5, 6);
+    ctx.fillRect(1, 17, 14, 6);
+    ctx.fillRect(17, 17, 14, 6);
+    ctx.fillRect(1, 25, 7, 6);
+    ctx.fillRect(10, 25, 14, 6);
+    ctx.fillRect(26, 25, 5, 6);
+
+    // Stone highlights
+    ctx.fillStyle = '#94a3b8';
+    ctx.fillRect(2, 2, 12, 1);
+    ctx.fillRect(18, 2, 12, 1);
+    ctx.fillRect(11, 10, 12, 1);
+
+    canvas.refresh();
+  }
+
+  private drawSakuraTreeProp() {
+    const canvas = this.textures.createCanvas('sakura_tree_prop', 64, 80);
+    const ctx = canvas.getContext();
+
+    // Shadow
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+    ctx.beginPath();
+    ctx.arc(32, 62, 13, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Trunk
+    ctx.fillStyle = '#451a03';
+    ctx.fillRect(28, 46, 8, 24);
+    ctx.fillStyle = '#290e02';
+    ctx.fillRect(32, 46, 4, 24);
+
+    // Sakura Cherry Blossom canopy
+    ctx.fillStyle = '#be185d'; // Deep pink shadow
+    ctx.beginPath();
+    ctx.arc(32, 28, 24, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = '#f472b6'; // Vibrant cherry blossom pink
+    ctx.beginPath();
+    ctx.arc(26, 24, 18, 0, Math.PI * 2);
+    ctx.arc(40, 26, 16, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = '#fbcfe8'; // Light pink highlights
+    ctx.beginPath();
+    ctx.arc(22, 18, 12, 0, Math.PI * 2);
+    ctx.arc(34, 16, 10, 0, Math.PI * 2);
+    ctx.fill();
+
+    // White blossom petals
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(20, 20, 2, 2);
+    ctx.fillRect(38, 24, 2, 2);
+    ctx.fillRect(28, 14, 2, 2);
+
+    canvas.refresh();
+  }
+
+  private drawBambooProp() {
+    const canvas = this.textures.createCanvas('bamboo_prop', 32, 64);
+    const ctx = canvas.getContext();
+
+    // Shadow
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+    ctx.fillRect(6, 58, 20, 4);
+
+    // 3 Bamboo Stalks
+    const stalks = [8, 16, 24];
+    stalks.forEach((sx, idx) => {
+      ctx.fillStyle = '#15803d';
+      ctx.fillRect(sx, 12 + (idx * 4), 4, 46 - (idx * 4));
+
+      ctx.fillStyle = '#86efac';
+      for (let ny = 20; ny < 55; ny += 12) {
+        ctx.fillRect(sx - 1, ny, 6, 2);
+      }
+
+      ctx.fillStyle = '#22c55e';
+      ctx.beginPath();
+      ctx.moveTo(sx + 2, 18);
+      ctx.lineTo(sx + 12, 12);
+      ctx.lineTo(sx + 4, 22);
+      ctx.fill();
+    });
+
+    canvas.refresh();
+  }
+
+  private drawDevGardenArch() {
+    const canvas = this.textures.createCanvas('dev_garden_arch', 128, 80);
+    const ctx = canvas.getContext();
+
+    // Left Pillar
+    ctx.fillStyle = '#78350f';
+    ctx.fillRect(12, 16, 16, 60);
+    ctx.fillStyle = '#451a03';
+    ctx.fillRect(20, 16, 8, 60);
+
+    // Right Pillar
+    ctx.fillStyle = '#78350f';
+    ctx.fillRect(100, 16, 16, 60);
+    ctx.fillStyle = '#451a03';
+    ctx.fillRect(108, 16, 8, 60);
+
+    // Cross Beam
+    ctx.fillStyle = '#92400e';
+    ctx.fillRect(4, 8, 120, 18);
+    ctx.fillStyle = '#78350f';
+    ctx.fillRect(4, 22, 120, 4);
+
+    // Arch roof top
+    ctx.fillStyle = '#b45309';
+    ctx.fillRect(0, 4, 128, 6);
+
+    // Banner "DEV GARDEN"
+    ctx.fillStyle = '#fef08a';
+    ctx.fillRect(32, 12, 64, 12);
+    ctx.strokeStyle = '#78350f';
+    ctx.strokeRect(32, 12, 64, 12);
+
+    ctx.fillStyle = '#451a03';
+    ctx.font = 'bold 8px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('DEV GARDEN', 64, 21);
+
+    // Lanterns on pillars
+    ctx.fillStyle = '#f59e0b';
+    ctx.fillRect(16, 28, 8, 10);
+    ctx.fillRect(104, 28, 8, 10);
+
+    canvas.refresh();
+  }
+
+  private drawStreetLampProp() {
+    const canvas = this.textures.createCanvas('street_lamp', 32, 64);
+    const ctx = canvas.getContext();
+
+    // Shadow
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+    ctx.fillRect(10, 58, 12, 4);
+
+    // Iron pole
+    ctx.fillStyle = '#1e293b';
+    ctx.fillRect(14, 16, 4, 44);
+    ctx.fillRect(12, 54, 8, 4);
+
+    // Lantern head
+    ctx.fillStyle = '#334155';
+    ctx.fillRect(10, 8, 12, 10);
+
+    // Glowing bulb
+    ctx.fillStyle = '#fef08a';
+    ctx.fillRect(12, 10, 8, 6);
+
+    canvas.refresh();
+  }
+
+  private drawCodeCafeStorefront() {
+    const canvas = this.textures.createCanvas('code_cafe_building', 96, 80);
+    const ctx = canvas.getContext();
+
+    // Shadow
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+    ctx.fillRect(4, 72, 88, 6);
+
+    // Brick building body
+    ctx.fillStyle = '#854d0e';
+    ctx.fillRect(8, 20, 80, 56);
+
+    // Roof awning (red and white stripes)
+    for (let i = 0; i < 80; i += 10) {
+      ctx.fillStyle = (i / 10) % 2 === 0 ? '#ef4444' : '#ffffff';
+      ctx.fillRect(8 + i, 16, 10, 12);
+    }
+
+    // Signboard "CODE CAFE"
+    ctx.fillStyle = '#3b82f6';
+    ctx.fillRect(20, 4, 56, 12);
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 8px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('☕ CODE CAFE', 48, 13);
+
+    // Glass door
+    ctx.fillStyle = '#0284c7';
+    ctx.fillRect(40, 44, 16, 32);
+    ctx.fillStyle = '#fef08a';
+    ctx.fillRect(42, 48, 12, 16);
+
+    // Cafe Window
+    ctx.fillStyle = '#38bdf8';
+    ctx.fillRect(14, 36, 20, 24);
+    ctx.fillStyle = '#fef08a';
+    ctx.fillRect(16, 38, 16, 20);
+
+    canvas.refresh();
+  }
+
+  private drawDuckProp() {
+    const canvas = this.textures.createCanvas('duck_prop', 16, 16);
+    const ctx = canvas.getContext();
+
+    ctx.fillStyle = '#fef08a';
+    ctx.fillRect(2, 6, 12, 8);
+    ctx.fillRect(6, 2, 6, 6);
+
+    ctx.fillStyle = '#f97316';
+    ctx.fillRect(12, 4, 4, 2);
+
+    ctx.fillStyle = '#000000';
+    ctx.fillRect(9, 3, 2, 2);
+
+    ctx.fillStyle = '#38bdf8';
+    ctx.fillRect(0, 12, 16, 2);
+
+    canvas.refresh();
+  }
+
+  private drawPetalParticle() {
+    const canvas = this.textures.createCanvas('sakura_petal', 6, 6);
+    const ctx = canvas.getContext();
+    ctx.fillStyle = '#f472b6';
+    ctx.beginPath();
+    ctx.arc(3, 3, 2.5, 0, Math.PI * 2);
+    ctx.fill();
+    canvas.refresh();
+  }
+
+  private drawFireflyParticle() {
+    const canvas = this.textures.createCanvas('firefly_particle', 6, 6);
+    const ctx = canvas.getContext();
+    const grad = ctx.createRadialGradient(3, 3, 0, 3, 3, 3);
+    grad.addColorStop(0, '#fef08a');
+    grad.addColorStop(1, 'rgba(254, 240, 138, 0)');
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.arc(3, 3, 3, 0, Math.PI * 2);
+    ctx.fill();
     canvas.refresh();
   }
 
