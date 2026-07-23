@@ -89,7 +89,7 @@ export default function App() {
       title: session.user.title,
       visual_tier: session.user.visual_tier,
       x: 526 + (Math.floor(Math.random() * 30) - 15), // On stone road in front of DevGarden Gate
-      y: 690 + (Math.floor(Math.random() * 20) - 10),
+      y: 715 + (Math.floor(Math.random() * 20) - 10),
       anim: 'idle_down',
       commits: session.user.commits,
       stars: session.user.stars,
