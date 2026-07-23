@@ -121,8 +121,8 @@ export class WorldPropsManager {
     devArch.setDepth(680);
 
     // Gate Trees flanking the Dev Garden entrance
-    this.spawnTree(scene, obstaclesGroup, 458, 665);
-    this.spawnTree(scene, obstaclesGroup, 594, 665);
+    this.spawnTree(scene, obstaclesGroup, 458, 670);
+    this.spawnTree(scene, obstaclesGroup, 594, 670);
 
     this.spawnStreetLamp(scene, obstaclesGroup, 320, 672);
     this.spawnStreetLamp(scene, obstaclesGroup, 720, 672);

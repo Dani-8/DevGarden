@@ -23,7 +23,7 @@ export default function GameContainer({
 }: GameContainerProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const gameRef = useRef<Phaser.Game | null>(null);
-  const [debugMode, setDebugMode] = useState(false);
+  const [debugMode, setDebugMode] = useState(true);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -167,7 +167,7 @@ export default function GameContainer({
         <div />
 
         {/* Commented out the hitbox debug button in the UI so it can be enabled later if needed */}
-        {/* 
+        
         <div className="flex items-center gap-2 pointer-events-auto">
           <button
             onClick={() => setDebugMode(!debugMode)}
@@ -181,7 +181,7 @@ export default function GameContainer({
             <span>{debugMode ? 'Hide Hitboxes' : 'Show Hitboxes'}</span>
           </button>
         </div>
-        */}
+       
       </div>
       
       {/* Decor hotbar */}
