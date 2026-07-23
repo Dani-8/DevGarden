@@ -1,191 +1,421 @@
-import { useEffect, useRef, useState } from 'react';
-import Phaser from 'phaser';
-import GardenScene from './scenes/GardenScene.js';
-import { PlayerState } from '../types/index.js';
-import DecorHotbar from '../components/decor/DecorHotbar.js';
+import { useState, useEffect } from 'react';
+import { SupabaseSocket } from './SupabaseSocket.js';
+import { Github, Trophy, LogOut, Sparkles, User, HelpCircle } from 'lucide-react';
+import LOGO from "../assets/LOGO.png"
 
-interface GameContainerProps {
-  socket: any;
-  selfPlayer: PlayerState;
-  initialPlayers: PlayerState[];
-  initialNPCs: PlayerState[];
-  onSelectPlayer: (player: PlayerState) => void;
-  onNearLeaderboard: (isNear: boolean) => void;
-}
+import { PlayerState, UserProfile } from './types/index.js';
+import GitHubLogin from './components/auth/GitHubLogin.js';
+import GameContainer from './game/GameContainer.js';
+import EmoteWheel from './components/social/EmoteWheel.js';
+import ProfileCard from './components/profile/ProfileCard.js';
+import Leaderboard from './components/leaderboard/Leaderboard.js';
+import Sidebar from './components/layout/Sidebar.js';
 
-export default function GameContainer({
-  socket,
-  selfPlayer,
-  initialPlayers,
-  initialNPCs,
-  onSelectPlayer,
-  onNearLeaderboard,
-}: GameContainerProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const gameRef = useRef<Phaser.Game | null>(null);
-  const [debugMode, setDebugMode] = useState(false);
+export default function App() {
+  const [session, setSession] = useState<{ loggedIn: boolean; user?: UserProfile; supabaseUrl?: string; supabaseAnonKey?: string } | null>(null);
+  const [socket, setSocket] = useState<any | null>(null);
+  const [socketConnected, setSocketConnected] = useState(false);
 
+  // Multiplayer Game State synced from server
+  const [selfPlayer, setSelfPlayer] = useState<PlayerState | null>(null);
+  const [playersList, setPlayersList] = useState<PlayerState[]>([]);
+  const [npcsList, setNpcsList] = useState<PlayerState[]>([]);
+
+  // UI States
+  const [selectedPlayer, setSelectedPlayer] = useState<PlayerState | null>(null);
+  const [isNearLeaderboard, setIsNearLeaderboard] = useState(false);
+  const [showLeaderboardPanel, setShowLeaderboardPanel] = useState(false);
+  const [serverStatusMessage, setServerStatusMessage] = useState<string | null>(null);
+  const [welcomeToast, setWelcomeToast] = useState<string | null>(null);
+  const [isChatOpen, setIsChatOpen] = useState(false);
+  const [hasUnreadChat, setHasUnreadChat] = useState(false);
+
+  // Auto dismiss welcome banner after 4.5 seconds
   useEffect(() => {
-    if (!containerRef.current) return;
+    if (!welcomeToast) return;
+    const timer = setTimeout(() => {
+      setWelcomeToast(null);
+    }, 4500);
+    return () => clearTimeout(timer);
+  }, [welcomeToast]);
 
-    // Check if game is already initialized
-    if (gameRef.current) {
-      gameRef.current.destroy(true);
-    }
-
-    const initialWidth = containerRef.current.clientWidth || window.innerWidth;
-    const initialHeight = containerRef.current.clientHeight || window.innerHeight;
-
-    const config: Phaser.Types.Core.GameConfig = {
-      type: Phaser.AUTO,
-      width: initialWidth,
-      height: initialHeight,
-      parent: containerRef.current,
-      scale: {
-        mode: Phaser.Scale.RESIZE,
-        autoCenter: Phaser.Scale.CENTER_BOTH,
-      },
-      physics: {
-        default: 'arcade',
-        arcade: {
-          gravity: { x: 0, y: 0 },
-          debug: debugMode,
-        },
-      },
-      pixelArt: true, // Enables crisp, pixelated rendering for pixel-art
-      scene: [GardenScene],
-    };
-
-    const game = new Phaser.Game(config);
-    gameRef.current = game;
-
-    // Set up a robust ResizeObserver to capture container resizing
-    const resizeObserver = new ResizeObserver((entries) => {
-      if (!entries || entries.length === 0) return;
-      const { width, height } = entries[0].contentRect;
-      if (gameRef.current && gameRef.current.scale) {
-        gameRef.current.scale.resize(width, height);
+  // 1. Fetch Session Status on boot
+  const checkAuth = async () => {
+    try {
+      const apiBase = import.meta.env.VITE_API_URL || '';
+      const token = localStorage.getItem('devgarden_token');
+      const headers: Record<string, string> = {};
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+        headers['X-Session-ID'] = token;
       }
-    });
-    resizeObserver.observe(containerRef.current);
-
-    // Start scene with synchronized initial state
-    game.scene.start('GardenScene', {
-      socket,
-      self: selfPlayer,
-      players: initialPlayers,
-      sleepingNPCs: initialNPCs,
-      onSelectPlayer,
-      onNearLeaderboard,
-    });
-
-    // Prevent key capture during text typing in any INPUT or TEXTAREA
-    const handleInputFocus = () => {
-      if (gameRef.current && gameRef.current.input && gameRef.current.input.keyboard) {
-        gameRef.current.input.keyboard.enabled = false;
+      const res = await fetch(`${apiBase}/api/auth/me`, { headers, credentials: 'include' });
+      if (!res.ok) {
+        setSession({ loggedIn: false });
+        return;
       }
-    };
-
-    const handleInputBlur = () => {
-      if (gameRef.current && gameRef.current.input && gameRef.current.input.keyboard) {
-        gameRef.current.input.keyboard.enabled = true;
-        // Clear any stuck key states from when focus was lost
-        if (typeof (gameRef.current.input.keyboard as any).resetKeys === 'function') {
-          (gameRef.current.input.keyboard as any).resetKeys();
-        }
+      const contentType = res.headers.get('content-type');
+      if (contentType && contentType.includes('application/json')) {
+        const data = await res.json();
+        setSession(data);
+      } else {
+        setSession({ loggedIn: false });
       }
-    };
-
-    const onFocusIn = (e: FocusEvent) => {
-      const target = e.target as HTMLElement;
-      if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable)) {
-        handleInputFocus();
-      }
-    };
-
-    const onFocusOut = (e: FocusEvent) => {
-      const target = e.target as HTMLElement;
-      if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable)) {
-        handleInputBlur();
-      }
-    };
-
-    const handleKeyboardCapture = (e: KeyboardEvent) => {
-      const target = e.target as HTMLElement;
-      if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable)) {
-        e.stopPropagation();
-      }
-    };
-
-    window.addEventListener('focusin', onFocusIn);
-    window.addEventListener('focusout', onFocusOut);
-    window.addEventListener('keydown', handleKeyboardCapture, true);
-    window.addEventListener('keyup', handleKeyboardCapture, true);
-    window.addEventListener('keypress', handleKeyboardCapture, true);
-
-    // Initial focus on mount to allow immediate movement
-    setTimeout(() => {
-      if (containerRef.current) {
-        containerRef.current.focus();
-      }
-    }, 100);
-
-    // Cleanup on component unmount
-    return () => {
-      resizeObserver.disconnect();
-      window.removeEventListener('focusin', onFocusIn);
-      window.removeEventListener('focusout', onFocusOut);
-      window.removeEventListener('keydown', handleKeyboardCapture, true);
-      window.removeEventListener('keyup', handleKeyboardCapture, true);
-      window.removeEventListener('keypress', handleKeyboardCapture, true);
-      if (gameRef.current) {
-        gameRef.current.destroy(true);
-        gameRef.current = null;
-      }
-    };
-  }, [socket, selfPlayer, debugMode]); // Re-initialize only if connection or debug mode changes
-
-  const handleCanvasClick = () => {
-    if (containerRef.current) {
-      containerRef.current.focus();
+    } catch (e) {
+      console.error('Session verification error:', e);
+      setSession({ loggedIn: false });
     }
   };
 
-  return (
-    <div className="absolute inset-0 w-full h-full overflow-hidden bg-slate-900">
-      <div 
-        ref={containerRef} 
-        id="phaser-game-stage" 
-        tabIndex={0}
-        onClick={handleCanvasClick}
-        className="w-full h-full outline-none focus:ring-0 focus:border-0 transition-all cursor-pointer"
-      />
-      
-      {/* Ambient Top HUD */}
-      <div className="absolute top-4 left-6 right-6 flex items-center justify-between pointer-events-none select-none z-10">
-        {/* Lawn Server Online box removed as requested */}
-        <div />
+  useEffect(() => {
+    checkAuth();
+  }, []);
 
-        {/* Commented out the hitbox debug button in the UI so it can be enabled later if needed */}
-        {/* 
-        <div className="flex items-center gap-2 pointer-events-auto">
-          <button
-            onClick={() => setDebugMode(!debugMode)}
-            className={`px-3 py-1.5 rounded-lg text-[10px] font-mono font-bold uppercase border transition-all cursor-pointer shadow-md select-none flex items-center gap-1.5 ${
-              debugMode 
-                ? 'bg-amber-500/90 hover:bg-amber-500 border-amber-400 text-slate-950 animate-pulse' 
-                : 'bg-slate-950/85 hover:bg-slate-900 border-slate-800 text-slate-400 hover:text-slate-200'
-            }`}
-          >
-            <span>🛠️</span>
-            <span>{debugMode ? 'Hide Hitboxes' : 'Show Hitboxes'}</span>
-          </button>
-        </div>
-        */}
-      </div>
+  // 2. Manage Sockets Connection when Session is active
+  useEffect(() => {
+    if (!session?.loggedIn || !session.user || !session.supabaseUrl || !session.supabaseAnonKey) {
+      // Cleanup socket if logging out
+      if (socket) {
+        socket.disconnect();
+        setSocket(null);
+      }
+      return;
+    }
+
+    let spawnX = 526 + (Math.floor(Math.random() * 30) - 15);
+    let spawnY = 715 + (Math.floor(Math.random() * 20) - 10);
+    try {
+      const savedPosStr = sessionStorage.getItem('devgarden_last_pos');
+      if (savedPosStr) {
+        const parsed = JSON.parse(savedPosStr);
+        if (typeof parsed.x === 'number' && typeof parsed.y === 'number') {
+          spawnX = parsed.x;
+          spawnY = parsed.y;
+        }
+      }
+    } catch {
+      // fallback to gate
+    }
+
+    const self: PlayerState = {
+      id: session.user.github_id,
+      username: session.user.username,
+      avatar_url: session.user.avatar_url,
+      level: session.user.level,
+      score: session.user.score,
+      title: session.user.title,
+      visual_tier: session.user.visual_tier,
+      x: spawnX,
+      y: spawnY,
+      anim: 'idle_down',
+      commits: session.user.commits,
+      stars: session.user.stars,
+      followers: session.user.followers,
+      repos: session.user.repos,
+      cosmetics: (() => {
+        try {
+          const stored = localStorage.getItem('devgarden_unlocked_cosmetics');
+          return stored ? JSON.parse(stored) : [];
+        } catch {
+          return [];
+        }
+      })(),
+    };
+
+    // Instantiate and connect SupabaseSocket
+    const s = new SupabaseSocket((session.supabaseUrl || '').trim(), (session.supabaseAnonKey || '').trim(), self);
+
+    s.on('connect', () => {
+      console.log('Socket stream established successfully!');
+      setSocketConnected(true);
+    });
+
+    s.on('disconnect', () => {
+      console.log('Socket stream disconnected.');
+      setSocketConnected(false);
+    });
+
+    s.on('force_disconnect', (data: { message: string }) => {
+      setServerStatusMessage(data.message);
+      setTimeout(() => s.disconnect(), 100);
+    });
+
+    s.on('auth_error', (data: { message: string }) => {
+      setServerStatusMessage(data.message);
+    });
+
+    // Handle initial map load state from server
+    s.on('world_init', (data: { self: PlayerState; players: PlayerState[]; sleepingNPCs: PlayerState[] }) => {
+      setSelfPlayer(data.self);
+      setPlayersList(data.players);
+      setNpcsList(data.sleepingNPCs);
       
-      {/* Decor hotbar */}
-      <DecorHotbar />
+      const hasWelcomed = sessionStorage.getItem('devgarden_has_welcomed');
+      if (!hasWelcomed && session.user?.username) {
+        setWelcomeToast(`🌿 Welcome to DevGarden, @${session.user.username}! 🚀`);
+        sessionStorage.setItem('devgarden_has_welcomed', 'true');
+      }
+    });
+
+    // Listen for incoming dynamic chat messages to show unread dot if collapsed
+    s.on('player_chatted', (data: { id: string; text: string }) => {
+      if (data.id !== session.user?.github_id) {
+        setHasUnreadChat(true);
+      }
+    });
+
+    // Listen for incoming dynamic additions or departures to sync lists
+    s.on('player_joined', (p: PlayerState) => {
+      setPlayersList(prev => {
+        if (prev.some(pl => pl.id === p.id)) return prev; // idempotent guard
+        return [...prev, p];
+      });
+    });
+
+    s.on('player_left', (data: { id: string }) => {
+      setPlayersList(prev => prev.filter(pl => pl.id !== data.id));
+      if (selectedPlayer && selectedPlayer.id === data.id) {
+        setSelectedPlayer(null);
+      }
+    });
+
+    s.on('sleeping_npcs_update', (npcs: PlayerState[]) => {
+      setNpcsList(npcs);
+    });
+
+    s.connect();
+    setSocket(s);
+
+    return () => {
+      s.disconnect();
+    };
+  }, [session]);
+
+  const handleUnlockCosmetics = (cosmetics: string[]) => {
+    if (selfPlayer) {
+      const updated = { ...selfPlayer, cosmetics };
+      setSelfPlayer(updated);
+      if (socket) {
+        socket.updateCosmetics(cosmetics);
+      }
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      const apiBase = import.meta.env.VITE_API_URL || '';
+      const token = localStorage.getItem('devgarden_token');
+      const headers: Record<string, string> = {};
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+        headers['X-Session-ID'] = token;
+      }
+      await fetch(`${apiBase}/api/auth/logout`, { method: 'POST', headers, credentials: 'include' });
+      localStorage.removeItem('devgarden_token');
+      sessionStorage.removeItem('devgarden_last_pos');
+      sessionStorage.removeItem('devgarden_has_welcomed');
+      setSession({ loggedIn: false });
+      setSelfPlayer(null);
+      setPlayersList([]);
+      setNpcsList([]);
+      setSelectedPlayer(null);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const handleBypassLogin = async () => {
+    try {
+      const apiBase = import.meta.env.VITE_API_URL || '';
+      const res = await fetch(`${apiBase}/api/auth/guest`, { method: 'POST', credentials: 'include' });
+      if (res.ok) {
+        const data = await res.json();
+        if (data.token) {
+          localStorage.setItem('devgarden_token', data.token);
+          await checkAuth();
+        }
+      }
+    } catch (e) {
+      console.error('Error bypassing login:', e);
+    }
+  };
+
+  if (!session) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-slate-950 font-mono text-slate-500 text-xs">
+        <div className="animate-pulse">Locating seed archives...</div>
+      </div>
+    );
+  }
+
+  if (!session.loggedIn) {
+    return (
+      <div className="h-screen w-screen bg-[var(--color-natural-bg)] text-[var(--color-natural-ink)] flex flex-col antialiased selection:bg-[var(--color-natural-accent)] selection:text-[var(--color-natural-ink)] font-serif overflow-hidden relative">
+        {/* Transparent floating logo in top-left corner */}
+        <div className="absolute top-6 left-6 z-20 pointer-events-none select-none">
+          <img src={LOGO} alt="DevGarden Logo" className="w-[220px] drop-shadow-[0_4px_6px_rgba(0,0,0,0.15)]" />
+        </div>
+
+        {/* Discreet Bypass Button in top-right corner */}
+        <button
+          onClick={handleBypassLogin}
+          className="absolute top-4 right-4 z-50 text-[10px] text-amber-950/10 hover:text-amber-950/40 font-mono transition-colors border border-transparent hover:border-amber-950/10 px-2.5 py-1 rounded cursor-pointer select-none"
+          title="Bypass Authentication"
+        >
+          🔑 Bypass
+        </button>
+
+        <main className="flex-1 flex flex-col items-center justify-center relative bg-[var(--color-natural-bg)] overflow-hidden">
+          <GitHubLogin onSuccess={checkAuth} />
+        </main>
+      </div>
+    );
+  }
+
+  // Logged-in full screen game view layout
+  return (
+    <div className="fixed inset-0 w-screen h-screen bg-slate-950 text-white flex overflow-hidden antialiased font-sans">
+
+      {/* COLLAPSIBLE SIDEBAR */}
+      {session.user && (
+        <Sidebar
+          user={session.user}
+          showLeaderboardPanel={showLeaderboardPanel}
+          setShowLeaderboardPanel={setShowLeaderboardPanel}
+          isNearLeaderboard={isNearLeaderboard}
+          onLogout={handleLogout}
+          onUnlockCosmetics={handleUnlockCosmetics}
+        />
+      )}
+
+      {/* FULL VIEWPORT MAIN PORTAL */}
+      <main className="relative flex-1 h-full overflow-hidden">
+        {serverStatusMessage ? (
+          <div className="absolute inset-0 flex items-center justify-center bg-slate-950/90 z-40 p-4">
+            <div className="max-w-md w-full bg-white border-3 border-[var(--color-natural-border)] rounded-2xl p-6 text-center natural-shadow-lg text-[var(--color-natural-ink)]">
+              <h2 className="text-lg font-bold text-red-700 mb-2 font-serif">Gardener Connection Interrupted</h2>
+              <p className="text-sm text-slate-600 mb-6 leading-relaxed">{serverStatusMessage}</p>
+              <button
+                onClick={() => {
+                  setServerStatusMessage(null);
+                  checkAuth();
+                }}
+                className="py-2 px-5 bg-[var(--color-natural-foliage)] hover:bg-[var(--color-natural-foliage)]/90 text-white font-bold text-xs rounded-lg font-mono active:scale-95 transition-all cursor-pointer border-2 border-black/10 shadow-sm"
+              >
+                Retry Reconnect
+              </button>
+            </div>
+          </div>
+        ) : socket && selfPlayer ? (
+          <>
+            {/* Phaser Game Container (takes absolute inset-0) */}
+            <GameContainer
+              socket={socket}
+              selfPlayer={selfPlayer}
+              initialPlayers={playersList}
+              initialNPCs={npcsList}
+              onSelectPlayer={setSelectedPlayer}
+              onNearLeaderboard={setIsNearLeaderboard}
+            />
+
+            {/* WELCOME TOAST NOTIFICATION (Auto-dismisses in 4.5s) */}
+            {welcomeToast && (
+              <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50 bg-[#faf6eb] border-3 border-[#3a2f28] text-[#3a2f28] font-serif font-bold text-xs px-5 py-2.5 rounded-2xl shadow-[0_8px_20px_rgba(0,0,0,0.35)] flex items-center gap-2 animate-fadeIn pointer-events-none select-none">
+                <span>{welcomeToast}</span>
+              </div>
+            )}
+
+            {/* COLLAPSIBLE FLOATING CHAT & EMOTE BAR (Centered at bottom with smooth slide/fade animations) */}
+            <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-20 w-[calc(100%-2rem)] max-w-[600px] md:max-w-[650px] pointer-events-none flex flex-col items-center">
+              {/* Trigger Button when collapsed */}
+              <div
+                className={`transition-all duration-300 ease-out transform ${
+                  !isChatOpen
+                    ? 'translate-y-0 opacity-100 scale-100 pointer-events-auto'
+                    : 'translate-y-6 opacity-0 scale-90 pointer-events-none'
+                }`}
+              >
+                <button
+                  onClick={() => {
+                    setIsChatOpen(true);
+                    setHasUnreadChat(false);
+                  }}
+                  className="relative px-5 py-2 bg-[#faf6eb] hover:bg-[#ffae34] border-3 border-[#3a2f28] text-[#3a2f28] font-serif font-bold text-xs rounded-2xl shadow-[4px_4px_0px_#3a2f28] flex items-center gap-2 cursor-pointer transition-transform hover:scale-105 active:scale-95 select-none"
+                  title="Open Chat & Emotes"
+                >
+                  {hasUnreadChat && (
+                    <span className="absolute -top-1 -right-1 flex h-3.5 w-3.5">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-rose-500 border border-white"></span>
+                    </span>
+                  )}
+                  <span>Chat & Emotes</span>
+                  <span className="text-[10px] bg-[#3a2f28]/10 px-1.5 py-0.5 rounded font-mono">▲</span>
+                </button>
+              </div>
+
+              {/* Expanded Chat Box */}
+              <div
+                className={`w-full transition-all duration-300 ease-out transform origin-bottom ${
+                  isChatOpen
+                    ? 'translate-y-0 opacity-100 scale-100 pointer-events-auto'
+                    : 'translate-y-10 opacity-0 scale-95 pointer-events-none absolute bottom-0'
+                } flex items-center gap-2`}
+              >
+                <div className="flex-1">
+                  <EmoteWheel socket={socket} />
+                </div>
+                <button
+                  onClick={() => setIsChatOpen(false)}
+                  className="p-2.5 bg-[#faf6eb] hover:bg-rose-100 border-2 border-[#3a2f28] text-[#3a2f28] rounded-2xl shadow-[3px_3px_0px_#3a2f28] flex items-center justify-center cursor-pointer transition-transform hover:scale-105 active:scale-95 shrink-0"
+                  title="Close Chat"
+                >
+                  <span className="text-xs font-bold font-mono">▼</span>
+                </button>
+              </div>
+            </div>
+
+            {/* LEADERBOARD TREE INTERACTION NOTIFICATION */}
+            {isNearLeaderboard && !showLeaderboardPanel && (
+              <div className="fixed bottom-32 left-1/2 -translate-x-1/2 z-20 bg-[var(--color-natural-accent)] border-2 border-[var(--color-natural-ink)] text-[var(--color-natural-ink)] font-sans font-semibold text-[11px] px-3.5 py-2 rounded-xl shadow-xl animate-bounce backdrop-blur-md flex items-center gap-2">
+                <span>🌳</span>
+                <span>Stand close to the Leaderboard Tree or click Scoreboard to view!</span>
+              </div>
+            )}
+
+            {/* OVERLAYS: Scoreboard / Leaderboard Tree Details */}
+            {(showLeaderboardPanel || isNearLeaderboard) && (
+              <div className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+                <Leaderboard onClose={() => setShowLeaderboardPanel(false)} />
+              </div>
+            )}
+
+            {/* OVERLAYS: Selected Player Profile Panel */}
+            {selectedPlayer && (
+              <div className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
+                <ProfileCard player={selectedPlayer} onClose={() => setSelectedPlayer(null)} />
+              </div>
+            )}
+          </>
+        ) : (
+          <div className="absolute inset-0 flex flex-col items-center justify-center bg-slate-950 text-slate-400 font-mono text-xs">
+            <RefreshCwSpinner className="w-6 h-6 animate-spin mb-3 text-emerald-400" />
+            <span>Syncing yard coordinates...</span>
+          </div>
+        )}
+      </main>
     </div>
+  );
+}
+
+// Inline helper loader icon
+function RefreshCwSpinner({ className }: { className?: string }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+      <path d="M3 3v5h5" />
+      <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16" />
+      <path d="M16 16h5v5" />
+    </svg>
   );
 }
