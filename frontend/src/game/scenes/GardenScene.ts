@@ -329,11 +329,20 @@ export default class GardenScene extends Phaser.Scene {
     const animChanged = animKey !== this.lastAnim;
 
     if (now - this.lastMoveSent > 45 && (posChanged || animChanged)) {
+      const rx = Math.round(this.playerContainer.x);
+      const ry = Math.round(this.playerContainer.y);
+
       this.socket.emit('player_move', {
-        x: Math.round(this.playerContainer.x),
-        y: Math.round(this.playerContainer.y),
+        x: rx,
+        y: ry,
         anim: animKey,
       });
+
+      try {
+        sessionStorage.setItem('devgarden_last_pos', JSON.stringify({ x: rx, y: ry }));
+      } catch {
+        // ignore quota errors
+      }
 
       this.lastX = this.playerContainer.x;
       this.lastY = this.playerContainer.y;

@@ -27,6 +27,8 @@ export default function App() {
   const [showLeaderboardPanel, setShowLeaderboardPanel] = useState(false);
   const [serverStatusMessage, setServerStatusMessage] = useState<string | null>(null);
   const [welcomeToast, setWelcomeToast] = useState<string | null>(null);
+  const [isChatOpen, setIsChatOpen] = useState(false);
+  const [hasUnreadChat, setHasUnreadChat] = useState(false);
 
   // Auto dismiss welcome banner after 4.5 seconds
   useEffect(() => {
@@ -80,6 +82,21 @@ export default function App() {
       return;
     }
 
+    let spawnX = 526 + (Math.floor(Math.random() * 30) - 15);
+    let spawnY = 715 + (Math.floor(Math.random() * 20) - 10);
+    try {
+      const savedPosStr = sessionStorage.getItem('devgarden_last_pos');
+      if (savedPosStr) {
+        const parsed = JSON.parse(savedPosStr);
+        if (typeof parsed.x === 'number' && typeof parsed.y === 'number') {
+          spawnX = parsed.x;
+          spawnY = parsed.y;
+        }
+      }
+    } catch {
+      // fallback to gate
+    }
+
     const self: PlayerState = {
       id: session.user.github_id,
       username: session.user.username,
@@ -88,8 +105,8 @@ export default function App() {
       score: session.user.score,
       title: session.user.title,
       visual_tier: session.user.visual_tier,
-      x: 526 + (Math.floor(Math.random() * 30) - 15), // On stone road in front of DevGarden Gate
-      y: 715 + (Math.floor(Math.random() * 20) - 10),
+      x: spawnX,
+      y: spawnY,
       anim: 'idle_down',
       commits: session.user.commits,
       stars: session.user.stars,
@@ -132,8 +149,18 @@ export default function App() {
       setSelfPlayer(data.self);
       setPlayersList(data.players);
       setNpcsList(data.sleepingNPCs);
-      if (session.user?.username) {
+      
+      const hasWelcomed = sessionStorage.getItem('devgarden_has_welcomed');
+      if (!hasWelcomed && session.user?.username) {
         setWelcomeToast(`🌿 Welcome to DevGarden, @${session.user.username}! 🚀`);
+        sessionStorage.setItem('devgarden_has_welcomed', 'true');
+      }
+    });
+
+    // Listen for incoming dynamic chat messages to show unread dot if collapsed
+    s.on('player_chatted', (data: { id: string; text: string }) => {
+      if (data.id !== session.user?.github_id) {
+        setHasUnreadChat(true);
       }
     });
 
@@ -185,6 +212,8 @@ export default function App() {
       }
       await fetch(`${apiBase}/api/auth/logout`, { method: 'POST', headers, credentials: 'include' });
       localStorage.removeItem('devgarden_token');
+      sessionStorage.removeItem('devgarden_last_pos');
+      sessionStorage.removeItem('devgarden_has_welcomed');
       setSession({ loggedIn: false });
       setSelfPlayer(null);
       setPlayersList([]);
@@ -296,10 +325,41 @@ export default function App() {
               </div>
             )}
 
-            {/* FLOATING CHAT & EMOTE BAR (Centered at the bottom) */}
-            <div className="fixed bottom-4 left-1/2 -translate-x-1/3 z-20 w-[calc(100%-2rem)] max-w-[600px] md:max-w-[650px] pointer-events-auto">
-              <EmoteWheel socket={socket} />
-            </div>
+            {/* COLLAPSIBLE FLOATING CHAT & EMOTE BAR (Centered at bottom) */}
+            {!isChatOpen ? (
+              <div className="fixed bottom-0 left-1/2 -translate-x-1/2 transition-400 z-20 pointer-events-auto">
+                <button
+                  onClick={() => {
+                    setIsChatOpen(true);
+                    setHasUnreadChat(false);
+                  }}
+                  className="relative px-5 py-2 bg-[#faf6eb] hover:bg-[#ffae34] border-3 border-[#3a2f28] text-[#3a2f28] font-serif font-bold text-xs rounded-2xl shadow-[4px_4px_0px_#3a2f28] flex items-center gap-2 cursor-pointer transition-all hover:scale-105 active:scale-95 select-none"
+                  title="Open Chat & Emotes"
+                >
+                  {hasUnreadChat && (
+                    <span className="absolute -top-1 -right-1 flex h-3.5 w-3.5">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-rose-500 border border-white"></span>
+                    </span>
+                  )}
+                  <span>Chat & Emotes</span>
+                  <span className="text-[10px] bg-[#3a2f28]/10 px-1.5 py-0.5 rounded font-mono">▲</span>
+                </button>
+              </div>
+            ) : (
+              <div className="fixed bottom-4 left-1/2 -translate-x-1/2 transition-400 z-20 w-[calc(100%-2rem)] max-w-[600px] md:max-w-[650px] pointer-events-auto flex items-center gap-2">
+                <div className="flex-1">
+                  <EmoteWheel socket={socket} />
+                </div>
+                <button
+                  onClick={() => setIsChatOpen(false)}
+                  className="p-2.5 bg-[#faf6eb] hover:bg-rose-100 border-2 border-[#3a2f28] text-[#3a2f28] rounded-2xl shadow-[3px_3px_0px_#3a2f28] flex items-center justify-center cursor-pointer transition-all hover:scale-105 active:scale-95 shrink-0"
+                  title="Close Chat"
+                >
+                  <span className="text-xs font-bold font-mono">▼</span>
+                </button>
+              </div>
+            )}
 
             {/* LEADERBOARD TREE INTERACTION NOTIFICATION */}
             {isNearLeaderboard && !showLeaderboardPanel && (
