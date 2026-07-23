@@ -150,7 +150,8 @@ Security reminder: never commit `backend/.env` with `CLIENT_SECRET` or `SUPABASE
       </p>
     </td>
     <td valign="top" width="40%">
-      <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExaHNtM2Y4bDA2Z2kxdWQybGZtN2trNml6aTNsejJoM3E1aTI3NHNrdCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/JVRGPnZtPrVCvXFhH7/giphy.gif" alt="DevGarden" width="100%" />
+      <!-- <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExaHNtM2Y4bDA2Z2kxdWQybGZtN2trNml6aTNsejJoM3E1aTI3NHNrdCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/JVRGPnZtPrVCvXFhH7/giphy.gif" alt="DevGarden" width="100%" /> -->
+      <img src="assets/pics/begging.png" alt="DevGarden" width="100%" />
     </td>
   </tr>
 </table>
