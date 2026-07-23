@@ -78,16 +78,16 @@ export class WorldPropsManager {
     this.spawnBench(scene, obstaclesGroup, benchesList, 930, 320, 'bench_horizontal');
     this.spawnBench(scene, obstaclesGroup, benchesList, 930, 460, 'bench_horizontal');
 
-    // 4. River Physics Colliders
-    const northWater = scene.add.zone(816, 96, 65, 192);
+    // 4. River Physics Colliders (Blocks water everywhere except 1-tile bridge openings at ty=7 [y=224..256] & ty=17 [y=544..576])
+    const northWater = scene.add.zone(816, 112, 65, 224);
     scene.physics.add.existing(northWater, true);
     obstaclesGroup.add(northWater);
 
-    const midWater = scene.add.zone(816, 400, 65, 224);
+    const midWater = scene.add.zone(816, 400, 65, 288);
     scene.physics.add.existing(midWater, true);
     obstaclesGroup.add(midWater);
 
-    const southWater = scene.add.zone(816, 640, 65, 64);
+    const southWater = scene.add.zone(816, 624, 65, 96);
     scene.physics.add.existing(southWater, true);
     obstaclesGroup.add(southWater);
 
@@ -105,11 +105,11 @@ export class WorldPropsManager {
     });
     riverSparkles.setDepth(-8);
 
-    // Ducks in Open Water Zones (Stay safely between & away from bridges)
-    this.spawnLivelyDuck(scene, 816, 110, 80, 185);   // North Pond (above top bridge at y=224)
-    this.spawnLivelyDuck(scene, 816, 320, 270, 490);  // Central River (between bridges y=224 and y=544)
-    this.spawnLivelyDuck(scene, 804, 390, 310, 470);  // Second Duckling in Central River
-    this.spawnLivelyDuck(scene, 816, 610, 575, 660);  // South Pond (below bottom bridge at y=544)
+    // Ducks in Open Water Zones (Stay safely inside open water and away from bridges)
+    this.spawnLivelyDuck(scene, 816, 110, 80, 180);   // North Pond (above top bridge at y=224)
+    this.spawnLivelyDuck(scene, 816, 320, 280, 480);  // Central River (between bridges y=224 and y=544)
+    this.spawnLivelyDuck(scene, 804, 390, 300, 460);  // Second Duckling in Central River
+    this.spawnLivelyDuck(scene, 816, 610, 590, 650);  // South Pond (below bottom bridge at y=544)
 
     // 5. Eastern Zen Sanctuary
     this.spawnSakuraTree(scene, obstaclesGroup, 930, 160);
@@ -346,7 +346,7 @@ export class WorldPropsManager {
     maxY: number
   ) {
     const duck = scene.add.image(startX, startY, 'duck_prop');
-    duck.setDepth(-9); // In water layer (-9), below bridges/land
+    duck.setDepth(-9); // In water layer (-9), below bridges (-8)
 
     // Soft water ripples trailing behind duck
     const ripples = scene.add.particles(0, 0, 'water_particle', {
@@ -360,7 +360,7 @@ export class WorldPropsManager {
     });
     ripples.setDepth(-9.5);
 
-    // 1. Organic Vertical Swimming
+    // 1. Organic Vertical Swimming (Always stay upright)
     const swimDuration = 7000 + Math.random() * 3000;
     scene.tweens.add({
       targets: duck,
@@ -368,30 +368,25 @@ export class WorldPropsManager {
       duration: swimDuration,
       yoyo: true,
       repeat: -1,
-      ease: 'Sine.easeInOut',
-      onYoyo: () => {
-        duck.setFlipY(true);
-      },
-      onRepeat: () => {
-        duck.setFlipY(false);
-      }
-    });
-
-    // 2. Horizontal Waddling & Side Swaying
-    scene.tweens.add({
-      targets: duck,
-      x: startX + 12,
-      duration: 2200 + Math.random() * 800,
-      yoyo: true,
-      repeat: -1,
       ease: 'Sine.easeInOut'
     });
 
-    // 3. Gentle Water Bobbing & Gentle Tilt
+    // 2. Horizontal Waddling & Side Swaying with horizontal flip
+    scene.tweens.add({
+      targets: duck,
+      x: startX + 14,
+      duration: 2200 + Math.random() * 800,
+      yoyo: true,
+      repeat: -1,
+      ease: 'Sine.easeInOut',
+      onYoyo: () => duck.setFlipX(true),
+      onRepeat: () => duck.setFlipX(false)
+    });
+
+    // 3. Gentle Water Bobbing
     scene.tweens.add({
       targets: duck,
       scaleY: 0.92,
-      angle: 6,
       duration: 1100 + Math.random() * 400,
       yoyo: true,
       repeat: -1,

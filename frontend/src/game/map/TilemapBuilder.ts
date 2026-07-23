@@ -18,7 +18,7 @@ export class TilemapBuilder {
         if (tx >= 24 && tx <= 26) {
           // Compact 1-tile wide Wooden Bridges at top (ty = 7) and bottom (ty = 17)
           if (ty === 7 || ty === 17) {
-            scene.add.image(px + 16, py + 16, 'bridge_wood_tile').setDepth(-10);
+            scene.add.image(px + 16, py + 16, 'bridge_wood_tile').setDepth(-8);
             continue;
           }
 
