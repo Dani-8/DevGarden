@@ -121,11 +121,11 @@ export class WorldPropsManager {
     devArch.setDepth(680);
 
     // Gate pillars collision (left & right pillars of the archway, leaving middle open for road)
-    const leftPillar = scene.add.zone(482, 663, 18, 30);
+    const leftPillar = scene.add.zone(472, 665, 18, 24);
     scene.physics.add.existing(leftPillar, true);
     obstaclesGroup.add(leftPillar);
 
-    const rightPillar = scene.add.zone(570, 663, 18, 30);
+    const rightPillar = scene.add.zone(580, 665, 18, 24);
     scene.physics.add.existing(rightPillar, true);
     obstaclesGroup.add(rightPillar);
 
@@ -136,16 +136,17 @@ export class WorldPropsManager {
     this.spawnStreetLamp(scene, obstaclesGroup, 320, 672);
     this.spawnStreetLamp(scene, obstaclesGroup, 720, 672);
 
-    const codeCafe = scene.add.image(180, 672, 'code_cafe_building');
+    const codeCafe = scene.add.image(180, 670, 'code_cafe_building');
     codeCafe.setOrigin(0.5, 0.85);
+    codeCafe.setScale(1.25);
     codeCafe.setDepth(672);
     scene.physics.add.existing(codeCafe, true);
 
     const cafeBody = codeCafe.body as Phaser.Physics.Arcade.StaticBody;
-    const cw = 80;
-    const ch = 60;
-    const cox = 10;
-    const coy = 18;
+    const cw = 105;
+    const ch = 38;
+    const cox = 8;
+    const coy = 55;
 
     cafeBody.updateFromGameObject = function (this: Phaser.Physics.Arcade.StaticBody) {
       const gameObject = this.gameObject as any;
@@ -350,7 +351,7 @@ export class WorldPropsManager {
     scene.physics.add.existing(lamp, true);
 
     const lampBody = lamp.body as Phaser.Physics.Arcade.StaticBody;
-    const lw = 5;
+    const lw = 10;
     const lh = 10;
     lampBody.updateFromGameObject = function (this: Phaser.Physics.Arcade.StaticBody) {
       const gameObject = this.gameObject as any;
@@ -358,24 +359,30 @@ export class WorldPropsManager {
       this.height = lh;
       this.halfWidth = lw / 2;
       this.halfHeight = lh / 2;
-      this.x = gameObject.x - 2;
-      this.y = gameObject.y - 10;
+      this.x = gameObject.x - 5;
+      this.y = gameObject.y - 12;
       this.center.setTo(this.x + 5, this.y + 5);
       return this;
     };
     lampBody.updateFromGameObject();
     obstaclesGroup.add(lamp);
 
-    const glow = scene.add.particles(x, y - 48, 'glow_particle', {
-      scale: { start: 1.2, end: 0.8 },
-      alpha: { start: 0.35, end: 0.1 },
-      tint: 0xfef08a,
-      speed: 5,
-      lifespan: 1000,
-      frequency: 300,
-      blendMode: 'ADD'
-    });
-    glow.setDepth(y - 1);
+    // Warm street light glows only during evening/night hours (17:00 - 07:00)
+    const hours = new Date().getHours();
+    const isNight = hours >= 17 || hours < 7;
+
+    if (isNight) {
+      const glow = scene.add.particles(x, y - 48, 'glow_particle', {
+        scale: { start: 1.3, end: 0.8 },
+        alpha: { start: 0.5, end: 0.15 },
+        tint: 0xff9e1b, // Warm orange-yellow glow
+        speed: 4,
+        lifespan: 1100,
+        frequency: 250,
+        blendMode: 'ADD'
+      });
+      glow.setDepth(y - 1);
+    }
   }
 
   private static spawnLivelyDuck(

@@ -242,8 +242,10 @@ export default function App() {
 
   if (!session) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-slate-950 font-mono text-slate-500 text-xs">
-        <div className="animate-pulse">Locating seed archives...</div>
+      <div className="flex items-center justify-center min-h-screen bg-slate-950 font-mono text-emerald-400 text-xs">
+        <div className="animate-pulse flex items-center gap-2 bg-slate-900/80 px-4 py-2.5 rounded-xl border border-emerald-500/20 shadow-lg">
+          <DevGardenLoadingMessage />
+        </div>
       </div>
     );
   }
@@ -398,14 +400,39 @@ export default function App() {
             )}
           </>
         ) : (
-          <div className="absolute inset-0 flex flex-col items-center justify-center bg-slate-950 text-slate-400 font-mono text-xs">
+          <div className="absolute inset-0 flex flex-col items-center justify-center bg-slate-950 text-emerald-400 font-mono text-xs">
             <RefreshCwSpinner className="w-6 h-6 animate-spin mb-3 text-emerald-400" />
-            <span>Syncing yard coordinates...</span>
+            <div className="bg-slate-900/80 px-4 py-2.5 rounded-xl border border-emerald-500/20 shadow-lg">
+              <DevGardenLoadingMessage />
+            </div>
           </div>
         )}
       </main>
     </div>
   );
+}
+
+const DEV_GARDEN_LOADING_PHRASES = [
+  "🌿 Watering pixel sprouts & planting seeds...",
+  "☕ Warming up the Code Cafe espresso machine...",
+  "🌳 Polishing Golden Oak leaves & leaderboard...",
+  "🦆 Feeding ducklings near the Zen river...",
+  "🧘 Pre-clearing cozy wooden garden benches...",
+  "🌸 Blooming Sakura blossoms in East garden...",
+  "✨ Syncing DevGarden yard coordinates..."
+];
+
+function DevGardenLoadingMessage() {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((prev) => (prev + 1) % DEV_GARDEN_LOADING_PHRASES.length);
+    }, 1800);
+    return () => clearInterval(interval);
+  }, []);
+
+  return <span className="animate-fadeIn">{DEV_GARDEN_LOADING_PHRASES[index]}</span>;
 }
 
 // Inline helper loader icon
