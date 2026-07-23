@@ -105,28 +105,11 @@ export class WorldPropsManager {
     });
     riverSparkles.setDepth(-8);
 
-    // Ducks
-    const duck1 = scene.add.image(816, 140, 'duck_prop');
-    duck1.setDepth(140);
-    scene.tweens.add({
-      targets: duck1,
-      y: 350,
-      duration: 12000,
-      yoyo: true,
-      repeat: -1,
-      ease: 'Sine.easeInOut'
-    });
-
-    const duck2 = scene.add.image(816, 620, 'duck_prop');
-    duck2.setDepth(620);
-    scene.tweens.add({
-      targets: duck2,
-      y: 420,
-      duration: 9000,
-      yoyo: true,
-      repeat: -1,
-      ease: 'Sine.easeInOut'
-    });
+    // Ducks in Open Water Zones (Stay safely between & away from bridges)
+    this.spawnLivelyDuck(scene, 816, 110, 80, 185);   // North Pond (above top bridge at y=224)
+    this.spawnLivelyDuck(scene, 816, 320, 270, 490);  // Central River (between bridges y=224 and y=544)
+    this.spawnLivelyDuck(scene, 804, 390, 310, 470);  // Second Duckling in Central River
+    this.spawnLivelyDuck(scene, 816, 610, 575, 660);  // South Pond (below bottom bridge at y=544)
 
     // 5. Eastern Zen Sanctuary
     this.spawnSakuraTree(scene, obstaclesGroup, 930, 160);
@@ -353,5 +336,66 @@ export class WorldPropsManager {
       blendMode: 'ADD'
     });
     glow.setDepth(y - 1);
+  }
+
+  private static spawnLivelyDuck(
+    scene: Phaser.Scene,
+    startX: number,
+    startY: number,
+    minY: number,
+    maxY: number
+  ) {
+    const duck = scene.add.image(startX, startY, 'duck_prop');
+    duck.setDepth(-9); // In water layer (-9), below bridges/land
+
+    // Soft water ripples trailing behind duck
+    const ripples = scene.add.particles(0, 0, 'water_particle', {
+      scale: { start: 0.5, end: 0 },
+      alpha: { start: 0.4, end: 0 },
+      speedY: { min: -8, max: 8 },
+      speedX: { min: -5, max: 5 },
+      lifespan: 700,
+      frequency: 250,
+      follow: duck
+    });
+    ripples.setDepth(-9.5);
+
+    // 1. Organic Vertical Swimming
+    const swimDuration = 7000 + Math.random() * 3000;
+    scene.tweens.add({
+      targets: duck,
+      y: { from: minY, to: maxY },
+      duration: swimDuration,
+      yoyo: true,
+      repeat: -1,
+      ease: 'Sine.easeInOut',
+      onYoyo: () => {
+        duck.setFlipY(true);
+      },
+      onRepeat: () => {
+        duck.setFlipY(false);
+      }
+    });
+
+    // 2. Horizontal Waddling & Side Swaying
+    scene.tweens.add({
+      targets: duck,
+      x: startX + 12,
+      duration: 2200 + Math.random() * 800,
+      yoyo: true,
+      repeat: -1,
+      ease: 'Sine.easeInOut'
+    });
+
+    // 3. Gentle Water Bobbing & Gentle Tilt
+    scene.tweens.add({
+      targets: duck,
+      scaleY: 0.92,
+      angle: 6,
+      duration: 1100 + Math.random() * 400,
+      yoyo: true,
+      repeat: -1,
+      ease: 'Quad.easeInOut'
+    });
   }
 }

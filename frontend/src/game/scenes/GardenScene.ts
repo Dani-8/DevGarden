@@ -146,7 +146,7 @@ export default class GardenScene extends Phaser.Scene {
       this.eKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
     }
 
-    // Sitting UI prompt
+    // Sitting UI prompt - placed below player feet
     this.sitPromptText = this.add.text(0, 0, 'Press [E] to Sit 🧘', {
       fontSize: '11px',
       fontFamily: 'system-ui, sans-serif',
@@ -155,7 +155,7 @@ export default class GardenScene extends Phaser.Scene {
       backgroundColor: 'rgba(0, 0, 0, 0.75)',
       padding: { x: 6, y: 3 }
     });
-    this.sitPromptText.setOrigin(0.5, 1);
+    this.sitPromptText.setOrigin(0.5, 0); // Top-center origin so it renders below legs/feet
     this.sitPromptText.setDepth(3000);
     this.sitPromptText.setVisible(false);
 
@@ -202,29 +202,43 @@ export default class GardenScene extends Phaser.Scene {
     let vy = 0;
     let animKey = 'idle_down';
 
-    if (this.cursors.left.isDown || this.wasd.A.isDown) {
-      vx = -speed;
-      animKey = 'walk_left';
-    } else if (this.cursors.right.isDown || this.wasd.D.isDown) {
-      vx = speed;
-      animKey = 'walk_right';
-    }
+    if (this.isSitting) {
+      // Movement is completely blocked while sitting
+      vx = 0;
+      vy = 0;
 
-    if (this.cursors.up.isDown || this.wasd.W.isDown) {
-      vy = -speed;
-      animKey = 'walk_up';
-    } else if (this.cursors.down.isDown || this.wasd.S.isDown) {
-      vy = speed;
-      animKey = 'walk_down';
-    }
+      // Allow turning/looking around while sitting
+      if (this.cursors.left.isDown || this.wasd.A.isDown) animKey = 'idle_left';
+      else if (this.cursors.right.isDown || this.wasd.D.isDown) animKey = 'idle_right';
+      else if (this.cursors.up.isDown || this.wasd.W.isDown) animKey = 'idle_up';
+      else if (this.cursors.down.isDown || this.wasd.S.isDown) animKey = 'idle_down';
+      else {
+        if (this.lastAnim.includes('left')) animKey = 'idle_left';
+        else if (this.lastAnim.includes('right')) animKey = 'idle_right';
+        else if (this.lastAnim.includes('up')) animKey = 'idle_up';
+        else animKey = 'idle_down';
+      }
+    } else {
+      if (this.cursors.left.isDown || this.wasd.A.isDown) {
+        vx = -speed;
+        animKey = 'walk_left';
+      } else if (this.cursors.right.isDown || this.wasd.D.isDown) {
+        vx = speed;
+        animKey = 'walk_right';
+      }
 
-    if (vx !== 0 && vy !== 0) {
-      vx *= 0.7071;
-      vy *= 0.7071;
-    }
+      if (this.cursors.up.isDown || this.wasd.W.isDown) {
+        vy = -speed;
+        animKey = 'walk_up';
+      } else if (this.cursors.down.isDown || this.wasd.S.isDown) {
+        vy = speed;
+        animKey = 'walk_down';
+      }
 
-    if (this.isSitting && (vx !== 0 || vy !== 0)) {
-      this.isSitting = false;
+      if (vx !== 0 && vy !== 0) {
+        vx *= 0.7071;
+        vy *= 0.7071;
+      }
     }
 
     let nearBench: BenchInfo | null = null;
@@ -239,7 +253,8 @@ export default class GardenScene extends Phaser.Scene {
     const body = this.playerContainer.body as Phaser.Physics.Arcade.Body;
 
     if (nearBench) {
-      this.sitPromptText.setPosition(this.playerContainer.x, this.playerContainer.y - 35);
+      // Position sit prompt text downward near feet so overhead chat bubbles remain clear
+      this.sitPromptText.setPosition(this.playerContainer.x, this.playerContainer.y + 12);
       this.sitPromptText.setText(this.isSitting ? 'Press [E] to Stand Up 🚶' : 'Press [E] to Sit 🧘');
       this.sitPromptText.setVisible(true);
 
@@ -262,15 +277,15 @@ export default class GardenScene extends Phaser.Scene {
     }
 
     if (this.isSitting) {
-      vx = 0;
-      vy = 0;
       body.setVelocity(0, 0);
     } else {
       body.setVelocity(vx, vy);
     }
 
     const tier = this.selfPlayer?.visual_tier || 'green';
-    if (vx === 0 && vy === 0) {
+    if (this.isSitting) {
+      this.playerSprite.play(`${animKey}_${tier}`, true);
+    } else if (vx === 0 && vy === 0) {
       if (this.lastAnim.includes('left')) animKey = 'idle_left';
       else if (this.lastAnim.includes('right')) animKey = 'idle_right';
       else if (this.lastAnim.includes('up')) animKey = 'idle_up';
