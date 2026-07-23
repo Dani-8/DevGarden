@@ -1,5 +1,5 @@
 import { createClient, RealtimeChannel } from '@supabase/supabase-js';
-import { PlayerState } from './types.js';
+import { PlayerState } from './types/index.js';
 
 export class SupabaseSocket {
   private client: any;
