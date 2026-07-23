@@ -141,8 +141,8 @@ export default function DecorHotbar() {
                   onMouseEnter={() => setHoveredItem(item)}
                   onMouseLeave={() => setHoveredItem(null)}
                   className={`relative w-11 h-11 rounded-lg flex items-center justify-center text-xl transition-all duration-150 cursor-pointer border ${isSelected
-                      ? 'bg-amber-500/30 border-amber-400 shadow-inner scale-105 ring-2 ring-amber-400/50'
-                      : 'bg-slate-950/60 border-slate-800 hover:bg-slate-800/80 hover:border-slate-700 hover:scale-105'
+                    ? 'bg-amber-500/30 border-amber-400 shadow-inner scale-105 ring-2 ring-amber-400/50'
+                    : 'bg-slate-950/60 border-slate-800 hover:bg-slate-800/80 hover:border-slate-700 hover:scale-105'
                     }`}
                 >
                   <span className="absolute top-0.5 left-1 text-[8px] font-mono text-slate-500 font-bold">
@@ -163,8 +163,8 @@ export default function DecorHotbar() {
             <button
               onClick={() => setShowInfo(prev => !prev)}
               className={`w-11 h-11 rounded-lg flex items-center justify-center text-lg transition-all duration-150 cursor-pointer border ${showInfo
-                  ? 'bg-amber-500/30 border-amber-400 ring-2 ring-amber-400/50 scale-105'
-                  : 'bg-slate-950/60 border-slate-800 hover:bg-slate-800/80 hover:border-slate-700 hover:scale-105'
+                ? 'bg-amber-500/30 border-amber-400 ring-2 ring-amber-400/50 scale-105'
+                : 'bg-slate-950/60 border-slate-800 hover:bg-slate-800/80 hover:border-slate-700 hover:scale-105'
                 }`}
               title="How to Use"
             >

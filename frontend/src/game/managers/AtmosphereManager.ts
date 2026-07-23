@@ -11,7 +11,7 @@ export class AtmosphereManager {
 
   public init() {
     const hours = new Date().getHours();
-    
+
     let color = 0xfffaf0;
     let alpha = 0.02;
     let isNight = false;
@@ -45,11 +45,11 @@ export class AtmosphereManager {
     for (let i = 0; i < 15; i++) {
       const rx = Phaser.Math.Between(50, 974);
       const ry = Phaser.Math.Between(50, 718);
-      
+
       const firefly = this.scene.add.circle(rx, ry, 2.5, 0xfff97d, 0.85);
       firefly.setDepth(1600);
       this.fireflies.push(firefly);
-      
+
       this.scene.tweens.add({
         targets: firefly,
         x: rx + Phaser.Math.Between(-40, 40),

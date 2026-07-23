@@ -4,15 +4,15 @@ export class StarTreeManager {
   private scene: Phaser.Scene;
   private socket: any;
   private currentUserId: string;
-  
+
   public communityWaterScore: number = 240;
   public goldenWaterActive: boolean = false;
-  
+
   public starTreeSprite: Phaser.GameObjects.Image | null = null;
   public starTreePromptText: Phaser.GameObjects.Text | null = null;
   public starTreeWaterParticles: Phaser.GameObjects.Particles.ParticleEmitter | null = null;
   public goldTrailEmitter: Phaser.GameObjects.Particles.ParticleEmitter | null = null;
-  
+
   private lastWateredTime: number = 0;
   private showChatBubbleCb?: (text: string) => void;
 
@@ -69,7 +69,7 @@ export class StarTreeManager {
     const tox = 20;
     const toy = 55;
 
-    treeBody.updateFromGameObject = function(this: Phaser.Physics.Arcade.StaticBody) {
+    treeBody.updateFromGameObject = function (this: Phaser.Physics.Arcade.StaticBody) {
       const gameObject = this.gameObject as any;
       this.width = tw;
       this.height = th;
@@ -187,7 +187,7 @@ export class StarTreeManager {
       .then(data => {
         if (data && typeof data.waterScore === 'number') {
           this.updateStarTreeScore(data.waterScore);
-          
+
           if (this.socket && this.socket.channel) {
             this.socket.channel.send({
               type: 'broadcast',
@@ -223,16 +223,16 @@ export class StarTreeManager {
 
   public updateStarTreeScore(score: number) {
     this.communityWaterScore = score;
-    
+
     const currentKey = this.starTreeSprite?.texture.key;
     const nextKey = this.getStarTreeStageKey(score);
     if (this.starTreeSprite && currentKey !== nextKey) {
       this.starTreeSprite.setTexture(nextKey);
-      
+
       if (nextKey === 'star_tree_stage_4') {
         this.starTreeSprite.setOrigin(0.5, 0.85);
       }
-      
+
       this.scene.tweens.add({
         targets: this.starTreeSprite,
         scaleY: 1.2,
@@ -247,7 +247,7 @@ export class StarTreeManager {
   public playTreeWaterEffect(isGolden: boolean) {
     if (!this.starTreeWaterParticles) return;
     this.starTreeWaterParticles.explode(20);
-    
+
     if (this.starTreeSprite) {
       this.starTreeSprite.setTint(isGolden ? 0xfef08a : 0xbfdbfe);
       this.scene.time.delayedCall(150, () => {
@@ -258,7 +258,7 @@ export class StarTreeManager {
 
   public initGoldTrail(playerContainer: Phaser.GameObjects.Container) {
     if (this.goldTrailEmitter) return;
-    
+
     this.goldTrailEmitter = this.scene.add.particles(0, 0, 'glow_particle', {
       scale: { start: 0.6, end: 0 },
       alpha: { start: 0.6, end: 0 },
