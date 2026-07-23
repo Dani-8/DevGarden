@@ -778,7 +778,7 @@ export default class GardenScene extends Phaser.Scene {
     this.obstaclesGroup.add(fountain);
 
     // Fountain water particles spray!
-    const waterParticles = this.add.particles(fountainX, fountainY - 14, 'water_particle', {
+    const waterParticles = this.add.particles(fountainX, fountainY - 18, 'water_particle', {
       scale: { start: 1, end: 0 },
       alpha: { start: 0.8, end: 0.1 },
       speed: { min: 20, max: 40 },
@@ -804,17 +804,17 @@ export default class GardenScene extends Phaser.Scene {
 
     // 4. River Physics Colliders (Blocks walking into water, leaves bridges open!)
     // North water block (y: 0 to 224)
-    const northWater = this.add.zone(800, 112, 96, 224);
+    const northWater = this.add.zone(816, 112, 65, 225);
     this.physics.add.existing(northWater, true);
     this.obstaclesGroup.add(northWater);
 
     // Mid water block between bridges (y: 256 to 544)
-    const midWater = this.add.zone(800, 400, 96, 288);
+    const midWater = this.add.zone(816, 400, 65, 288);
     this.physics.add.existing(midWater, true);
     this.obstaclesGroup.add(midWater);
 
     // South water block (y: 576 to 768)
-    const southWater = this.add.zone(800, 672, 96, 192);
+    const southWater = this.add.zone(816, 672, 65, 192);
     this.physics.add.existing(southWater, true);
     this.obstaclesGroup.add(southWater);
 
@@ -828,7 +828,7 @@ export default class GardenScene extends Phaser.Scene {
       frequency: 150,
       emitZone: {
         type: 'random',
-        source: new Phaser.Geom.Rectangle(-32, -350, 64, 700) as any
+        source: new Phaser.Geom.Rectangle(-15, -350, 64, 700) as any
       }
     });
     riverSparkles.setDepth(-8);
@@ -928,7 +928,7 @@ export default class GardenScene extends Phaser.Scene {
   }
 
   private createStarTree() {
-    const treeX = 512;
+    const treeX = 526;
     const treeY = 260;
 
     // Create the sprite with an initial texture (based on community water score)
@@ -942,7 +942,7 @@ export default class GardenScene extends Phaser.Scene {
     const tw = 24;
     const th = 20;
     const tox = 20;
-    const toy = 45;
+    const toy = 55;
 
     treeBody.updateFromGameObject = function(this: Phaser.Physics.Arcade.StaticBody) {
       const gameObject = this.gameObject as any;
