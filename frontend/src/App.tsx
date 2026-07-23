@@ -26,6 +26,16 @@ export default function App() {
   const [isNearLeaderboard, setIsNearLeaderboard] = useState(false);
   const [showLeaderboardPanel, setShowLeaderboardPanel] = useState(false);
   const [serverStatusMessage, setServerStatusMessage] = useState<string | null>(null);
+  const [welcomeToast, setWelcomeToast] = useState<string | null>(null);
+
+  // Auto dismiss welcome banner after 4.5 seconds
+  useEffect(() => {
+    if (!welcomeToast) return;
+    const timer = setTimeout(() => {
+      setWelcomeToast(null);
+    }, 4500);
+    return () => clearTimeout(timer);
+  }, [welcomeToast]);
 
   // 1. Fetch Session Status on boot
   const checkAuth = async () => {
@@ -78,8 +88,8 @@ export default function App() {
       score: session.user.score,
       title: session.user.title,
       visual_tier: session.user.visual_tier,
-      x: 350 + Math.random() * 100,
-      y: 250 + Math.random() * 100,
+      x: 526 + (Math.floor(Math.random() * 30) - 15), // On stone road in front of DevGarden Gate
+      y: 690 + (Math.floor(Math.random() * 20) - 10),
       anim: 'idle_down',
       commits: session.user.commits,
       stars: session.user.stars,
@@ -122,6 +132,9 @@ export default function App() {
       setSelfPlayer(data.self);
       setPlayersList(data.players);
       setNpcsList(data.sleepingNPCs);
+      if (session.user?.username) {
+        setWelcomeToast(`🌿 Welcome to DevGarden, @${session.user.username}! 🚀`);
+      }
     });
 
     // Listen for incoming dynamic additions or departures to sync lists
@@ -275,6 +288,13 @@ export default function App() {
               onSelectPlayer={setSelectedPlayer}
               onNearLeaderboard={setIsNearLeaderboard}
             />
+
+            {/* WELCOME TOAST NOTIFICATION (Auto-dismisses in 4.5s) */}
+            {welcomeToast && (
+              <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50 bg-[#faf6eb] border-3 border-[#3a2f28] text-[#3a2f28] font-serif font-bold text-xs px-5 py-2.5 rounded-2xl shadow-[0_8px_20px_rgba(0,0,0,0.35)] flex items-center gap-2 animate-fadeIn pointer-events-none select-none">
+                <span>{welcomeToast}</span>
+              </div>
+            )}
 
             {/* FLOATING CHAT & EMOTE BAR (Centered at the bottom) */}
             <div className="fixed bottom-4 left-1/2 -translate-x-1/3 z-20 w-[calc(100%-2rem)] max-w-[600px] md:max-w-[650px] pointer-events-auto">

@@ -15,19 +15,15 @@ export class WorldPropsManager {
   ): { leaderboardTreeObj: Phaser.GameObjects.Image } {
     // 1. Boundary Trees forest
     for (let x = 32; x <= 1024; x += 96) {
-      if (x >= 736 && x <= 864) continue;
+      if (x >= 736 && x <= 864) continue; // Skip river
+      if (x >= 480 && x <= 544) continue; // Skip north stone road path to Golden Oak
       this.spawnTree(scene, obstaclesGroup, x, 24);
     }
-    for (let x = 32; x <= 1024; x += 96) {
-      if (x >= 736 && x <= 864) continue; // Skip river
-      if (x >= 96 && x <= 280) continue;  // Skip in front of Code Cafe
-      if (x >= 380 && x <= 650) continue;  // Skip in front of Dev Garden Gate
-      this.spawnTree(scene, obstaclesGroup, x, 744);
-    }
-    for (let y = 120; y < 700; y += 120) {
+    // Bottom South Boulevard (y >= 672) is a full stone road, so no trees on cobblestone
+    for (let y = 120; y < 660; y += 120) {
       this.spawnTree(scene, obstaclesGroup, 24, y);
     }
-    for (let y = 120; y < 700; y += 120) {
+    for (let y = 120; y < 660; y += 120) {
       this.spawnTree(scene, obstaclesGroup, 1000, y);
     }
 
@@ -113,7 +109,7 @@ export class WorldPropsManager {
 
     // 5. Eastern Zen Sanctuary
     this.spawnSakuraTree(scene, obstaclesGroup, 930, 160);
-    this.spawnSakuraTree(scene, obstaclesGroup, 930, 520);
+    this.spawnSakuraTree(scene, obstaclesGroup, 930, 650);
     this.spawnBamboo(scene, obstaclesGroup, 985, 220);
     this.spawnBamboo(scene, obstaclesGroup, 985, 280);
     this.spawnBamboo(scene, obstaclesGroup, 985, 380);
@@ -123,10 +119,6 @@ export class WorldPropsManager {
     const devArch = scene.add.image(526, 665, 'dev_garden_arch');
     devArch.setOrigin(0.5, 0.85);
     devArch.setDepth(680);
-
-    // Gate Trees flanking the Dev Garden entrance
-    this.spawnTree(scene, obstaclesGroup, 458, 665);
-    this.spawnTree(scene, obstaclesGroup, 594, 665);
 
     this.spawnStreetLamp(scene, obstaclesGroup, 320, 672);
     this.spawnStreetLamp(scene, obstaclesGroup, 720, 672);
