@@ -1,11 +1,6 @@
 import Phaser from 'phaser';
 import { PlayerState, DecorationRow } from '../../types/index.js';
 import { showPlayerBubble } from '../messaging/Messaging.js';
-import { WORLD_WIDTH, WORLD_HEIGHT } from '../map/MapConfig.js';
-import { TilemapRenderer } from '../map/TilemapRenderer.js';
-import { PropBuilder } from '../map/PropBuilder.js';
-import { AtmosphereManager } from '../map/AtmosphereManager.js';
-import { createProceduralTextures as generateProceduralTextures } from '../utils/proceduralTextures.js';
 
 export default class GardenScene extends Phaser.Scene {
   private socket!: any;
@@ -73,25 +68,22 @@ export default class GardenScene extends Phaser.Scene {
   }
 
   preload() {
-    // 1. Procedurally generate our pixel-art textures
-    generateProceduralTextures(this);
+    // 1. Procedurally generate our pixel-art textures to ensure 100% self-contained loading
+    this.createProceduralTextures();
   }
 
   create(data: { players: PlayerState[]; sleepingNPCs: PlayerState[] }) {
-    // Enable arcade physics for full expanded world
-    this.physics.world.setBounds(0, 0, WORLD_WIDTH, WORLD_HEIGHT);
+    // Enable arcade physics
+    this.physics.world.setBounds(0, 0, 1024, 768);
 
-    // 2. Draw our multi-zone tilemap background
-    const tilemapRenderer = new TilemapRenderer(this);
-    tilemapRenderer.renderTilemap();
+    // 2. Draw our lovely tilemap background
+    this.drawTilemap();
 
     // Create a group for obstacles
     this.obstaclesGroup = this.physics.add.staticGroup();
 
-    // 3. Create world props & obstacles
-    const propBuilder = new PropBuilder(this, this.obstaclesGroup);
-    propBuilder.buildAllProps();
-    this.leaderboardTreeObj = propBuilder.leaderboardTreeObj;
+    // 3. Create the gorgeous garden props
+    this.createGardenProps();
 
     // Create anims for all developer visual tiers
     this.createAllAnimations();
@@ -115,16 +107,18 @@ export default class GardenScene extends Phaser.Scene {
       });
     }
 
-    // Set up camera boundaries across full expanded world
-    this.cameras.main.setBounds(0, 0, WORLD_WIDTH, WORLD_HEIGHT);
+    // Set up camera boundaries
+    this.cameras.main.setBounds(0, 0, 1024, 768);
     if (this.playerContainer) {
       this.cameras.main.startFollow(this.playerContainer, true, 0.1, 0.1);
     }
 
+    // Hook into Phaser's resize event to dynamically scale/zoom the garden to fit & cover the viewport perfectly
     const updateZoom = (width: number, height: number) => {
+      // Scale camera zoom so the 1024x768 design size fills the container with no black borders
       const zoomX = width / 1024;
       const zoomY = height / 768;
-      const zoom = Math.max(zoomX, zoomY, 1);
+      const zoom = Math.max(zoomX, zoomY, 1); // Keep zoom at least 1x
       this.cameras.main.setZoom(zoom);
     };
 
@@ -132,6 +126,7 @@ export default class GardenScene extends Phaser.Scene {
       updateZoom(gameSize.width, gameSize.height);
     });
 
+    // Run initial zoom matching
     updateZoom(this.scale.width, this.scale.height);
 
     // 5. Setup keyboard input hooks
