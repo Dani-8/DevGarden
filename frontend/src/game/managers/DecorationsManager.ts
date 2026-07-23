@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { PlayerState, DecorationRow } from '../../types/index.js';
+import { PlayerState, DecorationRow } from '../../types/index';
 
 export class DecorationsManager {
   private scene: Phaser.Scene;

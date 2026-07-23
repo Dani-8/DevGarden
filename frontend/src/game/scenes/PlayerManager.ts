@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
-import { PlayerState } from '../../types/index.js';
-import { showPlayerBubble } from '../messaging/Messaging.js';
+import { PlayerState } from '../../types/index';
+import { showPlayerBubble } from '../messaging/Messaging';
 
 export class PlayerManager {
   private scene: Phaser.Scene;

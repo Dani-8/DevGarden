@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react';
-import { SupabaseSocket } from './SupabaseSocket.js';
+import { SupabaseSocket } from './SupabaseSocket';
 import { Github, Trophy, LogOut, Sparkles, User, HelpCircle } from 'lucide-react';
 import LOGO from "../assets/LOGO.png"
 
-import { PlayerState, UserProfile } from './types/index.js';
-import GitHubLogin from './components/auth/GitHubLogin.js';
-import GameContainer from './game/GameContainer.js';
-import EmoteWheel from './components/social/EmoteWheel.js';
-import ProfileCard from './components/profile/ProfileCard.js';
-import Leaderboard from './components/leaderboard/Leaderboard.js';
-import Sidebar from './components/layout/Sidebar.js';
+import { PlayerState, UserProfile } from './types/index';
+import GitHubLogin from './components/auth/GitHubLogin';
+import GameContainer from './game/GameContainer';
+import EmoteWheel from './components/social/EmoteWheel';
+import ProfileCard from './components/profile/ProfileCard';
+import Leaderboard from './components/leaderboard/Leaderboard';
+import Sidebar from './components/layout/Sidebar';
 
 export default function App() {
   const [session, setSession] = useState<{ loggedIn: boolean; user?: UserProfile; supabaseUrl?: string; supabaseAnonKey?: string } | null>(null);
@@ -325,15 +325,22 @@ export default function App() {
               </div>
             )}
 
-            {/* COLLAPSIBLE FLOATING CHAT & EMOTE BAR (Centered at bottom) */}
-            {!isChatOpen ? (
-              <div className="fixed bottom-0 left-1/2 -translate-x-1/2 transition-400 z-20 pointer-events-auto">
+            {/* COLLAPSIBLE FLOATING CHAT & EMOTE BAR (Centered at bottom with smooth slide/fade animations) */}
+            <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-20 w-[calc(100%-2rem)] max-w-[600px] md:max-w-[650px] pointer-events-none flex flex-col items-center">
+              {/* Trigger Button when collapsed */}
+              <div
+                className={`transition-all duration-300 ease-out transform ${
+                  !isChatOpen
+                    ? 'translate-y-0 opacity-100 scale-100 pointer-events-auto'
+                    : 'translate-y-6 opacity-0 scale-90 pointer-events-none'
+                }`}
+              >
                 <button
                   onClick={() => {
                     setIsChatOpen(true);
                     setHasUnreadChat(false);
                   }}
-                  className="relative px-5 py-2 bg-[#faf6eb] hover:bg-[#ffae34] border-3 border-[#3a2f28] text-[#3a2f28] font-serif font-bold text-xs rounded-2xl shadow-[4px_4px_0px_#3a2f28] flex items-center gap-2 cursor-pointer transition-all hover:scale-105 active:scale-95 select-none"
+                  className="relative px-5 py-2 bg-[#faf6eb] hover:bg-[#ffae34] border-3 border-[#3a2f28] text-[#3a2f28] font-serif font-bold text-xs rounded-2xl shadow-[4px_4px_0px_#3a2f28] flex items-center gap-2 cursor-pointer transition-transform hover:scale-105 active:scale-95 select-none"
                   title="Open Chat & Emotes"
                 >
                   {hasUnreadChat && (
@@ -346,20 +353,27 @@ export default function App() {
                   <span className="text-[10px] bg-[#3a2f28]/10 px-1.5 py-0.5 rounded font-mono">▲</span>
                 </button>
               </div>
-            ) : (
-              <div className="fixed bottom-4 left-1/2 -translate-x-1/2 transition-400 z-20 w-[calc(100%-2rem)] max-w-[600px] md:max-w-[650px] pointer-events-auto flex items-center gap-2">
+
+              {/* Expanded Chat Box */}
+              <div
+                className={`w-full transition-all duration-300 ease-out transform origin-bottom ${
+                  isChatOpen
+                    ? 'translate-y-0 opacity-100 scale-100 pointer-events-auto'
+                    : 'translate-y-10 opacity-0 scale-95 pointer-events-none absolute bottom-0'
+                } flex items-center gap-2`}
+              >
                 <div className="flex-1">
                   <EmoteWheel socket={socket} />
                 </div>
                 <button
                   onClick={() => setIsChatOpen(false)}
-                  className="p-2.5 bg-[#faf6eb] hover:bg-rose-100 border-2 border-[#3a2f28] text-[#3a2f28] rounded-2xl shadow-[3px_3px_0px_#3a2f28] flex items-center justify-center cursor-pointer transition-all hover:scale-105 active:scale-95 shrink-0"
+                  className="p-2.5 bg-[#faf6eb] hover:bg-rose-100 border-2 border-[#3a2f28] text-[#3a2f28] rounded-2xl shadow-[3px_3px_0px_#3a2f28] flex items-center justify-center cursor-pointer transition-transform hover:scale-105 active:scale-95 shrink-0"
                   title="Close Chat"
                 >
                   <span className="text-xs font-bold font-mono">▼</span>
                 </button>
               </div>
-            )}
+            </div>
 
             {/* LEADERBOARD TREE INTERACTION NOTIFICATION */}
             {isNearLeaderboard && !showLeaderboardPanel && (

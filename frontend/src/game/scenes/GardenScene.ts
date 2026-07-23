@@ -1,12 +1,12 @@
 import Phaser from 'phaser';
-import { PlayerState } from '../../types/index.js';
-import { ProceduralTextures } from '../textures/ProceduralTextures.js';
-import { TilemapBuilder } from '../map/TilemapBuilder.js';
-import { WorldPropsManager, BenchInfo } from '../props/WorldPropsManager.js';
-import { PlayerManager } from './PlayerManager.js';
-import { StarTreeManager } from '../managers/StarTreeManager.js';
-import { DecorationsManager } from '../managers/DecorationsManager.js';
-import { AtmosphereManager } from '../managers/AtmosphereManager.js';
+import { PlayerState } from '../../types/index';
+import { ProceduralTextures } from '../textures/ProceduralTextures';
+import { TilemapBuilder } from '../map/TilemapBuilder';
+import { WorldPropsManager, BenchInfo } from '../props/WorldPropsManager';
+import { PlayerManager } from './PlayerManager';
+import { StarTreeManager } from '../managers/StarTreeManager';
+import { DecorationsManager } from '../managers/DecorationsManager';
+import { AtmosphereManager } from '../managers/AtmosphereManager';
 
 export default class GardenScene extends Phaser.Scene {
   private socket!: any;
