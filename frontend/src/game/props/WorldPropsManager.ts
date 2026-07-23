@@ -19,7 +19,9 @@ export class WorldPropsManager {
       this.spawnTree(scene, obstaclesGroup, x, 24);
     }
     for (let x = 32; x <= 1024; x += 96) {
-      if (x >= 736 && x <= 864) continue;
+      if (x >= 736 && x <= 864) continue; // Skip river
+      if (x >= 96 && x <= 280) continue;  // Skip in front of Code Cafe
+      if (x >= 380 && x <= 650) continue;  // Skip in front of Dev Garden Gate
       this.spawnTree(scene, obstaclesGroup, x, 744);
     }
     for (let y = 120; y < 700; y += 120) {
