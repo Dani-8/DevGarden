@@ -23,7 +23,7 @@ export default function GameContainer({
 }: GameContainerProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const gameRef = useRef<Phaser.Game | null>(null);
-  const [debugMode, setDebugMode] = useState(true);
+  const [debugMode, setDebugMode] = useState(false);
 
   useEffect(() => {
     if (!containerRef.current) return;
