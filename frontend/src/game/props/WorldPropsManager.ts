@@ -121,11 +121,11 @@ export class WorldPropsManager {
     devArch.setDepth(680);
 
     // Gate pillars collision (left & right pillars of the archway, leaving middle open for road)
-    const leftPillar = scene.add.zone(472, 665, 18, 24);
+    const leftPillar = scene.add.zone(482, 663, 18, 30);
     scene.physics.add.existing(leftPillar, true);
     obstaclesGroup.add(leftPillar);
 
-    const rightPillar = scene.add.zone(580, 665, 18, 24);
+    const rightPillar = scene.add.zone(570, 663, 18, 30);
     scene.physics.add.existing(rightPillar, true);
     obstaclesGroup.add(rightPillar);
 
@@ -142,10 +142,10 @@ export class WorldPropsManager {
     scene.physics.add.existing(codeCafe, true);
 
     const cafeBody = codeCafe.body as Phaser.Physics.Arcade.StaticBody;
-    const cw = 105;
-    const ch = 28;
+    const cw = 80;
+    const ch = 60;
     const cox = 10;
-    const coy = 72;
+    const coy = 18;
 
     cafeBody.updateFromGameObject = function (this: Phaser.Physics.Arcade.StaticBody) {
       const gameObject = this.gameObject as any;
@@ -350,7 +350,7 @@ export class WorldPropsManager {
     scene.physics.add.existing(lamp, true);
 
     const lampBody = lamp.body as Phaser.Physics.Arcade.StaticBody;
-    const lw = 10;
+    const lw = 5;
     const lh = 10;
     lampBody.updateFromGameObject = function (this: Phaser.Physics.Arcade.StaticBody) {
       const gameObject = this.gameObject as any;
@@ -358,8 +358,8 @@ export class WorldPropsManager {
       this.height = lh;
       this.halfWidth = lw / 2;
       this.halfHeight = lh / 2;
-      this.x = gameObject.x - 5;
-      this.y = gameObject.y - 12;
+      this.x = gameObject.x - 2;
+      this.y = gameObject.y - 10;
       this.center.setTo(this.x + 5, this.y + 5);
       return this;
     };

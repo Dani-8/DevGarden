@@ -83,7 +83,7 @@ export default function Sidebar({
           <img
             src={user.avatar_url}
             alt={user.username}
-            className="w-8 h-8 rounded-full border-2 border-[#3a2f28] object-cover shadow-sm grayscale sepia hue-rotate-[70deg] saturate-[2.5] brightness-[0.9] contrast-[1.1] opacity-85 hover:filter-none hover:opacity-100 hover:scale-105 transition-all duration-300 cursor-pointer"
+            className="w-8 h-8 rounded-full border-2 border-[#947866] object-cover shadow-sm grayscale sepia hue-rotate-[70deg] saturate-[2.5] brightness-[0.9] contrast-[1.1] opacity-85 hover:filter-none hover:opacity-100 hover:scale-105 transition-all duration-300 cursor-pointer"
             referrerPolicy="no-referrer"
           />
           {!collapsed && (
