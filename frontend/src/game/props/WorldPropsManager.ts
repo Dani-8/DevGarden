@@ -133,14 +133,14 @@ export class WorldPropsManager {
     obstaclesGroup.add(rightPillar);
 
     // Gate Trees flanking the Dev Garden entrance
-    this.spawnTree(scene, obstaclesGroup, 430, 670);
-    this.spawnTree(scene, obstaclesGroup, 622, 670);
+    this.spawnTree(scene, obstaclesGroup, 460, 670);
+    this.spawnTree(scene, obstaclesGroup, 592, 670);
 
     // Flower pots flanking Dev Garden Arch Entrance (Left & Right)
-    this.spawnFlowerPot(scene, obstaclesGroup, 448, 668);
-    this.spawnFlowerPot(scene, obstaclesGroup, 462, 668);
-    this.spawnFlowerPot(scene, obstaclesGroup, 590, 668);
-    this.spawnFlowerPot(scene, obstaclesGroup, 604, 668);
+    this.spawnFlowerPot(scene, obstaclesGroup, 495, 672);
+    this.spawnFlowerPot(scene, obstaclesGroup, 470, 672);
+    this.spawnFlowerPot(scene, obstaclesGroup, 557, 672);
+    this.spawnFlowerPot(scene, obstaclesGroup, 580, 672);
 
     this.spawnStreetLamp(scene, obstaclesGroup, 345, 672);
     this.spawnStreetLamp(scene, obstaclesGroup, 720, 672);
@@ -172,14 +172,14 @@ export class WorldPropsManager {
     obstaclesGroup.add(codeCafe);
 
     // Side flower pots for Code Cafe (2 on left side, 1 on right side)
-    this.spawnFlowerPot(scene, obstaclesGroup, 60, 672);
-    this.spawnFlowerPot(scene, obstaclesGroup, 74, 672);
+    this.spawnFlowerPot(scene, obstaclesGroup, 70, 672);
+    this.spawnFlowerPot(scene, obstaclesGroup, 83, 672);
 
     // In front of Code Cafe: Only the Menu Board beside the entrance door
-    this.spawnMenuBoard(scene, obstaclesGroup, 175, 672);
+    this.spawnMenuBoard(scene, obstaclesGroup, 190, 680);
 
     // Right side flower pot
-    this.spawnFlowerPot(scene, obstaclesGroup, 230, 672);
+    this.spawnFlowerPot(scene, obstaclesGroup, 220, 672);
 
     // Fireflies
     const fireflyEmitter = scene.add.particles(512, 384, 'firefly_particle', {
@@ -513,7 +513,7 @@ export class WorldPropsManager {
     const fenceY = 660; // Clean alignment along bottom grass edge
 
     // 1. South Fence Left (x = 0 to 448; tile centers: 16, 48, ..., 432)
-    for (let x = 0; x <= 416; x += 32) {
+    for (let x = 0; x <= 456; x += 32) {
       const fence = scene.add.image(x + 16, fenceY, 'fence_picket_horizontal');
       fence.setOrigin(0.5, 0.5);
       fence.setDepth(656);
