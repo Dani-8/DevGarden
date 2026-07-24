@@ -118,7 +118,7 @@ export class WorldPropsManager {
     this.spawnBamboo(scene, obstaclesGroup, 985, 380);
     this.spawnBamboo(scene, obstaclesGroup, 985, 440);
 
-    // 6. South Boulevard
+    // 6. South Boulevard & Code Cafe
     const devArch = scene.add.image(526, 665, 'dev_garden_arch');
     devArch.setOrigin(0.5, 0.85);
     devArch.setDepth(680);
@@ -133,13 +133,19 @@ export class WorldPropsManager {
     obstaclesGroup.add(rightPillar);
 
     // Gate Trees flanking the Dev Garden entrance
-    this.spawnTree(scene, obstaclesGroup, 458, 670);
-    this.spawnTree(scene, obstaclesGroup, 594, 670);
+    this.spawnTree(scene, obstaclesGroup, 430, 670);
+    this.spawnTree(scene, obstaclesGroup, 622, 670);
 
-    this.spawnStreetLamp(scene, obstaclesGroup, 320, 672);
+    // Flower pots flanking Dev Garden Arch Entrance (Left & Right)
+    this.spawnFlowerPot(scene, obstaclesGroup, 448, 668);
+    this.spawnFlowerPot(scene, obstaclesGroup, 462, 668);
+    this.spawnFlowerPot(scene, obstaclesGroup, 590, 668);
+    this.spawnFlowerPot(scene, obstaclesGroup, 604, 668);
+
+    this.spawnStreetLamp(scene, obstaclesGroup, 345, 672);
     this.spawnStreetLamp(scene, obstaclesGroup, 720, 672);
 
-    const codeCafe = scene.add.image(180, 665, 'code_cafe_building');
+    const codeCafe = scene.add.image(150, 665, 'code_cafe_building');
     codeCafe.setOrigin(0.5, 0.85);
     codeCafe.setScale(1.5, 1.35);
     codeCafe.setDepth(672);
@@ -164,6 +170,16 @@ export class WorldPropsManager {
     };
     cafeBody.updateFromGameObject();
     obstaclesGroup.add(codeCafe);
+
+    // Side flower pots for Code Cafe (2 on left side, 1 on right side)
+    this.spawnFlowerPot(scene, obstaclesGroup, 60, 672);
+    this.spawnFlowerPot(scene, obstaclesGroup, 74, 672);
+
+    // In front of Code Cafe: Only the Menu Board beside the entrance door
+    this.spawnMenuBoard(scene, obstaclesGroup, 175, 672);
+
+    // Right side flower pot
+    this.spawnFlowerPot(scene, obstaclesGroup, 230, 672);
 
     // Fireflies
     const fireflyEmitter = scene.add.particles(512, 384, 'firefly_particle', {
@@ -414,6 +430,23 @@ export class WorldPropsManager {
       });
       glow.setDepth(y + 2);
     }
+  }
+
+  private static spawnFlowerPot(scene: Phaser.Scene, obstaclesGroup: Phaser.Physics.Arcade.StaticGroup, x: number, y: number) {
+    const pot = scene.add.image(x, y, 'flower_pot');
+    pot.setOrigin(0.5, 0.85);
+    pot.setDepth(y + 15);
+    scene.physics.add.existing(pot, true);
+    obstaclesGroup.add(pot);
+  }
+
+  private static spawnMenuBoard(scene: Phaser.Scene, obstaclesGroup: Phaser.Physics.Arcade.StaticGroup, x: number, y: number) {
+    const board = scene.add.image(x, y, 'cafe_menu_board');
+    board.setOrigin(0.5, 0.85);
+    board.setScale(1.15);
+    board.setDepth(y + 15);
+    scene.physics.add.existing(board, true);
+    obstaclesGroup.add(board);
   }
 
   private static spawnLivelyDuck(
