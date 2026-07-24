@@ -180,7 +180,7 @@ export default function Sidebar({
           onClick={() => setIsGuideOpen(true)}
           className={`w-full py-2 px-2.5 rounded-lg border-2 transition-all flex items-center gap-2 font-serif text-[11px] font-bold cursor-pointer select-none ${
             collapsed ? 'justify-center' : ''
-          } bg-[#ffae34] border-[#3a2f28] text-[#3a2f28] shadow-sm hover:scale-[1.01]`}
+          } bg-[#ffae34] border-[#a96d00] text-[#3a2f28] shadow-sm hover:scale-[1.01] hover:border-[#8a5400] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c47a00]/60`}
           title="Visitor Guide & Controls"
         >
           <BookOpen className="w-3.5 h-3.5 flex-shrink-0" />
@@ -224,7 +224,7 @@ export default function Sidebar({
 
         <button
           onClick={() => setIsShareOpen(true)}
-          className={`w-full py-2 px-2.5 rounded-lg border-2 transition-all flex items-center gap-2 font-serif text-[11px] font-bold cursor-pointer select-none bg-emerald-700/90 border-[#3a2f28] hover:bg-emerald-800 text-white shadow-sm hover:scale-[1.01] ${
+          className={`w-full py-2 px-2.5 rounded-lg border-2 transition-all flex items-center gap-2 font-serif text-[11px] font-bold cursor-pointer select-none bg-emerald-700/90 border-emerald-900/80 hover:bg-emerald-800 hover:border-emerald-950 text-white shadow-sm hover:scale-[1.01] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/60 ${
             collapsed ? 'justify-center' : ''
           }`}
           title="Spread the Seeds (Get Rare Cosmetics)"
@@ -302,7 +302,7 @@ export default function Sidebar({
       <div className={`p-2.5 border-t-2 ${theme.borderDivider} flex flex-col gap-1.5`}>
         <button
           onClick={onLogout}
-          className={`w-full py-1.5 px-2.5 rounded-lg flex items-center gap-2 font-sans text-[11px] font-bold transition-all border border-transparent hover:border-red-600/30 hover:bg-red-500/10 ${theme.textSecondary} hover:text-red-400 cursor-pointer ${
+          className={`w-full py-1.5 px-2.5 rounded-lg flex items-center gap-2 font-sans text-[11px] font-bold transition-all border border-transparent hover:border-red-600/60 hover:bg-red-500/20 ${theme.textSecondary} hover:text-red-500 cursor-pointer ${
             collapsed ? 'justify-center' : ''
           }`}
           title="Sign Out of Garden"
@@ -313,9 +313,9 @@ export default function Sidebar({
 
         <button
           onClick={() => setCollapsed(!collapsed)}
-          className={`w-full mt-0.5 py-1.5 px-2.5 rounded-lg ${theme.btnSecondary} flex items-center ${
+          className={`w-full mt-0.5 py-1.5 px-2.5 rounded-lg border-2 ${theme.btnSecondary} text-[#3a2f28] flex items-center ${
             collapsed ? 'justify-center' : 'gap-2'
-          } font-sans text-[11px] font-bold transition-all cursor-pointer`}
+          } font-sans text-[11px] font-bold transition-all cursor-pointer shadow-sm focus-visible:outline-none`}
           title={collapsed ? 'Expand Sidebar' : 'Hide Menu'}
         >
           {collapsed ? (
