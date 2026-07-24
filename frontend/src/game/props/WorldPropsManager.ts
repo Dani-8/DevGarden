@@ -145,10 +145,15 @@ export class WorldPropsManager {
     this.spawnStreetLamp(scene, obstaclesGroup, 345, 672);
     this.spawnStreetLamp(scene, obstaclesGroup, 720, 672);
 
-    const codeCafe = scene.add.image(150, 665, 'code_cafe_building');
+    // Concrete street patio/apron directly under Code Cafe
+    const cafePatio = scene.add.image(150, 672, 'cafe_concrete_patio');
+    cafePatio.setOrigin(0.5, 0.5);
+    cafePatio.setDepth(656);
+
+    const codeCafe = scene.add.image(150, 654, 'code_cafe_building');
     codeCafe.setOrigin(0.5, 0.85);
     codeCafe.setScale(1.5, 1.35);
-    codeCafe.setDepth(672);
+    codeCafe.setDepth(670);
     scene.physics.add.existing(codeCafe, true);
 
     const cafeBody = codeCafe.body as Phaser.Physics.Arcade.StaticBody;
@@ -176,7 +181,7 @@ export class WorldPropsManager {
     this.spawnFlowerPot(scene, obstaclesGroup, 83, 672);
 
     // In front of Code Cafe: Only the Menu Board beside the entrance door
-    this.spawnMenuBoard(scene, obstaclesGroup, 190, 680);
+    this.spawnMenuBoard(scene, obstaclesGroup, 190, 667);
 
     // Right side flower pot
     this.spawnFlowerPot(scene, obstaclesGroup, 220, 672);

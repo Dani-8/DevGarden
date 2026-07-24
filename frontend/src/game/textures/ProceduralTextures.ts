@@ -32,6 +32,7 @@ export class ProceduralTextures {
     this.drawDevGardenArch(textures);
     this.drawStreetLampProp(textures);
     this.drawCodeCafeStorefront(textures);
+    this.drawCafeConcretePatio(textures);
     this.drawFlowerPotProp(textures);
     this.drawMenuBoardProp(textures);
     this.drawCafeUmbrellaTable(textures);
@@ -71,7 +72,7 @@ export class ProceduralTextures {
     const ctx = canvas.getContext();
 
     if (blur) {
-      const grad = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
+      const grad = ctx.createRadialGradient(size/2, size/2, 0, size/2, size/2, size/2);
       grad.addColorStop(0, colorStr);
       grad.addColorStop(1, 'rgba(255,255,255,0)');
       ctx.fillStyle = grad;
@@ -80,7 +81,7 @@ export class ProceduralTextures {
     }
 
     ctx.beginPath();
-    ctx.arc(size / 2, size / 2, size / 2, 0, Math.PI * 2);
+    ctx.arc(size/2, size/2, size/2, 0, Math.PI * 2);
     ctx.fill();
     canvas.refresh();
   }
@@ -473,6 +474,38 @@ export class ProceduralTextures {
     canvas.refresh();
   }
 
+  private static drawCafeConcretePatio(textures: Phaser.Textures.TextureManager) {
+    if (textures.exists('cafe_concrete_patio')) return;
+    const canvas = textures.createCanvas('cafe_concrete_patio', 180, 20);
+    if (!canvas) return;
+    const ctx = canvas.getContext();
+
+    // Smooth grey concrete slab
+    ctx.fillStyle = '#94a3b8';
+    ctx.fillRect(0, 0, 180, 20);
+
+    // Top highlight rim
+    ctx.fillStyle = '#cbd5e1';
+    ctx.fillRect(0, 0, 180, 2);
+
+    // Stone slab division seams
+    ctx.fillStyle = '#64748b';
+    for (let x = 30; x < 180; x += 30) {
+      ctx.fillRect(x, 0, 2, 18);
+    }
+    ctx.fillRect(0, 18, 180, 2); // Bottom shadow edge
+
+    // Subtle stone texture details
+    ctx.fillStyle = '#64748b';
+    ctx.fillRect(12, 6, 2, 2);
+    ctx.fillRect(48, 12, 2, 2);
+    ctx.fillRect(78, 5, 2, 2);
+    ctx.fillRect(112, 11, 2, 2);
+    ctx.fillRect(152, 6, 2, 2);
+
+    canvas.refresh();
+  }
+
   private static drawFlowerPotProp(textures: Phaser.Textures.TextureManager) {
     if (textures.exists('flower_pot')) return;
     const canvas = textures.createCanvas('flower_pot', 20, 24);
@@ -603,6 +636,27 @@ export class ProceduralTextures {
     ctx.fillRect(18, 18, 2, 2);
     ctx.fillStyle = '#fef08a';
     ctx.fillRect(19, 19, 1, 1);
+
+    // Green leafy vines wrapping around the top and side borders of the board
+    ctx.fillStyle = '#15803d'; // Base dark green leaves
+    ctx.fillRect(1, 0, 24, 3);
+    ctx.fillRect(0, 1, 3, 12);
+    ctx.fillRect(23, 1, 3, 12);
+
+    ctx.fillStyle = '#22c55e'; // Bright green leaf clusters
+    ctx.fillRect(3, 0, 5, 2);
+    ctx.fillRect(11, 0, 6, 2);
+    ctx.fillRect(19, 0, 4, 2);
+    ctx.fillRect(0, 3, 2, 4);
+    ctx.fillRect(24, 4, 2, 5);
+    ctx.fillRect(0, 9, 2, 3);
+    ctx.fillRect(24, 11, 2, 3);
+
+    ctx.fillStyle = '#86efac'; // Fresh leaf highlights
+    ctx.fillRect(5, 0, 2, 1);
+    ctx.fillRect(14, 0, 2, 1);
+    ctx.fillRect(1, 4, 1, 2);
+    ctx.fillRect(24, 6, 1, 2);
 
     canvas.refresh();
   }
