@@ -27,6 +27,9 @@ export class WorldPropsManager {
       this.spawnTree(scene, obstaclesGroup, 1000, y);
     }
 
+    // 1b. Cozy Garden Wooden Picket Fence Perimeter & Main Gate
+    this.spawnFencePerimeter(scene, obstaclesGroup);
+
     // 2. Central Fountain
     const fountainX = 527;
     const fountainY = 400;
@@ -448,5 +451,110 @@ export class WorldPropsManager {
       repeat: -1,
       ease: 'Quad.easeInOut'
     });
+  }
+
+  private static spawnFencePerimeter(scene: Phaser.Scene, obstaclesGroup: Phaser.Physics.Arcade.StaticGroup) {
+    // Garden Grass Perimeter Bounds (Bottom edge where Grass meets South Boulevard cobblestone at y = 672):
+    // Central Stone Path is at tx = 15..16 (x = 480 to 544, centered at 512).
+    // Main Entrance Gate: Flanked by Gate Posts at x = 464 and x = 560.
+
+    const fenceY = 663; // Clean alignment along bottom grass edge
+
+    // 1. South Fence Left (x = 0 to 448; tile centers: 16, 48, ..., 432)
+    for (let x = 0; x <= 456; x += 32) {
+      const fence = scene.add.image(x + 16, fenceY, 'fence_picket_horizontal');
+      fence.setOrigin(0.5, 0.5);
+      fence.setDepth(656);
+    }
+
+    // 2. South Fence Right (x = 576 to 1024; tile centers: 592, 624, ..., 1008)
+    for (let x = 576; x <= 992; x += 32) {
+      const fence = scene.add.image(x + 16, fenceY, 'fence_picket_horizontal');
+      fence.setOrigin(0.5, 0.5);
+      fence.setDepth(656);
+    }
+
+    // 2. North Fence (Commented out - available if needed later)
+    /*
+    for (let x = 16; x <= 1008; x += 32) {
+      if (x >= 480 && x <= 544) continue; // North path to Leaderboard Tree / Golden Oak
+      if (x >= 752 && x <= 880) continue; // River crossing / bridges
+      const fence = scene.add.image(x + 16, 20, 'fence_picket_horizontal');
+      fence.setOrigin(0.5, 0.5);
+      fence.setDepth(20);
+    }
+    */
+
+    // 3. West Fence (Commented out - available if needed later)
+    /*
+    for (let y = 24; y <= 640; y += 32) {
+      const fence = scene.add.image(12, y + 16, 'fence_picket_vertical');
+      fence.setOrigin(0.5, 0.5);
+      fence.setDepth(y);
+    }
+    */
+
+    // 4. East Fence (Commented out - available if needed later)
+    /*
+    for (let y = 24; y <= 640; y += 32) {
+      const fence = scene.add.image(1012, y + 16, 'fence_picket_vertical');
+      fence.setOrigin(0.5, 0.5);
+      fence.setDepth(y);
+    }
+    */
+
+    // ==========================================
+    // COLLISION BARRIERS (Invisible Hitboxes)
+    // ==========================================
+
+    // A. North Fence Hitbox (Commented out - available if needed later)
+    /*
+    const northLeftBarrier = scene.add.zone(240, 16, 480, 24);
+    scene.physics.add.existing(northLeftBarrier, true);
+    obstaclesGroup.add(northLeftBarrier);
+
+    const northMidBarrier = scene.add.zone(648, 16, 200, 24);
+    scene.physics.add.existing(northMidBarrier, true);
+    obstaclesGroup.add(northMidBarrier);
+
+    const northRightBarrier = scene.add.zone(948, 16, 140, 24);
+    scene.physics.add.existing(northRightBarrier, true);
+    obstaclesGroup.add(northRightBarrier);
+    */
+
+    // B. West Fence Hitbox (Commented out - available if needed later)
+    /*
+    const westBarrier = scene.add.zone(12, 336, 24, 672);
+    scene.physics.add.existing(westBarrier, true);
+    obstaclesGroup.add(westBarrier);
+    */
+
+    // C. East Fence Hitbox (Commented out - available if needed later)
+    /*
+    const eastBarrier = scene.add.zone(1012, 336, 24, 672);
+    scene.physics.add.existing(eastBarrier, true);
+    obstaclesGroup.add(eastBarrier);
+    */
+
+    // D. South Fence Left Barrier (Blocks south boundary from x=0 to x=450)
+    const southLeftBarrier = scene.add.zone(225, fenceY, 450, 24);
+    scene.physics.add.existing(southLeftBarrier, true);
+    obstaclesGroup.add(southLeftBarrier);
+
+    // E. South Fence Right Barrier (Blocks south boundary from x=574 to x=1024)
+    const southRightBarrier = scene.add.zone(799, fenceY, 450, 24);
+    scene.physics.add.existing(southRightBarrier, true);
+    obstaclesGroup.add(southRightBarrier);
+
+    // F. Gate Posts Collision Hitboxes (Left & Right posts framing the gate)
+    const gatePostLeft = scene.add.zone(460, fenceY, 20, 24);
+    scene.physics.add.existing(gatePostLeft, true);
+    obstaclesGroup.add(gatePostLeft);
+
+    const gatePostRight = scene.add.zone(564, fenceY, 20, 24);
+    scene.physics.add.existing(gatePostRight, true);
+    obstaclesGroup.add(gatePostRight);
+
+    // The central stone path (x = 470 to 554, 84px wide) is COMPLETELY OPEN for the Main Gate Entrance!
   }
 }
