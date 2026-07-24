@@ -71,13 +71,13 @@ export default function Sidebar({
       borderDivider: 'border-[#4a3a2e]/15'
     },
     night: {
-      asideBg: 'bg-[#1a2332]/92 backdrop-blur-md border-[#2d3a4e]/60 text-[#e2e8f0]',
-      cardBg: 'bg-[#243044]/75 border-[#3b4b66]/50 text-[#e2e8f0]',
-      textPrimary: 'text-[#f1f5f9]',
-      textSecondary: 'text-[#cbd5e1]',
-      textAccent: 'text-amber-300',
-      btnSecondary: 'bg-[#243044]/80 border-[#3b4b66]/50 hover:bg-[#2d3b54] text-[#f1f5f9]',
-      borderDivider: 'border-[#2d3a4e]/60'
+      asideBg: 'bg-[#e8edf5] border-[#2c3e50]/20 text-[#2c3e50]',
+      cardBg: 'bg-[#d5e0ea]/50 border-[#2c3e50]/15 text-[#2c3e50]',
+      textPrimary: 'text-[#2c3e50]',
+      textSecondary: 'text-[#4a607a]',
+      textAccent: 'text-indigo-900',
+      btnSecondary: 'bg-[#d5e0ea]/60 border-[#2c3e50]/15 hover:bg-[#c6d7e6] text-[#2c3e50]',
+      borderDivider: 'border-[#2c3e50]/15'
     }
   }[timeOfDay];
 
