@@ -376,24 +376,43 @@ export class WorldPropsManager {
     const isNight = hours >= 17 || hours < 7;
 
     if (isNight) {
-      // Soft radial aura around lamp top
+      // Downward light beam & ground illuminated pool
+      const lightBeam = scene.add.graphics();
+      
+      // Light beam cone radiating down from lamp top
+      lightBeam.fillStyle(0xfff3a0, 0.18);
+      lightBeam.fillTriangle(x, y - 52, x - 38, y + 16, x + 38, y + 16);
+      
+      // Outer warm illuminated light pool on the ground
+      lightBeam.fillStyle(0xffe066, 0.32);
+      lightBeam.fillEllipse(x, y + 12, 76, 26);
+      
+      // Inner bright light pool core on the ground
+      lightBeam.fillStyle(0xfffbeb, 0.55);
+      lightBeam.fillEllipse(x, y + 12, 38, 14);
+      
+      lightBeam.setDepth(15); // On ground above tilemap
+      lightBeam.setBlendMode(Phaser.BlendModes.ADD);
+
+      // Soft radial aura around lamp top bulb
       const aura = scene.add.graphics();
-      aura.fillStyle(0xffa500, 0.25);
-      aura.fillCircle(x, y - 56, 22);
-      aura.fillStyle(0xfff3a0, 0.4);
-      aura.fillCircle(x, y - 56, 10);
-      aura.setDepth(y - 2);
+      aura.fillStyle(0xffa500, 0.35);
+      aura.fillCircle(x, y - 56, 26);
+      aura.fillStyle(0xfff3a0, 0.65);
+      aura.fillCircle(x, y - 56, 12);
+      aura.setDepth(y + 1);
+      aura.setBlendMode(Phaser.BlendModes.ADD);
 
       const glow = scene.add.particles(x, y - 56, 'glow_particle', {
-        scale: { start: 1.6, end: 0.8 },
-        alpha: { start: 0.6, end: 0.1 },
+        scale: { start: 1.8, end: 0.8 },
+        alpha: { start: 0.7, end: 0.1 },
         tint: 0xffa500, // Warm orange-yellow light
-        speed: 5,
-        lifespan: 1000,
-        frequency: 200,
+        speed: 6,
+        lifespan: 1100,
+        frequency: 180,
         blendMode: 'ADD'
       });
-      glow.setDepth(y - 1);
+      glow.setDepth(y + 2);
     }
   }
 
@@ -458,10 +477,10 @@ export class WorldPropsManager {
     // Central Stone Path is at tx = 15..16 (x = 480 to 544, centered at 512).
     // Main Entrance Gate: Flanked by Gate Posts at x = 464 and x = 560.
 
-    const fenceY = 663; // Clean alignment along bottom grass edge
+    const fenceY = 660; // Clean alignment along bottom grass edge
 
     // 1. South Fence Left (x = 0 to 448; tile centers: 16, 48, ..., 432)
-    for (let x = 0; x <= 456; x += 32) {
+    for (let x = 0; x <= 416; x += 32) {
       const fence = scene.add.image(x + 16, fenceY, 'fence_picket_horizontal');
       fence.setOrigin(0.5, 0.5);
       fence.setDepth(656);
