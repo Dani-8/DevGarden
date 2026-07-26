@@ -12,7 +12,7 @@ export default class GardenScene extends Phaser.Scene {
   private socket!: any;
   private selfPlayer: PlayerState | null = null;
   private currentUserId: string = '';
-  
+
   // Managers
   private playerManager!: PlayerManager;
   private starTreeManager!: StarTreeManager;
@@ -52,17 +52,33 @@ export default class GardenScene extends Phaser.Scene {
   private eKey!: Phaser.Input.Keyboard.Key;
   private sitPromptText!: Phaser.GameObjects.Text;
 
+  // Code Cafe Door Interaction
+  private oKey!: Phaser.Input.Keyboard.Key;
+  private cafeDoorPromptText!: Phaser.GameObjects.Text;
+  private isTransitioning: boolean = false;
+
   constructor() {
     super({ key: 'GardenScene' });
   }
 
-  init(data: { socket: any; self: PlayerState; onSelectPlayer: (p: PlayerState) => void; onNearLeaderboard: (isNear: boolean) => void }) {
+  init(data: {
+    socket: any;
+    self: PlayerState;
+    spawnPos?: { x: number; y: number };
+    onSelectPlayer: (p: PlayerState) => void;
+    onNearLeaderboard: (isNear: boolean) => void;
+  }) {
     this.socket = data.socket;
-    this.selfPlayer = data.self;
+    this.selfPlayer = data.self ? { ...data.self } : null;
+    if (this.selfPlayer && data.spawnPos) {
+      this.selfPlayer.x = data.spawnPos.x;
+      this.selfPlayer.y = data.spawnPos.y;
+    }
     this.currentUserId = data.self?.id || '';
     this.onSelectPlayerCallback = data.onSelectPlayer;
     this.onNearLeaderboardCallback = data.onNearLeaderboard;
-    
+    this.isTransitioning = false;
+
     this.playerManager = new PlayerManager(this);
     this.starTreeManager = new StarTreeManager(
       this,
@@ -144,6 +160,7 @@ export default class GardenScene extends Phaser.Scene {
         D: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D),
       };
       this.eKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
+      this.oKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.O);
     }
 
     // Sitting UI prompt - placed below player feet
@@ -158,6 +175,19 @@ export default class GardenScene extends Phaser.Scene {
     this.sitPromptText.setOrigin(0.5, 0); // Top-center origin so it renders below legs/feet
     this.sitPromptText.setDepth(3000);
     this.sitPromptText.setVisible(false);
+
+    // Code Cafe Door Prompt
+    this.cafeDoorPromptText = this.add.text(0, 0, 'Press [O] to Open Door & Enter 🚪', {
+      fontSize: '11px',
+      fontFamily: 'system-ui, sans-serif',
+      fontStyle: 'bold',
+      color: '#ffffff',
+      backgroundColor: 'rgba(0, 0, 0, 0.8)',
+      padding: { x: 8, y: 4 }
+    });
+    this.cafeDoorPromptText.setOrigin(0.5, 0);
+    this.cafeDoorPromptText.setDepth(3000);
+    this.cafeDoorPromptText.setVisible(false);
 
     // 7. Initialize Sub-Managers
     this.starTreeManager.init(this.obstaclesGroup);
@@ -195,7 +225,7 @@ export default class GardenScene extends Phaser.Scene {
   }
 
   update() {
-    if (!this.playerContainer || !this.playerSprite || !this.cursors || !this.wasd) return;
+    if (this.isTransitioning || !this.playerContainer || !this.playerSprite || !this.cursors || !this.wasd) return;
 
     const speed = 120;
     let vx = 0;
@@ -287,6 +317,25 @@ export default class GardenScene extends Phaser.Scene {
       }
     }
 
+    // Code Cafe Door Proximity Check (Door at x: 160, y: 672)
+    const distToCafeDoor = Phaser.Math.Distance.Between(
+      this.playerContainer.x,
+      this.playerContainer.y,
+      160,
+      675
+    );
+
+    if (distToCafeDoor < 45) {
+      this.cafeDoorPromptText.setPosition(this.playerContainer.x, this.playerContainer.y + 12);
+      this.cafeDoorPromptText.setVisible(true);
+
+      if (this.oKey && Phaser.Input.Keyboard.JustDown(this.oKey)) {
+        this.enterCodeCafe();
+      }
+    } else {
+      if (this.cafeDoorPromptText) this.cafeDoorPromptText.setVisible(false);
+    }
+
     if (this.isSitting) {
       body.setVelocity(0, 0);
     } else {
@@ -370,6 +419,25 @@ export default class GardenScene extends Phaser.Scene {
     });
     this.sleepingNPCs.forEach((container) => {
       container.setDepth(container.y);
+    });
+  }
+
+  private enterCodeCafe() {
+    if (this.isTransitioning) return;
+    this.isTransitioning = true;
+    if (this.cafeDoorPromptText) this.cafeDoorPromptText.setVisible(false);
+    if (this.playerContainer) {
+      this.playerManager.showChatBubble(this.playerContainer, "🚪 Entering Code Cafe...", false);
+    }
+
+    this.cameras.main.fadeOut(300, 0, 0, 0);
+    this.time.delayedCall(300, () => {
+      this.scene.start('CodeCafeScene', {
+        socket: this.socket,
+        self: this.selfPlayer,
+        onSelectPlayer: this.onSelectPlayerCallback,
+        onNearLeaderboard: this.onNearLeaderboardCallback,
+      });
     });
   }
 
@@ -460,7 +528,7 @@ export default class GardenScene extends Phaser.Scene {
     this.socket.on('tree_watered', (data: { id: string; score: number; isGolden: boolean }) => {
       this.starTreeManager.updateStarTreeScore(data.score);
       this.starTreeManager.playTreeWaterEffect(data.isGolden);
-      
+
       if (data.id !== this.currentUserId) {
         const other = this.otherPlayers.get(data.id);
         if (other) {
