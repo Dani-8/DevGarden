@@ -73,7 +73,7 @@ export class ProceduralTextures {
     const ctx = canvas.getContext();
 
     if (blur) {
-      const grad = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
+      const grad = ctx.createRadialGradient(size/2, size/2, 0, size/2, size/2, size/2);
       grad.addColorStop(0, colorStr);
       grad.addColorStop(1, 'rgba(255,255,255,0)');
       ctx.fillStyle = grad;
@@ -82,7 +82,7 @@ export class ProceduralTextures {
     }
 
     ctx.beginPath();
-    ctx.arc(size / 2, size / 2, size / 2, 0, Math.PI * 2);
+    ctx.arc(size/2, size/2, size/2, 0, Math.PI * 2);
     ctx.fill();
     canvas.refresh();
   }
@@ -1565,13 +1565,46 @@ export class ProceduralTextures {
         ctx.fillRect(16, 4, 6, 3);
         ctx.fillRect(24, 4, 6, 3);
 
-        // --- GLASS TIP JAR WITH CASH & CORK (x=152 to 166) ---
-        ctx.fillStyle = '#b45309'; // Cork lid
-        ctx.fillRect(154, 1, 8, 2);
-        ctx.fillStyle = 'rgba(186, 230, 253, 0.6)'; // Glass jar
-        ctx.fillRect(152, 3, 12, 7);
-        ctx.fillStyle = '#16a34a'; // Green bills inside
-        ctx.fillRect(154, 5, 8, 4);
+        // --- GLASS PASTRY DISPLAY CASE ON RIGHT SIDE (x=142 to 182) ---
+        // Metallic Frame Base & Edges
+        ctx.fillStyle = '#1e293b';
+        ctx.fillRect(142, 0, 42, 10);
+        ctx.fillStyle = '#334155';
+        ctx.fillRect(143, 0, 40, 1); // Metallic top trim
+        ctx.fillRect(143, 0, 1, 10); // Left frame
+        ctx.fillRect(182, 0, 1, 10); // Right frame
+
+        // Shelf 1 (Upper Shelf Line)
+        ctx.fillStyle = '#94a3b8';
+        ctx.fillRect(144, 4, 38, 1);
+
+        // Pastries - Shelf 1 (Top): Croissants & Muffins
+        ctx.fillStyle = '#d97706'; // Golden Croissants
+        ctx.fillRect(147, 1, 7, 3);
+        ctx.fillRect(158, 1, 7, 3);
+        ctx.fillStyle = '#78350f'; // Chocolate Muffin
+        ctx.fillRect(169, 1, 6, 3);
+        ctx.fillStyle = '#f59e0b'; // Cinnamon Roll
+        ctx.fillRect(177, 1, 5, 3);
+
+        // Pastries - Shelf 2 (Bottom): Cake Slices & Cookies
+        ctx.fillStyle = '#b45309'; // Golden Chocolate Chip Cookies
+        ctx.fillRect(146, 6, 5, 3);
+        ctx.fillRect(153, 6, 5, 3);
+        ctx.fillStyle = '#fde047'; // Lemon/Yellow Cake Slice
+        ctx.fillRect(161, 5, 8, 4);
+        ctx.fillStyle = '#ef4444'; // Strawberry Topping
+        ctx.fillRect(163, 5, 4, 1);
+        ctx.fillStyle = '#a16207'; // Pie Slice
+        ctx.fillRect(172, 5, 8, 4);
+
+        // Glass Front & Diagonal Light Reflection Glare
+        ctx.fillStyle = 'rgba(186, 230, 253, 0.35)';
+        ctx.fillRect(143, 1, 39, 8);
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+        ctx.fillRect(146, 1, 2, 8); // White glare streak 1
+        ctx.fillRect(152, 1, 1, 8); // White glare streak 2
+        ctx.fillRect(176, 1, 2, 8); // White glare streak 3
 
         canvas.refresh();
       }
@@ -1713,6 +1746,59 @@ export class ProceduralTextures {
         ctx.fillRect(10, 0, 2, 3);
         ctx.fillRect(12, 2, 2, 3);
         ctx.fillRect(24, 0, 2, 3);
+
+        canvas.refresh();
+      }
+    }
+
+    // 4b. Glass Pastry Showcase Display Cabinet (44x32)
+    if (!textures.exists('cafe_pastry_display')) {
+      const canvas = textures.createCanvas('cafe_pastry_display', 44, 32);
+      if (canvas) {
+        const ctx = canvas.getContext();
+        // Shadow base
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+        ctx.fillRect(2, 28, 40, 4);
+
+        // Dark Slate Frame
+        ctx.fillStyle = '#1e293b';
+        ctx.fillRect(0, 2, 44, 28);
+        ctx.fillStyle = '#334155';
+        ctx.fillRect(2, 0, 40, 2); // Top metal bevel
+
+        // Clear Glass Interior Background
+        ctx.fillStyle = '#0f172a';
+        ctx.fillRect(2, 2, 40, 26);
+
+        // Glass Shelf 1 (Top)
+        ctx.fillStyle = '#94a3b8';
+        ctx.fillRect(3, 14, 38, 1);
+
+        // Pastries - Shelf 1 (Top): Golden Croissants & Chocolate Muffin
+        ctx.fillStyle = '#d97706'; // Golden Croissants
+        ctx.fillRect(6, 8, 8, 5);
+        ctx.fillRect(18, 8, 8, 5);
+        ctx.fillStyle = '#78350f'; // Chocolate Muffin
+        ctx.fillRect(30, 7, 7, 6);
+
+        // Pastries - Shelf 2 (Bottom): Cake Slice & Cookies
+        ctx.fillStyle = '#b45309'; // Golden Cookies
+        ctx.fillRect(5, 20, 6, 5);
+        ctx.fillRect(13, 20, 6, 5);
+        ctx.fillStyle = '#fde047'; // Lemon/Yellow Cake Slice
+        ctx.fillRect(22, 18, 9, 7);
+        ctx.fillStyle = '#ef4444'; // Strawberry Topping
+        ctx.fillRect(25, 18, 4, 2);
+        ctx.fillStyle = '#a16207'; // Pie Slice
+        ctx.fillRect(33, 18, 8, 7);
+
+        // Front Glass Pane Reflection & Glare
+        ctx.fillStyle = 'rgba(186, 230, 253, 0.3)';
+        ctx.fillRect(2, 2, 40, 26);
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+        ctx.fillRect(5, 3, 2, 24); // Glare line 1
+        ctx.fillRect(12, 3, 1, 24); // Glare line 2
+        ctx.fillRect(36, 3, 2, 24); // Glare line 3
 
         canvas.refresh();
       }
