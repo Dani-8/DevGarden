@@ -10,12 +10,12 @@ import ChallengeModal from '../modals/ChallengeModal.js';
 import GuideModal from '../modals/GuideModal.js';
 
 interface SidebarProps {
-  user: UserProfile;
-  showLeaderboardPanel: boolean;
-  setShowLeaderboardPanel: (show: boolean) => void;
-  isNearLeaderboard: boolean;
-  onLogout: () => void;
-  onUnlockCosmetics?: (cosmetics: string[]) => void;
+  user: UserProfile
+  showLeaderboardPanel: boolean
+  setShowLeaderboardPanel: (show: boolean) => void
+  isNearLeaderboard: boolean
+  onLogout: () => void
+  onUnlockCosmetics?: (cosmetics: string[]) => void
 }
 
 export default function Sidebar({
@@ -44,12 +44,12 @@ export default function Sidebar({
       } else {
         setTimeOfDay('night');
       }
-    };
+    }
 
     updateTime();
     const interval = setInterval(updateTime, 60000);
     return () => clearInterval(interval);
-  }, []);
+  }, [])
 
   const theme = {
     day: {
