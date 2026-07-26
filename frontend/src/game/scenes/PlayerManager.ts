@@ -284,4 +284,37 @@ export class PlayerManager {
   showChatBubble(container: Phaser.GameObjects.Container, text: string, isEmote: boolean = false) {
     showPlayerBubble(this.scene, container, text, isEmote);
   }
+
+  handleRemotePlayerMove(
+    data: { id: string; x: number; y: number; anim: string },
+    otherPlayers: Map<string, Phaser.GameObjects.Container>
+  ) {
+    const container = otherPlayers.get(data.id);
+    if (container) {
+      container.setPosition(data.x, data.y);
+      const sprite = container.list.find(child => child instanceof Phaser.GameObjects.Sprite) as Phaser.GameObjects.Sprite;
+      if (sprite) {
+        const tier = container.getData('tier') || 'green';
+        sprite.play(`${data.anim}_${tier}`, true);
+      }
+    }
+  }
+
+  handleChatMessageSync(
+    data: { sender_id: string; sender_name: string; message: string; is_ai?: boolean },
+    currentUserId: string,
+    selfContainer: Phaser.GameObjects.Container | null,
+    otherPlayers: Map<string, Phaser.GameObjects.Container>
+  ) {
+    if (data.sender_id === currentUserId) {
+      if (selfContainer) {
+        this.showChatBubble(selfContainer, data.message, false);
+      }
+    } else {
+      const container = otherPlayers.get(data.sender_id);
+      if (container) {
+        this.showChatBubble(container, data.message, false);
+      }
+    }
+  }
 }

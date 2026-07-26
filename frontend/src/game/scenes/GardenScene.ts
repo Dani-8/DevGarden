@@ -12,7 +12,7 @@ export default class GardenScene extends Phaser.Scene {
   private socket!: any;
   private selfPlayer: PlayerState | null = null;
   private currentUserId: string = '';
-  
+
   // Managers
   private playerManager!: PlayerManager;
   private starTreeManager!: StarTreeManager;
@@ -78,7 +78,7 @@ export default class GardenScene extends Phaser.Scene {
     this.onSelectPlayerCallback = data.onSelectPlayer;
     this.onNearLeaderboardCallback = data.onNearLeaderboard;
     this.isTransitioning = false;
-    
+
     this.playerManager = new PlayerManager(this);
     this.starTreeManager = new StarTreeManager(
       this,
@@ -528,7 +528,7 @@ export default class GardenScene extends Phaser.Scene {
     this.socket.on('tree_watered', (data: { id: string; score: number; isGolden: boolean }) => {
       this.starTreeManager.updateStarTreeScore(data.score);
       this.starTreeManager.playTreeWaterEffect(data.isGolden);
-      
+
       if (data.id !== this.currentUserId) {
         const other = this.otherPlayers.get(data.id);
         if (other) {
