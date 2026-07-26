@@ -230,8 +230,8 @@ export default function Sidebar({
             <button
               onClick={() => setIsChallengeOpen(true)}
               className={`w-full py-2 px-2.5 rounded-lg border-2 transition-all flex items-center justify-center cursor-pointer select-none ${goldenWater
-                  ? 'bg-amber-400 border-[#3a2f28] text-slate-900 shadow-sm animate-pulse'
-                  : theme.btnSecondary
+                ? 'bg-amber-400 border-[#3a2f28] text-slate-900 shadow-sm animate-pulse'
+                : theme.btnSecondary
                 }`}
               title={goldenWater ? "Golden Water Active! (10x growth)" : "Take AI Challenge to Unlock Golden Water (+10x)"}
             >
@@ -239,8 +239,8 @@ export default function Sidebar({
             </button>
           ) : (
             <div className={`mt-2 p-3 rounded-xl border-2 flex flex-col gap-2 transition-all relative overflow-hidden ${goldenWater
-                ? 'bg-gradient-to-br from-amber-500/20 to-yellow-600/10 border-amber-500/50 shadow-sm'
-                : `${theme.cardBg} border-dashed`
+              ? 'bg-gradient-to-br from-amber-500/20 to-yellow-600/10 border-amber-500/50 shadow-sm'
+              : `${theme.cardBg} border-dashed`
               }`}>
               {goldenWater && (
                 <div className="absolute -right-6 -bottom-6 w-16 h-16 bg-amber-400/10 rounded-full blur-xl pointer-events-none" />
