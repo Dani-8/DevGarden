@@ -3,7 +3,7 @@ import { PlayerState } from '../../types/index';
 import { ProceduralTextures } from '../textures/ProceduralTextures';
 import { PlayerManager } from './PlayerManager';
 import { CafeTilemap } from '../cafe/CafeTilemap';
-import { CafePropsManager } from '../cafe/CafePropsManager';
+import { CafePropsManager, CafeChair } from '../cafe/CafePropsManager';
 import { CafeBaristaManager } from '../cafe/CafeBaristaManager';
 
 export default class CodeCafeScene extends Phaser.Scene {
@@ -41,7 +41,7 @@ export default class CodeCafeScene extends Phaser.Scene {
     // Interaction prompts & Sitting
     private promptText!: Phaser.GameObjects.Text;
     private sitPromptText!: Phaser.GameObjects.Text;
-    private cafeChairs: { x: number; y: number }[] = [];
+    private cafeChairs: CafeChair[] = [];
     private isSitting: boolean = false;
     private isTransitioning: boolean = false;
 
@@ -141,7 +141,7 @@ export default class CodeCafeScene extends Phaser.Scene {
         // 2. Props & Obstacles
         this.obstaclesGroup = this.physics.add.staticGroup();
         const props = CafePropsManager.createProps(this, this.obstaclesGroup);
-        this.cafeChairs = props.chairs.map(c => ({ x: c.x, y: c.y }));
+        this.cafeChairs = props.chairs;
 
         // 3. Player animations
         this.playerManager.createAllAnimations();
@@ -274,7 +274,7 @@ export default class CodeCafeScene extends Phaser.Scene {
         const body = this.playerContainer.body as Phaser.Physics.Arcade.Body;
 
         // Check chair sitting proximity
-        let nearChair: { x: number; y: number } | null = null;
+        let nearChair: CafeChair | null = null;
         let minDist = 30;
         for (const chair of this.cafeChairs) {
             const dist = Phaser.Math.Distance.Between(this.playerContainer.x, this.playerContainer.y, chair.x, chair.y);
@@ -292,14 +292,40 @@ export default class CodeCafeScene extends Phaser.Scene {
             if (this.eKey && Phaser.Input.Keyboard.JustDown(this.eKey)) {
                 if (this.isSitting) {
                     this.isSitting = false;
+                    body.enable = true;
+
+                    // Calculate safe standing position outside chair & table colliders
+                    if (nearChair.dir === 'up') {
+                        this.playerContainer.setPosition(nearChair.x, nearChair.y - 18);
+                    } else if (nearChair.dir === 'down') {
+                        this.playerContainer.setPosition(nearChair.x, nearChair.y + 18);
+                    } else if (nearChair.dir === 'left') {
+                        this.playerContainer.setPosition(nearChair.x - 18, nearChair.y + 4);
+                    } else if (nearChair.dir === 'right') {
+                        this.playerContainer.setPosition(nearChair.x + 18, nearChair.y + 4);
+                    } else if (nearChair.dir === 'sofa' || nearChair.x < 60) {
+                        this.playerContainer.setPosition(nearChair.x + 22, nearChair.y);
+                    } else {
+                        this.playerContainer.setPosition(nearChair.x, nearChair.y + 18);
+                    }
+
                     this.playerManager.showChatBubble(this.playerContainer, "🚶 Stood up!", false);
                 } else {
                     this.isSitting = true;
+                    body.enable = false; // Disable physics body collision while seated
                     this.playerContainer.setPosition(nearChair.x, nearChair.y - 2);
                     body.setVelocity(0, 0);
 
-                    // Face right if sitting on left-wall sofa, otherwise face front
-                    if (nearChair.x < 60) {
+                    // Face inward towards the table based on chair direction
+                    if (nearChair.dir === 'up') {
+                        this.lastAnim = 'idle_down'; // Top chair faces down into table
+                    } else if (nearChair.dir === 'down') {
+                        this.lastAnim = 'idle_up'; // Bottom chair faces up into table
+                    } else if (nearChair.dir === 'left') {
+                        this.lastAnim = 'idle_right'; // Left chair faces right into table
+                    } else if (nearChair.dir === 'right') {
+                        this.lastAnim = 'idle_left'; // Right chair faces left into table
+                    } else if (nearChair.x < 60) {
                         this.lastAnim = 'idle_right';
                     } else {
                         this.lastAnim = 'idle_down';
@@ -310,7 +336,10 @@ export default class CodeCafeScene extends Phaser.Scene {
             }
         } else {
             if (this.sitPromptText) this.sitPromptText.setVisible(false);
-            if (this.isSitting) this.isSitting = false;
+            if (this.isSitting) {
+                this.isSitting = false;
+                body.enable = true;
+            }
         }
 
         if (this.isSitting) {

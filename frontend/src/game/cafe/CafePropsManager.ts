@@ -4,6 +4,7 @@ export interface CafeChair {
     x: number;
     y: number;
     sprite: Phaser.GameObjects.Image;
+    dir?: 'up' | 'down' | 'left' | 'right' | 'sofa';
 }
 
 export interface CafePropsResult {
@@ -32,9 +33,9 @@ export class CafePropsManager {
         neonSign.setOrigin(0.5, 0.5);
         neonSign.setDepth(20);
 
-        // Wall Poster: "COFFEE FOCUS FLOW"
+        // Wall Poster: "TEA, SLEEP, CODE, REPEAT" with Lush Grass Leaves Effect
         const poster = scene.add.image(590, 52, 'cafe_wall_poster');
-        poster.setDisplaySize(100, 65);
+        poster.setDisplaySize(85, 75);
         poster.setOrigin(0.5, 0.5);
         poster.setDepth(20);
 
@@ -180,31 +181,54 @@ export class CafePropsManager {
             table.setOrigin(0.5, 0.85);
             table.setDepth(y);
             scene.physics.add.existing(table, true);
+            const tableBody = table.body as Phaser.Physics.Arcade.StaticBody;
+            tableBody.setSize(30, 24);
+            tableBody.setOffset(9, 18);
             obstaclesGroup.add(table);
 
-            // Top Chair
-            const chairTop = scene.add.image(x, y - 26, 'cafe_interior_chair');
+            // Top Chair (Facing DOWN towards table)
+            const chairTop = scene.add.image(x, y - 26, 'cafe_chair_down');
             chairTop.setOrigin(0.5, 0.85);
             chairTop.setDepth(y - 10);
-            chairs.push({ x: x, y: y - 26, sprite: chairTop });
+            scene.physics.add.existing(chairTop, true);
+            const topBody = chairTop.body as Phaser.Physics.Arcade.StaticBody;
+            topBody.setSize(16, 16);
+            topBody.setOffset(3, 8);
+            obstaclesGroup.add(chairTop);
+            chairs.push({ x: x, y: y - 26, sprite: chairTop, dir: 'up' });
 
-            // Bottom Chair
-            const chairBottom = scene.add.image(x, y + 20, 'cafe_interior_chair');
+            // Bottom Chair (Facing UP towards table)
+            const chairBottom = scene.add.image(x, y + 20, 'cafe_chair_up');
             chairBottom.setOrigin(0.5, 0.85);
             chairBottom.setDepth(y + 10);
-            chairs.push({ x: x, y: y + 20, sprite: chairBottom });
+            scene.physics.add.existing(chairBottom, true);
+            const bottomBody = chairBottom.body as Phaser.Physics.Arcade.StaticBody;
+            bottomBody.setSize(16, 16);
+            bottomBody.setOffset(3, 8);
+            obstaclesGroup.add(chairBottom);
+            chairs.push({ x: x, y: y + 20, sprite: chairBottom, dir: 'down' });
 
-            // Left Chair
-            const chairL = scene.add.image(x - 26, y - 3, 'cafe_interior_chair');
+            // Left Chair (Facing RIGHT towards table)
+            const chairL = scene.add.image(x - 26, y - 3, 'cafe_chair_right');
             chairL.setOrigin(0.5, 0.85);
             chairL.setDepth(y - 2);
-            chairs.push({ x: x - 26, y: y - 3, sprite: chairL });
+            scene.physics.add.existing(chairL, true);
+            const lBody = chairL.body as Phaser.Physics.Arcade.StaticBody;
+            lBody.setSize(16, 16);
+            lBody.setOffset(3, 8);
+            obstaclesGroup.add(chairL);
+            chairs.push({ x: x - 26, y: y - 3, sprite: chairL, dir: 'left' });
 
-            // Right Chair
-            const chairR = scene.add.image(x + 26, y - 3, 'cafe_interior_chair');
+            // Right Chair (Facing LEFT towards table)
+            const chairR = scene.add.image(x + 26, y - 3, 'cafe_chair_left');
             chairR.setOrigin(0.5, 0.85);
             chairR.setDepth(y - 2);
-            chairs.push({ x: x + 26, y: y - 3, sprite: chairR });
+            scene.physics.add.existing(chairR, true);
+            const rBody = chairR.body as Phaser.Physics.Arcade.StaticBody;
+            rBody.setSize(16, 16);
+            rBody.setOffset(3, 8);
+            obstaclesGroup.add(chairR);
+            chairs.push({ x: x + 26, y: y - 3, sprite: chairR, dir: 'right' });
         };
 
         // Left Seating Column (Wood Floor)
@@ -227,11 +251,11 @@ export class CafePropsManager {
 
             const seatTop = scene.add.image(22, y - 12, 'cafe_interior_chair');
             seatTop.setVisible(false);
-            chairs.push({ x: 22, y: y - 12, sprite: seatTop });
+            chairs.push({ x: 22, y: y - 12, sprite: seatTop, dir: 'sofa' });
 
             const seatBottom = scene.add.image(22, y + 12, 'cafe_interior_chair');
             seatBottom.setVisible(false);
-            chairs.push({ x: 22, y: y + 12, sprite: seatBottom });
+            chairs.push({ x: 22, y: y + 12, sprite: seatBottom, dir: 'sofa' });
         };
 
         createSofaSet(270);
@@ -243,17 +267,30 @@ export class CafePropsManager {
             table.setOrigin(0.5, 0.85);
             table.setDepth(y);
             scene.physics.add.existing(table, true);
+            const tableBody = table.body as Phaser.Physics.Arcade.StaticBody;
+            tableBody.setSize(30, 24);
+            tableBody.setOffset(9, 18);
             obstaclesGroup.add(table);
 
-            const chairL = scene.add.image(x - 26, y - 3, 'cafe_interior_chair');
+            const chairL = scene.add.image(x - 26, y - 3, 'cafe_chair_right');
             chairL.setOrigin(0.5, 0.85);
             chairL.setDepth(y - 2);
-            chairs.push({ x: x - 26, y: y - 3, sprite: chairL });
+            scene.physics.add.existing(chairL, true);
+            const lBody = chairL.body as Phaser.Physics.Arcade.StaticBody;
+            lBody.setSize(16, 16);
+            lBody.setOffset(3, 8);
+            obstaclesGroup.add(chairL);
+            chairs.push({ x: x - 26, y: y - 3, sprite: chairL, dir: 'left' });
 
-            const chairR = scene.add.image(x + 26, y - 3, 'cafe_interior_chair');
+            const chairR = scene.add.image(x + 26, y - 3, 'cafe_chair_left');
             chairR.setOrigin(0.5, 0.85);
             chairR.setDepth(y - 2);
-            chairs.push({ x: x + 26, y: y - 3, sprite: chairR });
+            scene.physics.add.existing(chairR, true);
+            const rBody = chairR.body as Phaser.Physics.Arcade.StaticBody;
+            rBody.setSize(16, 16);
+            rBody.setOffset(3, 8);
+            obstaclesGroup.add(chairR);
+            chairs.push({ x: x + 26, y: y - 3, sprite: chairR, dir: 'right' });
         };
 
         createPatioSet2Chairs(832, 240);
@@ -319,5 +356,4 @@ export class CafePropsManager {
         };
     }
 }
-
 
