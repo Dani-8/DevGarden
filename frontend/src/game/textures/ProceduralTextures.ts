@@ -1804,20 +1804,20 @@ export class ProceduralTextures {
       }
     }
 
-    // 5. Cafe Barista NPC (24x32) - White Fair Skin Tone
+    // 5. Cafe Barista NPC (24x34) - White Fair Skin Tone
     if (!textures.exists('cafe_barista')) {
-      const canvas = textures.createCanvas('cafe_barista', 24, 32);
+      const canvas = textures.createCanvas('cafe_barista', 24, 34);
       if (canvas) {
         const ctx = canvas.getContext();
         // Shadow
         ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
         ctx.beginPath();
-        ctx.ellipse(12, 30, 8, 2, 0, 0, Math.PI * 2);
+        ctx.ellipse(12, 32, 8, 2, 0, 0, Math.PI * 2);
         ctx.fill();
 
-        // Dark Hair
+        // Dark Hair & Cap
         ctx.fillStyle = '#3f1d0b';
-        ctx.fillRect(6, 4, 12, 7);
+        ctx.fillRect(6, 5, 12, 7);
 
         // Head / Face - Fair White Skin Tone (#ffedd5)
         ctx.fillStyle = '#ffedd5';
@@ -1825,22 +1825,22 @@ export class ProceduralTextures {
 
         // Rosy Cheeks
         ctx.fillStyle = '#fca5a5';
-        ctx.fillRect(7, 12, 2, 2);
-        ctx.fillRect(15, 12, 2, 2);
+        ctx.fillRect(7, 13, 2, 2);
+        ctx.fillRect(15, 13, 2, 2);
 
         // Eyes & Smile
         ctx.fillStyle = '#1e293b';
-        ctx.fillRect(9, 11, 2, 2); // eyes
-        ctx.fillRect(13, 11, 2, 2);
+        ctx.fillRect(8, 11, 2, 2); // eyes
+        ctx.fillRect(14, 11, 2, 2);
         ctx.fillStyle = '#ef4444';
         ctx.fillRect(11, 14, 2, 1); // smile
 
         // Green Barista Apron
         ctx.fillStyle = '#15803d';
-        ctx.fillRect(6, 16, 12, 14);
-        ctx.fillStyle = '#22c55e'; // Apron chest
-        ctx.fillRect(8, 18, 8, 10);
-        ctx.fillStyle = '#ffffff'; // Coffee bean badge on apron
+        ctx.fillRect(5, 16, 14, 16);
+        ctx.fillStyle = '#22c55e'; // Apron chest bib
+        ctx.fillRect(7, 18, 10, 12);
+        ctx.fillStyle = '#ffffff'; // Coffee badge
         ctx.fillRect(11, 20, 2, 3);
 
         // Barista Cap / Coffee cup hat
@@ -1853,75 +1853,375 @@ export class ProceduralTextures {
       }
     }
 
-    // 6. Cafe Table (36x36)
+    // 6. Cafe Table Base (48x48 for rich pixel scale matching reference image)
     if (!textures.exists('cafe_interior_table')) {
-      const canvas = textures.createCanvas('cafe_interior_table', 36, 36);
+      const canvas = textures.createCanvas('cafe_interior_table', 48, 48);
       if (canvas) {
         const ctx = canvas.getContext();
-        // Shadow
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
+        // Drop Shadow
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
         ctx.beginPath();
-        ctx.ellipse(18, 33, 14, 4, 0, 0, Math.PI * 2);
+        ctx.ellipse(24, 44, 20, 4, 0, 0, Math.PI * 2);
         ctx.fill();
 
-        // Table leg & base
-        ctx.fillStyle = '#1e293b';
-        ctx.fillRect(16, 18, 4, 14);
-        ctx.fillRect(10, 30, 16, 3);
+        // Sturdy Dark Metal Pedestal Base
+        ctx.fillStyle = '#0f172a';
+        ctx.fillRect(22, 22, 4, 20);
+        ctx.fillRect(12, 40, 24, 4);
 
-        // Circular wooden top
+        // Circular Dark Walnut Top Rim
+        ctx.fillStyle = '#270e01';
+        ctx.beginPath();
+        ctx.ellipse(24, 18, 22, 14, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Polished Warm Golden-Mahogany Surface
+        ctx.fillStyle = '#78350f';
+        ctx.beginPath();
+        ctx.ellipse(24, 17, 20, 12, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Inner Wood Grain Ring
         ctx.fillStyle = '#92400e';
         ctx.beginPath();
-        ctx.ellipse(18, 14, 16, 10, 0, 0, Math.PI * 2);
+        ctx.ellipse(24, 16, 17, 10, 0, 0, Math.PI * 2);
         ctx.fill();
 
-        // Top surface highlight
+        // Surface Highlight
         ctx.fillStyle = '#b45309';
         ctx.beginPath();
-        ctx.ellipse(18, 13, 14, 8, 0, 0, Math.PI * 2);
+        ctx.ellipse(24, 15, 13, 7, 0, 0, Math.PI * 2);
         ctx.fill();
-
-        // Coffee mug on table
-        ctx.fillStyle = '#ffffff';
-        ctx.fillRect(16, 10, 5, 5);
-        ctx.fillStyle = '#78350f'; // Coffee liquid
-        ctx.fillRect(17, 11, 3, 3);
-
-        // Flower vase on table
-        ctx.fillStyle = '#38bdf8';
-        ctx.fillRect(23, 8, 3, 5);
-        ctx.fillStyle = '#f472b6'; // Flower bloom
-        ctx.fillRect(23, 5, 3, 3);
 
         canvas.refresh();
       }
     }
 
-    // 7. Cafe Chair (18x24)
+    // 6b. Cafe Table with Laptop
+    if (!textures.exists('cafe_interior_table_laptop')) {
+      const canvas = textures.createCanvas('cafe_interior_table_laptop', 48, 48);
+      if (canvas) {
+        const ctx = canvas.getContext();
+        // Draw base table
+        const baseTable = textures.get('cafe_interior_table').getSourceImage() as CanvasImageSource;
+        ctx.drawImage(baseTable, 0, 0);
+
+        // Open Laptop on table
+        ctx.fillStyle = '#334155'; // Metallic silver body
+        ctx.fillRect(16, 16, 16, 10); // Base keyboard
+        ctx.fillStyle = '#38bdf8'; // Glowing blue screen
+        ctx.fillRect(18, 10, 12, 7);
+        ctx.fillStyle = '#f8fafc'; // Code text lines on screen
+        ctx.fillRect(20, 12, 8, 1); ctx.fillRect(20, 14, 6, 1);
+
+        // Small Coffee Espresso Cup
+        ctx.fillStyle = '#ffffff'; ctx.fillRect(34, 14, 5, 5);
+        ctx.fillStyle = '#451a03'; ctx.fillRect(35, 15, 3, 3);
+
+        canvas.refresh();
+      }
+    }
+
+    // 6c. Cafe Table with Coffee & Pastry
+    if (!textures.exists('cafe_interior_table_coffee')) {
+      const canvas = textures.createCanvas('cafe_interior_table_coffee', 48, 48);
+      if (canvas) {
+        const ctx = canvas.getContext();
+        const baseTable = textures.get('cafe_interior_table').getSourceImage() as CanvasImageSource;
+        ctx.drawImage(baseTable, 0, 0);
+
+        // White Saucer & Coffee Cup
+        ctx.fillStyle = '#cbd5e1';
+        ctx.beginPath(); ctx.ellipse(20, 16, 6, 4, 0, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = '#ffffff'; ctx.fillRect(17, 13, 6, 5);
+        ctx.fillStyle = '#78350f'; ctx.fillRect(18, 14, 4, 3);
+
+        // Pastry Plate with Croissant
+        ctx.fillStyle = '#e2e8f0';
+        ctx.beginPath(); ctx.ellipse(32, 16, 6, 4, 0, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = '#d97706'; ctx.fillRect(29, 14, 6, 4);
+
+        canvas.refresh();
+      }
+    }
+
+    // 6d. Cafe Table with Plant / Succulent
+    if (!textures.exists('cafe_interior_table_plant')) {
+      const canvas = textures.createCanvas('cafe_interior_table_plant', 48, 48);
+      if (canvas) {
+        const ctx = canvas.getContext();
+        const baseTable = textures.get('cafe_interior_table').getSourceImage() as CanvasImageSource;
+        ctx.drawImage(baseTable, 0, 0);
+
+        // Small Terra Cotta Pot with Succulent
+        ctx.fillStyle = '#c2410c'; ctx.fillRect(21, 14, 6, 6);
+        ctx.fillStyle = '#15803d'; ctx.fillRect(19, 10, 10, 5);
+        ctx.fillStyle = '#4ade80'; ctx.fillRect(21, 9, 6, 4);
+
+        // Coffee Cup
+        ctx.fillStyle = '#ffffff'; ctx.fillRect(12, 15, 5, 4);
+        ctx.fillStyle = '#78350f'; ctx.fillRect(13, 16, 3, 2);
+
+        canvas.refresh();
+      }
+    }
+
+    // 7. Cafe Chair (22x28 for rich scale)
     if (!textures.exists('cafe_interior_chair')) {
-      const canvas = textures.createCanvas('cafe_interior_chair', 18, 24);
+      const canvas = textures.createCanvas('cafe_interior_chair', 22, 28);
       if (canvas) {
         const ctx = canvas.getContext();
         // Shadow
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
-        ctx.fillRect(2, 22, 14, 2);
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
+        ctx.fillRect(2, 25, 18, 3);
 
-        // Chair legs
+        // Chair legs & Frame
+        ctx.fillStyle = '#270e01';
+        ctx.fillRect(3, 14, 3, 12);
+        ctx.fillRect(16, 14, 3, 12);
+
+        // Rich Red Velvet Seat Cushion
+        ctx.fillStyle = '#7f1d1d';
+        ctx.fillRect(2, 12, 18, 5);
+        ctx.fillStyle = '#991b1b';
+        ctx.fillRect(2, 12, 18, 3);
+        ctx.fillStyle = '#dc2626'; // Highlight lip
+        ctx.fillRect(3, 12, 16, 1);
+
+        // Carved Mahogany Backrest with Red Velvet Inset
         ctx.fillStyle = '#451a03';
-        ctx.fillRect(3, 12, 2, 10);
-        ctx.fillRect(13, 12, 2, 10);
-
-        // Seat cushion
-        ctx.fillStyle = '#991b1b'; // Red velvet cushion
-        ctx.fillRect(2, 10, 14, 4);
-        ctx.fillStyle = '#dc2626';
-        ctx.fillRect(2, 10, 14, 2);
-
-        // Chair backrest
+        ctx.fillRect(3, 1, 16, 11);
         ctx.fillStyle = '#78350f';
-        ctx.fillRect(3, 1, 12, 9);
-        ctx.fillStyle = '#991b1b'; // Backrest cushion inset
-        ctx.fillRect(5, 3, 8, 6);
+        ctx.fillRect(4, 2, 14, 1);
+        ctx.fillStyle = '#991b1b'; // Backrest cushion
+        ctx.fillRect(5, 3, 12, 8);
+        ctx.fillStyle = '#dc2626';
+        ctx.fillRect(6, 4, 10, 6);
+
+        canvas.refresh();
+      }
+    }
+
+    // 7b. POS Register / Cash Counter Terminal (24x24)
+    if (!textures.exists('cafe_pos_terminal')) {
+      const canvas = textures.createCanvas('cafe_pos_terminal', 24, 24);
+      if (canvas) {
+        const ctx = canvas.getContext();
+        // Stand base
+        ctx.fillStyle = '#0f172a';
+        ctx.fillRect(6, 18, 12, 6);
+
+        // Terminal Screen (Angled facing front)
+        ctx.fillStyle = '#1e293b';
+        ctx.fillRect(2, 4, 20, 14);
+        ctx.fillStyle = '#0f172a';
+        ctx.fillRect(4, 6, 16, 10);
+
+        // Screen Display Items
+        ctx.fillStyle = '#38bdf8'; // Order total text
+        ctx.fillRect(6, 8, 12, 2);
+        ctx.fillStyle = '#22c55e'; // Item buttons
+        ctx.fillRect(6, 11, 4, 3);
+        ctx.fillRect(11, 11, 4, 3);
+
+        canvas.refresh();
+      }
+    }
+
+    // 7c. Centerpiece Grand Garden Planter Island (160x500 canvas -> 80x250 display)
+    if (!textures.exists('cafe_center_garden_planter')) {
+      const canvas = textures.createCanvas('cafe_center_garden_planter', 160, 500);
+      if (canvas) {
+        const ctx = canvas.getContext();
+        // Ground Drop Shadow
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+        ctx.fillRect(4, 4, 152, 492);
+
+        // Heavy Outer Polished Oak Wood Frame (straight outer edges matching floor oak palette #451a03 / #78350f)
+        ctx.fillStyle = '#451a03';
+        ctx.fillRect(0, 0, 160, 500);
+
+        // Beveled Inner Wood Edge
+        ctx.fillStyle = '#78350f';
+        ctx.fillRect(6, 6, 148, 488);
+
+        ctx.fillStyle = '#92400e';
+        ctx.fillRect(10, 10, 140, 480);
+
+        // Recessed Rich Dark Soil Bed (SMOOTHLY CURVED / ROUNDED GRASS BED CORNERS)
+        ctx.fillStyle = '#1c0a02';
+        ctx.beginPath();
+        if (ctx.roundRect) {
+          ctx.roundRect(18, 18, 124, 464, 48);
+        } else {
+          ctx.rect(18, 18, 124, 464);
+        }
+        ctx.fill();
+
+        // Deep Green Base Foliage / Moss Layer (CURVED / ROUNDED)
+        ctx.fillStyle = '#14532d';
+        ctx.beginPath();
+        if (ctx.roundRect) {
+          ctx.roundRect(22, 22, 116, 456, 42);
+        } else {
+          ctx.rect(22, 22, 116, 456);
+        }
+        ctx.fill();
+
+        // Layered Curved Grass Clusters & Plants inside rounded bed
+        for (let y = 30; y < 465; y += 10) {
+          for (let x = 28; x < 130; x += 12) {
+            // Check if x, y is inside the rounded grass bed shape
+            const distFromTop = Math.hypot(x - 80, y - 70);
+            const distFromBottom = Math.hypot(x - 80, y - 430);
+            if ((y >= 70 && y <= 430) || distFromTop <= 52 || distFromBottom <= 52) {
+              const shift = ((x + y) % 5);
+              ctx.fillStyle = '#15803d';
+              ctx.fillRect(x, y + shift, 10, 8);
+              ctx.fillStyle = '#16a34a';
+              ctx.fillRect(x + 2, y + shift + 1, 8, 6);
+              ctx.fillStyle = '#22c55e';
+              ctx.fillRect(x + 3, y + shift + 2, 4, 3);
+            }
+          }
+        }
+
+        // Blooming Flowers (Daisies, Roses, Lavender) across the rounded bed
+        for (let y = 35; y < 450; y += 22) {
+          for (let x = 32; x < 125; x += 25) {
+            const distFromTop = Math.hypot(x - 80, y - 70);
+            const distFromBottom = Math.hypot(x - 80, y - 430);
+            if ((y >= 70 && y <= 430) || distFromTop <= 48 || distFromBottom <= 48) {
+              const mod = (x * 7 + y * 13) % 4;
+              if (mod === 0) {
+                // White Daisy
+                ctx.fillStyle = '#ffffff'; ctx.fillRect(x, y, 6, 6);
+                ctx.fillStyle = '#fef08a'; ctx.fillRect(x + 2, y + 2, 2, 2);
+              } else if (mod === 1) {
+                // Pink Rose
+                ctx.fillStyle = '#f472b6'; ctx.fillRect(x, y, 6, 6);
+                ctx.fillStyle = '#db2777'; ctx.fillRect(x + 2, y + 2, 2, 2);
+              } else if (mod === 2) {
+                // Gold Marigold
+                ctx.fillStyle = '#fef08a'; ctx.fillRect(x, y, 6, 6);
+                ctx.fillStyle = '#f59e0b'; ctx.fillRect(x + 2, y + 2, 2, 2);
+              } else {
+                // Purple Lavender
+                ctx.fillStyle = '#c084fc'; ctx.fillRect(x, y, 5, 7);
+              }
+            }
+          }
+        }
+
+        canvas.refresh();
+      }
+    }
+
+    // 7c-2. Standalone Short Garden Lamp Post (24x48)
+    if (!textures.exists('cafe_garden_lamp_post')) {
+      const canvas = textures.createCanvas('cafe_garden_lamp_post', 24, 48);
+      if (canvas) {
+        const ctx = canvas.getContext();
+        // Base Shadow
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+        ctx.beginPath();
+        ctx.ellipse(12, 44, 10, 3, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Dark Wood & Brass Pedestal Base
+        ctx.fillStyle = '#451a03';
+        ctx.fillRect(6, 38, 12, 6);
+        ctx.fillStyle = '#f59e0b'; // Brass ring
+        ctx.fillRect(7, 36, 10, 2);
+
+        // Slender Vertical Post
+        ctx.fillStyle = '#270e01';
+        ctx.fillRect(10, 18, 4, 18);
+
+        // Warm Light Radial Glow
+        const glowGrad = ctx.createRadialGradient(12, 12, 2, 12, 12, 16);
+        glowGrad.addColorStop(0, 'rgba(254, 240, 138, 0.9)');
+        glowGrad.addColorStop(0.5, 'rgba(245, 158, 11, 0.4)');
+        glowGrad.addColorStop(1, 'rgba(245, 158, 11, 0)');
+        ctx.fillStyle = glowGrad;
+        ctx.beginPath();
+        ctx.arc(12, 12, 16, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Brass Lantern Cap & Frame
+        ctx.fillStyle = '#78350f'; // Dark wood top connector
+        ctx.fillRect(8, 16, 8, 3);
+        ctx.fillStyle = '#f59e0b'; // Brass lantern roof
+        ctx.beginPath();
+        ctx.moveTo(4, 12);
+        ctx.lineTo(20, 12);
+        ctx.lineTo(12, 4);
+        ctx.closePath();
+        ctx.fill();
+
+        // Lantern Glass Shade with Light Core
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(8, 11, 8, 5);
+        ctx.fillStyle = '#fef08a';
+        ctx.fillRect(9, 10, 6, 6);
+
+        canvas.refresh();
+      }
+    }
+
+    // 7d. Tall Luxury Ceramic & Brass Plant Pot with Indoor Palm Tree (32x56)
+    if (!textures.exists('cafe_luxury_plant_pot')) {
+      const canvas = textures.createCanvas('cafe_luxury_plant_pot', 32, 56);
+      if (canvas) {
+        const ctx = canvas.getContext();
+        // Drop Shadow at base
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+        ctx.beginPath();
+        ctx.ellipse(16, 52, 14, 4, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Sleek Tapered Terracotta / White Ceramic Vessel Pot
+        ctx.fillStyle = '#c2410c'; // Terracotta Body
+        ctx.beginPath();
+        ctx.moveTo(8, 32);
+        ctx.lineTo(24, 32);
+        ctx.lineTo(21, 51);
+        ctx.lineTo(11, 51);
+        ctx.closePath();
+        ctx.fill();
+
+        // White Ceramic Upper Rim
+        ctx.fillStyle = '#f8fafc';
+        ctx.fillRect(7, 30, 18, 4);
+
+        // Gold Brass Accent Ring
+        ctx.fillStyle = '#f59e0b';
+        ctx.fillRect(9, 40, 14, 2);
+
+        // Lush Dark Soil
+        ctx.fillStyle = '#1c0a02';
+        ctx.ellipse(16, 31, 8, 2, 0, 0, Math.PI * 2);
+
+        // Tall Stems & Trunk
+        ctx.fillStyle = '#14532d';
+        ctx.fillRect(14, 18, 4, 13);
+        ctx.fillRect(10, 20, 3, 11);
+        ctx.fillRect(19, 20, 3, 11);
+
+        // Bushy Multi-tiered Palm & Monstera Leaves
+        ctx.fillStyle = '#166534'; // Base dark foliage
+        ctx.beginPath(); ctx.ellipse(16, 18, 14, 10, 0, 0, Math.PI * 2); ctx.fill();
+
+        ctx.fillStyle = '#15803d'; // Mid green leaves
+        ctx.beginPath(); ctx.ellipse(12, 14, 10, 8, 0, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath(); ctx.ellipse(20, 14, 10, 8, 0, 0, Math.PI * 2); ctx.fill();
+
+        ctx.fillStyle = '#16a34a'; // Vibrant green top leaves
+        ctx.beginPath(); ctx.ellipse(16, 10, 11, 8, 0, 0, Math.PI * 2); ctx.fill();
+
+        ctx.fillStyle = '#4ade80'; // Bright leaf highlights
+        ctx.beginPath(); ctx.ellipse(14, 8, 6, 4, 0, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath(); ctx.ellipse(21, 11, 5, 3, 0, 0, Math.PI * 2); ctx.fill();
 
         canvas.refresh();
       }

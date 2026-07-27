@@ -146,9 +146,9 @@ export default class CodeCafeScene extends Phaser.Scene {
         // 3. Player animations
         this.playerManager.createAllAnimations();
 
-        // 4. Spawn Self (start near entrance at 480, 520)
+        // 4. Spawn Self (start near entrance at 352, 520)
         if (this.selfPlayer) {
-            const selfCopy = { ...this.selfPlayer, x: 480, y: 520 };
+            const selfCopy = { ...this.selfPlayer, x: 352, y: 520 };
             const selfObj = this.playerManager.spawnSelf(selfCopy, this.onSelectPlayerCallback);
             this.playerContainer = selfObj.container;
             this.playerSprite = selfObj.sprite;
@@ -351,8 +351,8 @@ export default class CodeCafeScene extends Phaser.Scene {
         // Check Barista interaction when walking near counter
         this.baristaManager.checkInteraction(this.playerContainer.x, this.playerContainer.y);
 
-        // Check exit door mat proximity (around x: 480, y: 560..580)
-        const distToExit = Phaser.Math.Distance.Between(this.playerContainer.x, this.playerContainer.y, 480, 560);
+        // Check exit door mat proximity (around x: 352, y: 560..580)
+        const distToExit = Phaser.Math.Distance.Between(this.playerContainer.x, this.playerContainer.y, 352, 560);
         if (distToExit < 40) {
             this.promptText.setPosition(this.playerContainer.x, this.playerContainer.y + 14);
             this.promptText.setVisible(true);
