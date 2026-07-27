@@ -1,5 +1,5 @@
-import { API_BASE_URL } from '../config/constants.js';
-import { UserProfile, DecorationRow } from '../types/index.js';
+import { API_BASE_URL } from '../config/constants.js'
+import { UserProfile, DecorationRow } from '../types/index.js'
 
 export async function fetchWithAuth(endpoint: string, options: RequestInit = {}): Promise<Response> {
     const token = localStorage.getItem('devgarden_token');
@@ -8,8 +8,8 @@ export async function fetchWithAuth(endpoint: string, options: RequestInit = {})
     };
 
     if (token) {
-        headers['Authorization'] = `Bearer ${token}`;
-        headers['X-Session-ID'] = token;
+        headers['Authorization'] = `Bearer ${token}`
+        headers['X-Session-ID'] = token
     }
 
     return fetch(`${API_BASE_URL}${endpoint}`, {
@@ -20,7 +20,7 @@ export async function fetchWithAuth(endpoint: string, options: RequestInit = {})
 }
 
 export async function getLeaderboard(): Promise<UserProfile[]> {
-    const res = await fetchWithAuth('/api/leaderboard');
+    const res = await fetchWithAuth('/api/leaderboard')
     if (!res.ok) throw new Error('Failed to fetch leaderboard');
     return res.json();
 }
