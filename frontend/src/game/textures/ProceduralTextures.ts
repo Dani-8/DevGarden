@@ -73,7 +73,7 @@ export class ProceduralTextures {
     const ctx = canvas.getContext();
 
     if (blur) {
-      const grad = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
+      const grad = ctx.createRadialGradient(size/2, size/2, 0, size/2, size/2, size/2);
       grad.addColorStop(0, colorStr);
       grad.addColorStop(1, 'rgba(255,255,255,0)');
       ctx.fillStyle = grad;
@@ -82,7 +82,7 @@ export class ProceduralTextures {
     }
 
     ctx.beginPath();
-    ctx.arc(size / 2, size / 2, size / 2, 0, Math.PI * 2);
+    ctx.arc(size/2, size/2, size/2, 0, Math.PI * 2);
     ctx.fill();
     canvas.refresh();
   }
@@ -1966,16 +1966,17 @@ export class ProceduralTextures {
       }
     }
 
-    // 7. Cafe Chair (22x28 for rich scale)
-    if (!textures.exists('cafe_interior_chair')) {
-      const canvas = textures.createCanvas('cafe_interior_chair', 22, 28);
+    // 7. Cafe Chair Directional Textures (22x28)
+    // 7a. Top Chair facing DOWN towards table
+    if (!textures.exists('cafe_chair_down')) {
+      const canvas = textures.createCanvas('cafe_chair_down', 22, 28);
       if (canvas) {
         const ctx = canvas.getContext();
         // Shadow
         ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
         ctx.fillRect(2, 25, 18, 3);
 
-        // Chair legs & Frame
+        // Chair legs
         ctx.fillStyle = '#270e01';
         ctx.fillRect(3, 14, 3, 12);
         ctx.fillRect(16, 14, 3, 12);
@@ -1988,7 +1989,7 @@ export class ProceduralTextures {
         ctx.fillStyle = '#dc2626'; // Highlight lip
         ctx.fillRect(3, 12, 16, 1);
 
-        // Carved Mahogany Backrest with Red Velvet Inset
+        // Carved Mahogany Backrest with Red Velvet Inset (at top)
         ctx.fillStyle = '#451a03';
         ctx.fillRect(3, 1, 16, 11);
         ctx.fillStyle = '#78350f';
@@ -1997,6 +1998,125 @@ export class ProceduralTextures {
         ctx.fillRect(5, 3, 12, 8);
         ctx.fillStyle = '#dc2626';
         ctx.fillRect(6, 4, 10, 6);
+
+        canvas.refresh();
+      }
+    }
+
+    // Default alias for legacy compatibility
+    if (!textures.exists('cafe_interior_chair')) {
+      const canvas = textures.createCanvas('cafe_interior_chair', 22, 28);
+      if (canvas) {
+        const ctx = canvas.getContext();
+        const base = textures.get('cafe_chair_down').getSourceImage() as CanvasImageSource;
+        ctx.drawImage(base, 0, 0);
+        canvas.refresh();
+      }
+    }
+
+    // 7b. Bottom Chair facing UP towards table
+    if (!textures.exists('cafe_chair_up')) {
+      const canvas = textures.createCanvas('cafe_chair_up', 22, 28);
+      if (canvas) {
+        const ctx = canvas.getContext();
+        // Shadow
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
+        ctx.fillRect(2, 25, 18, 3);
+
+        // Front legs under seat
+        ctx.fillStyle = '#270e01';
+        ctx.fillRect(3, 2, 3, 10);
+        ctx.fillRect(16, 2, 3, 10);
+
+        // Red Velvet Seat Cushion (top half facing table)
+        ctx.fillStyle = '#7f1d1d';
+        ctx.fillRect(2, 7, 18, 7);
+        ctx.fillStyle = '#991b1b';
+        ctx.fillRect(2, 7, 18, 4);
+        ctx.fillStyle = '#dc2626';
+        ctx.fillRect(3, 7, 16, 1);
+
+        // Backrest facing camera (bottom half)
+        ctx.fillStyle = '#451a03';
+        ctx.fillRect(3, 14, 16, 12);
+        ctx.fillStyle = '#78350f';
+        ctx.fillRect(4, 15, 14, 1);
+        ctx.fillStyle = '#991b1b';
+        ctx.fillRect(5, 16, 12, 8);
+        ctx.fillStyle = '#dc2626';
+        ctx.fillRect(6, 17, 10, 6);
+
+        canvas.refresh();
+      }
+    }
+
+    // 7c. Left Chair facing RIGHT towards table
+    if (!textures.exists('cafe_chair_right')) {
+      const canvas = textures.createCanvas('cafe_chair_right', 22, 28);
+      if (canvas) {
+        const ctx = canvas.getContext();
+        // Shadow
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
+        ctx.fillRect(2, 25, 18, 3);
+
+        // Chair legs
+        ctx.fillStyle = '#270e01';
+        ctx.fillRect(3, 15, 3, 11);
+        ctx.fillRect(16, 15, 3, 11);
+
+        // Seat Cushion extending right towards table
+        ctx.fillStyle = '#7f1d1d';
+        ctx.fillRect(7, 12, 13, 6);
+        ctx.fillStyle = '#991b1b';
+        ctx.fillRect(7, 12, 13, 3);
+        ctx.fillStyle = '#dc2626';
+        ctx.fillRect(8, 12, 11, 1);
+
+        // Backrest on left side
+        ctx.fillStyle = '#451a03';
+        ctx.fillRect(2, 2, 6, 19);
+        ctx.fillStyle = '#78350f';
+        ctx.fillRect(3, 3, 4, 1);
+        ctx.fillStyle = '#991b1b';
+        ctx.fillRect(3, 4, 4, 15);
+        ctx.fillStyle = '#dc2626';
+        ctx.fillRect(4, 5, 2, 13);
+
+        canvas.refresh();
+      }
+    }
+
+    // 7d. Right Chair facing LEFT towards table
+    if (!textures.exists('cafe_chair_left')) {
+      const canvas = textures.createCanvas('cafe_chair_left', 22, 28);
+      if (canvas) {
+        const ctx = canvas.getContext();
+        // Shadow
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
+        ctx.fillRect(2, 25, 18, 3);
+
+        // Chair legs
+        ctx.fillStyle = '#270e01';
+        ctx.fillRect(3, 15, 3, 11);
+        ctx.fillRect(16, 15, 3, 11);
+
+        // Seat Cushion extending left towards table
+        ctx.fillStyle = '#7f1d1d';
+        ctx.fillRect(2, 12, 13, 6);
+        ctx.fillStyle = '#991b1b';
+        ctx.fillRect(2, 12, 13, 3);
+        ctx.fillStyle = '#dc2626';
+        ctx.fillRect(3, 12, 11, 1);
+
+        // Backrest on right side
+        ctx.fillStyle = '#451a03';
+        ctx.fillRect(14, 2, 6, 19);
+        ctx.fillStyle = '#78350f';
+        ctx.fillRect(15, 3, 4, 1);
+        ctx.fillStyle = '#991b1b';
+        ctx.fillRect(15, 4, 4, 15);
+        ctx.fillStyle = '#dc2626';
+        ctx.fillRect(16, 5, 2, 13);
 
         canvas.refresh();
       }
@@ -2528,51 +2648,108 @@ export class ProceduralTextures {
       }
     }
 
-    // 12. Framed Wall Poster "COFFEE FOCUS FLOW" with Ivy Vines (Image 5 Style) (200x130 2x supersampled)
+    // 12. Framed Wall Poster "TEA, SLEEP, CODE, REPEAT" with Lush Grass Leaves Effect (160x140)
     if (!textures.exists('cafe_wall_poster')) {
-      const canvas = textures.createCanvas('cafe_wall_poster', 200, 130);
+      const canvas = textures.createCanvas('cafe_wall_poster', 160, 140);
       if (canvas) {
         const ctx = canvas.getContext();
+        // Drop shadow
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+        ctx.fillRect(4, 4, 152, 132);
+
         // Deep walnut frame
         ctx.fillStyle = '#270e01';
-        ctx.fillRect(0, 0, 200, 130);
-        ctx.fillStyle = '#b45309'; // Inner gold bevel line
-        ctx.fillRect(6, 6, 188, 118);
+        ctx.fillRect(0, 0, 160, 140);
 
-        // Blackboard poster surface
+        // Inner gold bevel line
+        ctx.fillStyle = '#b45309';
+        ctx.fillRect(5, 5, 150, 130);
+        ctx.fillStyle = '#fef08a';
+        ctx.fillRect(6, 6, 148, 1); ctx.fillRect(6, 6, 1, 128);
+
+        // Blackboard poster surface (sized tightly to content)
         ctx.fillStyle = '#1c1917';
-        ctx.fillRect(10, 10, 180, 110);
+        ctx.fillRect(8, 8, 144, 124);
 
-        // Chalk & Gold Typography (No Emojis)
+        // Gold & Chalk Typography (4 lines: TEA, SLEEP, CODE, REPEAT)
         ctx.textAlign = 'center';
-        ctx.font = 'bold 20px "Segoe UI", sans-serif';
+        ctx.font = 'bold 15px "Segoe UI", sans-serif';
 
-        // COFFEE
+        // TEA
         ctx.fillStyle = '#fef08a';
-        ctx.fillText('COFFEE', 100, 42);
+        ctx.fillText('TEA', 80, 32);
 
-        // FOCUS
+        // SLEEP
         ctx.fillStyle = '#fef08a';
-        ctx.fillText('FOCUS', 100, 72);
+        ctx.fillText('SLEEP', 80, 58);
 
-        // FLOW
+        // CODE
         ctx.fillStyle = '#fef08a';
-        ctx.fillText('FLOW', 100, 102);
+        ctx.fillText('CODE', 80, 84);
 
-        // Lush Ivy Vines climbing around the frame
-        ctx.fillStyle = '#15803d'; // Dark vine leaves
-        ctx.fillRect(0, 0, 200, 6);   // Top frame vine
-        ctx.fillRect(0, 0, 6, 130);   // Left frame vine
-        ctx.fillRect(194, 0, 6, 130); // Right frame vine
+        // REPEAT
+        ctx.fillStyle = '#fef08a';
+        ctx.fillText('REPEAT', 80, 110);
 
-        ctx.fillStyle = '#22c55e'; // Bright green leaf highlights
-        for (let y = 10; y < 120; y += 18) {
-          ctx.fillRect(2, y, 6, 6);
-          ctx.fillRect(192, y + 8, 6, 6);
+        // --- REALISTIC GRASS LEAVES & IVY OVERLAY ---
+        // Top & Side Ivy Vine Stems
+        ctx.fillStyle = '#14532d'; // Dark leafy stem
+        ctx.fillRect(0, 0, 160, 5);
+        ctx.fillRect(0, 0, 5, 140);
+        ctx.fillRect(155, 0, 5, 140);
+        ctx.fillRect(0, 135, 160, 5);
+
+        // Organic Grass Leaves Sprouting in Clusters
+        const leafColors = ['#15803d', '#16a34a', '#22c55e', '#4ade80'];
+
+        // Helper to draw a tiny grass leaf shape
+        const drawLeaf = (lx: number, ly: number, angle: number, size: number, colorIdx: number) => {
+          ctx.save();
+          ctx.translate(lx, ly);
+          ctx.rotate(angle);
+          ctx.fillStyle = leafColors[colorIdx % leafColors.length];
+          ctx.beginPath();
+          ctx.ellipse(0, 0, size * 2.5, size, 0, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.restore();
+        };
+
+        // Top Frame Grass Leaves
+        for (let x = 8; x < 155; x += 14) {
+          drawLeaf(x, 4, -0.3, 3, x % 4);
+          drawLeaf(x + 4, 6, 0.4, 2.5, (x + 1) % 4);
         }
-        for (let x = 10; x < 190; x += 20) {
-          ctx.fillRect(x, 2, 6, 6);
+
+        // Left Frame Grass Leaves
+        for (let y = 10; y < 135; y += 14) {
+          drawLeaf(4, y, 1.2, 3, y % 4);
+          drawLeaf(6, y + 5, -0.8, 2.5, (y + 1) % 4);
         }
+
+        // Right Frame Grass Leaves
+        for (let y = 10; y < 135; y += 14) {
+          drawLeaf(156, y, -1.2, 3, (y + 2) % 4);
+          drawLeaf(154, y + 5, 0.8, 2.5, (y + 3) % 4);
+        }
+
+        // Corner Lush Monstera / Palm Leaf Sprays
+        // Top-Left Corner Cluster
+        drawLeaf(10, 10, -0.6, 4, 1);
+        drawLeaf(14, 8, 0.2, 3.5, 3);
+        drawLeaf(8, 14, 0.9, 3.5, 2);
+
+        // Top-Right Corner Cluster
+        drawLeaf(150, 10, 0.6, 4, 1);
+        drawLeaf(146, 8, -0.2, 3.5, 3);
+        drawLeaf(152, 14, -0.9, 3.5, 2);
+
+        // Bottom-Left Corner Cluster
+        drawLeaf(10, 130, 0.6, 4, 2);
+        drawLeaf(14, 132, -0.2, 3.5, 0);
+
+        // Bottom-Right Corner Cluster
+        drawLeaf(150, 130, -0.6, 4, 2);
+        drawLeaf(146, 132, 0.2, 3.5, 0);
 
         canvas.refresh();
       }
