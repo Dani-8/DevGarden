@@ -73,7 +73,7 @@ export class ProceduralTextures {
     const ctx = canvas.getContext();
 
     if (blur) {
-      const grad = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
+      const grad = ctx.createRadialGradient(size/2, size/2, 0, size/2, size/2, size/2);
       grad.addColorStop(0, colorStr);
       grad.addColorStop(1, 'rgba(255,255,255,0)');
       ctx.fillStyle = grad;
@@ -82,7 +82,7 @@ export class ProceduralTextures {
     }
 
     ctx.beginPath();
-    ctx.arc(size / 2, size / 2, size / 2, 0, Math.PI * 2);
+    ctx.arc(size/2, size/2, size/2, 0, Math.PI * 2);
     ctx.fill();
     canvas.refresh();
   }
@@ -1331,45 +1331,51 @@ export class ProceduralTextures {
   }
 
   private static drawCafeInteriorTextures(textures: Phaser.Textures.TextureManager) {
-    // 1. Primary Wood Floor Tile (32x32) - #3a2e2b with #2b1f1d grain
+    // 1. Primary Warm Golden Oak Wood Floor Tile (32x32) - Image 5 Open Terrace Style
     if (!textures.exists('cafe_floor_wood_1')) {
       const canvas = textures.createCanvas('cafe_floor_wood_1', 32, 32);
       if (canvas) {
         const ctx = canvas.getContext();
-        ctx.fillStyle = '#3a2e2b'; // Primary Wood Base
+        ctx.fillStyle = '#85522b'; // Light Warm Golden Oak Base
         ctx.fillRect(0, 0, 32, 32);
 
-        // Subtle wood grain lines (#2b1f1d)
-        ctx.fillStyle = '#2b1f1d';
+        // Wood grain & plank seams
+        ctx.fillStyle = '#6e411f';
         ctx.fillRect(0, 0, 32, 1);
         ctx.fillRect(0, 16, 32, 1);
-        ctx.fillRect(4, 4, 12, 1);
-        ctx.fillRect(18, 8, 10, 1);
-        ctx.fillRect(8, 22, 14, 1);
         ctx.fillRect(16, 0, 1, 16);
         ctx.fillRect(8, 16, 1, 16);
+
+        // Lighter grain highlights
+        ctx.fillStyle = '#a16638';
+        ctx.fillRect(2, 4, 12, 1);
+        ctx.fillRect(18, 8, 10, 1);
+        ctx.fillRect(10, 22, 14, 1);
 
         canvas.refresh();
       }
     }
 
-    // 2. Secondary Wood Floor Tile (32x32) - #332724 with #2b1f1d grain
+    // 2. Secondary Warm Golden Oak Wood Floor Tile (32x32)
     if (!textures.exists('cafe_floor_wood_2')) {
       const canvas = textures.createCanvas('cafe_floor_wood_2', 32, 32);
       if (canvas) {
         const ctx = canvas.getContext();
-        ctx.fillStyle = '#332724'; // Secondary Wood Base
+        ctx.fillStyle = '#7a4a25'; // Lighter Secondary Oak Base
         ctx.fillRect(0, 0, 32, 32);
 
-        // Subtle wood grain lines (#2b1f1d)
-        ctx.fillStyle = '#2b1f1d';
+        // Wood grain & plank seams
+        ctx.fillStyle = '#633a1b';
         ctx.fillRect(0, 0, 32, 1);
         ctx.fillRect(0, 16, 32, 1);
-        ctx.fillRect(2, 6, 14, 1);
-        ctx.fillRect(20, 10, 8, 1);
-        ctx.fillRect(10, 24, 12, 1);
         ctx.fillRect(16, 0, 1, 16);
         ctx.fillRect(24, 16, 1, 16);
+
+        // Grain highlights
+        ctx.fillStyle = '#965e31';
+        ctx.fillRect(4, 6, 10, 1);
+        ctx.fillRect(20, 10, 8, 1);
+        ctx.fillRect(12, 24, 10, 1);
 
         canvas.refresh();
       }
@@ -1380,28 +1386,28 @@ export class ProceduralTextures {
       const canvas = textures.createCanvas('cafe_floor_wood', 32, 32);
       if (canvas) {
         const ctx = canvas.getContext();
-        ctx.fillStyle = '#3a2e2b';
+        ctx.fillStyle = '#85522b';
         ctx.fillRect(0, 0, 32, 32);
         canvas.refresh();
       }
     }
 
-    // 3. Cozy Terrace Slate Stone Patio Tile (32x32)
+    // 3. Cozy Terrace Warm Stone Patio Tile (32x32)
     if (!textures.exists('cafe_floor_terrace_stone')) {
       const canvas = textures.createCanvas('cafe_floor_terrace_stone', 32, 32);
       if (canvas) {
         const ctx = canvas.getContext();
-        ctx.fillStyle = '#211c1a'; // Slate grout base
+        ctx.fillStyle = '#59493a'; // Warm Stone grout base
         ctx.fillRect(0, 0, 32, 32);
 
-        // Stone pavers
-        ctx.fillStyle = '#2d2522';
+        // Light warm stone pavers
+        ctx.fillStyle = '#7c6a58';
         ctx.fillRect(1, 1, 14, 14);
         ctx.fillRect(17, 1, 14, 14);
         ctx.fillRect(1, 17, 30, 14);
 
         // Bevel highlights
-        ctx.fillStyle = '#3a302c';
+        ctx.fillStyle = '#917d6a';
         ctx.fillRect(2, 2, 12, 2);
         ctx.fillRect(18, 2, 12, 2);
         ctx.fillRect(2, 18, 28, 2);
@@ -1410,32 +1416,58 @@ export class ProceduralTextures {
       }
     }
 
-    // 4. Crimson Warm Cafe Brick Wall (32x32)
-    // Wall Base Color: #4a2c20, Brick Pattern Color: #5c3829, Baseboard Skirting: #261610
+    // 4. Two-Tone Open Terrace Cafe Wall: Lighter Stone/Plaster Upper + Dark Oak Wood Lower + Hanging Vines
     if (!textures.exists('cafe_wall_brick')) {
       const canvas = textures.createCanvas('cafe_wall_brick', 32, 32);
       if (canvas) {
         const ctx = canvas.getContext();
-        ctx.fillStyle = '#4a2c20'; // Wall Base Color
-        ctx.fillRect(0, 0, 32, 32);
+        // Upper Wall Half: Lighter warm beige plaster/stone
+        ctx.fillStyle = '#9c8971';
+        ctx.fillRect(0, 0, 32, 16);
 
-        // Brick Pattern Color: #5c3829
-        ctx.fillStyle = '#5c3829';
-        ctx.fillRect(1, 1, 14, 6);
-        ctx.fillRect(17, 1, 14, 6);
-        ctx.fillRect(1, 9, 30, 6);
-        ctx.fillRect(1, 17, 14, 6);
-        ctx.fillRect(17, 17, 14, 6);
+        // Subtle upper stone texture lines
+        ctx.fillStyle = '#8f7b62';
+        ctx.fillRect(0, 7, 32, 1);
+        ctx.fillRect(16, 0, 1, 7);
+        ctx.fillRect(8, 8, 1, 8);
 
-        // Baseboard Skirting: #261610 at bottom 6px
-        ctx.fillStyle = '#261610';
-        ctx.fillRect(0, 26, 32, 6);
+        // Lower Wall Half: Dark Oak Wood Planks
+        ctx.fillStyle = '#3e2617';
+        ctx.fillRect(0, 16, 32, 16);
+
+        // Vertical Wood Seams & Panel Highlights
+        ctx.fillStyle = '#29180e';
+        ctx.fillRect(0, 16, 32, 1); // Border seam separating upper plaster & lower wood
+        ctx.fillRect(8, 16, 1, 16);
+        ctx.fillRect(16, 16, 1, 16);
+        ctx.fillRect(24, 16, 1, 16);
+
+        // Lighter wood grain highlights
+        ctx.fillStyle = '#523420';
+        ctx.fillRect(2, 20, 4, 1);
+        ctx.fillRect(10, 24, 4, 1);
+        ctx.fillRect(18, 18, 4, 1);
+        ctx.fillRect(26, 26, 4, 1);
+
+        // Hanging Ivy Vines along top edge
+        ctx.fillStyle = '#15803d'; // Dark green leaves
+        ctx.fillRect(2, 0, 6, 4);
+        ctx.fillRect(12, 0, 8, 5);
+        ctx.fillRect(24, 0, 6, 3);
+        ctx.fillStyle = '#22c55e'; // Bright leaf highlights
+        ctx.fillRect(3, 1, 3, 2);
+        ctx.fillRect(14, 1, 4, 3);
+        ctx.fillRect(25, 1, 3, 1);
+
+        // Baseboard Skirting at very bottom
+        ctx.fillStyle = '#21130a';
+        ctx.fillRect(0, 28, 32, 4);
 
         canvas.refresh();
       }
     }
 
-    // 3. Open Terrace Cafe Style Grand Oak Counter (190x44)
+    // 3. Open Terrace Cafe Style Grand Oak Counter with Sleek Cashier POS (190x44)
     if (!textures.exists('cafe_counter')) {
       const canvas = textures.createCanvas('cafe_counter', 190, 44);
       if (canvas) {
@@ -1445,7 +1477,7 @@ export class ProceduralTextures {
         ctx.fillRect(4, 38, 182, 6);
 
         // Open Terrace Cafe Warm Oak Body Base
-        ctx.fillStyle = '#451a03';
+        ctx.fillStyle = '#3a1805';
         ctx.fillRect(2, 8, 186, 32);
 
         // Vertical Golden Oak Panelling (#854d0e body with #a16207 panels)
@@ -1482,7 +1514,7 @@ export class ProceduralTextures {
         ctx.fillRect(8, 36, 174, 1);
 
         // Polished Warm Oak Countertop Slab
-        ctx.fillStyle = '#713f12';
+        ctx.fillStyle = '#60330a';
         ctx.fillRect(0, 0, 190, 10);
         ctx.fillStyle = '#a16207';
         ctx.fillRect(0, 0, 190, 4); // Top surface
@@ -1491,31 +1523,180 @@ export class ProceduralTextures {
         ctx.fillStyle = '#fef08a';
         ctx.fillRect(0, 0, 190, 1); // Shiny spec edge
 
-        // Dual-screen Touchscreen POS Terminal
+        // --- SLEEK CASHIER POS TERMINAL & RECEIPT PRINTER (x=95 to 125) ---
+        // Cash Register Drawer Base underneath
         ctx.fillStyle = '#1e293b';
-        ctx.fillRect(115, 1, 20, 11);
-        ctx.fillStyle = '#0f172a';
-        ctx.fillRect(117, 2, 16, 7);
-        ctx.fillStyle = '#22c55e'; // Green POS text line
-        ctx.fillRect(119, 4, 10, 1);
-        ctx.fillRect(119, 6, 12, 1);
-        ctx.fillStyle = '#d97706'; // POS brass stand
-        ctx.fillRect(123, 10, 4, 3);
+        ctx.fillRect(92, 7, 28, 3);
+        ctx.fillStyle = '#475569';
+        ctx.fillRect(94, 8, 24, 1); // Drawer slot
 
-        // Coffee cup stack with red sleeves
+        // POS Monitor Stand
+        ctx.fillStyle = '#334155';
+        ctx.fillRect(104, 5, 4, 3);
+
+        // Sleek POS Touchscreen Display (Angled)
+        ctx.fillStyle = '#0f172a'; // Bezel
+        ctx.fillRect(95, 0, 22, 11);
+        ctx.fillStyle = '#020617'; // Screen glass
+        ctx.fillRect(97, 1, 18, 8);
+
+        // POS Screen UI Elements
+        ctx.fillStyle = '#38bdf8'; // Blue title header
+        ctx.fillRect(98, 2, 16, 2);
+        ctx.fillStyle = '#22c55e'; // Green item total text
+        ctx.fillRect(98, 5, 10, 1);
+        ctx.fillRect(98, 7, 12, 1);
+        ctx.fillStyle = '#f59e0b'; // Pay button
+        ctx.fillRect(111, 5, 3, 3);
+
+        // Compact Thermal Receipt Printer beside POS
+        ctx.fillStyle = '#1e293b';
+        ctx.fillRect(122, 3, 10, 7);
+        ctx.fillStyle = '#f8fafc'; // Paper receipt sticking out
+        ctx.fillRect(124, 1, 6, 3);
+        ctx.fillStyle = '#94a3b8'; // Print text line on receipt
+        ctx.fillRect(125, 2, 4, 1);
+
+        // --- COFFEE CUP STACK & SLEEVES (x=16 to 32) ---
         ctx.fillStyle = '#f8fafc';
-        ctx.fillRect(18, 1, 6, 8);
-        ctx.fillRect(26, 1, 6, 8);
-        ctx.fillStyle = '#ef4444'; // Red sleeves
-        ctx.fillRect(18, 4, 6, 3);
-        ctx.fillRect(26, 4, 6, 3);
+        ctx.fillRect(16, 1, 6, 8);
+        ctx.fillRect(24, 1, 6, 8);
+        ctx.fillStyle = '#b45309'; // Warm cardboard sleeves
+        ctx.fillRect(16, 4, 6, 3);
+        ctx.fillRect(24, 4, 6, 3);
 
-        // Glass Tip Jar with green bills inside
-        ctx.fillStyle = 'rgba(56, 189, 248, 0.4)';
-        ctx.fillRect(150, 2, 12, 8);
-        ctx.fillStyle = '#16a34a';
-        ctx.fillRect(152, 5, 8, 4);
+        // --- GLASS PASTRY DISPLAY CASE ON RIGHT SIDE (x=142 to 182) ---
+        // Metallic Frame Base & Edges
+        ctx.fillStyle = '#1e293b';
+        ctx.fillRect(142, 0, 42, 10);
+        ctx.fillStyle = '#334155';
+        ctx.fillRect(143, 0, 40, 1); // Metallic top trim
+        ctx.fillRect(143, 0, 1, 10); // Left frame
+        ctx.fillRect(182, 0, 1, 10); // Right frame
 
+        // Shelf 1 (Upper Shelf Line)
+        ctx.fillStyle = '#94a3b8';
+        ctx.fillRect(144, 4, 38, 1);
+
+        // Pastries - Shelf 1 (Top): Croissants & Muffins
+        ctx.fillStyle = '#d97706'; // Golden Croissants
+        ctx.fillRect(147, 1, 7, 3);
+        ctx.fillRect(158, 1, 7, 3);
+        ctx.fillStyle = '#78350f'; // Chocolate Muffin
+        ctx.fillRect(169, 1, 6, 3);
+        ctx.fillStyle = '#f59e0b'; // Cinnamon Roll
+        ctx.fillRect(177, 1, 5, 3);
+
+        // Pastries - Shelf 2 (Bottom): Cake Slices & Cookies
+        ctx.fillStyle = '#b45309'; // Golden Chocolate Chip Cookies
+        ctx.fillRect(146, 6, 5, 3);
+        ctx.fillRect(153, 6, 5, 3);
+        ctx.fillStyle = '#fde047'; // Lemon/Yellow Cake Slice
+        ctx.fillRect(161, 5, 8, 4);
+        ctx.fillStyle = '#ef4444'; // Strawberry Topping
+        ctx.fillRect(163, 5, 4, 1);
+        ctx.fillStyle = '#a16207'; // Pie Slice
+        ctx.fillRect(172, 5, 8, 4);
+
+        // Glass Front & Diagonal Light Reflection Glare
+        ctx.fillStyle = 'rgba(186, 230, 253, 0.35)';
+        ctx.fillRect(143, 1, 39, 8);
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+        ctx.fillRect(146, 1, 2, 8); // White glare streak 1
+        ctx.fillRect(152, 1, 1, 8); // White glare streak 2
+        ctx.fillRect(176, 1, 2, 8); // White glare streak 3
+
+        canvas.refresh();
+      }
+    }
+
+    // 3b. Counter Side Return Wing (24x50) - Covers Left and Right sides of Cashier Desk
+    if (!textures.exists('cafe_counter_side')) {
+      const canvas = textures.createCanvas('cafe_counter_side', 24, 50);
+      if (canvas) {
+        const ctx = canvas.getContext();
+        // Shadow
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+        ctx.fillRect(0, 0, 24, 50);
+
+        // Body base
+        ctx.fillStyle = '#3a1805';
+        ctx.fillRect(2, 0, 20, 50);
+
+        // Panelling
+        ctx.fillStyle = '#854d0e';
+        ctx.fillRect(4, 2, 16, 46);
+
+        // Inner panel
+        ctx.fillStyle = '#270e01';
+        ctx.fillRect(6, 6, 12, 38);
+        ctx.fillStyle = '#a16207';
+        ctx.fillRect(8, 8, 8, 34);
+
+        // Polished top counter slab edge
+        ctx.fillStyle = '#60330a';
+        ctx.fillRect(0, 0, 24, 8);
+        ctx.fillStyle = '#a16207';
+        ctx.fillRect(0, 0, 24, 3);
+        ctx.fillStyle = '#fef08a';
+        ctx.fillRect(0, 0, 24, 1);
+
+        canvas.refresh();
+      }
+    }
+
+    // 3c. Backwall Wooden Brick Panel Structure behind Counter (240x70)
+    if (!textures.exists('cafe_counter_backwall')) {
+      const canvas = textures.createCanvas('cafe_counter_backwall', 240, 70);
+      if (canvas) {
+        const ctx = canvas.getContext();
+        // Shadow
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
+        ctx.fillRect(0, 0, 240, 70);
+
+        // Dark Walnut Wood/Brick Panel Base
+        ctx.fillStyle = '#2d180c';
+        ctx.fillRect(2, 2, 236, 66);
+
+        // Recessed Panel Bricks
+        for (let y = 6; y < 62; y += 14) {
+          for (let x = 6; x < 230; x += 32) {
+            const shift = (Math.floor(y / 14) % 2) * 16;
+            ctx.fillStyle = '#3e2415';
+            ctx.fillRect(x + shift, y, 28, 10);
+            ctx.fillStyle = '#54331d';
+            ctx.fillRect(x + shift + 1, y + 1, 26, 2);
+          }
+        }
+
+        // Gold Bevel Edge Frame
+        ctx.fillStyle = '#b45309';
+        ctx.fillRect(0, 0, 240, 3);
+        ctx.fillRect(0, 67, 240, 3);
+        ctx.fillRect(0, 0, 3, 70);
+        ctx.fillRect(237, 0, 3, 70);
+
+        // Ivy Vines on Top/Sides
+        ctx.fillStyle = '#15803d';
+        ctx.fillRect(0, 0, 240, 5);
+        ctx.fillRect(0, 0, 5, 70);
+        ctx.fillRect(235, 0, 5, 70);
+
+        canvas.refresh();
+      }
+    }
+
+    // 3d. Soft Coffee Machine Steam / Smoke Particle (8x8)
+    if (!textures.exists('cafe_steam_particle')) {
+      const canvas = textures.createCanvas('cafe_steam_particle', 8, 8);
+      if (canvas) {
+        const ctx = canvas.getContext();
+        const grad = ctx.createRadialGradient(4, 4, 0, 4, 4, 4);
+        grad.addColorStop(0, 'rgba(255, 255, 255, 0.75)');
+        grad.addColorStop(0.5, 'rgba(226, 232, 240, 0.4)');
+        grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, 8, 8);
         canvas.refresh();
       }
     }
@@ -1570,20 +1751,73 @@ export class ProceduralTextures {
       }
     }
 
-    // 5. Cafe Barista NPC (24x32) - White Fair Skin Tone
+    // 4b. Glass Pastry Showcase Display Cabinet (44x32)
+    if (!textures.exists('cafe_pastry_display')) {
+      const canvas = textures.createCanvas('cafe_pastry_display', 44, 32);
+      if (canvas) {
+        const ctx = canvas.getContext();
+        // Shadow base
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+        ctx.fillRect(2, 28, 40, 4);
+
+        // Dark Slate Frame
+        ctx.fillStyle = '#1e293b';
+        ctx.fillRect(0, 2, 44, 28);
+        ctx.fillStyle = '#334155';
+        ctx.fillRect(2, 0, 40, 2); // Top metal bevel
+
+        // Clear Glass Interior Background
+        ctx.fillStyle = '#0f172a';
+        ctx.fillRect(2, 2, 40, 26);
+
+        // Glass Shelf 1 (Top)
+        ctx.fillStyle = '#94a3b8';
+        ctx.fillRect(3, 14, 38, 1);
+
+        // Pastries - Shelf 1 (Top): Golden Croissants & Chocolate Muffin
+        ctx.fillStyle = '#d97706'; // Golden Croissants
+        ctx.fillRect(6, 8, 8, 5);
+        ctx.fillRect(18, 8, 8, 5);
+        ctx.fillStyle = '#78350f'; // Chocolate Muffin
+        ctx.fillRect(30, 7, 7, 6);
+
+        // Pastries - Shelf 2 (Bottom): Cake Slice & Cookies
+        ctx.fillStyle = '#b45309'; // Golden Cookies
+        ctx.fillRect(5, 20, 6, 5);
+        ctx.fillRect(13, 20, 6, 5);
+        ctx.fillStyle = '#fde047'; // Lemon/Yellow Cake Slice
+        ctx.fillRect(22, 18, 9, 7);
+        ctx.fillStyle = '#ef4444'; // Strawberry Topping
+        ctx.fillRect(25, 18, 4, 2);
+        ctx.fillStyle = '#a16207'; // Pie Slice
+        ctx.fillRect(33, 18, 8, 7);
+
+        // Front Glass Pane Reflection & Glare
+        ctx.fillStyle = 'rgba(186, 230, 253, 0.3)';
+        ctx.fillRect(2, 2, 40, 26);
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+        ctx.fillRect(5, 3, 2, 24); // Glare line 1
+        ctx.fillRect(12, 3, 1, 24); // Glare line 2
+        ctx.fillRect(36, 3, 2, 24); // Glare line 3
+
+        canvas.refresh();
+      }
+    }
+
+    // 5. Cafe Barista NPC (24x34) - White Fair Skin Tone
     if (!textures.exists('cafe_barista')) {
-      const canvas = textures.createCanvas('cafe_barista', 24, 32);
+      const canvas = textures.createCanvas('cafe_barista', 24, 34);
       if (canvas) {
         const ctx = canvas.getContext();
         // Shadow
         ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
         ctx.beginPath();
-        ctx.ellipse(12, 30, 8, 2, 0, 0, Math.PI * 2);
+        ctx.ellipse(12, 32, 8, 2, 0, 0, Math.PI * 2);
         ctx.fill();
 
-        // Dark Hair
+        // Dark Hair & Cap
         ctx.fillStyle = '#3f1d0b';
-        ctx.fillRect(6, 4, 12, 7);
+        ctx.fillRect(6, 5, 12, 7);
 
         // Head / Face - Fair White Skin Tone (#ffedd5)
         ctx.fillStyle = '#ffedd5';
@@ -1591,22 +1825,22 @@ export class ProceduralTextures {
 
         // Rosy Cheeks
         ctx.fillStyle = '#fca5a5';
-        ctx.fillRect(7, 12, 2, 2);
-        ctx.fillRect(15, 12, 2, 2);
+        ctx.fillRect(7, 13, 2, 2);
+        ctx.fillRect(15, 13, 2, 2);
 
         // Eyes & Smile
         ctx.fillStyle = '#1e293b';
-        ctx.fillRect(9, 11, 2, 2); // eyes
-        ctx.fillRect(13, 11, 2, 2);
+        ctx.fillRect(8, 11, 2, 2); // eyes
+        ctx.fillRect(14, 11, 2, 2);
         ctx.fillStyle = '#ef4444';
         ctx.fillRect(11, 14, 2, 1); // smile
 
         // Green Barista Apron
         ctx.fillStyle = '#15803d';
-        ctx.fillRect(6, 16, 12, 14);
-        ctx.fillStyle = '#22c55e'; // Apron chest
-        ctx.fillRect(8, 18, 8, 10);
-        ctx.fillStyle = '#ffffff'; // Coffee bean badge on apron
+        ctx.fillRect(5, 16, 14, 16);
+        ctx.fillStyle = '#22c55e'; // Apron chest bib
+        ctx.fillRect(7, 18, 10, 12);
+        ctx.fillStyle = '#ffffff'; // Coffee badge
         ctx.fillRect(11, 20, 2, 3);
 
         // Barista Cap / Coffee cup hat
@@ -1619,75 +1853,375 @@ export class ProceduralTextures {
       }
     }
 
-    // 6. Cafe Table (36x36)
+    // 6. Cafe Table Base (48x48 for rich pixel scale matching reference image)
     if (!textures.exists('cafe_interior_table')) {
-      const canvas = textures.createCanvas('cafe_interior_table', 36, 36);
+      const canvas = textures.createCanvas('cafe_interior_table', 48, 48);
       if (canvas) {
         const ctx = canvas.getContext();
-        // Shadow
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
+        // Drop Shadow
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
         ctx.beginPath();
-        ctx.ellipse(18, 33, 14, 4, 0, 0, Math.PI * 2);
+        ctx.ellipse(24, 44, 20, 4, 0, 0, Math.PI * 2);
         ctx.fill();
 
-        // Table leg & base
-        ctx.fillStyle = '#1e293b';
-        ctx.fillRect(16, 18, 4, 14);
-        ctx.fillRect(10, 30, 16, 3);
+        // Sturdy Dark Metal Pedestal Base
+        ctx.fillStyle = '#0f172a';
+        ctx.fillRect(22, 22, 4, 20);
+        ctx.fillRect(12, 40, 24, 4);
 
-        // Circular wooden top
+        // Circular Dark Walnut Top Rim
+        ctx.fillStyle = '#270e01';
+        ctx.beginPath();
+        ctx.ellipse(24, 18, 22, 14, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Polished Warm Golden-Mahogany Surface
+        ctx.fillStyle = '#78350f';
+        ctx.beginPath();
+        ctx.ellipse(24, 17, 20, 12, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Inner Wood Grain Ring
         ctx.fillStyle = '#92400e';
         ctx.beginPath();
-        ctx.ellipse(18, 14, 16, 10, 0, 0, Math.PI * 2);
+        ctx.ellipse(24, 16, 17, 10, 0, 0, Math.PI * 2);
         ctx.fill();
 
-        // Top surface highlight
+        // Surface Highlight
         ctx.fillStyle = '#b45309';
         ctx.beginPath();
-        ctx.ellipse(18, 13, 14, 8, 0, 0, Math.PI * 2);
+        ctx.ellipse(24, 15, 13, 7, 0, 0, Math.PI * 2);
         ctx.fill();
-
-        // Coffee mug on table
-        ctx.fillStyle = '#ffffff';
-        ctx.fillRect(16, 10, 5, 5);
-        ctx.fillStyle = '#78350f'; // Coffee liquid
-        ctx.fillRect(17, 11, 3, 3);
-
-        // Flower vase on table
-        ctx.fillStyle = '#38bdf8';
-        ctx.fillRect(23, 8, 3, 5);
-        ctx.fillStyle = '#f472b6'; // Flower bloom
-        ctx.fillRect(23, 5, 3, 3);
 
         canvas.refresh();
       }
     }
 
-    // 7. Cafe Chair (18x24)
+    // 6b. Cafe Table with Laptop
+    if (!textures.exists('cafe_interior_table_laptop')) {
+      const canvas = textures.createCanvas('cafe_interior_table_laptop', 48, 48);
+      if (canvas) {
+        const ctx = canvas.getContext();
+        // Draw base table
+        const baseTable = textures.get('cafe_interior_table').getSourceImage() as CanvasImageSource;
+        ctx.drawImage(baseTable, 0, 0);
+
+        // Open Laptop on table
+        ctx.fillStyle = '#334155'; // Metallic silver body
+        ctx.fillRect(16, 16, 16, 10); // Base keyboard
+        ctx.fillStyle = '#38bdf8'; // Glowing blue screen
+        ctx.fillRect(18, 10, 12, 7);
+        ctx.fillStyle = '#f8fafc'; // Code text lines on screen
+        ctx.fillRect(20, 12, 8, 1); ctx.fillRect(20, 14, 6, 1);
+
+        // Small Coffee Espresso Cup
+        ctx.fillStyle = '#ffffff'; ctx.fillRect(34, 14, 5, 5);
+        ctx.fillStyle = '#451a03'; ctx.fillRect(35, 15, 3, 3);
+
+        canvas.refresh();
+      }
+    }
+
+    // 6c. Cafe Table with Coffee & Pastry
+    if (!textures.exists('cafe_interior_table_coffee')) {
+      const canvas = textures.createCanvas('cafe_interior_table_coffee', 48, 48);
+      if (canvas) {
+        const ctx = canvas.getContext();
+        const baseTable = textures.get('cafe_interior_table').getSourceImage() as CanvasImageSource;
+        ctx.drawImage(baseTable, 0, 0);
+
+        // White Saucer & Coffee Cup
+        ctx.fillStyle = '#cbd5e1';
+        ctx.beginPath(); ctx.ellipse(20, 16, 6, 4, 0, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = '#ffffff'; ctx.fillRect(17, 13, 6, 5);
+        ctx.fillStyle = '#78350f'; ctx.fillRect(18, 14, 4, 3);
+
+        // Pastry Plate with Croissant
+        ctx.fillStyle = '#e2e8f0';
+        ctx.beginPath(); ctx.ellipse(32, 16, 6, 4, 0, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = '#d97706'; ctx.fillRect(29, 14, 6, 4);
+
+        canvas.refresh();
+      }
+    }
+
+    // 6d. Cafe Table with Plant / Succulent
+    if (!textures.exists('cafe_interior_table_plant')) {
+      const canvas = textures.createCanvas('cafe_interior_table_plant', 48, 48);
+      if (canvas) {
+        const ctx = canvas.getContext();
+        const baseTable = textures.get('cafe_interior_table').getSourceImage() as CanvasImageSource;
+        ctx.drawImage(baseTable, 0, 0);
+
+        // Small Terra Cotta Pot with Succulent
+        ctx.fillStyle = '#c2410c'; ctx.fillRect(21, 14, 6, 6);
+        ctx.fillStyle = '#15803d'; ctx.fillRect(19, 10, 10, 5);
+        ctx.fillStyle = '#4ade80'; ctx.fillRect(21, 9, 6, 4);
+
+        // Coffee Cup
+        ctx.fillStyle = '#ffffff'; ctx.fillRect(12, 15, 5, 4);
+        ctx.fillStyle = '#78350f'; ctx.fillRect(13, 16, 3, 2);
+
+        canvas.refresh();
+      }
+    }
+
+    // 7. Cafe Chair (22x28 for rich scale)
     if (!textures.exists('cafe_interior_chair')) {
-      const canvas = textures.createCanvas('cafe_interior_chair', 18, 24);
+      const canvas = textures.createCanvas('cafe_interior_chair', 22, 28);
       if (canvas) {
         const ctx = canvas.getContext();
         // Shadow
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
-        ctx.fillRect(2, 22, 14, 2);
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
+        ctx.fillRect(2, 25, 18, 3);
 
-        // Chair legs
+        // Chair legs & Frame
+        ctx.fillStyle = '#270e01';
+        ctx.fillRect(3, 14, 3, 12);
+        ctx.fillRect(16, 14, 3, 12);
+
+        // Rich Red Velvet Seat Cushion
+        ctx.fillStyle = '#7f1d1d';
+        ctx.fillRect(2, 12, 18, 5);
+        ctx.fillStyle = '#991b1b';
+        ctx.fillRect(2, 12, 18, 3);
+        ctx.fillStyle = '#dc2626'; // Highlight lip
+        ctx.fillRect(3, 12, 16, 1);
+
+        // Carved Mahogany Backrest with Red Velvet Inset
         ctx.fillStyle = '#451a03';
-        ctx.fillRect(3, 12, 2, 10);
-        ctx.fillRect(13, 12, 2, 10);
-
-        // Seat cushion
-        ctx.fillStyle = '#991b1b'; // Red velvet cushion
-        ctx.fillRect(2, 10, 14, 4);
-        ctx.fillStyle = '#dc2626';
-        ctx.fillRect(2, 10, 14, 2);
-
-        // Chair backrest
+        ctx.fillRect(3, 1, 16, 11);
         ctx.fillStyle = '#78350f';
-        ctx.fillRect(3, 1, 12, 9);
-        ctx.fillStyle = '#991b1b'; // Backrest cushion inset
-        ctx.fillRect(5, 3, 8, 6);
+        ctx.fillRect(4, 2, 14, 1);
+        ctx.fillStyle = '#991b1b'; // Backrest cushion
+        ctx.fillRect(5, 3, 12, 8);
+        ctx.fillStyle = '#dc2626';
+        ctx.fillRect(6, 4, 10, 6);
+
+        canvas.refresh();
+      }
+    }
+
+    // 7b. POS Register / Cash Counter Terminal (24x24)
+    if (!textures.exists('cafe_pos_terminal')) {
+      const canvas = textures.createCanvas('cafe_pos_terminal', 24, 24);
+      if (canvas) {
+        const ctx = canvas.getContext();
+        // Stand base
+        ctx.fillStyle = '#0f172a';
+        ctx.fillRect(6, 18, 12, 6);
+
+        // Terminal Screen (Angled facing front)
+        ctx.fillStyle = '#1e293b';
+        ctx.fillRect(2, 4, 20, 14);
+        ctx.fillStyle = '#0f172a';
+        ctx.fillRect(4, 6, 16, 10);
+
+        // Screen Display Items
+        ctx.fillStyle = '#38bdf8'; // Order total text
+        ctx.fillRect(6, 8, 12, 2);
+        ctx.fillStyle = '#22c55e'; // Item buttons
+        ctx.fillRect(6, 11, 4, 3);
+        ctx.fillRect(11, 11, 4, 3);
+
+        canvas.refresh();
+      }
+    }
+
+    // 7c. Centerpiece Grand Garden Planter Island (160x500 canvas -> 80x250 display)
+    if (!textures.exists('cafe_center_garden_planter')) {
+      const canvas = textures.createCanvas('cafe_center_garden_planter', 160, 500);
+      if (canvas) {
+        const ctx = canvas.getContext();
+        // Ground Drop Shadow
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+        ctx.fillRect(4, 4, 152, 492);
+
+        // Heavy Outer Polished Oak Wood Frame (straight outer edges matching floor oak palette #451a03 / #78350f)
+        ctx.fillStyle = '#451a03';
+        ctx.fillRect(0, 0, 160, 500);
+
+        // Beveled Inner Wood Edge
+        ctx.fillStyle = '#78350f';
+        ctx.fillRect(6, 6, 148, 488);
+
+        ctx.fillStyle = '#92400e';
+        ctx.fillRect(10, 10, 140, 480);
+
+        // Recessed Rich Dark Soil Bed (SMOOTHLY CURVED / ROUNDED GRASS BED CORNERS)
+        ctx.fillStyle = '#1c0a02';
+        ctx.beginPath();
+        if (ctx.roundRect) {
+          ctx.roundRect(18, 18, 124, 464, 48);
+        } else {
+          ctx.rect(18, 18, 124, 464);
+        }
+        ctx.fill();
+
+        // Deep Green Base Foliage / Moss Layer (CURVED / ROUNDED)
+        ctx.fillStyle = '#14532d';
+        ctx.beginPath();
+        if (ctx.roundRect) {
+          ctx.roundRect(22, 22, 116, 456, 42);
+        } else {
+          ctx.rect(22, 22, 116, 456);
+        }
+        ctx.fill();
+
+        // Layered Curved Grass Clusters & Plants inside rounded bed
+        for (let y = 30; y < 465; y += 10) {
+          for (let x = 28; x < 130; x += 12) {
+            // Check if x, y is inside the rounded grass bed shape
+            const distFromTop = Math.hypot(x - 80, y - 70);
+            const distFromBottom = Math.hypot(x - 80, y - 430);
+            if ((y >= 70 && y <= 430) || distFromTop <= 52 || distFromBottom <= 52) {
+              const shift = ((x + y) % 5);
+              ctx.fillStyle = '#15803d';
+              ctx.fillRect(x, y + shift, 10, 8);
+              ctx.fillStyle = '#16a34a';
+              ctx.fillRect(x + 2, y + shift + 1, 8, 6);
+              ctx.fillStyle = '#22c55e';
+              ctx.fillRect(x + 3, y + shift + 2, 4, 3);
+            }
+          }
+        }
+
+        // Blooming Flowers (Daisies, Roses, Lavender) across the rounded bed
+        for (let y = 35; y < 450; y += 22) {
+          for (let x = 32; x < 125; x += 25) {
+            const distFromTop = Math.hypot(x - 80, y - 70);
+            const distFromBottom = Math.hypot(x - 80, y - 430);
+            if ((y >= 70 && y <= 430) || distFromTop <= 48 || distFromBottom <= 48) {
+              const mod = (x * 7 + y * 13) % 4;
+              if (mod === 0) {
+                // White Daisy
+                ctx.fillStyle = '#ffffff'; ctx.fillRect(x, y, 6, 6);
+                ctx.fillStyle = '#fef08a'; ctx.fillRect(x + 2, y + 2, 2, 2);
+              } else if (mod === 1) {
+                // Pink Rose
+                ctx.fillStyle = '#f472b6'; ctx.fillRect(x, y, 6, 6);
+                ctx.fillStyle = '#db2777'; ctx.fillRect(x + 2, y + 2, 2, 2);
+              } else if (mod === 2) {
+                // Gold Marigold
+                ctx.fillStyle = '#fef08a'; ctx.fillRect(x, y, 6, 6);
+                ctx.fillStyle = '#f59e0b'; ctx.fillRect(x + 2, y + 2, 2, 2);
+              } else {
+                // Purple Lavender
+                ctx.fillStyle = '#c084fc'; ctx.fillRect(x, y, 5, 7);
+              }
+            }
+          }
+        }
+
+        canvas.refresh();
+      }
+    }
+
+    // 7c-2. Standalone Short Garden Lamp Post (24x48)
+    if (!textures.exists('cafe_garden_lamp_post')) {
+      const canvas = textures.createCanvas('cafe_garden_lamp_post', 24, 48);
+      if (canvas) {
+        const ctx = canvas.getContext();
+        // Base Shadow
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+        ctx.beginPath();
+        ctx.ellipse(12, 44, 10, 3, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Dark Wood & Brass Pedestal Base
+        ctx.fillStyle = '#451a03';
+        ctx.fillRect(6, 38, 12, 6);
+        ctx.fillStyle = '#f59e0b'; // Brass ring
+        ctx.fillRect(7, 36, 10, 2);
+
+        // Slender Vertical Post
+        ctx.fillStyle = '#270e01';
+        ctx.fillRect(10, 18, 4, 18);
+
+        // Warm Light Radial Glow
+        const glowGrad = ctx.createRadialGradient(12, 12, 2, 12, 12, 16);
+        glowGrad.addColorStop(0, 'rgba(254, 240, 138, 0.9)');
+        glowGrad.addColorStop(0.5, 'rgba(245, 158, 11, 0.4)');
+        glowGrad.addColorStop(1, 'rgba(245, 158, 11, 0)');
+        ctx.fillStyle = glowGrad;
+        ctx.beginPath();
+        ctx.arc(12, 12, 16, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Brass Lantern Cap & Frame
+        ctx.fillStyle = '#78350f'; // Dark wood top connector
+        ctx.fillRect(8, 16, 8, 3);
+        ctx.fillStyle = '#f59e0b'; // Brass lantern roof
+        ctx.beginPath();
+        ctx.moveTo(4, 12);
+        ctx.lineTo(20, 12);
+        ctx.lineTo(12, 4);
+        ctx.closePath();
+        ctx.fill();
+
+        // Lantern Glass Shade with Light Core
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(8, 11, 8, 5);
+        ctx.fillStyle = '#fef08a';
+        ctx.fillRect(9, 10, 6, 6);
+
+        canvas.refresh();
+      }
+    }
+
+    // 7d. Tall Luxury Ceramic & Brass Plant Pot with Indoor Palm Tree (32x56)
+    if (!textures.exists('cafe_luxury_plant_pot')) {
+      const canvas = textures.createCanvas('cafe_luxury_plant_pot', 32, 56);
+      if (canvas) {
+        const ctx = canvas.getContext();
+        // Drop Shadow at base
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+        ctx.beginPath();
+        ctx.ellipse(16, 52, 14, 4, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Sleek Tapered Terracotta / White Ceramic Vessel Pot
+        ctx.fillStyle = '#c2410c'; // Terracotta Body
+        ctx.beginPath();
+        ctx.moveTo(8, 32);
+        ctx.lineTo(24, 32);
+        ctx.lineTo(21, 51);
+        ctx.lineTo(11, 51);
+        ctx.closePath();
+        ctx.fill();
+
+        // White Ceramic Upper Rim
+        ctx.fillStyle = '#f8fafc';
+        ctx.fillRect(7, 30, 18, 4);
+
+        // Gold Brass Accent Ring
+        ctx.fillStyle = '#f59e0b';
+        ctx.fillRect(9, 40, 14, 2);
+
+        // Lush Dark Soil
+        ctx.fillStyle = '#1c0a02';
+        ctx.ellipse(16, 31, 8, 2, 0, 0, Math.PI * 2);
+
+        // Tall Stems & Trunk
+        ctx.fillStyle = '#14532d';
+        ctx.fillRect(14, 18, 4, 13);
+        ctx.fillRect(10, 20, 3, 11);
+        ctx.fillRect(19, 20, 3, 11);
+
+        // Bushy Multi-tiered Palm & Monstera Leaves
+        ctx.fillStyle = '#166534'; // Base dark foliage
+        ctx.beginPath(); ctx.ellipse(16, 18, 14, 10, 0, 0, Math.PI * 2); ctx.fill();
+
+        ctx.fillStyle = '#15803d'; // Mid green leaves
+        ctx.beginPath(); ctx.ellipse(12, 14, 10, 8, 0, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath(); ctx.ellipse(20, 14, 10, 8, 0, 0, Math.PI * 2); ctx.fill();
+
+        ctx.fillStyle = '#16a34a'; // Vibrant green top leaves
+        ctx.beginPath(); ctx.ellipse(16, 10, 11, 8, 0, 0, Math.PI * 2); ctx.fill();
+
+        ctx.fillStyle = '#4ade80'; // Bright leaf highlights
+        ctx.beginPath(); ctx.ellipse(14, 8, 6, 4, 0, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath(); ctx.ellipse(21, 11, 5, 3, 0, 0, Math.PI * 2); ctx.fill();
 
         canvas.refresh();
       }
@@ -1934,101 +2468,111 @@ export class ProceduralTextures {
       }
     }
 
-    // 11. Grand Glowing CODE CAFE /> Neon Plaque with GLOWING BORDER (300x88 2x supersampled)
+    // 11. Classic Open Terrace Carved Oak Wooden Sign Plaque "CODE CAFE" (Image 5 Style) (260x70 2x supersampled)
     if (!textures.exists('cafe_neon_sign')) {
-      const canvas = textures.createCanvas('cafe_neon_sign', 300, 88);
+      const canvas = textures.createCanvas('cafe_neon_sign', 260, 70);
       if (canvas) {
         const ctx = canvas.getContext();
-        // Outer Ambient Neon Glow Halo (6px border glow effect)
-        ctx.fillStyle = 'rgba(251, 191, 36, 0.45)';
-        ctx.fillRect(0, 0, 300, 88);
+        // Drop shadow
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
+        ctx.fillRect(4, 4, 252, 62);
 
-        // Outer Bright Yellow-Gold Neon Border
-        ctx.fillStyle = '#fef08a';
-        ctx.fillRect(4, 4, 292, 80);
+        // Dark Walnut Outer Carved Frame
+        ctx.fillStyle = '#270e01';
+        ctx.fillRect(0, 0, 260, 64);
 
-        // Middle Amber Neon Tube Border
-        ctx.fillStyle = '#f59e0b';
-        ctx.fillRect(8, 8, 284, 72);
-
-        // Dark Mahogany Carved Sign Backing
-        ctx.fillStyle = '#1c0a02';
-        ctx.fillRect(12, 12, 276, 64);
-
-        // Inner Glow Inset
-        ctx.fillStyle = '#3a1705';
-        ctx.fillRect(16, 16, 268, 56);
-
-        // Brass corner rivets
-        ctx.fillStyle = '#fef08a';
-        ctx.fillRect(16, 16, 8, 8); ctx.fillRect(276, 16, 8, 8);
-        ctx.fillRect(16, 64, 8, 8); ctx.fillRect(276, 64, 8, 8);
-
-        // Glowing Coffee Cup Icon on Left
-        ctx.fillStyle = '#fef08a';
-        ctx.fillRect(32, 32, 24, 24); // Cup body
-        ctx.fillRect(56, 36, 6, 16);  // Handle
-        ctx.fillStyle = '#d97706';
-        ctx.fillRect(36, 36, 16, 16); // Cup coffee
-
-        // Steaming Wisps
-        ctx.fillStyle = '#ffffff';
-        ctx.fillRect(36, 22, 4, 6);
-        ctx.fillRect(44, 18, 4, 8);
-        ctx.fillRect(50, 22, 4, 6);
-
-        // Neon Text "CODE CAFE />" with intense glow effect
-        ctx.textAlign = 'center';
-        ctx.font = 'bold 30px "Segoe UI", monospace';
-
-        // Outer glow text shadow
+        // Inner Brass Bevel Line
         ctx.fillStyle = '#b45309';
-        ctx.fillText('CODE CAFE />', 180, 56);
-
+        ctx.fillRect(4, 4, 252, 56);
         ctx.fillStyle = '#fef08a';
-        ctx.fillText('CODE CAFE />', 178, 54);
+        ctx.fillRect(6, 6, 248, 2); ctx.fillRect(6, 6, 2, 52);
 
-        ctx.fillStyle = '#ffffff'; // White glowing core
-        ctx.fillText('CODE CAFE />', 176, 52);
+        // Polished Warm Golden-Oak Plaque Surface
+        ctx.fillStyle = '#854d0e';
+        ctx.fillRect(8, 8, 244, 48);
+
+        // Inner Grain & Inset
+        ctx.fillStyle = '#a16207';
+        ctx.fillRect(12, 12, 236, 40);
+
+        // Corner Brass Rivets
+        ctx.fillStyle = '#fef08a';
+        ctx.fillRect(10, 10, 6, 6); ctx.fillRect(244, 10, 6, 6);
+        ctx.fillRect(10, 48, 6, 6); ctx.fillRect(244, 48, 6, 6);
+
+        // Gold Coffee Cup Icon on Left (x=24 to 52)
+        ctx.fillStyle = '#fef08a';
+        ctx.fillRect(24, 24, 20, 20); // Cup body
+        ctx.fillRect(44, 28, 5, 12);  // Handle
+        ctx.fillStyle = '#d97706';
+        ctx.fillRect(28, 28, 12, 12); // Coffee fill
+        // Steaming wisps
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(28, 16, 3, 5);
+        ctx.fillRect(34, 13, 3, 7);
+        ctx.fillRect(39, 16, 3, 5);
+
+        // Clean Gold Typography "CODE CAFE"
+        ctx.textAlign = 'center';
+        ctx.font = 'bold 26px "Segoe UI", serif';
+
+        // Drop shadow text
+        ctx.fillStyle = '#270e01';
+        ctx.fillText('CODE CAFE', 152, 43);
+
+        // Glowing core gold text
+        ctx.fillStyle = '#fef08a';
+        ctx.fillText('CODE CAFE', 150, 41);
 
         canvas.refresh();
       }
     }
 
-    // 12. "TEA SLEEP CODE REPEAT" Wall Poster / Sign (220x140 2x supersampled)
+    // 12. Framed Wall Poster "COFFEE FOCUS FLOW" with Ivy Vines (Image 5 Style) (200x130 2x supersampled)
     if (!textures.exists('cafe_wall_poster')) {
-      const canvas = textures.createCanvas('cafe_wall_poster', 220, 140);
+      const canvas = textures.createCanvas('cafe_wall_poster', 200, 130);
       if (canvas) {
         const ctx = canvas.getContext();
         // Deep walnut frame
-        ctx.fillStyle = '#2d1810';
-        ctx.fillRect(0, 0, 220, 140);
+        ctx.fillStyle = '#270e01';
+        ctx.fillRect(0, 0, 200, 130);
         ctx.fillStyle = '#b45309'; // Inner gold bevel line
-        ctx.fillRect(6, 6, 208, 128);
+        ctx.fillRect(6, 6, 188, 118);
 
         // Blackboard poster surface
         ctx.fillStyle = '#1c1917';
-        ctx.fillRect(10, 10, 200, 120);
+        ctx.fillRect(10, 10, 180, 110);
 
-        // Chalk & Gold Typography with Icons
+        // Chalk & Gold Typography (No Emojis)
         ctx.textAlign = 'center';
         ctx.font = 'bold 20px "Segoe UI", sans-serif';
 
-        // ☕ TEA
+        // COFFEE
         ctx.fillStyle = '#fef08a';
-        ctx.fillText('☕ TEA', 110, 38);
+        ctx.fillText('COFFEE', 100, 42);
 
-        // 💤 SLEEP
-        ctx.fillStyle = '#a5f3fc';
-        ctx.fillText('💤 SLEEP', 110, 66);
+        // FOCUS
+        ctx.fillStyle = '#fef08a';
+        ctx.fillText('FOCUS', 100, 72);
 
-        // 💻 CODE
-        ctx.fillStyle = '#86efac';
-        ctx.fillText('💻 CODE', 110, 94);
+        // FLOW
+        ctx.fillStyle = '#fef08a';
+        ctx.fillText('FLOW', 100, 102);
 
-        // 🔁 REPEAT
-        ctx.fillStyle = '#fdba74';
-        ctx.fillText('🔁 REPEAT', 110, 122);
+        // Lush Ivy Vines climbing around the frame
+        ctx.fillStyle = '#15803d'; // Dark vine leaves
+        ctx.fillRect(0, 0, 200, 6);   // Top frame vine
+        ctx.fillRect(0, 0, 6, 130);   // Left frame vine
+        ctx.fillRect(194, 0, 6, 130); // Right frame vine
+
+        ctx.fillStyle = '#22c55e'; // Bright green leaf highlights
+        for (let y = 10; y < 120; y += 18) {
+          ctx.fillRect(2, y, 6, 6);
+          ctx.fillRect(192, y + 8, 6, 6);
+        }
+        for (let x = 10; x < 190; x += 20) {
+          ctx.fillRect(x, 2, 6, 6);
+        }
 
         canvas.refresh();
       }
