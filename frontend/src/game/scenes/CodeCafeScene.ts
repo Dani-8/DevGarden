@@ -424,6 +424,7 @@ export default class CodeCafeScene extends Phaser.Scene {
 
         this.cameras.main.fadeOut(300, 0, 0, 0);
         this.time.delayedCall(300, () => {
+            localStorage.setItem('devgarden_last_scene', 'GardenScene');
             this.scene.start('GardenScene', {
                 socket: this.socket,
                 self: this.selfPlayer,
