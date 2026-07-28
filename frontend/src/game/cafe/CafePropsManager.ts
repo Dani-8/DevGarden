@@ -176,9 +176,10 @@ export class CafePropsManager {
         spawnLamp(406, 475); // Lamp 4
 
         // Terrace Seam Divider Plant Line (x: 704)
-        spawnPot(704, 180);
-        spawnPot(704, 335);
-        spawnPot(704, 480);
+        spawnPot(704, 150);
+        spawnPot(704, 270);
+        spawnPot(704, 410);
+        spawnPot(704, 530);
 
         // 6. Round Dining Table Sets with 4 Red Cushion Armchairs each
         const createTable4Chairs = (x: number, y: number, textureKey: string = 'cafe_interior_table') => {
