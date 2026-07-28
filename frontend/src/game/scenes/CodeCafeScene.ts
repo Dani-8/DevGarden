@@ -449,6 +449,7 @@ export default class CodeCafeScene extends Phaser.Scene {
                     x: rx,
                     y: ry,
                     anim: animKey,
+                    scene: 'CodeCafeScene',
                 });
             }
 
@@ -492,10 +493,57 @@ export default class CodeCafeScene extends Phaser.Scene {
     private setupSocketListeners() {
         if (!this.socket) return;
 
-        this.socket.off('player_moved_sync');
-        this.socket.on('player_moved_sync', (data: { id: string; x: number; y: number; anim: string }) => {
+        this.socket.off('player_moved');
+        this.socket.on('player_moved', (data: { id: string; x: number; y: number; anim: string; scene?: string }) => {
             if (data.id === this.currentUserId) return;
-            this.playerManager.handleRemotePlayerMove(data, this.otherPlayers);
+
+            if (data.scene && data.scene !== 'CodeCafeScene') {
+                // Player is in GardenScene, remove from CodeCafe
+                if (this.otherPlayers.has(data.id)) {
+                    this.otherPlayers.get(data.id)?.destroy();
+                    this.otherPlayers.delete(data.id);
+                }
+                return;
+            }
+
+            let remoteContainer = this.otherPlayers.get(data.id);
+            if (!remoteContainer) {
+                const pState = this.otherPlayersList?.find(p => p.id === data.id) || {
+                    id: data.id,
+                    username: 'Developer',
+                    avatar_url: '',
+                    level: 1,
+                    score: 0,
+                    title: 'Sprout',
+                    visual_tier: 'green',
+                    x: data.x,
+                    y: data.y,
+                    anim: data.anim,
+                    commits: 0,
+                    stars: 0,
+                    followers: 0,
+                    repos: 0,
+                };
+                this.playerManager.spawnRemotePlayer({ ...pState, x: data.x, y: data.y }, this.otherPlayers, this.onSelectPlayerCallback);
+                remoteContainer = this.otherPlayers.get(data.id);
+            }
+
+            if (remoteContainer) {
+                remoteContainer.setPosition(data.x, data.y);
+                const tier = remoteContainer.getData('tier') || 'green';
+                const sprite = remoteContainer.list.find(obj => obj instanceof Phaser.GameObjects.Sprite) as Phaser.GameObjects.Sprite;
+                if (sprite) {
+                    sprite.play(`${data.anim}_${tier}`, true);
+                }
+            }
+        });
+
+        this.socket.off('player_left');
+        this.socket.on('player_left', (data: { id: string }) => {
+            if (this.otherPlayers.has(data.id)) {
+                this.otherPlayers.get(data.id)?.destroy();
+                this.otherPlayers.delete(data.id);
+            }
         });
 
         this.socket.off('chat_message_sync');
