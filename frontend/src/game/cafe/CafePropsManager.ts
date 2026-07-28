@@ -21,33 +21,33 @@ export class CafePropsManager {
         const chairs: CafeChair[] = [];
 
         // 1. Top Wall Deco & Signage
-        // Dark Wooden Brick Backwall Structure behind counter & sign (Centered at x=352)
-        const backwall = scene.add.image(352, 72, 'cafe_counter_backwall');
+        // Dark Wooden Brick Backwall Structure behind counter & sign (Centered at x=448)
+        const backwall = scene.add.image(448, 72, 'cafe_counter_backwall');
         backwall.setDisplaySize(280, 68);
         backwall.setOrigin(0.5, 0.5);
         backwall.setDepth(15);
 
         // Classic Open Terrace Carved Oak Wooden Sign Plaque "CODE CAFE"
-        const neonSign = scene.add.image(352, 48, 'cafe_neon_sign');
+        const neonSign = scene.add.image(448, 48, 'cafe_neon_sign');
         neonSign.setDisplaySize(130, 35);
         neonSign.setOrigin(0.5, 0.5);
         neonSign.setDepth(20);
 
         // Wall Poster: "TEA, SLEEP, CODE, REPEAT" with Lush Grass Leaves Effect
-        const poster = scene.add.image(590, 52, 'cafe_wall_poster');
+        const poster = scene.add.image(720, 52, 'cafe_wall_poster');
         poster.setDisplaySize(85, 75);
         poster.setOrigin(0.5, 0.5);
         poster.setDepth(20);
 
         // Detailed Chalkboard Wall Menu
-        const wallMenu = scene.add.image(110, 52, 'cafe_wall_menu');
+        const wallMenu = scene.add.image(130, 52, 'cafe_wall_menu');
         wallMenu.setDisplaySize(140, 70);
         wallMenu.setOrigin(0.5, 0.5);
         wallMenu.setDepth(20);
 
-        // 2. Center Open-Terrace Style Grand Counter & Barista Station (Centered at x=352)
+        // 2. Center Open-Terrace Style Grand Counter & Barista Station (Centered at x=448)
         // Main Cashier Front Counter
-        const counter = scene.add.image(352, 135, 'cafe_counter');
+        const counter = scene.add.image(448, 135, 'cafe_counter');
         counter.setDisplaySize(280, 48);
         counter.setOrigin(0.5, 0.5);
         counter.setDepth(140);
@@ -55,7 +55,7 @@ export class CafePropsManager {
         obstaclesGroup.add(counter);
 
         // Left Side Return Counter Wing
-        const counterSideL = scene.add.image(204, 115, 'cafe_counter_side');
+        const counterSideL = scene.add.image(300, 115, 'cafe_counter_side');
         counterSideL.setDisplaySize(18, 48);
         counterSideL.setOrigin(0.5, 0.5);
         counterSideL.setDepth(138);
@@ -63,7 +63,7 @@ export class CafePropsManager {
         obstaclesGroup.add(counterSideL);
 
         // Right Side Return Counter Wing
-        const counterSideR = scene.add.image(500, 115, 'cafe_counter_side');
+        const counterSideR = scene.add.image(596, 115, 'cafe_counter_side');
         counterSideR.setDisplaySize(18, 48);
         counterSideR.setOrigin(0.5, 0.5);
         counterSideR.setDepth(138);
@@ -71,28 +71,28 @@ export class CafePropsManager {
         obstaclesGroup.add(counterSideR);
 
         // Barista NPC behind counter
-        const baristaSprite = scene.add.image(332, 108, 'cafe_barista');
+        const baristaSprite = scene.add.image(428, 108, 'cafe_barista');
         baristaSprite.setOrigin(0.5, 0.85);
         baristaSprite.setDepth(130);
 
         // POS Cash Register Terminal on Counter
-        const posTerminal = scene.add.image(367, 126, 'cafe_pos_terminal');
+        const posTerminal = scene.add.image(463, 126, 'cafe_pos_terminal');
         posTerminal.setOrigin(0.5, 0.85);
         posTerminal.setDepth(145);
 
         // Pastry Display Case on right side of counter
-        const pastryDisplay = scene.add.image(427, 126, 'cafe_pastry_display');
+        const pastryDisplay = scene.add.image(523, 126, 'cafe_pastry_display');
         pastryDisplay.setOrigin(0.5, 0.85);
         pastryDisplay.setDepth(145);
 
         // Commercial Dual-Grouphead Espresso Machine on left side of counter
-        const espressoMachine = scene.add.image(257, 126, 'cafe_espresso_machine');
+        const espressoMachine = scene.add.image(353, 126, 'cafe_espresso_machine');
         espressoMachine.setOrigin(0.5, 0.85);
         espressoMachine.setDepth(145);
 
         // Animated Rising Steam / Smoke Particle Emitter from Coffee Machine
         if (scene.add.particles) {
-            const steam = scene.add.particles(257, 100, 'cafe_steam_particle', {
+            const steam = scene.add.particles(353, 100, 'cafe_steam_particle', {
                 speedY: { min: -12, max: -26 },
                 speedX: { min: -3, max: 3 },
                 scale: { start: 0.6, end: 1.8 },
@@ -104,7 +104,7 @@ export class CafePropsManager {
         }
 
         // 3. Left Side: Grand Library Bookshelf
-        const bookshelf = scene.add.image(42, 120, 'cafe_bookshelf');
+        const bookshelf = scene.add.image(50, 120, 'cafe_bookshelf');
         bookshelf.setOrigin(0.5, 0.85);
         bookshelf.setDepth(120);
         scene.physics.add.existing(bookshelf, true);
@@ -114,20 +114,20 @@ export class CafePropsManager {
         obstaclesGroup.add(bookshelf);
 
         // 4. Right Side: Open Terrace Glass Window Wall & Lush Ivy Vines
-        const terraceWindow = scene.add.image(880, 52, 'cafe_terrace_window');
+        const terraceWindow = scene.add.image(1024, 52, 'cafe_terrace_window');
         terraceWindow.setOrigin(0.5, 0.5);
         terraceWindow.setDepth(20);
 
-        const ivyVine1 = scene.add.image(835, 88, 'cafe_ivy_vine');
+        const ivyVine1 = scene.add.image(975, 88, 'cafe_ivy_vine');
         ivyVine1.setOrigin(0.5, 0.5);
         ivyVine1.setDepth(25);
 
-        const ivyVine2 = scene.add.image(925, 88, 'cafe_ivy_vine');
+        const ivyVine2 = scene.add.image(1073, 88, 'cafe_ivy_vine');
         ivyVine2.setOrigin(0.5, 0.5);
         ivyVine2.setDepth(25);
 
-        // 5. Centerpiece Grand Garden Planter Island (Centered at x=352, y=335)
-        const centerPlanter = scene.add.image(352, 335, 'cafe_center_garden_planter');
+        // 5. Centerpiece Grand Garden Planter Island (Centered at x=448, y=335)
+        const centerPlanter = scene.add.image(448, 335, 'cafe_center_garden_planter');
         centerPlanter.setDisplaySize(88, 268);
         centerPlanter.setOrigin(0.5, 0.5);
         centerPlanter.setDepth(335);
@@ -153,33 +153,33 @@ export class CafePropsManager {
         };
 
         // Counter Flanking Plant Pots
-        spawnPot(180, 135);
-        spawnPot(522, 135);
-        spawnPot(90, 125); // Next to bookshelf
+        spawnPot(276, 135);
+        spawnPot(618, 135);
+        spawnPot(100, 125); // Next to bookshelf
 
-        // Left Side of Center Garden Planter: Alternating Lamps & Pots snug against planter (x: 298)
-        spawnLamp(298, 235); // Lamp 1
-        spawnPot(298, 275);  // Pot 1
-        spawnLamp(298, 315); // Lamp 2
-        spawnPot(298, 355);  // Pot 2
-        spawnLamp(298, 395); // Lamp 3
-        spawnPot(298, 435);  // Pot 3
-        spawnLamp(298, 475); // Lamp 4
+        // Left Side of Center Garden Planter: Alternating Lamps & Pots snug against planter (x: 394)
+        spawnLamp(394, 235); // Lamp 1
+        spawnPot(394, 275);  // Pot 1
+        spawnLamp(394, 315); // Lamp 2
+        spawnPot(394, 355);  // Pot 2
+        spawnLamp(394, 395); // Lamp 3
+        spawnPot(394, 435);  // Pot 3
+        spawnLamp(394, 475); // Lamp 4
 
-        // Right Side of Center Garden Planter: Alternating Lamps & Pots snug against planter (x: 406)
-        spawnLamp(406, 235); // Lamp 1
-        spawnPot(406, 275);  // Pot 1
-        spawnLamp(406, 315); // Lamp 2
-        spawnPot(406, 355);  // Pot 2
-        spawnLamp(406, 395); // Lamp 3
-        spawnPot(406, 435);  // Pot 3
-        spawnLamp(406, 475); // Lamp 4
+        // Right Side of Center Garden Planter: Alternating Lamps & Pots snug against planter (x: 502)
+        spawnLamp(502, 235); // Lamp 1
+        spawnPot(502, 275);  // Pot 1
+        spawnLamp(502, 315); // Lamp 2
+        spawnPot(502, 355);  // Pot 2
+        spawnLamp(502, 395); // Lamp 3
+        spawnPot(502, 435);  // Pot 3
+        spawnLamp(502, 475); // Lamp 4
 
-        // Terrace Seam Divider Plant Line (x: 704)
-        spawnPot(704, 150);
-        spawnPot(704, 270);
-        spawnPot(704, 410);
-        spawnPot(704, 530);
+        // Terrace Seam Divider Plant Line (x: 896)
+        spawnPot(896, 150);
+        spawnPot(896, 270);
+        spawnPot(896, 410);
+        spawnPot(896, 530);
 
         // 6. Round Dining Table Sets with 4 Red Cushion Armchairs each
         const createTable4Chairs = (x: number, y: number, textureKey: string = 'cafe_interior_table') => {
@@ -238,14 +238,14 @@ export class CafePropsManager {
         };
 
         // Left Seating Column (Wood Floor)
-        createTable4Chairs(160, 240, 'cafe_interior_table_laptop');
-        createTable4Chairs(160, 335, 'cafe_interior_table_coffee');
-        createTable4Chairs(160, 430, 'cafe_interior_table_plant');
+        createTable4Chairs(230, 240, 'cafe_interior_table_laptop');
+        createTable4Chairs(230, 335, 'cafe_interior_table_coffee');
+        createTable4Chairs(230, 430, 'cafe_interior_table_plant');
 
         // Right Seating Column (Wood Floor)
-        createTable4Chairs(544, 240, 'cafe_interior_table_coffee');
-        createTable4Chairs(544, 335, 'cafe_interior_table_plant');
-        createTable4Chairs(544, 430, 'cafe_interior_table_laptop');
+        createTable4Chairs(666, 240, 'cafe_interior_table_coffee');
+        createTable4Chairs(666, 335, 'cafe_interior_table_plant');
+        createTable4Chairs(666, 430, 'cafe_interior_table_laptop');
 
         // Far Left Wall Leather Lounge Booth Sofas
         const createSofaSet = (y: number) => {
@@ -299,19 +299,19 @@ export class CafePropsManager {
             chairs.push({ x: x + 26, y: y - 3, sprite: chairR, dir: 'right' });
         };
 
-        createPatioSet2Chairs(832, 240);
-        createPatioSet2Chairs(832, 335);
-        createPatioSet2Chairs(832, 430);
+        createPatioSet2Chairs(1024, 240);
+        createPatioSet2Chairs(1024, 335);
+        createPatioSet2Chairs(1024, 430);
 
-        // 7. Grand Entrance Area & Gateway (Centered at x=352)
-        // Welcome Entrance Step Portal Mat at (352, 580)
-        const exitMat = scene.add.image(352, 580, 'cafe_entrance_gateway');
+        // 7. Grand Entrance Area & Gateway (Centered at x=448)
+        // Welcome Entrance Step Portal Mat at (448, 580)
+        const exitMat = scene.add.image(448, 580, 'cafe_entrance_gateway');
         exitMat.setDisplaySize(100, 40);
         exitMat.setOrigin(0.5, 0.5);
         exitMat.setDepth(10);
 
         // Left Entrance Pillar Post with Lantern
-        const pillarLeft = scene.add.image(287, 568, 'cafe_entrance_pillar');
+        const pillarLeft = scene.add.image(383, 568, 'cafe_entrance_pillar');
         pillarLeft.setDisplaySize(32, 56);
         pillarLeft.setOrigin(0.5, 0.85);
         pillarLeft.setDepth(580);
@@ -319,7 +319,7 @@ export class CafePropsManager {
         obstaclesGroup.add(pillarLeft);
 
         // Right Entrance Pillar Post with Lantern
-        const pillarRight = scene.add.image(417, 568, 'cafe_entrance_pillar');
+        const pillarRight = scene.add.image(513, 568, 'cafe_entrance_pillar');
         pillarRight.setDisplaySize(32, 56);
         pillarRight.setOrigin(0.5, 0.85);
         pillarRight.setDepth(580);
@@ -327,18 +327,18 @@ export class CafePropsManager {
         obstaclesGroup.add(pillarRight);
 
         // Potted plants beside entrance pillars
-        spawnPot(247, 572);
-        spawnPot(457, 572);
+        spawnPot(343, 572);
+        spawnPot(553, 572);
 
-        // Left Bottom Continuous Wall with Green Boxwood Planter (x: 0 to 280)
-        const planterWallLeft = scene.add.image(140, 584, 'cafe_entrance_planter_wall');
-        planterWallLeft.setDisplaySize(280, 32);
+        // Left Bottom Continuous Wall with Green Boxwood Planter (x: 0 to 367)
+        const planterWallLeft = scene.add.image(183, 584, 'cafe_entrance_planter_wall');
+        planterWallLeft.setDisplaySize(367, 32);
         planterWallLeft.setOrigin(0.5, 0.5);
         planterWallLeft.setDepth(575);
 
-        // Right Bottom Continuous Wall with Green Boxwood Planter (x: 424 to 960)
-        const planterWallRight = scene.add.image(692, 584, 'cafe_entrance_planter_wall');
-        planterWallRight.setDisplaySize(536, 32);
+        // Right Bottom Continuous Wall with Green Boxwood Planter (x: 528 to 1152)
+        const planterWallRight = scene.add.image(840, 584, 'cafe_entrance_planter_wall');
+        planterWallRight.setDisplaySize(624, 32);
         planterWallRight.setOrigin(0.5, 0.5);
         planterWallRight.setDepth(575);
 
@@ -349,11 +349,11 @@ export class CafePropsManager {
             obstaclesGroup.add(wall);
         };
 
-        addWallCollider(480, 50, 960, 100);  // Top brick wall
+        addWallCollider(576, 50, 1152, 100);  // Top brick wall
         addWallCollider(6, 300, 12, 600);    // Left canvas edge
-        addWallCollider(954, 300, 12, 600);  // Right canvas edge
-        addWallCollider(140, 588, 280, 24);  // Bottom left wall collider
-        addWallCollider(692, 588, 536, 24);  // Bottom right wall collider
+        addWallCollider(1146, 300, 12, 600);  // Right canvas edge
+        addWallCollider(183, 588, 367, 24);  // Bottom left wall collider
+        addWallCollider(840, 588, 624, 24);  // Bottom right wall collider
 
         return {
             baristaSprite,
