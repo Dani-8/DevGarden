@@ -104,10 +104,13 @@ export class CafePropsManager {
         }
 
         // 3. Left Side: Grand Library Bookshelf
-        const bookshelf = scene.add.image(40, 125, 'cafe_bookshelf');
+        const bookshelf = scene.add.image(42, 120, 'cafe_bookshelf');
         bookshelf.setOrigin(0.5, 0.85);
         bookshelf.setDepth(120);
         scene.physics.add.existing(bookshelf, true);
+        const bsBody = bookshelf.body as Phaser.Physics.Arcade.StaticBody;
+        bsBody.setSize(50, 32);
+        bsBody.setOffset(3, 52);
         obstaclesGroup.add(bookshelf);
 
         // 4. Right Side: Open Terrace Glass Window Wall & Lush Ivy Vines
@@ -125,7 +128,7 @@ export class CafePropsManager {
 
         // 5. Centerpiece Grand Garden Planter Island (Centered at x=352, y=335)
         const centerPlanter = scene.add.image(352, 335, 'cafe_center_garden_planter');
-        centerPlanter.setDisplaySize(80, 210);
+        centerPlanter.setDisplaySize(88, 268);
         centerPlanter.setOrigin(0.5, 0.5);
         centerPlanter.setDepth(335);
         scene.physics.add.existing(centerPlanter, true);

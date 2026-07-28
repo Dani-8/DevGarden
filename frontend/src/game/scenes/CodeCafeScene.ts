@@ -449,5 +449,19 @@ export default class CodeCafeScene extends Phaser.Scene {
         this.socket.on('chat_message_sync', (data: { sender_id: string; sender_name: string; message: string; is_ai?: boolean }) => {
             this.playerManager.handleChatMessageSync(data, this.currentUserId, this.playerContainer, this.otherPlayers);
         });
+
+        this.socket.off('player_chatted');
+        this.socket.on('player_chatted', (data: { id: string; text: string; isEmote: boolean }) => {
+            if (data.id === this.currentUserId) {
+                if (this.playerContainer) {
+                    this.playerManager.showChatBubble(this.playerContainer, data.text, data.isEmote);
+                }
+            } else {
+                const container = this.otherPlayers.get(data.id);
+                if (container) {
+                    this.playerManager.showChatBubble(container, data.text, data.isEmote);
+                }
+            }
+        });
     }
 }

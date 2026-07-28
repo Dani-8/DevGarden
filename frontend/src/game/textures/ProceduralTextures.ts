@@ -2148,86 +2148,162 @@ export class ProceduralTextures {
       }
     }
 
-    // 7c. Centerpiece Grand Garden Planter Island (160x500 canvas -> 80x250 display)
+    // 7c. Centerpiece Grand Garden Planter Island (176x536 canvas -> 88x268 display with ground shadow)
     if (!textures.exists('cafe_center_garden_planter')) {
-      const canvas = textures.createCanvas('cafe_center_garden_planter', 160, 500);
+      const canvas = textures.createCanvas('cafe_center_garden_planter', 176, 536);
       if (canvas) {
         const ctx = canvas.getContext();
-        // Ground Drop Shadow
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
-        ctx.fillRect(4, 4, 152, 492);
 
-        // Heavy Outer Polished Oak Wood Frame (straight outer edges matching floor oak palette #451a03 / #78350f)
-        ctx.fillStyle = '#451a03';
-        ctx.fillRect(0, 0, 160, 500);
+        // 1. Visible Ground Drop Shadow casting onto floor tiles (Soft multi-layer ambient shadow)
+        // Outer soft shadow blur
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.12)';
+        if (ctx.roundRect) {
+          ctx.roundRect(4, 8, 168, 524, 12);
+        } else {
+          ctx.rect(4, 8, 168, 524);
+        }
+        ctx.fill();
 
-        // Beveled Inner Wood Edge
+        // Inner denser shadow offset down-right
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.22)';
+        if (ctx.roundRect) {
+          ctx.roundRect(8, 12, 160, 516, 8);
+        } else {
+          ctx.rect(8, 12, 160, 516);
+        }
+        ctx.fill();
+
+        // Offset origin for the 160x520 wooden planter frame
+        const ox = 4;
+        const oy = 4;
+
+        // 2. Heavy Warm Teak & Oak Wooden Boundary Frame (Wide 22px Wooden Border)
+        ctx.fillStyle = '#2b1003'; // Outer dark wood outline
+        ctx.fillRect(ox, oy, 160, 520);
+
+        // Solid Polished Teak Plank Body
         ctx.fillStyle = '#78350f';
-        ctx.fillRect(6, 6, 148, 488);
+        ctx.fillRect(ox + 4, oy + 4, 152, 512);
 
+        // Polished Surface Grain Fill
         ctx.fillStyle = '#92400e';
-        ctx.fillRect(10, 10, 140, 480);
+        ctx.fillRect(ox + 6, oy + 6, 148, 508);
 
-        // Recessed Rich Dark Soil Bed (SMOOTHLY CURVED / ROUNDED GRASS BED CORNERS)
+        // Bright Bevel Highlights (Top & Left Edges)
+        ctx.fillStyle = '#b45309';
+        ctx.fillRect(ox + 4, oy + 4, 152, 4);
+        ctx.fillRect(ox + 4, oy + 4, 4, 512);
+        ctx.fillStyle = '#d97706';
+        ctx.fillRect(ox + 6, oy + 6, 148, 2);
+        ctx.fillRect(ox + 6, oy + 6, 2, 508);
+
+        // Horizontal Wood Plank Joinery Seams & Carved Detail Grooves
+        for (let py = 40; py < 510; py += 40) {
+          ctx.fillStyle = '#451a03';
+          ctx.fillRect(ox + 4, oy + py, 152, 3);
+          ctx.fillStyle = '#d97706';
+          ctx.fillRect(ox + 4, oy + py + 3, 152, 1);
+        }
+
+        // Brass Corner Brackets & Rivets (Decorative Craftsmanship)
+        const drawBrassCorner = (cx: number, cy: number) => {
+          ctx.fillStyle = '#b45309'; ctx.fillRect(ox + cx, oy + cy, 12, 12);
+          ctx.fillStyle = '#fef08a'; ctx.fillRect(ox + cx + 2, oy + cy + 2, 8, 8);
+          ctx.fillStyle = '#78350f'; ctx.fillRect(ox + cx + 4, oy + cy + 4, 4, 4);
+        };
+        drawBrassCorner(6, 6);
+        drawBrassCorner(142, 6);
+        drawBrassCorner(6, 502);
+        drawBrassCorner(142, 502);
+
+        // Recessed Inner Bevel & Dark Soil Bed (Framed neatly at x=22..138, y=22..498)
+        ctx.fillStyle = '#451a03';
+        ctx.fillRect(ox + 20, oy + 20, 120, 480);
+        ctx.fillStyle = '#270e01';
+        ctx.fillRect(ox + 22, oy + 22, 116, 476);
+
+        // Dark Rich Soil Bed Base
         ctx.fillStyle = '#1c0a02';
-        ctx.beginPath();
-        if (ctx.roundRect) {
-          ctx.roundRect(18, 18, 124, 464, 48);
-        } else {
-          ctx.rect(18, 18, 124, 464);
-        }
-        ctx.fill();
+        ctx.fillRect(ox + 24, oy + 24, 112, 472);
+        ctx.fillStyle = '#0a230d'; // Deep foliage base shadow
+        ctx.fillRect(ox + 26, oy + 26, 108, 468);
 
-        // Deep Green Base Foliage / Moss Layer (CURVED / ROUNDED)
-        ctx.fillStyle = '#14532d';
-        ctx.beginPath();
-        if (ctx.roundRect) {
-          ctx.roundRect(22, 22, 116, 456, 42);
-        } else {
-          ctx.rect(22, 22, 116, 456);
-        }
-        ctx.fill();
+        // 3. Dense 32-Bit Rounded Boxwood Hedge Canopy Mounds (Neatly contained within the 22px frame)
+        const drawBushClump = (cx: number, cy: number, rx: number, ry: number) => {
+          // Base Dark Shadow Ring
+          ctx.fillStyle = '#0a230d';
+          ctx.beginPath();
+          ctx.ellipse(ox + cx, oy + cy + 2, rx + 1, ry + 1, 0, 0, Math.PI * 2);
+          ctx.fill();
 
-        // Layered Curved Grass Clusters & Plants inside rounded bed
-        for (let y = 30; y < 465; y += 10) {
-          for (let x = 28; x < 130; x += 12) {
-            // Check if x, y is inside the rounded grass bed shape
-            const distFromTop = Math.hypot(x - 80, y - 70);
-            const distFromBottom = Math.hypot(x - 80, y - 430);
-            if ((y >= 70 && y <= 430) || distFromTop <= 52 || distFromBottom <= 52) {
-              const shift = ((x + y) % 5);
-              ctx.fillStyle = '#15803d';
-              ctx.fillRect(x, y + shift, 10, 8);
-              ctx.fillStyle = '#16a34a';
-              ctx.fillRect(x + 2, y + shift + 1, 8, 6);
-              ctx.fillStyle = '#22c55e';
-              ctx.fillRect(x + 3, y + shift + 2, 4, 3);
-            }
-          }
+          // Main Foliage Midtone
+          ctx.fillStyle = '#1a6323';
+          ctx.beginPath();
+          ctx.ellipse(ox + cx, oy + cy, rx, ry, 0, 0, Math.PI * 2);
+          ctx.fill();
+
+          // Vibrant Leaf Clusters
+          ctx.fillStyle = '#268a32';
+          ctx.beginPath();
+          ctx.ellipse(ox + cx - Math.floor(rx * 0.2), oy + cy - Math.floor(ry * 0.2), Math.floor(rx * 0.75), Math.floor(ry * 0.75), 0, 0, Math.PI * 2);
+          ctx.fill();
+
+          // Top Sunlight Arc Highlight
+          ctx.fillStyle = '#3dbd4a';
+          ctx.beginPath();
+          ctx.ellipse(ox + cx - Math.floor(rx * 0.35), oy + cy - Math.floor(ry * 0.35), Math.floor(rx * 0.5), Math.floor(ry * 0.5), 0, 0, Math.PI * 2);
+          ctx.fill();
+
+          // Golden-Lime Leaf Tips
+          ctx.fillStyle = '#94f36c';
+          ctx.beginPath();
+          ctx.ellipse(ox + cx - Math.floor(rx * 0.45), oy + cy - Math.floor(ry * 0.45), Math.floor(rx * 0.25), Math.floor(ry * 0.25), 0, 0, Math.PI * 2);
+          ctx.fill();
+        };
+
+        // Fill Planter Bed with Lush Overlapping Bush Clumps (x=28 to 132, y=28 to 492)
+        const rows = 31;
+        for (let r = 0; r < rows; r++) {
+          const cy = 30 + r * 15;
+          // Left bush cluster
+          drawBushClump(50 + (r % 2 === 0 ? -2 : 2), cy, 22, 14);
+          // Right bush cluster
+          drawBushClump(110 + (r % 2 === 0 ? 2 : -2), cy, 22, 14);
+          // Center filling bush cluster
+          drawBushClump(80, cy - 2, 24, 15);
         }
 
-        // Blooming Flowers (Daisies, Roses, Lavender) across the rounded bed
-        for (let y = 35; y < 450; y += 22) {
-          for (let x = 32; x < 125; x += 25) {
-            const distFromTop = Math.hypot(x - 80, y - 70);
-            const distFromBottom = Math.hypot(x - 80, y - 430);
-            if ((y >= 70 && y <= 430) || distFromTop <= 48 || distFromBottom <= 48) {
-              const mod = (x * 7 + y * 13) % 4;
-              if (mod === 0) {
-                // White Daisy
-                ctx.fillStyle = '#ffffff'; ctx.fillRect(x, y, 6, 6);
-                ctx.fillStyle = '#fef08a'; ctx.fillRect(x + 2, y + 2, 2, 2);
-              } else if (mod === 1) {
-                // Pink Rose
-                ctx.fillStyle = '#f472b6'; ctx.fillRect(x, y, 6, 6);
-                ctx.fillStyle = '#db2777'; ctx.fillRect(x + 2, y + 2, 2, 2);
-              } else if (mod === 2) {
+        // 4. Blooming Flowers Nestled in the Hedge Canopy
+        const pRand = (a: number, b: number) => {
+          const n = Math.sin(a * 12.9898 + b * 78.233) * 43758.5453;
+          return n - Math.floor(n);
+        };
+
+        for (let y = 32; y <= 488; y += 15) {
+          for (let x = 36; x <= 124; x += 16) {
+            const fRand = pRand(x * 7, y * 13);
+            if (fRand > 0.38) {
+              const fx = ox + x + (pRand(x, y) - 0.5) * 5;
+              const fy = oy + y + (pRand(y, x) - 0.5) * 5;
+              const flowerType = Math.floor(fRand * 10) % 4;
+
+              if (flowerType === 0) {
+                // Pink Rose Cluster
+                ctx.fillStyle = '#f472b6'; ctx.beginPath(); ctx.arc(fx, fy, 3.5, 0, Math.PI * 2); ctx.fill();
+                ctx.fillStyle = '#db2777'; ctx.beginPath(); ctx.arc(fx - 0.5, fy - 0.5, 2, 0, Math.PI * 2); ctx.fill();
+                ctx.fillStyle = '#fef08a'; ctx.fillRect(fx - 0.5, fy - 0.5, 1, 1);
+              } else if (flowerType === 1) {
+                // White Daisy Cluster
+                ctx.fillStyle = '#ffffff'; ctx.beginPath(); ctx.arc(fx, fy, 3, 0, Math.PI * 2); ctx.fill();
+                ctx.fillStyle = '#fef08a'; ctx.beginPath(); ctx.arc(fx, fy, 1.5, 0, Math.PI * 2); ctx.fill();
+              } else if (flowerType === 2) {
                 // Gold Marigold
-                ctx.fillStyle = '#fef08a'; ctx.fillRect(x, y, 6, 6);
-                ctx.fillStyle = '#f59e0b'; ctx.fillRect(x + 2, y + 2, 2, 2);
+                ctx.fillStyle = '#fbbf24'; ctx.beginPath(); ctx.arc(fx, fy, 3.5, 0, Math.PI * 2); ctx.fill();
+                ctx.fillStyle = '#d97706'; ctx.beginPath(); ctx.arc(fx, fy, 1.5, 0, Math.PI * 2); ctx.fill();
               } else {
-                // Purple Lavender
-                ctx.fillStyle = '#c084fc'; ctx.fillRect(x, y, 5, 7);
+                // Soft Lavender Blossom
+                ctx.fillStyle = '#c084fc'; ctx.fillRect(fx - 1, fy - 2, 3, 5);
+                ctx.fillStyle = '#e9d5ff'; ctx.fillRect(fx, fy - 1, 1, 3);
               }
             }
           }
@@ -2801,72 +2877,202 @@ export class ProceduralTextures {
       }
     }
 
-    // 14. Grand Library Bookshelf (52x80)
+    // 14. Grand 32-Bit Library Bookshelf (56x88)
     if (!textures.exists('cafe_bookshelf')) {
-      const canvas = textures.createCanvas('cafe_bookshelf', 52, 80);
+      const canvas = textures.createCanvas('cafe_bookshelf', 56, 88);
       if (canvas) {
         const ctx = canvas.getContext();
-        // Grand dark mahogany cabinet frame
-        ctx.fillStyle = '#2b1003';
-        ctx.fillRect(0, 0, 52, 80);
-        ctx.fillStyle = '#4a200a';
-        ctx.fillRect(3, 3, 46, 74);
+        // Drop shadow for 2.5D depth
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
+        ctx.fillRect(4, 4, 52, 84);
 
-        // 4 Sturdy Shelves
+        // Grand dark mahogany cabinet frame base
+        ctx.fillStyle = '#270e01'; // Dark mahogany border
+        ctx.fillRect(0, 0, 56, 88);
+
+        // Outer Carved Molding & Polished Wood Grain
+        ctx.fillStyle = '#451a03';
+        ctx.fillRect(2, 2, 52, 84);
+
+        // Recessed Dark Wood Backboard (Shadowed Interior)
         ctx.fillStyle = '#1c0a02';
-        ctx.fillRect(3, 22, 46, 3);
-        ctx.fillRect(3, 41, 46, 3);
-        ctx.fillRect(3, 60, 46, 3);
+        ctx.fillRect(5, 12, 46, 72);
 
-        // Colorful book spines + Tech manuals
-        const bookColors = ['#ef4444', '#3b82f6', '#22c55e', '#eab308', '#a855f7', '#ec4899', '#06b6d4', '#f97316'];
+        // Fluted Side Columns
+        ctx.fillStyle = '#78350f';
+        ctx.fillRect(2, 10, 3, 76);
+        ctx.fillRect(51, 10, 3, 76);
+        ctx.fillStyle = '#b45309'; // Column highlight edge
+        ctx.fillRect(3, 10, 1, 76);
+        ctx.fillRect(52, 10, 1, 76);
 
-        // Shelf 1: Glowing Tech Manuals
-        let bx = 5;
-        for (let i = 0; i < 9; i++) {
-          ctx.fillStyle = bookColors[i % bookColors.length];
-          ctx.fillRect(bx, 8, 4, 14);
-          // Gold spine foil line
-          ctx.fillStyle = '#fef08a';
-          ctx.fillRect(bx + 1, 10, 2, 2);
-          bx += 5;
-        }
+        // Ornate Top Crown Molding & Brass Plaque Header
+        ctx.fillStyle = '#78350f';
+        ctx.fillRect(0, 0, 56, 10);
+        ctx.fillStyle = '#b45309'; // Bevel
+        ctx.fillRect(2, 2, 52, 2);
+        ctx.fillStyle = '#f59e0b'; // Brass Header Accent
+        ctx.fillRect(18, 4, 20, 4);
+        ctx.fillStyle = '#fef08a';
+        ctx.fillRect(20, 5, 16, 2);
 
-        // Shelf 2: Mixed volumes
-        bx = 5;
-        for (let i = 0; i < 8; i++) {
-          ctx.fillStyle = bookColors[(i + 3) % bookColors.length];
-          ctx.fillRect(bx, 27, 4, 14);
-          bx += 5;
-        }
-        // Slanted book at end of shelf 2
-        ctx.fillStyle = '#a855f7';
-        ctx.fillRect(45, 30, 3, 11);
+        // Warm Radial Lamp Glow from Top Brass Sconce
+        const lampGlow = ctx.createRadialGradient(28, 10, 2, 28, 25, 28);
+        lampGlow.addColorStop(0, 'rgba(254, 240, 138, 0.35)');
+        lampGlow.addColorStop(1, 'rgba(254, 240, 138, 0)');
+        ctx.fillStyle = lampGlow;
+        ctx.beginPath(); ctx.arc(28, 10, 28, 0, Math.PI * 2); ctx.fill();
 
-        // Shelf 3: Tech Books (JS, PY, AI)
-        bx = 5;
-        for (let i = 0; i < 9; i++) {
-          ctx.fillStyle = bookColors[(i + 5) % bookColors.length];
-          ctx.fillRect(bx, 46, 4, 14);
-          bx += 5;
-        }
+        // Top Brass Sconce Fixture
+        ctx.fillStyle = '#b45309';
+        ctx.fillRect(25, 8, 6, 3);
+        ctx.fillStyle = '#fef08a';
+        ctx.fillRect(26, 11, 4, 3);
 
-        // Shelf 4: Encyclopedias
-        bx = 5;
-        for (let i = 0; i < 9; i++) {
+        // --- 4 HEAVY WOODEN SHELVES WITH BRASS RIM HIGHLIGHTS ---
+        const shelfYPositions = [28, 48, 68, 84];
+        shelfYPositions.forEach(sy => {
+          // Inner shelf drop shadow
+          ctx.fillStyle = 'rgba(0, 0, 0, 0.6)';
+          ctx.fillRect(5, sy - 2, 46, 2);
+
+          // Polished Wood Shelf Slab
           ctx.fillStyle = '#451a03';
-          ctx.fillRect(bx, 65, 4, 12);
-          ctx.fillStyle = '#d97706';
-          ctx.fillRect(bx + 1, 67, 2, 8);
-          bx += 5;
+          ctx.fillRect(4, sy, 48, 4);
+          ctx.fillStyle = '#78350f';
+          ctx.fillRect(4, sy, 48, 2);
+          ctx.fillStyle = '#b45309'; // Brass/gold rim highlight
+          ctx.fillRect(4, sy, 48, 1);
+        });
+
+        // --- HELPER FUNCTION FOR RICH 32-BIT BOOK DRAWING ---
+        const drawBook = (
+          x: number,
+          y: number,
+          w: number,
+          h: number,
+          color: string,
+          goldFoil: boolean = true,
+          codeEmblem: boolean = false
+        ) => {
+          // Spine shadow (left edge)
+          ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+          ctx.fillRect(x, y, 1, h);
+
+          // Main Spine Color
+          ctx.fillStyle = color;
+          ctx.fillRect(x + 1, y, w - 1, h);
+
+          // Spine Highlight (Cylindrical shine)
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
+          ctx.fillRect(x + Math.floor(w / 2), y, 1, h);
+
+          // Gold/Silver Foil Bands at Top & Bottom of Spine
+          if (goldFoil) {
+            ctx.fillStyle = '#fef08a';
+            ctx.fillRect(x + 1, y + 2, w - 1, 1);
+            ctx.fillRect(x + 1, y + h - 3, w - 1, 1);
+          }
+
+          // Code Emblem on spine center
+          if (codeEmblem && w >= 4) {
+            ctx.fillStyle = '#fef08a';
+            ctx.fillRect(x + 1, y + Math.floor(h / 2) - 1, w - 1, 2);
+          }
+        };
+
+        // ==========================================
+        // SHELF 1 (y: 12 to 28) - Classic Leather Encyclopedias & Brass Globe
+        // ==========================================
+        let bx = 6;
+        for (let i = 0; i < 5; i++) {
+          drawBook(bx, 13, 4, 15, i % 2 === 0 ? '#7f1d1d' : '#991b1b', true, false);
+          bx += 4;
         }
 
-        // Top of Bookshelf: Trailing Pothos Green Ivy Plant
-        ctx.fillStyle = '#15803d';
-        ctx.fillRect(38, 0, 10, 3);
-        ctx.fillStyle = '#22c55e';
-        ctx.fillRect(40, 2, 8, 6);
-        ctx.fillRect(44, 7, 4, 8); // Trailing vine down right side
+        // Small Antique Brass Globe Stand on Shelf 1 (x: 28)
+        ctx.fillStyle = '#b45309'; ctx.fillRect(28, 22, 6, 2); // Base
+        ctx.fillRect(30, 18, 2, 4); // Stand stem
+        ctx.fillStyle = '#38bdf8'; ctx.beginPath(); ctx.arc(31, 17, 4, 0, Math.PI * 2); ctx.fill(); // Blue Globe
+        ctx.fillStyle = '#f59e0b'; ctx.beginPath(); ctx.arc(31, 17, 5, -Math.PI / 2, Math.PI / 2, true); ctx.stroke(); // Brass Ring
+
+        // Forest Green & Navy Volumes (x: 38 to 50)
+        drawBook(38, 14, 4, 14, '#14532d', true, false);
+        drawBook(42, 12, 4, 16, '#1e3a8a', true, true);
+        drawBook(46, 15, 4, 13, '#1e1b4b', true, false);
+
+        // ==========================================
+        // SHELF 2 (y: 28 to 48) - Tech Manuals & Leaning Books
+        // ==========================================
+        // Stack of 3 Horizontal Leather Volumes on left (x: 6 to 18)
+        ctx.fillStyle = '#7c2d12'; ctx.fillRect(6, 45, 12, 3); ctx.fillStyle = '#fef08a'; ctx.fillRect(7, 46, 10, 1);
+        ctx.fillStyle = '#1e3a8a'; ctx.fillRect(6, 42, 12, 3); ctx.fillStyle = '#fef08a'; ctx.fillRect(7, 43, 10, 1);
+        ctx.fillStyle = '#064e3b'; ctx.fillRect(7, 39, 10, 3); ctx.fillStyle = '#fef08a'; ctx.fillRect(8, 40, 8, 1);
+
+        // Vertical Tech Manuals (x: 20 to 38)
+        drawBook(20, 31, 5, 17, '#2563eb', true, true); // Blue JS manual
+        drawBook(25, 33, 4, 15, '#16a34a', true, true); // Green PY manual
+        drawBook(29, 30, 5, 18, '#7e22ce', true, true); // Purple AI manual
+        drawBook(34, 34, 4, 14, '#d97706', true, false); // Amber manual
+
+        // Leaning Book against Brass Bookend (x: 40 to 48)
+        ctx.fillStyle = '#b45309'; ctx.fillRect(47, 42, 3, 6); // Bookend
+        // Tilted Book
+        ctx.save();
+        ctx.translate(40, 48);
+        ctx.rotate(-0.25);
+        ctx.fillStyle = '#be123c'; ctx.fillRect(0, -15, 4, 15);
+        ctx.fillStyle = '#fef08a'; ctx.fillRect(1, -13, 2, 1); ctx.fillRect(1, -3, 2, 1);
+        ctx.restore();
+
+        // ==========================================
+        // SHELF 3 (y: 48 to 68) - Rolled Scroll & Master Compendiums
+        // ==========================================
+        drawBook(6, 51, 5, 17, '#312e81', true, true);
+        drawBook(11, 53, 4, 15, '#881337', true, false);
+        drawBook(15, 50, 5, 18, '#047857', true, true);
+
+        // Rolled Parchment Scroll with Red Wax Seal resting horizontally (x: 22 to 34)
+        ctx.fillStyle = '#fef3c7'; ctx.fillRect(22, 64, 12, 4); // Parchment tube
+        ctx.fillStyle = '#d97706'; ctx.fillRect(23, 64, 1, 4); ctx.fillRect(32, 64, 1, 4); // Scroll end caps
+        ctx.fillStyle = '#dc2626'; ctx.beginPath(); ctx.arc(28, 66, 2, 0, Math.PI * 2); ctx.fill(); // Wax Seal
+
+        // Vertical Leather Compendiums (x: 36 to 50)
+        drawBook(36, 52, 4, 16, '#92400e', true, false);
+        drawBook(40, 54, 5, 14, '#4c1d95', true, true);
+        drawBook(45, 51, 5, 17, '#1e293b', true, false);
+
+        // ==========================================
+        // SHELF 4 (y: 68 to 84) - Heavy Vintage Folios & Potted Succulent
+        // ==========================================
+        let fx = 6;
+        for (let i = 0; i < 5; i++) {
+          const fColors = ['#451a03', '#1c1917', '#3f1d0b', '#451a03', '#1e1b4b'];
+          drawBook(fx, 70, 5, 14, fColors[i], true, false);
+          fx += 5;
+        }
+
+        // Small Terra Cotta Pot with Succulent on Shelf 4 (x: 34 to 48)
+        ctx.fillStyle = '#c2410c'; ctx.fillRect(36, 78, 8, 6); // Pot
+        ctx.fillStyle = '#f8fafc'; ctx.fillRect(35, 77, 10, 2); // White Rim
+        ctx.fillStyle = '#15803d'; ctx.beginPath(); ctx.ellipse(40, 75, 5, 3, 0, 0, Math.PI * 2); ctx.fill(); // Succulent leaves
+        ctx.fillStyle = '#4ade80'; ctx.beginPath(); ctx.ellipse(40, 73, 3, 2, 0, 0, Math.PI * 2); ctx.fill();
+
+        // --- TOP OVERHANG: LUSH TRAILING POTHOS VINE (Right corner) ---
+        ctx.fillStyle = '#14532d'; // Dark leafy stem
+        ctx.fillRect(40, 0, 14, 4);
+        ctx.fillRect(46, 4, 8, 12); // Trailing vine down right column
+        ctx.fillRect(48, 16, 6, 14);
+
+        ctx.fillStyle = '#16a34a'; // Vibrant green leaf clusters
+        ctx.beginPath(); ctx.ellipse(46, 3, 5, 3, 0, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath(); ctx.ellipse(50, 8, 4, 5, 0, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath(); ctx.ellipse(51, 18, 3, 5, 0, 0, Math.PI * 2); ctx.fill();
+
+        ctx.fillStyle = '#4ade80'; // Bright leaf highlights
+        ctx.fillRect(45, 2, 2, 2);
+        ctx.fillRect(49, 7, 2, 3);
+        ctx.fillRect(51, 16, 2, 3);
 
         canvas.refresh();
       }
