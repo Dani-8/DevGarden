@@ -399,7 +399,9 @@ export default class GardenScene extends Phaser.Scene {
       });
 
       try {
-        sessionStorage.setItem('devgarden_last_pos', JSON.stringify({ x: rx, y: ry }));
+        localStorage.setItem('devgarden_last_x', String(rx));
+        localStorage.setItem('devgarden_last_y', String(ry));
+        localStorage.setItem('devgarden_last_scene', 'GardenScene');
       } catch {
         // ignore quota errors
       }
@@ -433,6 +435,8 @@ export default class GardenScene extends Phaser.Scene {
     this.cameras.main.fadeOut(300, 0, 0, 0);
     this.time.delayedCall(300, () => {
       localStorage.setItem('devgarden_last_scene', 'CodeCafeScene');
+      localStorage.setItem('devgarden_last_x', '352');
+      localStorage.setItem('devgarden_last_y', '520');
       this.scene.start('CodeCafeScene', {
         socket: this.socket,
         self: this.selfPlayer,

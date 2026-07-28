@@ -19,6 +19,13 @@ export function useGameSocket(session: AuthSession | null) {
             return;
         }
 
+        const savedScene = localStorage.getItem('devgarden_last_scene');
+        const savedX = localStorage.getItem('devgarden_last_x');
+        const savedY = localStorage.getItem('devgarden_last_y');
+
+        const defaultX = savedScene === 'CodeCafeScene' ? 352 : (350 + Math.random() * 100);
+        const defaultY = savedScene === 'CodeCafeScene' ? 500 : (250 + Math.random() * 100);
+
         const self: PlayerState = {
             id: session.user.github_id,
             username: session.user.username,
@@ -27,8 +34,8 @@ export function useGameSocket(session: AuthSession | null) {
             score: session.user.score,
             title: session.user.title,
             visual_tier: session.user.visual_tier,
-            x: 350 + Math.random() * 100,
-            y: 250 + Math.random() * 100,
+            x: savedX ? parseFloat(savedX) : defaultX,
+            y: savedY ? parseFloat(savedY) : defaultY,
             anim: 'idle_down',
             commits: session.user.commits,
             stars: session.user.stars,

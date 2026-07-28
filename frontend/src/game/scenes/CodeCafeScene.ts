@@ -134,6 +134,10 @@ export default class CodeCafeScene extends Phaser.Scene {
 
     create() {
         this.physics.world.setBounds(0, 0, 960, 600);
+        this.cameras.main.setBackgroundColor('#180a03');
+
+        // Solid dark wood backdrop for letterboxing on wide displays
+        this.add.rectangle(480, 300, 3000, 3000, 0x180a03).setDepth(-1000);
 
         // 1. Draw Interior Tilemap
         CafeTilemap.draw(this);
@@ -146,9 +150,14 @@ export default class CodeCafeScene extends Phaser.Scene {
         // 3. Player animations
         this.playerManager.createAllAnimations();
 
-        // 4. Spawn Self (start near entrance at 352, 520)
+        // 4. Spawn Self (preserve saved position or start near entrance at 352, 520)
         if (this.selfPlayer) {
-            const selfCopy = { ...this.selfPlayer, x: 352, y: 520 };
+            const savedX = localStorage.getItem('devgarden_last_x');
+            const savedY = localStorage.getItem('devgarden_last_y');
+            const startX = savedX ? parseFloat(savedX) : (this.selfPlayer.x || 352);
+            const startY = savedY ? parseFloat(savedY) : (this.selfPlayer.y || 520);
+
+            const selfCopy = { ...this.selfPlayer, x: startX, y: startY };
             const selfObj = this.playerManager.spawnSelf(selfCopy, this.onSelectPlayerCallback);
             this.playerContainer = selfObj.container;
             this.playerSprite = selfObj.sprite;
@@ -410,6 +419,14 @@ export default class CodeCafeScene extends Phaser.Scene {
                 });
             }
 
+            try {
+                localStorage.setItem('devgarden_last_x', String(rx));
+                localStorage.setItem('devgarden_last_y', String(ry));
+                localStorage.setItem('devgarden_last_scene', 'CodeCafeScene');
+            } catch {
+                // ignore quota errors
+            }
+
             this.lastX = this.playerContainer.x;
             this.lastY = this.playerContainer.y;
             this.lastAnim = animKey;
@@ -425,6 +442,8 @@ export default class CodeCafeScene extends Phaser.Scene {
         this.cameras.main.fadeOut(300, 0, 0, 0);
         this.time.delayedCall(300, () => {
             localStorage.setItem('devgarden_last_scene', 'GardenScene');
+            localStorage.setItem('devgarden_last_x', '480');
+            localStorage.setItem('devgarden_last_y', '700');
             this.scene.start('GardenScene', {
                 socket: this.socket,
                 self: this.selfPlayer,

@@ -37,10 +37,15 @@ export default function GameContainer({
     const initialWidth = containerRef.current.clientWidth || window.innerWidth;
     const initialHeight = containerRef.current.clientHeight || window.innerHeight;
 
+    // Start scene with synchronized initial state (persist scene across page refresh)
+    const savedScene = localStorage.getItem('devgarden_last_scene');
+    const initialSceneKey = savedScene === 'CodeCafeScene' ? 'CodeCafeScene' : 'GardenScene';
+
     const config: Phaser.Types.Core.GameConfig = {
       type: Phaser.AUTO,
       width: initialWidth,
       height: initialHeight,
+      backgroundColor: '#180a03',
       parent: containerRef.current,
       scale: {
         mode: Phaser.Scale.RESIZE,
@@ -54,7 +59,7 @@ export default function GameContainer({
         },
       },
       pixelArt: true, // Enables crisp, pixelated rendering for pixel-art
-      scene: [GardenScene, CodeCafeScene],
+      scene: savedScene === 'CodeCafeScene' ? [CodeCafeScene, GardenScene] : [GardenScene, CodeCafeScene],
     };
 
     const game = new Phaser.Game(config);
@@ -69,10 +74,6 @@ export default function GameContainer({
       }
     });
     resizeObserver.observe(containerRef.current);
-
-    // Start scene with synchronized initial state (persist scene across page refresh)
-    const savedScene = localStorage.getItem('devgarden_last_scene');
-    const initialSceneKey = savedScene === 'CodeCafeScene' ? 'CodeCafeScene' : 'GardenScene';
 
     game.scene.start(initialSceneKey, {
       socket,
