@@ -267,6 +267,26 @@ export class SupabaseSocket {
             prev.y = payload.y;
             prev.anim = payload.anim;
             if (payload.scene) prev.scene = payload.scene;
+          } else {
+            const newKnown: PlayerState = {
+              id: payload.id,
+              username: 'Dev',
+              avatar_url: '',
+              level: 1,
+              score: 0,
+              title: 'Sprout',
+              visual_tier: 'green',
+              x: payload.x,
+              y: payload.y,
+              anim: payload.anim || 'idle_down',
+              scene: payload.scene || 'GardenScene',
+              commits: 0,
+              stars: 0,
+              followers: 0,
+              repos: 0,
+              cosmetics: [],
+            };
+            this.knownPlayers.set(payload.id, newKnown);
           }
           this.trigger('player_moved', payload);
         }
