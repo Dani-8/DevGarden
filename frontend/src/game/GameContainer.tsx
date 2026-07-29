@@ -37,10 +37,15 @@ export default function GameContainer({
     const initialWidth = containerRef.current.clientWidth || window.innerWidth;
     const initialHeight = containerRef.current.clientHeight || window.innerHeight;
 
+    // Start scene with synchronized initial state (persist scene across page refresh)
+    const savedScene = localStorage.getItem('devgarden_last_scene');
+    const initialSceneKey = savedScene === 'CodeCafeScene' ? 'CodeCafeScene' : 'GardenScene';
+
     const config: Phaser.Types.Core.GameConfig = {
       type: Phaser.AUTO,
       width: initialWidth,
       height: initialHeight,
+      backgroundColor: '#180a03',
       parent: containerRef.current,
       scale: {
         mode: Phaser.Scale.RESIZE,
@@ -54,7 +59,7 @@ export default function GameContainer({
         },
       },
       pixelArt: true, // Enables crisp, pixelated rendering for pixel-art
-      scene: [GardenScene, CodeCafeScene],
+      scene: savedScene === 'CodeCafeScene' ? [CodeCafeScene, GardenScene] : [GardenScene, CodeCafeScene],
     };
 
     const game = new Phaser.Game(config);
@@ -70,8 +75,7 @@ export default function GameContainer({
     });
     resizeObserver.observe(containerRef.current);
 
-    // Start scene with synchronized initial state
-    game.scene.start('GardenScene', {
+    game.scene.start(initialSceneKey, {
       socket,
       self: selfPlayer,
       players: initialPlayers,
@@ -168,8 +172,8 @@ export default function GameContainer({
         <div />
 
         {/* Commented out the hitbox debug button in the UI so it can be enabled later if needed */}
-        
-        {/* <div className="flex items-center gap-2 pointer-events-auto">
+        {/* 
+        <div className="flex items-center gap-2 pointer-events-auto">
           <button
             onClick={() => setDebugMode(!debugMode)}
             className={`px-3 py-1.5 rounded-lg text-[10px] font-mono font-bold uppercase border transition-all cursor-pointer shadow-md select-none flex items-center gap-1.5 ${
@@ -181,8 +185,8 @@ export default function GameContainer({
             <span>🛠️</span>
             <span>{debugMode ? 'Hide Hitboxes' : 'Show Hitboxes'}</span>
           </button>
-        </div> */}
-       
+        </div>
+        */}
       </div>
 
       {/* Decor hotbar */}

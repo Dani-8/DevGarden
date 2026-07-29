@@ -396,10 +396,13 @@ export default class GardenScene extends Phaser.Scene {
         x: rx,
         y: ry,
         anim: animKey,
+        scene: 'GardenScene',
       });
 
       try {
-        sessionStorage.setItem('devgarden_last_pos', JSON.stringify({ x: rx, y: ry }));
+        localStorage.setItem('devgarden_last_x', String(rx));
+        localStorage.setItem('devgarden_last_y', String(ry));
+        localStorage.setItem('devgarden_last_scene', 'GardenScene');
       } catch {
         // ignore quota errors
       }
@@ -432,6 +435,9 @@ export default class GardenScene extends Phaser.Scene {
 
     this.cameras.main.fadeOut(300, 0, 0, 0);
     this.time.delayedCall(300, () => {
+      localStorage.setItem('devgarden_last_scene', 'CodeCafeScene');
+      localStorage.setItem('devgarden_last_x', '448');
+      localStorage.setItem('devgarden_last_y', '520');
       this.scene.start('CodeCafeScene', {
         socket: this.socket,
         self: this.selfPlayer,
@@ -444,8 +450,38 @@ export default class GardenScene extends Phaser.Scene {
   private setupSocketListeners() {
     if (!this.socket) return;
 
-    this.socket.on('player_moved', (data: { id: string; x: number; y: number; anim: string }) => {
-      const remote = this.otherPlayers.get(data.id);
+    this.socket.on('player_moved', (data: { id: string; x: number; y: number; anim: string; scene?: string }) => {
+      if (data.scene && data.scene !== 'GardenScene') {
+        // Player is inside CodeCafeScene, remove from GardenScene
+        if (this.otherPlayers.has(data.id)) {
+          this.otherPlayers.get(data.id)?.destroy();
+          this.otherPlayers.delete(data.id);
+        }
+        return;
+      }
+
+      let remote = this.otherPlayers.get(data.id);
+      if (!remote) {
+        const pState: PlayerState = {
+          id: data.id,
+          username: 'Developer',
+          avatar_url: '',
+          level: 1,
+          score: 0,
+          title: 'Sprout',
+          visual_tier: 'green',
+          x: data.x,
+          y: data.y,
+          anim: data.anim,
+          commits: 0,
+          stars: 0,
+          followers: 0,
+          repos: 0,
+        };
+        this.playerManager.spawnRemotePlayer(pState, this.otherPlayers, this.onSelectPlayerCallback);
+        remote = this.otherPlayers.get(data.id);
+      }
+
       if (remote) {
         remote.setPosition(data.x, data.y);
         const tier = remote.getData('tier') || 'green';

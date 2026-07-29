@@ -350,6 +350,7 @@ export class SupabaseSocket {
                     x: data.x,
                     y: data.y,
                     anim: data.anim,
+                    scene: data.scene || 'GardenScene',
                 },
             });
         } else if (event === 'player_chat') {

@@ -2461,11 +2461,8 @@ export class ProceduralTextures {
         ctx.fillStyle = '#fef08a';
         ctx.font = 'bold 14px "Segoe UI", sans-serif';
         ctx.textAlign = 'center';
-        ctx.fillText('❖  WELCOME TO CODE CAFE  ❖', 96, 44);
-
-        // Downward Entrance Step Indicator Arrows
-        ctx.fillStyle = '#60a5fa';
-        ctx.fillText('▼                   ▼', 96, 58);
+        ctx.fillText('WELCOME TO', 96, 36);
+        ctx.fillText('CODE CAFE', 96, 54);
 
         canvas.refresh();
       }
