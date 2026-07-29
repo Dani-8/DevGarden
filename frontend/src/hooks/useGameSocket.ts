@@ -23,7 +23,7 @@ export function useGameSocket(session: AuthSession | null) {
         const savedX = localStorage.getItem('devgarden_last_x');
         const savedY = localStorage.getItem('devgarden_last_y');
 
-        const defaultX = savedScene === 'CodeCafeScene' ? 352 : (350 + Math.random() * 100);
+        const defaultX = savedScene === 'CodeCafeScene' ? 448 : (350 + Math.random() * 100);
         const defaultY = savedScene === 'CodeCafeScene' ? 500 : (250 + Math.random() * 100);
 
         const self: PlayerState = {

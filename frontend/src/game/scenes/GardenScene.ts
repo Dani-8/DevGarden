@@ -118,12 +118,29 @@ export default class GardenScene extends Phaser.Scene {
       this.playerSprite = selfObj.sprite;
     }
 
-    if (data.players) {
+    if (data && data.players) {
       data.players.forEach(p => {
-        if (p.id !== this.currentUserId) {
-          this.playerManager.spawnRemotePlayer(p, this.otherPlayers, this.onSelectPlayerCallback);
+        if (p.id !== this.currentUserId && (!p.scene || p.scene === 'GardenScene')) {
+          if (!this.otherPlayers.has(p.id)) {
+            this.playerManager.spawnRemotePlayer(p, this.otherPlayers, this.onSelectPlayerCallback);
+          }
         }
       });
+    }
+
+    if (this.socket && typeof this.socket.getKnownPlayers === 'function') {
+      const knownPlayers = this.socket.getKnownPlayers();
+      knownPlayers.forEach((p: PlayerState) => {
+        if (p.id !== this.currentUserId && (!p.scene || p.scene === 'GardenScene')) {
+          if (!this.otherPlayers.has(p.id)) {
+            this.playerManager.spawnRemotePlayer(p, this.otherPlayers, this.onSelectPlayerCallback);
+          }
+        }
+      });
+    }
+
+    if (this.socket && typeof this.socket.updateScene === 'function' && this.selfPlayer) {
+      this.socket.updateScene('GardenScene', this.selfPlayer.x, this.selfPlayer.y);
     }
 
     if (data.sleepingNPCs) {
@@ -400,9 +417,7 @@ export default class GardenScene extends Phaser.Scene {
       });
 
       try {
-        localStorage.setItem('devgarden_last_x', String(rx));
-        localStorage.setItem('devgarden_last_y', String(ry));
-        localStorage.setItem('devgarden_last_scene', 'GardenScene');
+        sessionStorage.setItem('devgarden_last_pos', JSON.stringify({ x: rx, y: ry }));
       } catch {
         // ignore quota errors
       }
@@ -413,11 +428,24 @@ export default class GardenScene extends Phaser.Scene {
       this.lastMoveSent = now;
     }
 
-    // Dynamic Depth Sorting
+    // Smooth movement lerp and Dynamic Depth Sorting
     if (this.playerContainer) {
       this.playerContainer.setDepth(this.playerContainer.y);
     }
     this.otherPlayers.forEach((container) => {
+      const targetX = container.getData('targetX');
+      const targetY = container.getData('targetY');
+      if (typeof targetX === 'number' && typeof targetY === 'number') {
+        const dx = targetX - container.x;
+        const dy = targetY - container.y;
+        if (Math.abs(dx) > 0.5 || Math.abs(dy) > 0.5) {
+          container.x += dx * 0.25;
+          container.y += dy * 0.25;
+        } else {
+          container.x = targetX;
+          container.y = targetY;
+        }
+      }
       container.setDepth(container.y);
     });
     this.sleepingNPCs.forEach((container) => {
@@ -433,11 +461,12 @@ export default class GardenScene extends Phaser.Scene {
       this.playerManager.showChatBubble(this.playerContainer, "🚪 Entering Code Cafe...", false);
     }
 
+    if (this.socket && typeof this.socket.updateScene === 'function') {
+      this.socket.updateScene('CodeCafeScene', 448, 520);
+    }
+
     this.cameras.main.fadeOut(300, 0, 0, 0);
     this.time.delayedCall(300, () => {
-      localStorage.setItem('devgarden_last_scene', 'CodeCafeScene');
-      localStorage.setItem('devgarden_last_x', '448');
-      localStorage.setItem('devgarden_last_y', '520');
       this.scene.start('CodeCafeScene', {
         socket: this.socket,
         self: this.selfPlayer,
@@ -447,12 +476,35 @@ export default class GardenScene extends Phaser.Scene {
     });
   }
 
+  private boundSocketListeners: { event: string; fn: Function }[] = [];
+
+  private cleanupSocketListeners() {
+    if (this.socket && this.boundSocketListeners.length > 0) {
+      this.boundSocketListeners.forEach(({ event, fn }) => {
+        this.socket.off(event, fn);
+      });
+      this.boundSocketListeners = [];
+    }
+  }
+
   private setupSocketListeners() {
     if (!this.socket) return;
+    this.cleanupSocketListeners();
 
-    this.socket.on('player_moved', (data: { id: string; x: number; y: number; anim: string; scene?: string }) => {
-      if (data.scene && data.scene !== 'GardenScene') {
-        // Player is inside CodeCafeScene, remove from GardenScene
+    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+      this.cleanupSocketListeners();
+    });
+
+    const addListener = (event: string, fn: Function) => {
+      this.socket.on(event, fn);
+      this.boundSocketListeners.push({ event, fn });
+    };
+
+    addListener('player_moved', (data: { id: string; x: number; y: number; anim: string; scene?: string }) => {
+      if (data.id === this.currentUserId) return;
+      const playerScene = data.scene || 'GardenScene';
+
+      if (playerScene !== 'GardenScene') {
         if (this.otherPlayers.has(data.id)) {
           this.otherPlayers.get(data.id)?.destroy();
           this.otherPlayers.delete(data.id);
@@ -462,9 +514,10 @@ export default class GardenScene extends Phaser.Scene {
 
       let remote = this.otherPlayers.get(data.id);
       if (!remote) {
-        const pState: PlayerState = {
+        const known = this.socket.getKnownPlayer ? this.socket.getKnownPlayer(data.id) : null;
+        const pState: PlayerState = known ? { ...known, x: data.x, y: data.y, scene: 'GardenScene' } : {
           id: data.id,
-          username: 'Developer',
+          username: 'Dev',
           avatar_url: '',
           level: 1,
           score: 0,
@@ -472,38 +525,44 @@ export default class GardenScene extends Phaser.Scene {
           visual_tier: 'green',
           x: data.x,
           y: data.y,
-          anim: data.anim,
+          scene: 'GardenScene',
           commits: 0,
           stars: 0,
           followers: 0,
           repos: 0,
+          cosmetics: [],
         };
         this.playerManager.spawnRemotePlayer(pState, this.otherPlayers, this.onSelectPlayerCallback);
         remote = this.otherPlayers.get(data.id);
       }
 
       if (remote) {
-        remote.setPosition(data.x, data.y);
+        remote.setData('targetX', data.x);
+        remote.setData('targetY', data.y);
         const tier = remote.getData('tier') || 'green';
         const sprite = remote.list.find(obj => obj instanceof Phaser.GameObjects.Sprite) as Phaser.GameObjects.Sprite;
-        if (sprite) {
+        if (sprite && data.anim) {
           sprite.play(`${data.anim}_${tier}`, true);
         }
       }
     });
 
-    this.socket.on('players_state', (players: PlayerState[]) => {
+    const syncPlayers = (players: PlayerState[]) => {
       const activeIds = new Set<string>();
 
       players.forEach(p => {
         if (p.id !== this.currentUserId) {
-          activeIds.add(p.id);
-          if (!this.otherPlayers.has(p.id)) {
-            this.playerManager.spawnRemotePlayer(p, this.otherPlayers, this.onSelectPlayerCallback);
-          } else {
-            const container = this.otherPlayers.get(p.id);
+          const pScene = p.scene || 'GardenScene';
+          if (pScene === 'GardenScene') {
+            activeIds.add(p.id);
+            let container = this.otherPlayers.get(p.id);
+            if (!container) {
+              this.playerManager.spawnRemotePlayer(p, this.otherPlayers, this.onSelectPlayerCallback);
+              container = this.otherPlayers.get(p.id);
+            }
             if (container) {
-              container.setPosition(p.x, p.y);
+              container.setData('targetX', p.x);
+              container.setData('targetY', p.y);
               container.setData('tier', p.visual_tier);
             }
           }
@@ -516,20 +575,27 @@ export default class GardenScene extends Phaser.Scene {
           this.otherPlayers.delete(id);
         }
       });
+    };
+
+    addListener('players_state', syncPlayers);
+    addListener('players_sync', syncPlayers);
+
+    addListener('player_joined', (p: PlayerState) => {
+      if (p.id !== this.currentUserId && (!p.scene || p.scene === 'GardenScene')) {
+        if (!this.otherPlayers.has(p.id)) {
+          this.playerManager.spawnRemotePlayer(p, this.otherPlayers, this.onSelectPlayerCallback);
+        }
+      }
     });
 
-    this.socket.on('player_joined', (p: PlayerState) => {
-      this.playerManager.spawnRemotePlayer(p, this.otherPlayers, this.onSelectPlayerCallback);
-    });
-
-    this.socket.on('player_left', (data: { id: string }) => {
+    addListener('player_left', (data: { id: string }) => {
       if (this.otherPlayers.has(data.id)) {
         this.otherPlayers.get(data.id)?.destroy();
         this.otherPlayers.delete(data.id);
       }
     });
 
-    this.socket.on('player_chatted', (data: { id: string; text: string; isEmote: boolean }) => {
+    addListener('player_chatted', (data: { id: string; text: string; isEmote: boolean }) => {
       if (data.id === this.currentUserId) {
         if (this.playerContainer) {
           this.playerManager.showChatBubble(this.playerContainer, data.text, data.isEmote);
@@ -547,7 +613,7 @@ export default class GardenScene extends Phaser.Scene {
       }
     });
 
-    this.socket.on('sleeping_npcs_update', (npcs: PlayerState[]) => {
+    addListener('sleeping_npcs_update', (npcs: PlayerState[]) => {
       this.sleepingNPCs.forEach((container, id) => {
         const stillSleeps = npcs.some(n => `sleeping_${n.id}` === id);
         if (!stillSleeps) {
@@ -561,7 +627,7 @@ export default class GardenScene extends Phaser.Scene {
       });
     });
 
-    this.socket.on('tree_watered', (data: { id: string; score: number; isGolden: boolean }) => {
+    addListener('tree_watered', (data: { id: string; score: number; isGolden: boolean }) => {
       this.starTreeManager.updateStarTreeScore(data.score);
       this.starTreeManager.playTreeWaterEffect(data.isGolden);
 
