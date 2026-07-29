@@ -146,9 +146,9 @@ export default class CodeCafeScene extends Phaser.Scene {
         // 3. Player animations
         this.playerManager.createAllAnimations();
 
-        // 4. Spawn Self (start near entrance at 352, 520)
+        // 4. Spawn Self (start near entrance at 448, 520)
         if (this.selfPlayer) {
-            const selfCopy = { ...this.selfPlayer, x: 352, y: 520 };
+            const selfCopy = { ...this.selfPlayer, x: 448, y: 520 };
             const selfObj = this.playerManager.spawnSelf(selfCopy, this.onSelectPlayerCallback);
             this.playerContainer = selfObj.container;
             this.playerSprite = selfObj.sprite;
@@ -232,7 +232,7 @@ export default class CodeCafeScene extends Phaser.Scene {
         );
 
         if (this.socket && typeof this.socket.updateScene === 'function') {
-            this.socket.updateScene('CodeCafeScene', 352, 520);
+            this.socket.updateScene('CodeCafeScene', 448, 520);
         }
 
         // Socket network listeners
@@ -397,13 +397,16 @@ export default class CodeCafeScene extends Phaser.Scene {
         // Check Barista interaction when walking near counter
         this.baristaManager.checkInteraction(this.playerContainer.x, this.playerContainer.y);
 
-        // Check exit door mat proximity (around x: 352, y: 560..580)
-        const distToExit = Phaser.Math.Distance.Between(this.playerContainer.x, this.playerContainer.y, 352, 560);
-        if (distToExit < 40) {
+        // Check exit door mat proximity (around x: 448, y: 560..580)
+        const distToExit = Phaser.Math.Distance.Between(this.playerContainer.x, this.playerContainer.y, 448, 560);
+        const isNearExit = distToExit < 55 || (this.playerContainer.y > 525 && Math.abs(this.playerContainer.x - 448) < 65);
+
+        if (isNearExit) {
             this.promptText.setPosition(this.playerContainer.x, this.playerContainer.y + 14);
+            this.promptText.setText('Press [O] to Exit to Dev Garden 🌿');
             this.promptText.setVisible(true);
 
-            if (this.oKey && Phaser.Input.Keyboard.JustDown(this.oKey)) {
+            if (this.oKey && Phaser.Input.Keyboard.JustDown(this.oKey) && !this.isTransitioning) {
                 this.exitToGarden();
             }
         } else {

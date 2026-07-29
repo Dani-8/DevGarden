@@ -449,7 +449,7 @@ export default class GardenScene extends Phaser.Scene {
     }
 
     if (this.socket && typeof this.socket.updateScene === 'function') {
-      this.socket.updateScene('CodeCafeScene', 352, 520);
+      this.socket.updateScene('CodeCafeScene', 448, 520);
     }
 
     this.cameras.main.fadeOut(300, 0, 0, 0);
