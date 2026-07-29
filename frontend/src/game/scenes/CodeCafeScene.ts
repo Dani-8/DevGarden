@@ -133,11 +133,7 @@ export default class CodeCafeScene extends Phaser.Scene {
     }
 
     create() {
-        this.physics.world.setBounds(0, 0, 1152, 600);
-        this.cameras.main.setBackgroundColor('#180a03');
-
-        // Solid dark wood backdrop
-        this.add.rectangle(576, 300, 3000, 3000, 0x180a03).setDepth(-1000);
+        this.physics.world.setBounds(0, 0, 960, 600);
 
         // 1. Draw Interior Tilemap
         CafeTilemap.draw(this);
@@ -150,14 +146,9 @@ export default class CodeCafeScene extends Phaser.Scene {
         // 3. Player animations
         this.playerManager.createAllAnimations();
 
-        // 4. Spawn Self (preserve saved position or start near entrance at 448, 520)
+        // 4. Spawn Self (start near entrance at 352, 520)
         if (this.selfPlayer) {
-            const savedX = localStorage.getItem('devgarden_last_x');
-            const savedY = localStorage.getItem('devgarden_last_y');
-            const startX = savedX ? parseFloat(savedX) : (this.selfPlayer.x || 448);
-            const startY = savedY ? parseFloat(savedY) : (this.selfPlayer.y || 520);
-
-            const selfCopy = { ...this.selfPlayer, x: startX, y: startY };
+            const selfCopy = { ...this.selfPlayer, x: 352, y: 520 };
             const selfObj = this.playerManager.spawnSelf(selfCopy, this.onSelectPlayerCallback);
             this.playerContainer = selfObj.container;
             this.playerSprite = selfObj.sprite;
@@ -172,58 +163,25 @@ export default class CodeCafeScene extends Phaser.Scene {
             });
         }
 
-        // 6. Camera setup & dynamic zoom for 1152x600 canvas
-        this.cameras.main.setBounds(0, 0, 1152, 600);
+        // 6. Camera setup for 960x600 Canvas (30x18.75 32px grid)
+        this.cameras.main.setBounds(0, 0, 960, 600);
         this.cameras.main.roundPixels = true;
-
-        const getGameplayZoom = (w: number, h: number) => {
-            return Math.max(w / 1152, h / 600, 1.25);
-        };
-
-        const hasPlayedIntro = localStorage.getItem('devgarden_cafe_intro_played') === 'true';
-
-        if (!hasPlayedIntro && this.playerContainer) {
-            // Intro sequence: View the entire cafe first, then smoothly zoom in to the player!
-            const overviewZoom = Math.min(this.scale.width / 1152, this.scale.height / 600);
-            this.cameras.main.setZoom(overviewZoom);
-            this.cameras.main.centerOn(576, 300);
-
-            const finalZoom = getGameplayZoom(this.scale.width, this.scale.height);
-
-            this.time.delayedCall(500, () => {
-                if (!this.cameras.main || !this.playerContainer) return;
-                this.tweens.add({
-                    targets: this.cameras.main,
-                    zoom: finalZoom,
-                    duration: 1600,
-                    ease: 'Cubic.easeInOut',
-                    onComplete: () => {
-                        if (this.cameras.main && this.playerContainer) {
-                            this.cameras.main.startFollow(this.playerContainer, true, 0.1, 0.1);
-                            localStorage.setItem('devgarden_cafe_intro_played', 'true');
-                        }
-                    },
-                });
-                if (this.playerContainer) {
-                    this.cameras.main.startFollow(this.playerContainer, true, 0.05, 0.05);
-                }
-            });
-        } else {
-            const zoom = getGameplayZoom(this.scale.width, this.scale.height);
-            this.cameras.main.setZoom(zoom);
-            if (this.playerContainer) {
-                this.cameras.main.startFollow(this.playerContainer, true, 0.1, 0.1);
-            }
+        if (this.playerContainer) {
+            this.cameras.main.startFollow(this.playerContainer, true, 0.1, 0.1);
         }
 
         const updateZoom = (width: number, height: number) => {
-            const zoom = getGameplayZoom(width, height);
-            this.cameras.main.setZoom(zoom);
+            const zoomX = width / 960;
+            const zoomY = height / 600;
+            const zoom = Math.min(zoomX, zoomY);
+            this.cameras.main.setZoom(Math.max(zoom, 1));
+            this.cameras.main.centerOn(480, 300);
         };
 
         this.scale.on('resize', (gameSize: any) => {
             updateZoom(gameSize.width, gameSize.height);
         });
+        updateZoom(this.scale.width, this.scale.height);
 
         // 7. Controls
         if (this.input.keyboard) {
@@ -272,6 +230,10 @@ export default class CodeCafeScene extends Phaser.Scene {
                 this.showBaristaBubble(text, x, y);
             }
         );
+
+        if (this.socket && typeof this.socket.updateScene === 'function') {
+            this.socket.updateScene('CodeCafeScene', 352, 520);
+        }
 
         // Socket network listeners
         this.setupSocketListeners();
@@ -398,13 +360,26 @@ export default class CodeCafeScene extends Phaser.Scene {
             body.setVelocity(vx, vy);
         }
 
-        // Dynamic Depth Sorting
+        // Dynamic Depth Sorting & Lerp
         if (this.isSitting && nearChair) {
             this.playerContainer.setDepth(nearChair.y + 10);
         } else {
             this.playerContainer.setDepth(this.playerContainer.y);
         }
         this.otherPlayers.forEach(container => {
+            const targetX = container.getData('targetX');
+            const targetY = container.getData('targetY');
+            if (typeof targetX === 'number' && typeof targetY === 'number') {
+                const dx = targetX - container.x;
+                const dy = targetY - container.y;
+                if (Math.abs(dx) > 0.5 || Math.abs(dy) > 0.5) {
+                    container.x += dx * 0.25;
+                    container.y += dy * 0.25;
+                } else {
+                    container.x = targetX;
+                    container.y = targetY;
+                }
+            }
             container.setDepth(container.y);
         });
 
@@ -422,8 +397,8 @@ export default class CodeCafeScene extends Phaser.Scene {
         // Check Barista interaction when walking near counter
         this.baristaManager.checkInteraction(this.playerContainer.x, this.playerContainer.y);
 
-        // Check exit door mat proximity (around x: 448, y: 560..580)
-        const distToExit = Phaser.Math.Distance.Between(this.playerContainer.x, this.playerContainer.y, 448, 560);
+        // Check exit door mat proximity (around x: 352, y: 560..580)
+        const distToExit = Phaser.Math.Distance.Between(this.playerContainer.x, this.playerContainer.y, 352, 560);
         if (distToExit < 40) {
             this.promptText.setPosition(this.playerContainer.x, this.playerContainer.y + 14);
             this.promptText.setVisible(true);
@@ -453,14 +428,6 @@ export default class CodeCafeScene extends Phaser.Scene {
                 });
             }
 
-            try {
-                localStorage.setItem('devgarden_last_x', String(rx));
-                localStorage.setItem('devgarden_last_y', String(ry));
-                localStorage.setItem('devgarden_last_scene', 'CodeCafeScene');
-            } catch {
-                // ignore quota errors
-            }
-
             this.lastX = this.playerContainer.x;
             this.lastY = this.playerContainer.y;
             this.lastAnim = animKey;
@@ -471,13 +438,16 @@ export default class CodeCafeScene extends Phaser.Scene {
     private exitToGarden() {
         this.isTransitioning = true;
         this.promptText.setVisible(false);
-        this.playerManager.showChatBubble(this.playerContainer!, "🚪 Exiting to Dev Garden...", false);
+        if (this.playerContainer) {
+            this.playerManager.showChatBubble(this.playerContainer, "🚪 Exiting to Dev Garden...", false);
+        }
+
+        if (this.socket && typeof this.socket.updateScene === 'function') {
+            this.socket.updateScene('GardenScene', 175, 690);
+        }
 
         this.cameras.main.fadeOut(300, 0, 0, 0);
         this.time.delayedCall(300, () => {
-            localStorage.setItem('devgarden_last_scene', 'GardenScene');
-            localStorage.setItem('devgarden_last_x', '480');
-            localStorage.setItem('devgarden_last_y', '700');
             this.scene.start('GardenScene', {
                 socket: this.socket,
                 self: this.selfPlayer,
@@ -493,12 +463,11 @@ export default class CodeCafeScene extends Phaser.Scene {
     private setupSocketListeners() {
         if (!this.socket) return;
 
-        this.socket.off('player_moved');
         this.socket.on('player_moved', (data: { id: string; x: number; y: number; anim: string; scene?: string }) => {
             if (data.id === this.currentUserId) return;
+            const playerScene = data.scene;
 
-            if (data.scene && data.scene !== 'CodeCafeScene') {
-                // Player is in GardenScene, remove from CodeCafe
+            if (playerScene && playerScene !== 'CodeCafeScene') {
                 if (this.otherPlayers.has(data.id)) {
                     this.otherPlayers.get(data.id)?.destroy();
                     this.otherPlayers.delete(data.id);
@@ -506,39 +475,66 @@ export default class CodeCafeScene extends Phaser.Scene {
                 return;
             }
 
-            let remoteContainer = this.otherPlayers.get(data.id);
-            if (!remoteContainer) {
-                const pState = this.otherPlayersList?.find(p => p.id === data.id) || {
-                    id: data.id,
-                    username: 'Developer',
-                    avatar_url: '',
-                    level: 1,
-                    score: 0,
-                    title: 'Sprout',
-                    visual_tier: 'green',
-                    x: data.x,
-                    y: data.y,
-                    anim: data.anim,
-                    commits: 0,
-                    stars: 0,
-                    followers: 0,
-                    repos: 0,
-                };
-                this.playerManager.spawnRemotePlayer({ ...pState, x: data.x, y: data.y }, this.otherPlayers, this.onSelectPlayerCallback);
-                remoteContainer = this.otherPlayers.get(data.id);
+            let remote = this.otherPlayers.get(data.id);
+            if (!remote && playerScene === 'CodeCafeScene') {
+                const known = this.socket.getKnownPlayer ? this.socket.getKnownPlayer(data.id) : null;
+                if (known) {
+                    this.playerManager.spawnRemotePlayer({ ...known, x: data.x, y: data.y, scene: 'CodeCafeScene' }, this.otherPlayers, this.onSelectPlayerCallback);
+                    remote = this.otherPlayers.get(data.id);
+                }
             }
 
-            if (remoteContainer) {
-                remoteContainer.setPosition(data.x, data.y);
-                const tier = remoteContainer.getData('tier') || 'green';
-                const sprite = remoteContainer.list.find(obj => obj instanceof Phaser.GameObjects.Sprite) as Phaser.GameObjects.Sprite;
-                if (sprite) {
+            if (remote) {
+                remote.setData('targetX', data.x);
+                remote.setData('targetY', data.y);
+                const tier = remote.getData('tier') || 'green';
+                const sprite = remote.list.find(obj => obj instanceof Phaser.GameObjects.Sprite) as Phaser.GameObjects.Sprite;
+                if (sprite && data.anim) {
                     sprite.play(`${data.anim}_${tier}`, true);
                 }
             }
         });
 
-        this.socket.off('player_left');
+        const syncPlayers = (players: PlayerState[]) => {
+            const activeIds = new Set<string>();
+
+            players.forEach(p => {
+                if (p.id !== this.currentUserId) {
+                    if (p.scene === 'CodeCafeScene') {
+                        activeIds.add(p.id);
+                        let container = this.otherPlayers.get(p.id);
+                        if (!container) {
+                            this.playerManager.spawnRemotePlayer(p, this.otherPlayers, this.onSelectPlayerCallback);
+                            container = this.otherPlayers.get(p.id);
+                        }
+                        if (container) {
+                            container.setData('targetX', p.x);
+                            container.setData('targetY', p.y);
+                            container.setData('tier', p.visual_tier);
+                        }
+                    }
+                }
+            });
+
+            this.otherPlayers.forEach((container, id) => {
+                if (!activeIds.has(id)) {
+                    container.destroy();
+                    this.otherPlayers.delete(id);
+                }
+            });
+        };
+
+        this.socket.on('players_state', syncPlayers);
+        this.socket.on('players_sync', syncPlayers);
+
+        this.socket.on('player_joined', (p: PlayerState) => {
+            if (p.id !== this.currentUserId && p.scene === 'CodeCafeScene') {
+                if (!this.otherPlayers.has(p.id)) {
+                    this.playerManager.spawnRemotePlayer(p, this.otherPlayers, this.onSelectPlayerCallback);
+                }
+            }
+        });
+
         this.socket.on('player_left', (data: { id: string }) => {
             if (this.otherPlayers.has(data.id)) {
                 this.otherPlayers.get(data.id)?.destroy();
@@ -546,12 +542,6 @@ export default class CodeCafeScene extends Phaser.Scene {
             }
         });
 
-        this.socket.off('chat_message_sync');
-        this.socket.on('chat_message_sync', (data: { sender_id: string; sender_name: string; message: string; is_ai?: boolean }) => {
-            this.playerManager.handleChatMessageSync(data, this.currentUserId, this.playerContainer, this.otherPlayers);
-        });
-
-        this.socket.off('player_chatted');
         this.socket.on('player_chatted', (data: { id: string; text: string; isEmote: boolean }) => {
             if (data.id === this.currentUserId) {
                 if (this.playerContainer) {

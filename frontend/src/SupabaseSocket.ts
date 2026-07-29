@@ -8,6 +8,7 @@ export class SupabaseSocket {
   private selfPlayer: PlayerState;
   private isConnected = false;
   private hasInitializedWorld = false;
+  private knownPlayers: Map<string, PlayerState> = new Map();
 
   constructor(supabaseUrl: string, supabaseAnonKey: string, selfPlayer: PlayerState) {
     if (supabaseUrl && supabaseAnonKey) {
@@ -17,6 +18,17 @@ export class SupabaseSocket {
       this.client = null;
     }
     this.selfPlayer = selfPlayer;
+    if (selfPlayer && selfPlayer.id) {
+      this.knownPlayers.set(selfPlayer.id, selfPlayer);
+    }
+  }
+
+  getKnownPlayer(id: string): PlayerState | undefined {
+    return this.knownPlayers.get(id);
+  }
+
+  getKnownPlayers(): Map<string, PlayerState> {
+    return this.knownPlayers;
   }
 
   on(event: string, callback: Function) {
@@ -123,23 +135,27 @@ export class SupabaseSocket {
           const presences = state[key] as any[];
           if (presences && presences.length > 0) {
             const p = presences[presences.length - 1];
-            players.push({
+            const prevKnown = this.knownPlayers.get(p.id);
+            const pState: PlayerState = {
               id: p.id,
-              username: p.username,
-              avatar_url: p.avatar_url,
-              level: Number(p.level ?? 1),
-              score: Number(p.score ?? 0),
-              title: p.title || 'Sprout',
-              visual_tier: p.visual_tier || 'green',
-              x: Number(p.x ?? 400),
-              y: Number(p.y ?? 300),
-              anim: p.anim || 'idle_down',
-              commits: p.commits,
-              stars: p.stars,
-              followers: p.followers,
-              repos: p.repos,
-              cosmetics: p.cosmetics || [],
-            });
+              username: p.username || prevKnown?.username || 'Dev',
+              avatar_url: p.avatar_url || prevKnown?.avatar_url || '',
+              level: Number(p.level ?? prevKnown?.level ?? 1),
+              score: Number(p.score ?? prevKnown?.score ?? 0),
+              title: p.title || prevKnown?.title || 'Sprout',
+              visual_tier: p.visual_tier || prevKnown?.visual_tier || 'green',
+              x: Number(p.x ?? prevKnown?.x ?? 400),
+              y: Number(p.y ?? prevKnown?.y ?? 300),
+              anim: p.anim || prevKnown?.anim || 'idle_down',
+              scene: p.scene || prevKnown?.scene || 'GardenScene',
+              commits: p.commits ?? prevKnown?.commits ?? 0,
+              stars: p.stars ?? prevKnown?.stars ?? 0,
+              followers: p.followers ?? prevKnown?.followers ?? 0,
+              repos: p.repos ?? prevKnown?.repos ?? 0,
+              cosmetics: p.cosmetics || prevKnown?.cosmetics || [],
+            };
+            this.knownPlayers.set(p.id, pState);
+            players.push(pState);
           }
         });
 
@@ -213,33 +229,45 @@ export class SupabaseSocket {
       .on('presence', { event: 'join' }, ({ newPresences }) => {
         newPresences.forEach((p: any) => {
           if (p.id !== this.selfPlayer.id) {
-            this.trigger('player_joined', {
+            const prevKnown = this.knownPlayers.get(p.id);
+            const pState: PlayerState = {
               id: p.id,
-              username: p.username,
-              avatar_url: p.avatar_url,
-              level: Number(p.level ?? 1),
-              score: Number(p.score ?? 0),
-              title: p.title || 'Sprout',
-              visual_tier: p.visual_tier || 'green',
-              x: Number(p.x ?? 400),
-              y: Number(p.y ?? 300),
-              anim: p.anim || 'idle_down',
-              commits: p.commits,
-              stars: p.stars,
-              followers: p.followers,
-              repos: p.repos,
-              cosmetics: p.cosmetics || [],
-            });
+              username: p.username || prevKnown?.username || 'Dev',
+              avatar_url: p.avatar_url || prevKnown?.avatar_url || '',
+              level: Number(p.level ?? prevKnown?.level ?? 1),
+              score: Number(p.score ?? prevKnown?.score ?? 0),
+              title: p.title || prevKnown?.title || 'Sprout',
+              visual_tier: p.visual_tier || prevKnown?.visual_tier || 'green',
+              x: Number(p.x ?? prevKnown?.x ?? 400),
+              y: Number(p.y ?? prevKnown?.y ?? 300),
+              anim: p.anim || prevKnown?.anim || 'idle_down',
+              scene: p.scene || prevKnown?.scene || 'GardenScene',
+              commits: p.commits ?? prevKnown?.commits ?? 0,
+              stars: p.stars ?? prevKnown?.stars ?? 0,
+              followers: p.followers ?? prevKnown?.followers ?? 0,
+              repos: p.repos ?? prevKnown?.repos ?? 0,
+              cosmetics: p.cosmetics || prevKnown?.cosmetics || [],
+            };
+            this.knownPlayers.set(p.id, pState);
+            this.trigger('player_joined', pState);
           }
         });
       })
       .on('presence', { event: 'leave' }, ({ leftPresences }) => {
         leftPresences.forEach((p: any) => {
+          this.knownPlayers.delete(p.id);
           this.trigger('player_left', { id: p.id });
         });
       })
       .on('broadcast', { event: 'player_moved' }, ({ payload }) => {
         if (payload.id !== this.selfPlayer.id) {
+          const prev = this.knownPlayers.get(payload.id);
+          if (prev) {
+            prev.x = payload.x;
+            prev.y = payload.y;
+            prev.anim = payload.anim;
+            if (payload.scene) prev.scene = payload.scene;
+          }
           this.trigger('player_moved', payload);
         }
       })
@@ -269,6 +297,7 @@ export class SupabaseSocket {
           x: this.selfPlayer.x,
           y: this.selfPlayer.y,
           anim: 'idle_down',
+          scene: this.selfPlayer.scene || 'GardenScene',
           commits: this.selfPlayer.commits,
           stars: this.selfPlayer.stars,
           followers: this.selfPlayer.followers,
@@ -293,6 +322,7 @@ export class SupabaseSocket {
         x: this.selfPlayer.x,
         y: this.selfPlayer.y,
         anim: this.selfPlayer.anim || 'idle_down',
+        scene: this.selfPlayer.scene || 'GardenScene',
         commits: this.selfPlayer.commits,
         stars: this.selfPlayer.stars,
         followers: this.selfPlayer.followers,
@@ -304,11 +334,55 @@ export class SupabaseSocket {
     }
   }
 
+  updateScene(sceneName: string, x: number, y: number) {
+    this.selfPlayer.scene = sceneName;
+    this.selfPlayer.x = x;
+    this.selfPlayer.y = y;
+    if (this.selfPlayer && this.selfPlayer.id) {
+      this.knownPlayers.set(this.selfPlayer.id, { ...this.selfPlayer });
+    }
+    if (this.client && this.channel) {
+      this.channel.track({
+        id: this.selfPlayer.id,
+        username: this.selfPlayer.username,
+        avatar_url: this.selfPlayer.avatar_url,
+        level: this.selfPlayer.level,
+        score: this.selfPlayer.score,
+        title: this.selfPlayer.title,
+        visual_tier: this.selfPlayer.visual_tier,
+        x: x,
+        y: y,
+        anim: 'idle_down',
+        scene: sceneName,
+        commits: this.selfPlayer.commits,
+        stars: this.selfPlayer.stars,
+        followers: this.selfPlayer.followers,
+        repos: this.selfPlayer.repos,
+        cosmetics: this.selfPlayer.cosmetics || [],
+      }).catch(err => {
+        console.error('Error re-tracking scene update:', err);
+      });
+
+      this.channel.send({
+        type: 'broadcast',
+        event: 'player_moved',
+        payload: {
+          id: this.selfPlayer.id,
+          x: x,
+          y: y,
+          anim: 'idle_down',
+          scene: sceneName,
+        },
+      });
+    }
+  }
+
   emit(event: string, data: any) {
     if (!this.client) {
       if (event === 'player_move') {
         this.selfPlayer.x = data.x;
         this.selfPlayer.y = data.y;
+        if (data.scene) this.selfPlayer.scene = data.scene;
       } else if (event === 'player_chat') {
         setTimeout(() => {
           this.trigger('player_chatted', {
@@ -342,6 +416,14 @@ export class SupabaseSocket {
     if (!this.channel) return;
 
     if (event === 'player_move') {
+      this.selfPlayer.x = data.x;
+      this.selfPlayer.y = data.y;
+      this.selfPlayer.anim = data.anim;
+      if (data.scene) this.selfPlayer.scene = data.scene;
+      if (this.selfPlayer.id) {
+        this.knownPlayers.set(this.selfPlayer.id, { ...this.selfPlayer });
+      }
+
       this.channel.send({
         type: 'broadcast',
         event: 'player_moved',
@@ -350,7 +432,7 @@ export class SupabaseSocket {
           x: data.x,
           y: data.y,
           anim: data.anim,
-          scene: data.scene || 'GardenScene',
+          scene: data.scene || this.selfPlayer.scene || 'GardenScene',
         },
       });
     } else if (event === 'player_chat') {

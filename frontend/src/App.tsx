@@ -82,16 +82,33 @@ export default function App() {
       return;
     }
 
+    let savedScene = 'GardenScene';
     let spawnX = 526 + (Math.floor(Math.random() * 30) - 15);
     let spawnY = 715 + (Math.floor(Math.random() * 20) - 10);
     try {
-      const savedPosStr = sessionStorage.getItem('devgarden_last_pos');
-      if (savedPosStr) {
-        const parsed = JSON.parse(savedPosStr);
-        if (typeof parsed.x === 'number' && typeof parsed.y === 'number') {
-          spawnX = parsed.x;
-          spawnY = parsed.y;
+      const lastX = localStorage.getItem('devgarden_last_x');
+      const lastY = localStorage.getItem('devgarden_last_y');
+      if (lastX && lastY) {
+        const px = parseFloat(lastX);
+        const py = parseFloat(lastY);
+        if (!isNaN(px) && !isNaN(py)) {
+          spawnX = px;
+          spawnY = py;
         }
+      } else {
+        const savedPosStr = sessionStorage.getItem('devgarden_last_pos');
+        if (savedPosStr) {
+          const parsed = JSON.parse(savedPosStr);
+          if (typeof parsed.x === 'number' && typeof parsed.y === 'number') {
+            spawnX = parsed.x;
+            spawnY = parsed.y;
+          }
+        }
+      }
+
+      const lastScene = localStorage.getItem('devgarden_last_scene');
+      if (lastScene) {
+        savedScene = lastScene;
       }
     } catch {
       // fallback to gate
@@ -108,6 +125,7 @@ export default function App() {
       x: spawnX,
       y: spawnY,
       anim: 'idle_down',
+      scene: savedScene,
       commits: session.user.commits,
       stars: session.user.stars,
       followers: session.user.followers,

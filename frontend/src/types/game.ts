@@ -9,6 +9,7 @@ export interface PlayerState {
   x: number;
   y: number;
   anim: string;
+  scene?: string;
   isNPC?: boolean;
   isSleeping?: boolean;
   commits?: number;

@@ -109,6 +109,9 @@ export class PlayerManager {
 
     const container = this.scene.add.container(p.x, p.y);
     container.setData('tier', p.visual_tier);
+    container.setData('targetX', p.x);
+    container.setData('targetY', p.y);
+    container.setData('targetAnim', p.anim || 'idle_down');
     otherPlayers.set(p.id, container);
 
     this.addAuraParticles(container, p.visual_tier, false);
