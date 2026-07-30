@@ -1,5 +1,5 @@
-import { createClient, RealtimeChannel } from '@supabase/supabase-js';
-import { PlayerState } from './types/index';
+import { createClient, RealtimeChannel } from '@supabase/supabase-js'
+import { PlayerState } from './types/index'
 
 export class SupabaseSocket {
   private client: any;
@@ -48,6 +48,7 @@ export class SupabaseSocket {
 
   private trigger(event: string, ...args: any[]) {
     const callbacks = this.listeners[event] || [];
+
     callbacks.forEach(cb => {
       try {
         cb(...args);
@@ -113,6 +114,7 @@ export class SupabaseSocket {
           })
           .catch(err => {
             console.error('Error fetching leaderboard for sleeping NPCs (Mock mode):', err);
+
             this.trigger('world_init', {
               self: this.selfPlayer,
               players: players,
@@ -136,6 +138,7 @@ export class SupabaseSocket {
           if (presences && presences.length > 0) {
             const p = presences[presences.length - 1];
             const prevKnown = this.knownPlayers.get(p.id);
+
             const pState: PlayerState = {
               id: p.id,
               username: p.username || prevKnown?.username || 'Dev',
@@ -262,6 +265,7 @@ export class SupabaseSocket {
       .on('broadcast', { event: 'player_moved' }, ({ payload }) => {
         if (payload.id !== this.selfPlayer.id) {
           const prev = this.knownPlayers.get(payload.id);
+
           if (prev) {
             prev.x = payload.x;
             prev.y = payload.y;

@@ -1,12 +1,12 @@
-import Phaser from 'phaser';
-import { PlayerState } from '../../types/index';
-import { ProceduralTextures } from '../textures/ProceduralTextures';
-import { TilemapBuilder } from '../map/TilemapBuilder';
-import { WorldPropsManager, BenchInfo } from '../props/WorldPropsManager';
-import { PlayerManager } from './PlayerManager';
-import { StarTreeManager } from '../managers/StarTreeManager';
-import { DecorationsManager } from '../managers/DecorationsManager';
-import { AtmosphereManager } from '../managers/AtmosphereManager';
+import Phaser from 'phaser'
+import { PlayerState } from '../../types/index'
+import { ProceduralTextures } from '../textures/ProceduralTextures'
+import { TilemapBuilder } from '../map/TilemapBuilder'
+import { WorldPropsManager, BenchInfo } from '../props/WorldPropsManager'
+import { PlayerManager } from './PlayerManager'
+import { StarTreeManager } from '../managers/StarTreeManager'
+import { DecorationsManager } from '../managers/DecorationsManager'
+import { AtmosphereManager } from '../managers/AtmosphereManager'
 
 export default class GardenScene extends Phaser.Scene {
   private socket!: any;

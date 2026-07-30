@@ -309,7 +309,7 @@ export class SupabaseSocket {
   }
 
   updateCosmetics(cosmetics: string[]) {
-    this.selfPlayer.cosmetics = cosmetics;
+    this.selfPlayer.cosmetics = cosmetics
     if (this.client && this.channel) {
       this.channel.track({
         id: this.selfPlayer.id,
