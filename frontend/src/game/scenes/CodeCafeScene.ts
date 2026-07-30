@@ -160,10 +160,10 @@ export default class CodeCafeScene extends Phaser.Scene {
     }
 
     // 5. Spawn Remote Players inside Cafe
-    const allPlayers = this.socket && typeof this.socket.getKnownPlayers === 'function' 
+    const allPlayers = this.socket && typeof this.socket.getKnownPlayers === 'function'
       ? Array.from(this.socket.getKnownPlayers().values()) as PlayerState[]
       : this.otherPlayersList;
-      
+
     if (allPlayers) {
       allPlayers.forEach(p => {
         if (p.id !== this.currentUserId && p.scene === 'CodeCafeScene') {
@@ -483,7 +483,7 @@ export default class CodeCafeScene extends Phaser.Scene {
       localStorage.setItem('devgarden_last_scene', 'GardenScene');
       localStorage.setItem('devgarden_last_x', '175');
       localStorage.setItem('devgarden_last_y', '690');
-    } catch {}
+    } catch { }
 
     this.cameras.main.fadeOut(300, 0, 0, 0);
     this.time.delayedCall(300, () => {
