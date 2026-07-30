@@ -59,6 +59,7 @@ export default function Sidebar({
       textSecondary: 'text-[#514339]/80',
       textAccent: 'text-amber-900',
       btnSecondary: 'bg-[#e3d8c1]/40 border-[#3a2f28]/15 hover:bg-[#e3d8c1]/75 text-[#3a2f28]',
+      btnChallenge: 'bg-amber-600 border-amber-700 hover:bg-amber-500 text-white',
       borderDivider: 'border-[#3a2f28]/10'
     },
     sunset: {
@@ -68,6 +69,7 @@ export default function Sidebar({
       textSecondary: 'text-[#514339]',
       textAccent: 'text-amber-800',
       btnSecondary: 'bg-[#ebd8bd]/70 border-[#4a3a2e]/20 hover:bg-[#e4cfb2] text-[#3a2f28]',
+      btnChallenge: 'bg-orange-700 border-orange-800 hover:bg-orange-600 text-white',
       borderDivider: 'border-[#4a3a2e]/15'
     },
     night: {
@@ -77,6 +79,7 @@ export default function Sidebar({
       textSecondary: 'text-[#4a607a]',
       textAccent: 'text-indigo-900',
       btnSecondary: 'bg-[#d5e0ea]/60 border-[#2c3e50]/15 hover:bg-[#c6d7e6] text-[#2c3e50]',
+      btnChallenge: 'bg-sky-700 border-sky-800 hover:bg-sky-600 text-white',
       borderDivider: 'border-[#2c3e50]/15'
     }
   }[timeOfDay];
@@ -271,7 +274,7 @@ export default function Sidebar({
                   </p>
                   <button
                     onClick={() => setIsChallengeOpen(true)}
-                    className="w-full py-1.5 px-2 rounded-lg text-[10px] font-mono font-bold transition-all border-2 cursor-pointer bg-[#3a2f28] border-[#3a2f28] hover:bg-[#514339] text-white flex items-center justify-center gap-1"
+                    className={`w-full py-1.5 px-2 rounded-lg text-[10px] font-mono font-bold transition-all border-2 cursor-pointer flex items-center justify-center gap-1 ${theme.btnChallenge}`}
                   >
                     ⭐ Unlock via Challenge
                   </button>
