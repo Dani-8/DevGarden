@@ -1,5 +1,5 @@
-import { createClient, RealtimeChannel } from '@supabase/supabase-js';
-import { PlayerState } from './types/index';
+import { createClient, RealtimeChannel } from '@supabase/supabase-js'
+import { PlayerState } from './types/index'
 
 export class SupabaseSocket {
   private client: any;
@@ -138,7 +138,7 @@ export class SupabaseSocket {
           if (presences && presences.length > 0) {
             const p = presences[presences.length - 1];
             const prevKnown = this.knownPlayers.get(p.id);
-            
+
             const pState: PlayerState = {
               id: p.id,
               username: p.username || prevKnown?.username || 'Dev',
