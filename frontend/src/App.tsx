@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
-import { SupabaseSocket } from './SupabaseSocket';
-import { Github, Trophy, LogOut, Sparkles, User, HelpCircle } from 'lucide-react';
+import { useState, useEffect } from 'react'
+import { SupabaseSocket } from './SupabaseSocket'
+import { Github, Trophy, LogOut, Sparkles, User, HelpCircle } from 'lucide-react'
 import LOGO from "../assets/LOGO.png"
 
-import { PlayerState, UserProfile } from './types/index';
+import { PlayerState, UserProfile } from './types/index'
 import GitHubLogin from './components/auth/GitHubLogin';
 import GameContainer from './game/GameContainer';
 import EmoteWheel from './components/social/EmoteWheel';
@@ -45,16 +45,21 @@ export default function App() {
       const apiBase = import.meta.env.VITE_API_URL || '';
       const token = localStorage.getItem('devgarden_token');
       const headers: Record<string, string> = {};
+
       if (token) {
         headers['Authorization'] = `Bearer ${token}`;
         headers['X-Session-ID'] = token;
       }
+
       const res = await fetch(`${apiBase}/api/auth/me`, { headers, credentials: 'include' });
+
       if (!res.ok) {
         setSession({ loggedIn: false });
         return;
       }
+
       const contentType = res.headers.get('content-type');
+      
       if (contentType && contentType.includes('application/json')) {
         const data = await res.json();
         setSession(data);
