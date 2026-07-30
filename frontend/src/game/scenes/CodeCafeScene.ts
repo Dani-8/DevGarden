@@ -111,19 +111,25 @@ export default class CodeCafeScene extends Phaser.Scene {
   init(data: {
     socket: any;
     self: PlayerState;
+    spawnPos?: { x: number; y: number };
     players?: PlayerState[];
     sleepingNPCs?: PlayerState[];
     onSelectPlayer?: (p: PlayerState) => void;
     onNearLeaderboard?: (isNear: boolean) => void;
   }) {
     this.socket = data.socket;
-    this.selfPlayer = data.self;
+    this.selfPlayer = data.self ? { ...data.self } : null as any;
+    if (this.selfPlayer && data.spawnPos) {
+      this.selfPlayer.x = data.spawnPos.x;
+      this.selfPlayer.y = data.spawnPos.y;
+    }
     this.currentUserId = data.self?.id || '';
     this.otherPlayersList = data.players || [];
     this.sleepingNPCsList = data.sleepingNPCs || [];
     this.onSelectPlayerCallback = data.onSelectPlayer;
     this.onNearLeaderboardCallback = data.onNearLeaderboard;
     this.isTransitioning = false;
+    this.otherPlayers.clear();
 
     this.playerManager = new PlayerManager(this);
   }
@@ -146,17 +152,20 @@ export default class CodeCafeScene extends Phaser.Scene {
     // 3. Player animations
     this.playerManager.createAllAnimations();
 
-    // 4. Spawn Self (start near entrance at 448, 520)
+    // 4. Spawn Self
     if (this.selfPlayer) {
-      const selfCopy = { ...this.selfPlayer, x: 448, y: 520 };
-      const selfObj = this.playerManager.spawnSelf(selfCopy, this.onSelectPlayerCallback);
+      const selfObj = this.playerManager.spawnSelf(this.selfPlayer, this.onSelectPlayerCallback);
       this.playerContainer = selfObj.container;
       this.playerSprite = selfObj.sprite;
     }
 
     // 5. Spawn Remote Players inside Cafe
-    if (this.otherPlayersList) {
-      this.otherPlayersList.forEach(p => {
+    const allPlayers = this.socket && typeof this.socket.getKnownPlayers === 'function'
+      ? Array.from(this.socket.getKnownPlayers().values()) as PlayerState[]
+      : this.otherPlayersList;
+
+    if (allPlayers) {
+      allPlayers.forEach(p => {
         if (p.id !== this.currentUserId && p.scene === 'CodeCafeScene') {
           if (!this.otherPlayers.has(p.id)) {
             this.playerManager.spawnRemotePlayer(p, this.otherPlayers, this.onSelectPlayerCallback);
@@ -244,8 +253,8 @@ export default class CodeCafeScene extends Phaser.Scene {
       }
     );
 
-    if (this.socket && typeof this.socket.updateScene === 'function') {
-      this.socket.updateScene('CodeCafeScene', 448, 520);
+    if (this.socket && typeof this.socket.updateScene === 'function' && this.selfPlayer) {
+      this.socket.updateScene('CodeCafeScene', this.selfPlayer.x, this.selfPlayer.y);
     }
 
     // Socket network listeners
@@ -444,6 +453,14 @@ export default class CodeCafeScene extends Phaser.Scene {
         });
       }
 
+      try {
+        localStorage.setItem('devgarden_last_x', rx.toString());
+        localStorage.setItem('devgarden_last_y', ry.toString());
+        localStorage.setItem('devgarden_last_scene', 'CodeCafeScene');
+      } catch {
+        // ignore quota errors
+      }
+
       this.lastX = this.playerContainer.x;
       this.lastY = this.playerContainer.y;
       this.lastAnim = animKey;
@@ -461,6 +478,12 @@ export default class CodeCafeScene extends Phaser.Scene {
     if (this.socket && typeof this.socket.updateScene === 'function') {
       this.socket.updateScene('GardenScene', 175, 690);
     }
+
+    try {
+      localStorage.setItem('devgarden_last_scene', 'GardenScene');
+      localStorage.setItem('devgarden_last_x', '175');
+      localStorage.setItem('devgarden_last_y', '690');
+    } catch { }
 
     this.cameras.main.fadeOut(300, 0, 0, 0);
     this.time.delayedCall(300, () => {
