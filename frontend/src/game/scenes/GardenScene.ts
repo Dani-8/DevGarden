@@ -474,7 +474,7 @@ export default class GardenScene extends Phaser.Scene {
       localStorage.setItem('devgarden_last_scene', 'CodeCafeScene');
       localStorage.setItem('devgarden_last_x', '448');
       localStorage.setItem('devgarden_last_y', '520');
-    } catch {}
+    } catch { }
 
     this.cameras.main.fadeOut(300, 0, 0, 0);
     this.time.delayedCall(300, () => {
