@@ -129,6 +129,7 @@ export default class CodeCafeScene extends Phaser.Scene {
     this.onSelectPlayerCallback = data.onSelectPlayer;
     this.onNearLeaderboardCallback = data.onNearLeaderboard;
     this.isTransitioning = false;
+    this.otherPlayers.clear();
 
     this.playerManager = new PlayerManager(this);
   }
@@ -159,8 +160,12 @@ export default class CodeCafeScene extends Phaser.Scene {
     }
 
     // 5. Spawn Remote Players inside Cafe
-    if (this.otherPlayersList) {
-      this.otherPlayersList.forEach(p => {
+    const allPlayers = this.socket && typeof this.socket.getKnownPlayers === 'function' 
+      ? Array.from(this.socket.getKnownPlayers().values()) as PlayerState[]
+      : this.otherPlayersList;
+      
+    if (allPlayers) {
+      allPlayers.forEach(p => {
         if (p.id !== this.currentUserId && p.scene === 'CodeCafeScene') {
           if (!this.otherPlayers.has(p.id)) {
             this.playerManager.spawnRemotePlayer(p, this.otherPlayers, this.onSelectPlayerCallback);

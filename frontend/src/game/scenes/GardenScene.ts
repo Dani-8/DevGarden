@@ -78,6 +78,8 @@ export default class GardenScene extends Phaser.Scene {
     this.onSelectPlayerCallback = data.onSelectPlayer;
     this.onNearLeaderboardCallback = data.onNearLeaderboard;
     this.isTransitioning = false;
+    this.otherPlayers.clear();
+    this.sleepingNPCs.clear();
 
     this.playerManager = new PlayerManager(this);
     this.starTreeManager = new StarTreeManager(
