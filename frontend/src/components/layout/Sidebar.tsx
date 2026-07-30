@@ -37,6 +37,7 @@ export default function Sidebar({
   useEffect(() => {
     const updateTime = () => {
       const hours = new Date().getHours();
+      
       if (hours >= 7 && hours < 17) {
         setTimeOfDay('day');
       } else if (hours >= 17 && hours < 19.5) {
