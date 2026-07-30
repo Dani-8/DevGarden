@@ -248,8 +248,8 @@ export default class CodeCafeScene extends Phaser.Scene {
       }
     );
 
-    if (this.socket && typeof this.socket.updateScene === 'function') {
-      this.socket.updateScene('CodeCafeScene', 448, 520);
+    if (this.socket && typeof this.socket.updateScene === 'function' && this.selfPlayer) {
+      this.socket.updateScene('CodeCafeScene', this.selfPlayer.x, this.selfPlayer.y);
     }
 
     // Socket network listeners
