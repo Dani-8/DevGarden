@@ -13,9 +13,10 @@ export function DevGardenLoadingMessage() {
     useEffect(() => {
         const interval = setInterval(() => {
             setIndex((prev) => (prev + 1) % DEV_GARDEN_LOADING_PHRASES.length);
-        }, 1800);
+        }, 1800)
+
         return () => clearInterval(interval);
-    }, []);
+    }, [])
 
     return <span className="animate-fadeIn">{DEV_GARDEN_LOADING_PHRASES[index]}</span>;
 }
@@ -35,6 +36,7 @@ export default function LoadingScreen({ withSpinner = false }: { withSpinner?: b
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-slate-950 font-mono text-emerald-400 text-xs">
             {withSpinner && <RefreshCwSpinner className="w-6 h-6 animate-spin mb-3 text-emerald-400" />}
+
             <div className="animate-pulse flex items-center gap-2 bg-slate-900/80 px-4 py-2.5 rounded-xl border border-emerald-500/20 shadow-lg">
                 <DevGardenLoadingMessage />
             </div>
