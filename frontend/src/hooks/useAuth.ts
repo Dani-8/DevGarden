@@ -3,36 +3,40 @@ import { AuthSession } from '../types/index';
 import { getCurrentSession, logoutUser, loginAsGuest } from '../services/auth';
 
 export function useAuth() {
-  const [session, setSession] = useState<AuthSession | null>(null);
+    const [session, setSession] = useState<AuthSession | null>(null);
 
-  const checkAuth = useCallback(async () => {
-    const sess = await getCurrentSession();
-    setSession(sess);
-  }, []);
+    const checkAuth = useCallback(async () => {
+        const sess = await getCurrentSession();
+        setSession(sess);
+    }, []);
 
-  useEffect(() => {
-    checkAuth();
-  }, [checkAuth]);
+    useEffect(() => {
+        checkAuth();
+    }, [checkAuth]);
 
-  const handleLogout = async (onAfterLogout?: () => void) => {
-    await logoutUser();
-    sessionStorage.removeItem('devgarden_last_pos');
-    sessionStorage.removeItem('devgarden_has_welcomed');
-    setSession({ loggedIn: false });
-    if (onAfterLogout) onAfterLogout();
-  };
+    
+    const handleLogout = async (onAfterLogout?: () => void) => {
+        await logoutUser();
+        sessionStorage.removeItem('devgarden_last_pos');
+        sessionStorage.removeItem('devgarden_has_welcomed');
 
-  const handleBypassLogin = async () => {
-    const token = await loginAsGuest();
-    if (token) {
-      await checkAuth();
-    }
-  };
+        setSession({ loggedIn: false });
 
-  return {
-    session,
-    checkAuth,
-    logout: handleLogout,
-    bypassLogin: handleBypassLogin,
-  };
+        if (onAfterLogout) onAfterLogout();
+    };
+
+    const handleBypassLogin = async () => {
+        const token = await loginAsGuest()
+
+        if (token) {
+            await checkAuth();
+        }
+    };
+
+    return {
+        session,
+        checkAuth,
+        logout: handleLogout,
+        bypassLogin: handleBypassLogin,
+    };
 }
