@@ -15,7 +15,7 @@ export function useGameSocket(session: AuthSession | null) {
     // Auto dismiss welcome banner after 4.5 seconds
     useEffect(() => {
         if (!welcomeToast) return
-        
+
         const timer = setTimeout(() => {
             setWelcomeToast(null);
         }, 4500)
