@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { PlayerState, AuthSession } from '../types/index.js';
-import { SupabaseSocket } from '../SupabaseSocket.js';
+import { PlayerState, AuthSession } from '../types/index';
+import { SupabaseSocket } from '../SupabaseSocket';
 
 export function useGameSocket(session: AuthSession | null) {
     const [socket, setSocket] = useState<SupabaseSocket | null>(null);
@@ -9,6 +9,19 @@ export function useGameSocket(session: AuthSession | null) {
     const [playersList, setPlayersList] = useState<PlayerState[]>([]);
     const [npcsList, setNpcsList] = useState<PlayerState[]>([]);
     const [serverStatusMessage, setServerStatusMessage] = useState<string | null>(null);
+    const [welcomeToast, setWelcomeToast] = useState<string | null>(null);
+    const [hasUnreadChat, setHasUnreadChat] = useState(false);
+
+    // Auto dismiss welcome banner after 4.5 seconds
+    useEffect(() => {
+        if (!welcomeToast) return
+
+        const timer = setTimeout(() => {
+            setWelcomeToast(null);
+        }, 4500)
+
+        return () => clearTimeout(timer);
+    }, [welcomeToast]);
 
     useEffect(() => {
         if (!session?.loggedIn || !session.user || !session.supabaseUrl || !session.supabaseAnonKey) {
@@ -16,15 +29,41 @@ export function useGameSocket(session: AuthSession | null) {
                 socket.disconnect();
                 setSocket(null);
             }
+
             return;
         }
 
-        const savedScene = localStorage.getItem('devgarden_last_scene');
-        const savedX = localStorage.getItem('devgarden_last_x');
-        const savedY = localStorage.getItem('devgarden_last_y');
+        let savedScene = 'GardenScene';
+        let spawnX = 526 + (Math.floor(Math.random() * 30) - 15);
+        let spawnY = 715 + (Math.floor(Math.random() * 20) - 10);
+        try {
+            const lastX = localStorage.getItem('devgarden_last_x');
+            const lastY = localStorage.getItem('devgarden_last_y');
+            if (lastX && lastY) {
+                const px = parseFloat(lastX);
+                const py = parseFloat(lastY);
+                if (!isNaN(px) && !isNaN(py)) {
+                    spawnX = px;
+                    spawnY = py;
+                }
+            } else {
+                const savedPosStr = sessionStorage.getItem('devgarden_last_pos');
+                if (savedPosStr) {
+                    const parsed = JSON.parse(savedPosStr);
+                    if (typeof parsed.x === 'number' && typeof parsed.y === 'number') {
+                        spawnX = parsed.x;
+                        spawnY = parsed.y;
+                    }
+                }
+            }
 
-        const defaultX = savedScene === 'CodeCafeScene' ? 448 : (350 + Math.random() * 100);
-        const defaultY = savedScene === 'CodeCafeScene' ? 500 : (250 + Math.random() * 100);
+            const lastScene = localStorage.getItem('devgarden_last_scene');
+            if (lastScene) {
+                savedScene = lastScene;
+            }
+        } catch {
+            // fallback
+        }
 
         const self: PlayerState = {
             id: session.user.github_id,
@@ -34,9 +73,10 @@ export function useGameSocket(session: AuthSession | null) {
             score: session.user.score,
             title: session.user.title,
             visual_tier: session.user.visual_tier,
-            x: savedX ? parseFloat(savedX) : defaultX,
-            y: savedY ? parseFloat(savedY) : defaultY,
+            x: spawnX,
+            y: spawnY,
             anim: 'idle_down',
+            scene: savedScene,
             commits: session.user.commits,
             stars: session.user.stars,
             followers: session.user.followers,
@@ -74,6 +114,18 @@ export function useGameSocket(session: AuthSession | null) {
             setSelfPlayer(data.self);
             setPlayersList(data.players);
             setNpcsList(data.sleepingNPCs);
+
+            const hasWelcomed = sessionStorage.getItem('devgarden_has_welcomed');
+            if (!hasWelcomed && session.user?.username) {
+                setWelcomeToast(`🌿 Welcome to DevGarden, @${session.user.username}! 🚀`);
+                sessionStorage.setItem('devgarden_has_welcomed', 'true');
+            }
+        });
+
+        s.on('player_chatted', (data: { id: string; text: string }) => {
+            if (data.id !== session.user?.github_id) {
+                setHasUnreadChat(true);
+            }
         });
 
         s.on('player_joined', (p: PlayerState) => {
@@ -109,6 +161,14 @@ export function useGameSocket(session: AuthSession | null) {
         }
     };
 
+    const clearSocketState = () => {
+        setSelfPlayer(null);
+        setPlayersList([]);
+        setNpcsList([]);
+    };
+
+
+
     return {
         socket,
         socketConnected,
@@ -117,6 +177,10 @@ export function useGameSocket(session: AuthSession | null) {
         npcsList,
         serverStatusMessage,
         setServerStatusMessage,
+        welcomeToast,
+        hasUnreadChat,
+        setHasUnreadChat,
         unlockCosmetics,
+        clearSocketState,
     };
 }

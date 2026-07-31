@@ -1,29 +1,33 @@
 import { useState, useEffect, useCallback } from 'react';
-import { AuthSession } from '../types/index.js';
-import { getCurrentSession, logoutUser, loginAsGuest } from '../services/auth.js';
+import { AuthSession } from '../types/index';
+import { getCurrentSession, logoutUser, loginAsGuest } from '../services/auth';
 
 export function useAuth() {
     const [session, setSession] = useState<AuthSession | null>(null);
-    const [loading, setLoading] = useState(true);
 
     const checkAuth = useCallback(async () => {
-        setLoading(true);
         const sess = await getCurrentSession();
         setSession(sess);
-        setLoading(false);
     }, []);
 
     useEffect(() => {
         checkAuth();
     }, [checkAuth]);
 
-    const handleLogout = async () => {
+    
+    const handleLogout = async (onAfterLogout?: () => void) => {
         await logoutUser();
+        sessionStorage.removeItem('devgarden_last_pos');
+        sessionStorage.removeItem('devgarden_has_welcomed');
+
         setSession({ loggedIn: false });
+
+        if (onAfterLogout) onAfterLogout();
     };
 
     const handleBypassLogin = async () => {
-        const token = await loginAsGuest();
+        const token = await loginAsGuest()
+
         if (token) {
             await checkAuth();
         }
@@ -31,7 +35,6 @@ export function useAuth() {
 
     return {
         session,
-        loading,
         checkAuth,
         logout: handleLogout,
         bypassLogin: handleBypassLogin,
