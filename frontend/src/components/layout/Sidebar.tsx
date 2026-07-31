@@ -111,6 +111,46 @@ export default function Sidebar({
     window.dispatchEvent(event);
   };
 
+  const navItems = [
+    {
+      id: 'guide',
+      icon: BookOpen,
+      label: 'Guide & Controls',
+      title: 'Visitor Guide & Controls',
+      onClick: () => setIsGuideOpen(true),
+      className: 'bg-[#ffae34] border-[#a96d00] text-[#3a2f28] shadow-sm hover:scale-[1.01] hover:border-[#8a5400] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c47a00]/60',
+    },
+    {
+      id: 'garden-kit',
+      icon: Hammer,
+      label: 'Garden Kit',
+      title: 'Garden Cozy Decoration Kit [K]',
+      onClick: handleToggleGardenKit,
+      shortcut: '[K]',
+      className: isGardenKitOpen
+        ? 'bg-[#e29624] border-[#3a2f28] text-slate-950 scale-[1.01] shadow-md'
+        : theme.btnSecondary,
+    },
+    {
+      id: 'scoreboard',
+      icon: Trophy,
+      label: 'Scoreboard',
+      title: 'Hall of Fame Scoreboard',
+      onClick: () => setShowLeaderboardPanel(!showLeaderboardPanel),
+      className: showLeaderboardPanel || isNearLeaderboard
+        ? 'bg-[#ffae34] border-[#3a2f28] text-[#3a2f28] scale-[1.01] shadow-md'
+        : theme.btnSecondary,
+    },
+    {
+      id: 'spread-seeds',
+      icon: Share2,
+      label: 'Spread Seeds 📢',
+      title: 'Spread the Seeds (Get Rare Cosmetics)',
+      onClick: () => setIsShareOpen(true),
+      className: 'bg-emerald-700/90 border-emerald-900/80 hover:bg-emerald-800 hover:border-emerald-950 text-white shadow-sm hover:scale-[1.01] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/60',
+    },
+  ];
+
   return (
     <>
       <aside
@@ -179,56 +219,30 @@ export default function Sidebar({
         </div>
 
         <nav className="flex-1 px-2.5 py-3 flex flex-col gap-1.5">
-          <button
-            onClick={() => setIsGuideOpen(true)}
-            className={`w-full py-2 px-2.5 rounded-lg border-2 transition-all flex items-center gap-2 font-serif text-[11px] font-bold cursor-pointer select-none ${collapsed ? 'justify-center' : ''
-              } bg-[#ffae34] border-[#a96d00] text-[#3a2f28] shadow-sm hover:scale-[1.01] hover:border-[#8a5400] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c47a00]/60`}
-            title="Visitor Guide & Controls"
-          >
-            <BookOpen className="w-3.5 h-3.5 flex-shrink-0" />
-            {!collapsed && <span className="animate-fadeIn">Guide & Controls</span>}
-          </button>
-
-          <button
-            onClick={handleToggleGardenKit}
-            className={`w-full py-2 px-2.5 rounded-lg border-2 transition-all flex items-center gap-2 font-serif text-[11px] font-bold cursor-pointer select-none ${collapsed ? 'justify-center' : ''
-              } ${isGardenKitOpen
-                ? 'bg-[#e29624] border-[#3a2f28] text-slate-950 scale-[1.01] shadow-md'
-                : theme.btnSecondary
-              }`}
-            title="Garden Cozy Decoration Kit [K]"
-          >
-            <Hammer className="w-3.5 h-3.5 flex-shrink-0" />
-            {!collapsed && (
-              <div className="flex items-center justify-between flex-1">
-                <span className="animate-fadeIn">Garden Kit</span>
-                <span className="bg-black/10 px-1 py-0.2 rounded text-[8px] font-mono font-bold opacity-75">[K]</span>
-              </div>
-            )}
-          </button>
-
-          <button
-            onClick={() => setShowLeaderboardPanel(!showLeaderboardPanel)}
-            className={`w-full py-2 px-2.5 rounded-lg border-2 transition-all flex items-center gap-2 font-serif text-[11px] font-bold cursor-pointer select-none ${collapsed ? 'justify-center' : ''
-              } ${showLeaderboardPanel || isNearLeaderboard
-                ? 'bg-[#ffae34] border-[#3a2f28] text-[#3a2f28] scale-[1.01] shadow-md'
-                : theme.btnSecondary
-              }`}
-            title="Hall of Fame Scoreboard"
-          >
-            <Trophy className="w-3.5 h-3.5 flex-shrink-0" />
-            {!collapsed && <span className="animate-fadeIn">Scoreboard</span>}
-          </button>
-
-          <button
-            onClick={() => setIsShareOpen(true)}
-            className={`w-full py-2 px-2.5 rounded-lg border-2 transition-all flex items-center gap-2 font-serif text-[11px] font-bold cursor-pointer select-none bg-emerald-700/90 border-emerald-900/80 hover:bg-emerald-800 hover:border-emerald-950 text-white shadow-sm hover:scale-[1.01] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/60 ${collapsed ? 'justify-center' : ''
-              }`}
-            title="Spread the Seeds (Get Rare Cosmetics)"
-          >
-            <Share2 className="w-3.5 h-3.5 flex-shrink-0" />
-            {!collapsed && <span className="animate-fadeIn">Spread Seeds 📢</span>}
-          </button>
+          {navItems.map((item) => {
+            const Icon = item.icon;
+            return (
+              <button
+                key={item.id}
+                onClick={item.onClick}
+                className={`w-full py-2 px-2.5 rounded-lg border-2 transition-all flex items-center gap-2 font-serif text-[11px] font-bold cursor-pointer select-none ${collapsed ? 'justify-center' : ''
+                  } ${item.className}`}
+                title={item.title}
+              >
+                <Icon className="w-3.5 h-3.5 flex-shrink-0" />
+                {!collapsed && (
+                  <div className="flex items-center justify-between flex-1">
+                    <span className="animate-fadeIn">{item.label}</span>
+                    {item.shortcut && (
+                      <span className="bg-black/10 px-1 py-0.2 rounded text-[8px] font-mono font-bold opacity-75">
+                        {item.shortcut}
+                      </span>
+                    )}
+                  </div>
+                )}
+              </button>
+            );
+          })}
 
           {collapsed ? (
             <button
