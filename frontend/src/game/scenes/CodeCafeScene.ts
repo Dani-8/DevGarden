@@ -275,7 +275,7 @@ export default class CodeCafeScene extends Phaser.Scene {
   private exitToGarden() {
     this.interactionManager.isTransitioning = true;
     this.interactionManager.hidePromptText();
-    
+
     if (this.playerContainer) {
       this.playerManager.showChatBubble(this.playerContainer, '🚪 Exiting to Dev Garden...', false);
     }
