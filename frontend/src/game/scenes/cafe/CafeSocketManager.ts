@@ -94,6 +94,7 @@ export class CafeSocketManager {
                     if (p.scene === 'CodeCafeScene') {
                         activeIds.add(p.id);
                         let container = this.otherPlayers.get(p.id);
+                        
                         if (!container) {
                             this.playerManager.spawnRemotePlayer(p, this.otherPlayers, this.onSelectPlayerCallback);
                             container = this.otherPlayers.get(p.id);
@@ -114,7 +115,7 @@ export class CafeSocketManager {
                 }
             });
         };
-        
+
 
         addListener('players_state', syncPlayers);
         addListener('players_sync', syncPlayers);
