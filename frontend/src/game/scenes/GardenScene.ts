@@ -10,6 +10,7 @@ import { AtmosphereManager } from '../managers/AtmosphereManager';
 import { GardenSocketManager } from './garden/GardenSocketManager';
 import { GardenInteractionManager } from './garden/GardenInteractionManager';
 import { GardenMovementManager } from './garden/GardenMovementManager';
+import { GardenCameraManager } from './garden/GardenCameraManager';
 
 export default class GardenScene extends Phaser.Scene {
   private socket!: any;
@@ -145,22 +146,8 @@ export default class GardenScene extends Phaser.Scene {
     }
 
     // 5. Camera follow & dynamic zoom
-    this.cameras.main.setBounds(0, 0, 1024, 768);
-    if (this.playerContainer) {
-      this.cameras.main.startFollow(this.playerContainer, true, 0.1, 0.1);
-    }
-
-    const updateZoom = (width: number, height: number) => {
-      const zoomX = width / 1024;
-      const zoomY = height / 768;
-      const zoom = Math.max(zoomX, zoomY, 1);
-      this.cameras.main.setZoom(zoom);
-    };
-
-    this.scale.on('resize', (gameSize: any) => {
-      updateZoom(gameSize.width, gameSize.height);
-    });
-    updateZoom(this.scale.width, this.scale.height);
+    const cameraManager = new GardenCameraManager(this);
+    cameraManager.setupCamera(this.playerContainer);
 
     // 6. Controls
     if (this.input.keyboard) {

@@ -180,7 +180,6 @@ export class PlayerManager {
       }
     } else {
       const container = otherPlayers.get(data.sender_id);
-
       if (container) {
         this.showChatBubble(container, data.message, false);
       }
