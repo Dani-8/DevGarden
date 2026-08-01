@@ -1,12 +1,15 @@
-import Phaser from 'phaser'
-import { PlayerState } from '../../types/index'
-import { ProceduralTextures } from '../textures/ProceduralTextures'
-import { TilemapBuilder } from '../map/TilemapBuilder'
-import { WorldPropsManager, BenchInfo } from '../props/WorldPropsManager'
-import { PlayerManager } from './PlayerManager'
-import { StarTreeManager } from '../managers/StarTreeManager'
-import { DecorationsManager } from '../managers/DecorationsManager'
-import { AtmosphereManager } from '../managers/AtmosphereManager'
+import Phaser from 'phaser';
+import { PlayerState } from '../../types/index';
+import { ProceduralTextures } from '../textures/ProceduralTextures';
+import { TilemapBuilder } from '../map/TilemapBuilder';
+import { WorldPropsManager, BenchInfo } from '../props/WorldPropsManager';
+import { PlayerManager } from './PlayerManager';
+import { StarTreeManager } from '../managers/StarTreeManager';
+import { DecorationsManager } from '../managers/DecorationsManager';
+import { AtmosphereManager } from '../managers/AtmosphereManager';
+import { GardenSocketManager } from './garden/GardenSocketManager';
+import { GardenInteractionManager } from './garden/GardenInteractionManager';
+import { GardenMovementManager } from './garden/GardenMovementManager';
 
 export default class GardenScene extends Phaser.Scene {
   private socket!: any;
@@ -18,6 +21,9 @@ export default class GardenScene extends Phaser.Scene {
   private starTreeManager!: StarTreeManager;
   private decorationsManager!: DecorationsManager;
   private atmosphereManager!: AtmosphereManager;
+  private gardenSocketManager!: GardenSocketManager;
+  private interactionManager!: GardenInteractionManager;
+  private movementManager!: GardenMovementManager;
 
   // Game objects & physics state
   private playerContainer: Phaser.GameObjects.Container | null = null;
@@ -32,12 +38,6 @@ export default class GardenScene extends Phaser.Scene {
     D: Phaser.Input.Keyboard.Key;
   };
 
-  // Position sync throttles
-  private lastMoveSent: number = 0;
-  private lastX: number = 0;
-  private lastY: number = 0;
-  private lastAnim: string = 'idle_down';
-
   // React UI Callbacks
   private onSelectPlayerCallback?: (player: PlayerState) => void;
   private onNearLeaderboardCallback?: (isNear: boolean) => void;
@@ -46,16 +46,10 @@ export default class GardenScene extends Phaser.Scene {
   private obstaclesGroup!: Phaser.Physics.Arcade.StaticGroup;
   private leaderboardTreeObj!: Phaser.GameObjects.Image;
 
-  // Benches and Sitting
+  // Benches & Keys
   private benchesList: BenchInfo[] = [];
-  private isSitting: boolean = false;
   private eKey!: Phaser.Input.Keyboard.Key;
-  private sitPromptText!: Phaser.GameObjects.Text;
-
-  // Code Cafe Door Interaction
   private oKey!: Phaser.Input.Keyboard.Key;
-  private cafeDoorPromptText!: Phaser.GameObjects.Text;
-  private isTransitioning: boolean = false;
 
   constructor() {
     super({ key: 'GardenScene' });
@@ -77,7 +71,6 @@ export default class GardenScene extends Phaser.Scene {
     this.currentUserId = data.self?.id || '';
     this.onSelectPlayerCallback = data.onSelectPlayer;
     this.onNearLeaderboardCallback = data.onNearLeaderboard;
-    this.isTransitioning = false;
     this.otherPlayers.clear();
     this.sleepingNPCs.clear();
 
@@ -121,7 +114,7 @@ export default class GardenScene extends Phaser.Scene {
     }
 
     if (data && data.players) {
-      data.players.forEach(p => {
+      data.players.forEach((p) => {
         if (p.id !== this.currentUserId && (!p.scene || p.scene === 'GardenScene')) {
           if (!this.otherPlayers.has(p.id)) {
             this.playerManager.spawnRemotePlayer(p, this.otherPlayers, this.onSelectPlayerCallback);
@@ -146,7 +139,7 @@ export default class GardenScene extends Phaser.Scene {
     }
 
     if (data.sleepingNPCs) {
-      data.sleepingNPCs.forEach(npc => {
+      data.sleepingNPCs.forEach((npc) => {
         this.playerManager.spawnSleepingNPC(npc, this.sleepingNPCs, this.onSelectPlayerCallback);
       });
     }
@@ -182,33 +175,30 @@ export default class GardenScene extends Phaser.Scene {
       this.oKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.O);
     }
 
-    // Sitting UI prompt - placed below player feet
-    this.sitPromptText = this.add.text(0, 0, 'Press [E] to Sit 🧘', {
-      fontSize: '11px',
-      fontFamily: 'system-ui, sans-serif',
-      fontStyle: 'bold',
-      color: '#ffffff',
-      backgroundColor: 'rgba(0, 0, 0, 0.75)',
-      padding: { x: 6, y: 3 }
-    });
-    this.sitPromptText.setOrigin(0.5, 0); // Top-center origin so it renders below legs/feet
-    this.sitPromptText.setDepth(3000);
-    this.sitPromptText.setVisible(false);
+    // Interactions
+    this.interactionManager = new GardenInteractionManager(
+      this,
+      this.playerManager,
+      this.benchesList,
+      this.eKey,
+      this.oKey,
+      () => this.enterCodeCafe()
+    );
 
-    // Code Cafe Door Prompt
-    this.cafeDoorPromptText = this.add.text(0, 0, 'Press [O] to Open Door & Enter 🚪', {
-      fontSize: '11px',
-      fontFamily: 'system-ui, sans-serif',
-      fontStyle: 'bold',
-      color: '#ffffff',
-      backgroundColor: 'rgba(0, 0, 0, 0.8)',
-      padding: { x: 8, y: 4 }
-    });
-    this.cafeDoorPromptText.setOrigin(0.5, 0);
-    this.cafeDoorPromptText.setDepth(3000);
-    this.cafeDoorPromptText.setVisible(false);
+    // Movement Manager
+    this.movementManager = new GardenMovementManager(
+      this,
+      this.socket,
+      this.selfPlayer,
+      this.interactionManager,
+      this.starTreeManager,
+      this.leaderboardTreeObj,
+      this.otherPlayers,
+      this.sleepingNPCs,
+      this.onNearLeaderboardCallback
+    );
 
-    // 7. Initialize Sub-Managers
+    // 7. Sub-Managers
     this.starTreeManager.init(this.obstaclesGroup);
 
     this.decorationsManager = new DecorationsManager(
@@ -228,7 +218,18 @@ export default class GardenScene extends Phaser.Scene {
     this.atmosphereManager.init();
 
     // Socket network listeners
-    this.setupSocketListeners();
+    this.gardenSocketManager = new GardenSocketManager(
+      this,
+      this.socket,
+      this.currentUserId,
+      this.playerManager,
+      this.starTreeManager,
+      this.otherPlayers,
+      this.sleepingNPCs,
+      () => this.playerContainer,
+      this.onSelectPlayerCallback
+    );
+    this.gardenSocketManager.setupSocketListeners();
 
     if (this.starTreeManager.goldenWaterActive && this.playerContainer) {
       this.time.delayedCall(500, () => {
@@ -244,226 +245,21 @@ export default class GardenScene extends Phaser.Scene {
   }
 
   update() {
-    if (this.isTransitioning || !this.playerContainer || !this.playerSprite || !this.cursors || !this.wasd) return;
-
-    const speed = 120;
-    let vx = 0;
-    let vy = 0;
-    let animKey = 'idle_down';
-
-    if (this.isSitting) {
-      // Movement is completely blocked while sitting
-      vx = 0;
-      vy = 0;
-
-      // Allow turning/looking around while sitting
-      if (this.cursors.left.isDown || this.wasd.A.isDown) animKey = 'idle_left';
-      else if (this.cursors.right.isDown || this.wasd.D.isDown) animKey = 'idle_right';
-      else if (this.cursors.up.isDown || this.wasd.W.isDown) animKey = 'idle_up';
-      else if (this.cursors.down.isDown || this.wasd.S.isDown) animKey = 'idle_down';
-      else {
-        if (this.lastAnim.includes('left')) animKey = 'idle_left';
-        else if (this.lastAnim.includes('right')) animKey = 'idle_right';
-        else if (this.lastAnim.includes('up')) animKey = 'idle_up';
-        else animKey = 'idle_down';
-      }
-    } else {
-      if (this.cursors.left.isDown || this.wasd.A.isDown) {
-        vx = -speed;
-        animKey = 'walk_left';
-      } else if (this.cursors.right.isDown || this.wasd.D.isDown) {
-        vx = speed;
-        animKey = 'walk_right';
-      }
-
-      if (this.cursors.up.isDown || this.wasd.W.isDown) {
-        vy = -speed;
-        animKey = 'walk_up';
-      } else if (this.cursors.down.isDown || this.wasd.S.isDown) {
-        vy = speed;
-        animKey = 'walk_down';
-      }
-
-      if (vx !== 0 && vy !== 0) {
-        vx *= 0.7071;
-        vy *= 0.7071;
-      }
-    }
-
-    let nearBench: BenchInfo | null = null;
-    for (const bench of this.benchesList) {
-      const dist = Phaser.Math.Distance.Between(this.playerContainer.x, this.playerContainer.y, bench.x, bench.y);
-      if (dist < 40) {
-        nearBench = bench;
-        break;
-      }
-    }
-
-    const body = this.playerContainer.body as Phaser.Physics.Arcade.Body;
-
-    if (nearBench) {
-      // Position sit prompt text downward near feet so overhead chat bubbles remain clear
-      this.sitPromptText.setPosition(this.playerContainer.x, this.playerContainer.y + 12);
-      this.sitPromptText.setText(this.isSitting ? 'Press [E] to Stand Up 🚶' : 'Press [E] to Sit 🧘');
-      this.sitPromptText.setVisible(true);
-
-      if (this.eKey && Phaser.Input.Keyboard.JustDown(this.eKey)) {
-        if (this.isSitting) {
-          this.isSitting = false;
-          this.playerManager.showChatBubble(this.playerContainer, "🚶 Stood up!", false);
-        } else {
-          this.isSitting = true;
-          let sitX = nearBench.x;
-          let sitY = nearBench.y - 4;
-
-          if (nearBench.type === 'bench_horizontal') {
-            sitX = Phaser.Math.Clamp(this.playerContainer.x, nearBench.x - 20, nearBench.x + 20);
-            sitY = nearBench.y - 4;
-          } else {
-            sitX = nearBench.x;
-            sitY = Phaser.Math.Clamp(this.playerContainer.y, nearBench.y - 20, nearBench.y + 20);
-          }
-
-          this.playerContainer.setPosition(sitX, sitY);
-          body.setVelocity(0, 0);
-          this.playerManager.showChatBubble(this.playerContainer, "🧘 Resting at Dev Garden...", false);
-        }
-      }
-    } else {
-      if (this.sitPromptText) this.sitPromptText.setVisible(false);
-      if (this.isSitting) {
-        this.isSitting = false;
-      }
-    }
-
-    // Code Cafe Door Proximity Check (Door at x: 160, y: 672)
-    const distToCafeDoor = Phaser.Math.Distance.Between(
-      this.playerContainer.x,
-      this.playerContainer.y,
-      160,
-      675
+    this.movementManager.handleUpdate(
+      this.playerContainer,
+      this.playerSprite,
+      this.cursors,
+      this.wasd
     );
-
-    if (distToCafeDoor < 45) {
-      this.cafeDoorPromptText.setPosition(this.playerContainer.x, this.playerContainer.y + 12);
-      this.cafeDoorPromptText.setVisible(true);
-
-      if (this.oKey && Phaser.Input.Keyboard.JustDown(this.oKey)) {
-        this.enterCodeCafe();
-      }
-    } else {
-      if (this.cafeDoorPromptText) this.cafeDoorPromptText.setVisible(false);
-    }
-
-    if (this.isSitting) {
-      body.setVelocity(0, 0);
-    } else {
-      body.setVelocity(vx, vy);
-    }
-
-    const tier = this.selfPlayer?.visual_tier || 'green';
-    if (this.isSitting) {
-      this.playerSprite.play(`${animKey}_${tier}`, true);
-    } else if (vx === 0 && vy === 0) {
-      if (this.lastAnim.includes('left')) animKey = 'idle_left';
-      else if (this.lastAnim.includes('right')) animKey = 'idle_right';
-      else if (this.lastAnim.includes('up')) animKey = 'idle_up';
-      else animKey = 'idle_down';
-
-      this.playerSprite.play(`${animKey}_${tier}`, true);
-    } else {
-      this.playerSprite.play(`${animKey}_${tier}`, true);
-    }
-
-    // Leaderboard Proximity
-    const distToLeaderboard = Phaser.Math.Distance.Between(
-      this.playerContainer.x,
-      this.playerContainer.y,
-      this.leaderboardTreeObj.x,
-      this.leaderboardTreeObj.y
-    );
-    const isNearLeaderboard = distToLeaderboard < 70;
-    if (this.onNearLeaderboardCallback) {
-      this.onNearLeaderboardCallback(isNearLeaderboard);
-    }
-
-    // Star Tree Proximity
-    this.starTreeManager.updateProximity(this.playerContainer);
-
-    if (this.cursors.space && Phaser.Input.Keyboard.JustDown(this.cursors.space)) {
-      const distToStarTree = Phaser.Math.Distance.Between(
-        this.playerContainer.x,
-        this.playerContainer.y,
-        512,
-        260
-      );
-      if (distToStarTree < 90) {
-        this.starTreeManager.waterStarTree(this.playerContainer, this.playerSprite);
-      }
-    }
-
-    // Network position sync
-    const now = Date.now();
-    const posChanged = Math.abs(this.playerContainer.x - this.lastX) > 1 || Math.abs(this.playerContainer.y - this.lastY) > 1;
-    const animChanged = animKey !== this.lastAnim;
-
-    if (now - this.lastMoveSent > 45 && (posChanged || animChanged)) {
-      const rx = Math.round(this.playerContainer.x);
-      const ry = Math.round(this.playerContainer.y);
-
-      this.socket.emit('player_move', {
-        x: rx,
-        y: ry,
-        anim: animKey,
-        scene: 'GardenScene',
-      });
-
-      try {
-        localStorage.setItem('devgarden_last_x', rx.toString());
-        localStorage.setItem('devgarden_last_y', ry.toString());
-        localStorage.setItem('devgarden_last_scene', 'GardenScene');
-        sessionStorage.setItem('devgarden_last_pos', JSON.stringify({ x: rx, y: ry }));
-      } catch {
-        // ignore quota errors
-      }
-
-      this.lastX = this.playerContainer.x;
-      this.lastY = this.playerContainer.y;
-      this.lastAnim = animKey;
-      this.lastMoveSent = now;
-    }
-
-    // Smooth movement lerp and Dynamic Depth Sorting
-    if (this.playerContainer) {
-      this.playerContainer.setDepth(this.playerContainer.y);
-    }
-    this.otherPlayers.forEach((container) => {
-      const targetX = container.getData('targetX');
-      const targetY = container.getData('targetY');
-      if (typeof targetX === 'number' && typeof targetY === 'number') {
-        const dx = targetX - container.x;
-        const dy = targetY - container.y;
-        if (Math.abs(dx) > 0.5 || Math.abs(dy) > 0.5) {
-          container.x += dx * 0.25;
-          container.y += dy * 0.25;
-        } else {
-          container.x = targetX;
-          container.y = targetY;
-        }
-      }
-      container.setDepth(container.y);
-    });
-    this.sleepingNPCs.forEach((container) => {
-      container.setDepth(container.y);
-    });
   }
 
   private enterCodeCafe() {
-    if (this.isTransitioning) return;
-    this.isTransitioning = true;
-    if (this.cafeDoorPromptText) this.cafeDoorPromptText.setVisible(false);
+    if (this.interactionManager.isTransitioning) return;
+    this.interactionManager.isTransitioning = true;
+    this.interactionManager.hideCafeDoorPrompt();
+
     if (this.playerContainer) {
-      this.playerManager.showChatBubble(this.playerContainer, "🚪 Entering Code Cafe...", false);
+      this.playerManager.showChatBubble(this.playerContainer, '🚪 Entering Code Cafe...', false);
     }
 
     if (this.socket && typeof this.socket.updateScene === 'function') {
@@ -485,170 +281,6 @@ export default class GardenScene extends Phaser.Scene {
         onNearLeaderboard: this.onNearLeaderboardCallback,
         spawnPos: { x: 448, y: 520 },
       });
-    });
-  }
-
-  private boundSocketListeners: { event: string; fn: Function }[] = [];
-
-  private cleanupSocketListeners() {
-    if (this.socket && this.boundSocketListeners.length > 0) {
-      this.boundSocketListeners.forEach(({ event, fn }) => {
-        this.socket.off(event, fn);
-      });
-      this.boundSocketListeners = [];
-    }
-  }
-
-  private setupSocketListeners() {
-    if (!this.socket) return;
-    this.cleanupSocketListeners();
-
-    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
-      this.cleanupSocketListeners();
-    });
-
-    const addListener = (event: string, fn: Function) => {
-      this.socket.on(event, fn);
-      this.boundSocketListeners.push({ event, fn });
-    };
-
-    addListener('player_moved', (data: { id: string; x: number; y: number; anim: string; scene?: string }) => {
-      if (data.id === this.currentUserId) return;
-      const playerScene = data.scene || 'GardenScene';
-
-      if (playerScene !== 'GardenScene') {
-        if (this.otherPlayers.has(data.id)) {
-          this.otherPlayers.get(data.id)?.destroy();
-          this.otherPlayers.delete(data.id);
-        }
-        return;
-      }
-
-      let remote = this.otherPlayers.get(data.id);
-      if (!remote) {
-        const known = this.socket.getKnownPlayer ? this.socket.getKnownPlayer(data.id) : null;
-        const pState: PlayerState = known ? { ...known, x: data.x, y: data.y, scene: 'GardenScene' } : {
-          id: data.id,
-          username: 'Dev',
-          avatar_url: '',
-          level: 1,
-          score: 0,
-          title: 'Sprout',
-          visual_tier: 'green',
-          x: data.x,
-          y: data.y,
-          scene: 'GardenScene',
-          commits: 0,
-          stars: 0,
-          followers: 0,
-          repos: 0,
-          cosmetics: [],
-        };
-        this.playerManager.spawnRemotePlayer(pState, this.otherPlayers, this.onSelectPlayerCallback);
-        remote = this.otherPlayers.get(data.id);
-      }
-
-      if (remote) {
-        remote.setData('targetX', data.x);
-        remote.setData('targetY', data.y);
-        const tier = remote.getData('tier') || 'green';
-        const sprite = remote.list.find(obj => obj instanceof Phaser.GameObjects.Sprite) as Phaser.GameObjects.Sprite;
-        if (sprite && data.anim) {
-          sprite.play(`${data.anim}_${tier}`, true);
-        }
-      }
-    });
-
-    const syncPlayers = (players: PlayerState[]) => {
-      const activeIds = new Set<string>();
-
-      players.forEach(p => {
-        if (p.id !== this.currentUserId) {
-          const pScene = p.scene || 'GardenScene';
-          if (pScene === 'GardenScene') {
-            activeIds.add(p.id);
-            let container = this.otherPlayers.get(p.id);
-            if (!container) {
-              this.playerManager.spawnRemotePlayer(p, this.otherPlayers, this.onSelectPlayerCallback);
-              container = this.otherPlayers.get(p.id);
-            }
-            if (container) {
-              container.setData('targetX', p.x);
-              container.setData('targetY', p.y);
-              container.setData('tier', p.visual_tier);
-            }
-          }
-        }
-      });
-
-      this.otherPlayers.forEach((container, id) => {
-        if (!activeIds.has(id)) {
-          container.destroy();
-          this.otherPlayers.delete(id);
-        }
-      });
-    };
-
-    addListener('players_state', syncPlayers);
-    addListener('players_sync', syncPlayers);
-
-    addListener('player_joined', (p: PlayerState) => {
-      if (p.id !== this.currentUserId && (!p.scene || p.scene === 'GardenScene')) {
-        if (!this.otherPlayers.has(p.id)) {
-          this.playerManager.spawnRemotePlayer(p, this.otherPlayers, this.onSelectPlayerCallback);
-        }
-      }
-    });
-
-    addListener('player_left', (data: { id: string }) => {
-      if (this.otherPlayers.has(data.id)) {
-        this.otherPlayers.get(data.id)?.destroy();
-        this.otherPlayers.delete(data.id);
-      }
-    });
-
-    addListener('player_chatted', (data: { id: string; text: string; isEmote: boolean }) => {
-      if (data.id === this.currentUserId) {
-        if (this.playerContainer) {
-          this.playerManager.showChatBubble(this.playerContainer, data.text, data.isEmote);
-        }
-      } else {
-        const container = this.otherPlayers.get(data.id);
-        if (container) {
-          this.playerManager.showChatBubble(container, data.text, data.isEmote);
-        } else {
-          const npcContainer = this.sleepingNPCs.get(`sleeping_${data.id}`);
-          if (npcContainer) {
-            this.playerManager.showChatBubble(npcContainer, data.text, data.isEmote);
-          }
-        }
-      }
-    });
-
-    addListener('sleeping_npcs_update', (npcs: PlayerState[]) => {
-      this.sleepingNPCs.forEach((container, id) => {
-        const stillSleeps = npcs.some(n => `sleeping_${n.id}` === id);
-        if (!stillSleeps) {
-          container.destroy();
-          this.sleepingNPCs.delete(id);
-        }
-      });
-
-      npcs.forEach(npc => {
-        this.playerManager.spawnSleepingNPC(npc, this.sleepingNPCs, this.onSelectPlayerCallback);
-      });
-    });
-
-    addListener('tree_watered', (data: { id: string; score: number; isGolden: boolean }) => {
-      this.starTreeManager.updateStarTreeScore(data.score);
-      this.starTreeManager.playTreeWaterEffect(data.isGolden);
-
-      if (data.id !== this.currentUserId) {
-        const other = this.otherPlayers.get(data.id);
-        if (other) {
-          this.playerManager.showChatBubble(other, "💦 I nurtured the Sprout Tree!", false);
-        }
-      }
     });
   }
 }
