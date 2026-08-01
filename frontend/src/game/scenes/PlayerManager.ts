@@ -179,7 +179,7 @@ export class PlayerManager {
         this.showChatBubble(selfContainer, data.message, false);
       }
     } else {
-      const container = otherPlayers.get(data.sender_id);
+      const container = otherPlayers.get(data.sender_id)
 
       if (container) {
         this.showChatBubble(container, data.message, false);
