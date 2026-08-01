@@ -275,6 +275,7 @@ export default class CodeCafeScene extends Phaser.Scene {
   private exitToGarden() {
     this.interactionManager.isTransitioning = true;
     this.interactionManager.hidePromptText();
+    
     if (this.playerContainer) {
       this.playerManager.showChatBubble(this.playerContainer, '🚪 Exiting to Dev Garden...', false);
     }
@@ -287,7 +288,7 @@ export default class CodeCafeScene extends Phaser.Scene {
       localStorage.setItem('devgarden_last_scene', 'GardenScene');
       localStorage.setItem('devgarden_last_x', '175');
       localStorage.setItem('devgarden_last_y', '690');
-    } catch {}
+    } catch { }
 
     this.cameras.main.fadeOut(300, 0, 0, 0);
     this.time.delayedCall(300, () => {
