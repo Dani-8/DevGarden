@@ -159,9 +159,8 @@ export default function Sidebar({
   return (
     <>
       <aside
-        className={`h-full z-30 flex flex-col ${theme.asideBg} border-r-4 transition-all duration-500 select-none flex-shrink-0 ${
-          collapsed ? 'w-[65px]' : 'w-[200px]'
-        }`}
+        className={`h-full z-30 flex flex-col ${theme.asideBg} border-r-4 transition-all duration-500 select-none flex-shrink-0 ${collapsed ? 'w-[65px]' : 'w-[200px]'
+          }`}
       >
         <SidebarHeader collapsed={collapsed} borderDivider={theme.borderDivider} timeOfDay={timeOfDay} />
 
