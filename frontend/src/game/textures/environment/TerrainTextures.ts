@@ -14,6 +14,7 @@ export class TerrainTextures {
         this.drawWaterTile(textures, 'river_water_2', '#0369a1', '#0284c7');
         this.drawRiverBankTile(textures, 'river_bank_west', true);
         this.drawRiverBankTile(textures, 'river_bank_east', false);
+        this.drawBridgeWoodTile(textures);
         this.drawLilyPadTile(textures);
 
         this.drawZenGravelTile(textures);
@@ -41,15 +42,17 @@ export class TerrainTextures {
         canvas.refresh();
     }
 
-    private static drawGrassTile(textures: Phaser.Textures.TextureManager, key: string, bgColor: string, flowers: Array<{ x: number; y: number; c: string }>) {
+    public static drawGrassTile(textures: Phaser.Textures.TextureManager, key: string, bgColor: string, flowers: Array<{ x: number; y: number; c: string }>) {
         if (textures.exists(key)) return;
         const canvas = textures.createCanvas(key, 32, 32);
         if (!canvas) return;
         const ctx = canvas.getContext();
 
+        // Base rich green lawn color
         ctx.fillStyle = bgColor;
         ctx.fillRect(0, 0, 32, 32);
 
+        // Darker grass blade accents
         ctx.fillStyle = '#23733a';
         const blades = [
             { x: 4, y: 6 }, { x: 5, y: 5 }, { x: 18, y: 22 }, { x: 19, y: 21 },
@@ -61,6 +64,7 @@ export class TerrainTextures {
             ctx.fillRect(b.x + 1, b.y - 1, 1, 2);
         });
 
+        // Bright vibrant green highlights
         ctx.fillStyle = '#4ade80';
         const highlights = [
             { x: 12, y: 4 }, { x: 22, y: 14 }, { x: 6, y: 24 }, { x: 28, y: 18 }
@@ -81,7 +85,7 @@ export class TerrainTextures {
         canvas.refresh();
     }
 
-    private static drawDirtTile(textures: Phaser.Textures.TextureManager) {
+    public static drawDirtTile(textures: Phaser.Textures.TextureManager) {
         if (textures.exists('dirt_tile')) return;
         const canvas = textures.createCanvas('dirt_tile', 32, 32);
         if (!canvas) return;
@@ -96,7 +100,7 @@ export class TerrainTextures {
         canvas.refresh();
     }
 
-    private static drawWaterTile(textures: Phaser.Textures.TextureManager, key: string, baseColor: string, waveColor: string) {
+    public static drawWaterTile(textures: Phaser.Textures.TextureManager, key: string, baseColor: string, waveColor: string) {
         if (textures.exists(key)) return;
         const canvas = textures.createCanvas(key, 32, 32);
         if (!canvas) return;
@@ -113,7 +117,7 @@ export class TerrainTextures {
         canvas.refresh();
     }
 
-    private static drawRiverBankTile(textures: Phaser.Textures.TextureManager, key: string, isWest: boolean) {
+    public static drawRiverBankTile(textures: Phaser.Textures.TextureManager, key: string, isWest: boolean) {
         if (textures.exists(key)) return;
         const canvas = textures.createCanvas(key, 32, 32);
         if (!canvas) return;
@@ -136,7 +140,30 @@ export class TerrainTextures {
         canvas.refresh();
     }
 
-    private static drawLilyPadTile(textures: Phaser.Textures.TextureManager) {
+    public static drawBridgeWoodTile(textures: Phaser.Textures.TextureManager) {
+        if (textures.exists('bridge_wood_tile')) return;
+        const canvas = textures.createCanvas('bridge_wood_tile', 32, 32);
+        if (!canvas) return;
+        const ctx = canvas.getContext();
+
+        ctx.fillStyle = '#854d0e';
+        ctx.fillRect(0, 0, 32, 32);
+
+        ctx.fillStyle = '#532d08';
+        ctx.fillRect(0, 0, 32, 2);
+        ctx.fillRect(0, 10, 32, 2);
+        ctx.fillRect(0, 20, 32, 2);
+        ctx.fillRect(0, 30, 32, 2);
+
+        ctx.fillStyle = '#a16207';
+        ctx.fillRect(4, 4, 12, 2);
+        ctx.fillRect(18, 14, 10, 2);
+        ctx.fillRect(6, 24, 14, 2);
+
+        canvas.refresh();
+    }
+
+    public static drawLilyPadTile(textures: Phaser.Textures.TextureManager) {
         if (textures.exists('lily_pad_tile')) return;
         const canvas = textures.createCanvas('lily_pad_tile', 32, 32);
         if (!canvas) return;
@@ -156,7 +183,7 @@ export class TerrainTextures {
         canvas.refresh();
     }
 
-    private static drawZenGravelTile(textures: Phaser.Textures.TextureManager) {
+    public static drawZenGravelTile(textures: Phaser.Textures.TextureManager) {
         if (textures.exists('zen_gravel_tile')) return;
         const canvas = textures.createCanvas('zen_gravel_tile', 32, 32);
         if (!canvas) return;
@@ -177,7 +204,7 @@ export class TerrainTextures {
         canvas.refresh();
     }
 
-    private static drawCobblestoneTile(textures: Phaser.Textures.TextureManager) {
+    public static drawCobblestoneTile(textures: Phaser.Textures.TextureManager) {
         if (textures.exists('cobblestone_tile')) return;
         const canvas = textures.createCanvas('cobblestone_tile', 32, 32);
         if (!canvas) return;

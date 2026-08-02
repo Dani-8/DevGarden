@@ -131,7 +131,7 @@ export default class CodeCafeScene extends Phaser.Scene {
   }
 
   create() {
-    this.physics.world.setBounds(0, 0, 960, 600);
+    this.physics.world.setBounds(0, 0, 1152, 600);
 
     // 1. Draw Interior Tilemap
     CafeTilemap.draw(this);
@@ -178,24 +178,54 @@ export default class CodeCafeScene extends Phaser.Scene {
     }
 
     // 6. Camera setup
-    this.cameras.main.setBounds(0, 0, 960, 600);
+    this.cameras.main.setBounds(0, 0, 1152, 600);
     this.cameras.main.roundPixels = true;
-    if (this.playerContainer) {
-      this.cameras.main.startFollow(this.playerContainer, true, 0.1, 0.1);
-    }
 
-    const updateZoom = (width: number, height: number) => {
+    const hasSeenIntro = localStorage.getItem('devgarden_seen_cafe_intro') === 'true';
+
+    const getTargetZoom = (width: number, height: number) => {
       const zoomX = width / 960;
       const zoomY = height / 600;
-      const zoom = Math.min(zoomX, zoomY);
-      this.cameras.main.setZoom(Math.max(zoom, 1));
-      this.cameras.main.centerOn(480, 300);
+      return Math.max(1, Math.min(zoomX, zoomY));
     };
 
+    if (!hasSeenIntro && this.playerContainer) {
+      localStorage.setItem('devgarden_seen_cafe_intro', 'true');
+
+      // Start zoomed out showing full cafe view
+      const fullViewZoom = Math.min(this.scale.width / 1152, this.scale.height / 600);
+      this.cameras.main.setZoom(fullViewZoom);
+      this.cameras.main.centerOn(576, 300);
+
+      // Pan & Zoom in to player after short delay
+      this.time.delayedCall(800, () => {
+        if (!this.playerContainer) return;
+        const targetZoom = getTargetZoom(this.scale.width, this.scale.height);
+        this.cameras.main.pan(
+          this.playerContainer.x,
+          this.playerContainer.y,
+          1500,
+          'Power2',
+          false,
+          (_cam, progress) => {
+            if (progress === 1 && this.playerContainer) {
+              this.cameras.main.startFollow(this.playerContainer, true, 0.1, 0.1);
+            }
+          }
+        );
+        this.cameras.main.zoomTo(targetZoom, 1500, 'Power2');
+      });
+    } else {
+      if (this.playerContainer) {
+        this.cameras.main.startFollow(this.playerContainer, true, 0.1, 0.1);
+      }
+      this.cameras.main.setZoom(getTargetZoom(this.scale.width, this.scale.height));
+    }
+
     this.scale.on('resize', (gameSize: any) => {
-      updateZoom(gameSize.width, gameSize.height);
+      const zoom = getTargetZoom(gameSize.width, gameSize.height);
+      this.cameras.main.setZoom(zoom);
     });
-    updateZoom(this.scale.width, this.scale.height);
 
     // 7. Controls
     if (this.input.keyboard) {

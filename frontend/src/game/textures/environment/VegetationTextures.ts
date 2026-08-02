@@ -2,57 +2,18 @@ import Phaser from 'phaser';
 
 export class VegetationTextures {
     public static create(textures: Phaser.Textures.TextureManager) {
-        this.drawTreeProp(textures);
         this.drawSakuraTreeProp(textures);
         this.drawBambooProp(textures);
-        this.drawFlowerPotProp(textures);
+        this.drawTreeProp(textures);
         this.drawLeaderboardTree(textures);
         this.drawStarTreeStages(textures);
         this.drawPetalParticle(textures);
         this.drawFireflyParticle(textures);
     }
 
-    private static drawTreeProp(textures: Phaser.Textures.TextureManager) {
-        if (textures.exists('tree_prop')) return;
-        const canvas = textures.createCanvas('tree_prop', 64, 80);
-
-        if (!canvas) return;
-        const ctx = canvas.getContext();
-
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
-        ctx.beginPath();
-        ctx.arc(32, 62, 13, 0, Math.PI * 2);
-        ctx.fill();
-
-        ctx.fillStyle = '#5d4037';
-        ctx.fillRect(28, 48, 8, 22);
-        ctx.fillStyle = '#3e2723';
-        ctx.fillRect(32, 48, 4, 22);
-
-        ctx.fillStyle = '#1b5e20';
-        ctx.beginPath();
-        ctx.arc(32, 28, 24, 0, Math.PI * 2);
-        ctx.fill();
-
-        ctx.fillStyle = '#2e7d32';
-        ctx.beginPath();
-        ctx.arc(26, 24, 18, 0, Math.PI * 2);
-        ctx.arc(40, 26, 16, 0, Math.PI * 2);
-        ctx.fill();
-
-        ctx.fillStyle = '#4caf50';
-        ctx.beginPath();
-        ctx.arc(22, 18, 12, 0, Math.PI * 2);
-        ctx.arc(34, 16, 10, 0, Math.PI * 2);
-        ctx.fill();
-
-        canvas.refresh();
-    }
-
-    private static drawSakuraTreeProp(textures: Phaser.Textures.TextureManager) {
+    public static drawSakuraTreeProp(textures: Phaser.Textures.TextureManager) {
         if (textures.exists('sakura_tree_prop')) return;
         const canvas = textures.createCanvas('sakura_tree_prop', 64, 80);
-
         if (!canvas) return;
         const ctx = canvas.getContext();
 
@@ -91,10 +52,9 @@ export class VegetationTextures {
         canvas.refresh();
     }
 
-    private static drawBambooProp(textures: Phaser.Textures.TextureManager) {
+    public static drawBambooProp(textures: Phaser.Textures.TextureManager) {
         if (textures.exists('bamboo_prop')) return;
         const canvas = textures.createCanvas('bamboo_prop', 32, 64);
-
         if (!canvas) return;
         const ctx = canvas.getContext();
 
@@ -122,58 +82,72 @@ export class VegetationTextures {
         canvas.refresh();
     }
 
-    private static drawFlowerPotProp(textures: Phaser.Textures.TextureManager) {
-        if (textures.exists('flower_pot')) return;
-        const canvas = textures.createCanvas('flower_pot', 20, 24);
+    public static drawPetalParticle(textures: Phaser.Textures.TextureManager) {
+        if (textures.exists('sakura_petal')) return;
+        const canvas = textures.createCanvas('sakura_petal', 6, 6);
+        if (!canvas) return;
+        const ctx = canvas.getContext();
+        ctx.fillStyle = '#f472b6';
+        ctx.beginPath();
+        ctx.arc(3, 3, 2.5, 0, Math.PI * 2);
+        ctx.fill();
+        canvas.refresh();
+    }
 
+    public static drawFireflyParticle(textures: Phaser.Textures.TextureManager) {
+        if (textures.exists('firefly_particle')) return;
+        const canvas = textures.createCanvas('firefly_particle', 6, 6);
+        if (!canvas) return;
+        const ctx = canvas.getContext();
+        const grad = ctx.createRadialGradient(3, 3, 0, 3, 3, 3);
+        grad.addColorStop(0, '#fef08a');
+        grad.addColorStop(1, 'rgba(254, 240, 138, 0)');
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.arc(3, 3, 3, 0, Math.PI * 2);
+        ctx.fill();
+        canvas.refresh();
+    }
+
+    public static drawTreeProp(textures: Phaser.Textures.TextureManager) {
+        if (textures.exists('tree_prop')) return;
+        const canvas = textures.createCanvas('tree_prop', 64, 80);
         if (!canvas) return;
         const ctx = canvas.getContext();
 
         ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
-        ctx.fillRect(3, 21, 14, 3);
-
-        ctx.fillStyle = '#ea580c';
-        ctx.fillRect(4, 12, 12, 9);
-        ctx.fillStyle = '#c2410c';
-        ctx.fillRect(3, 10, 14, 3);
-        ctx.fillStyle = '#9a3412';
-        ctx.fillRect(13, 12, 3, 9);
-
-        ctx.fillStyle = '#15803d';
         ctx.beginPath();
-        ctx.arc(10, 8, 7, 0, Math.PI * 2);
+        ctx.arc(32, 62, 13, 0, Math.PI * 2);
         ctx.fill();
 
-        ctx.fillStyle = '#22c55e';
+        ctx.fillStyle = '#5d4037';
+        ctx.fillRect(28, 48, 8, 22);
+        ctx.fillStyle = '#3e2723';
+        ctx.fillRect(32, 48, 4, 22);
+
+        ctx.fillStyle = '#1b5e20';
         ctx.beginPath();
-        ctx.arc(8, 6, 5, 0, Math.PI * 2);
-        ctx.arc(12, 7, 5, 0, Math.PI * 2);
+        ctx.arc(32, 28, 24, 0, Math.PI * 2);
         ctx.fill();
 
-        ctx.fillStyle = '#4ade80';
-        ctx.fillRect(7, 4, 2, 2);
-        ctx.fillRect(11, 5, 2, 2);
+        ctx.fillStyle = '#2e7d32';
+        ctx.beginPath();
+        ctx.arc(26, 24, 18, 0, Math.PI * 2);
+        ctx.arc(40, 26, 16, 0, Math.PI * 2);
+        ctx.fill();
 
-        ctx.fillStyle = '#ef4444';
-        ctx.fillRect(5, 6, 3, 3);
-        ctx.fillStyle = '#fef08a';
-        ctx.fillRect(6, 7, 1, 1);
-
-        ctx.fillStyle = '#f472b6';
-        ctx.fillRect(12, 5, 3, 3);
-        ctx.fillStyle = '#ffffff';
-        ctx.fillRect(13, 6, 1, 1);
-
-        ctx.fillStyle = '#f59e0b';
-        ctx.fillRect(9, 3, 3, 3);
+        ctx.fillStyle = '#4caf50';
+        ctx.beginPath();
+        ctx.arc(22, 18, 12, 0, Math.PI * 2);
+        ctx.arc(34, 16, 10, 0, Math.PI * 2);
+        ctx.fill();
 
         canvas.refresh();
     }
 
-    private static drawLeaderboardTree(textures: Phaser.Textures.TextureManager) {
+    public static drawLeaderboardTree(textures: Phaser.Textures.TextureManager) {
         if (textures.exists('leaderboard_tree')) return;
         const canvas = textures.createCanvas('leaderboard_tree', 64, 80);
-
         if (!canvas) return;
         const ctx = canvas.getContext();
 
@@ -199,7 +173,6 @@ export class VegetationTextures {
 
         if (!textures.exists('leaderboard_crown_icon')) {
             const crownCanvas = textures.createCanvas('leaderboard_crown_icon', 16, 16);
-
             if (crownCanvas) {
                 const crownCtx = crownCanvas.getContext();
                 crownCtx.fillStyle = '#fbbf24';
@@ -221,10 +194,10 @@ export class VegetationTextures {
         }
     }
 
-    private static drawStarTreeStages(textures: Phaser.Textures.TextureManager) {
+    public static drawStarTreeStages(textures: Phaser.Textures.TextureManager) {
+        // Stage 1
         if (!textures.exists('star_tree_stage_1')) {
             const canvas = textures.createCanvas('star_tree_stage_1', 64, 64);
-
             if (canvas) {
                 const ctx = canvas.getContext();
                 ctx.fillStyle = 'rgba(0,0,0,0.15)';
@@ -243,9 +216,9 @@ export class VegetationTextures {
             }
         }
 
+        // Stage 2
         if (!textures.exists('star_tree_stage_2')) {
             const canvas = textures.createCanvas('star_tree_stage_2', 64, 64);
-
             if (canvas) {
                 const ctx = canvas.getContext();
                 ctx.fillStyle = 'rgba(0,0,0,0.18)';
@@ -263,9 +236,9 @@ export class VegetationTextures {
             }
         }
 
+        // Stage 3
         if (!textures.exists('star_tree_stage_3')) {
             const canvas = textures.createCanvas('star_tree_stage_3', 64, 80);
-
             if (canvas) {
                 const ctx = canvas.getContext();
                 ctx.fillStyle = 'rgba(0,0,0,0.2)';
@@ -289,9 +262,9 @@ export class VegetationTextures {
             }
         }
 
+        // Stage 4
         if (!textures.exists('star_tree_stage_4')) {
             const canvas = textures.createCanvas('star_tree_stage_4', 80, 96);
-
             if (canvas) {
                 const ctx = canvas.getContext();
                 ctx.fillStyle = 'rgba(0,0,0,0.25)';
@@ -314,36 +287,5 @@ export class VegetationTextures {
                 canvas.refresh();
             }
         }
-    }
-
-    private static drawPetalParticle(textures: Phaser.Textures.TextureManager) {
-        if (textures.exists('sakura_petal')) return;
-        const canvas = textures.createCanvas('sakura_petal', 6, 6);
-
-        if (!canvas) return;
-        const ctx = canvas.getContext();
-        
-        ctx.fillStyle = '#f472b6';
-        ctx.beginPath();
-        ctx.arc(3, 3, 2.5, 0, Math.PI * 2);
-        ctx.fill();
-        canvas.refresh();
-    }
-
-    private static drawFireflyParticle(textures: Phaser.Textures.TextureManager) {
-        if (textures.exists('firefly_particle')) return;
-        const canvas = textures.createCanvas('firefly_particle', 6, 6);
-
-        if (!canvas) return;
-        const ctx = canvas.getContext();
-        const grad = ctx.createRadialGradient(3, 3, 0, 3, 3, 3);
-        
-        grad.addColorStop(0, '#fef08a');
-        grad.addColorStop(1, 'rgba(254, 240, 138, 0)');
-        ctx.fillStyle = grad;
-        ctx.beginPath();
-        ctx.arc(3, 3, 3, 0, Math.PI * 2);
-        ctx.fill();
-        canvas.refresh();
     }
 }

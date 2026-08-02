@@ -1,42 +1,29 @@
 import Phaser from 'phaser';
 
 export class PetTextures {
-    public static create(textures: Phaser.Textures.TextureManager) {
-        this.drawDuckProp(textures);
-    }
+  public static create(textures: Phaser.Textures.TextureManager) {
+    this.drawDuckProp(textures);
+  }
 
-    private static drawDuckProp(textures: Phaser.Textures.TextureManager) {
-        if (textures.exists('duck_prop')) return;
-        const canvas = textures.createCanvas('duck_prop', 24, 24);
-        
-        if (!canvas) return;
-        const ctx = canvas.getContext();
+  public static drawDuckProp(textures: Phaser.Textures.TextureManager) {
+    if (textures.exists('duck_prop')) return;
+    const canvas = textures.createCanvas('duck_prop', 16, 16);
+    if (!canvas) return;
+    const ctx = canvas.getContext();
 
-        ctx.fillStyle = 'rgba(0,0,0,0.2)';
-        ctx.beginPath();
-        ctx.ellipse(12, 20, 8, 3, 0, 0, Math.PI * 2);
-        ctx.fill();
+    ctx.fillStyle = '#fef08a';
+    ctx.fillRect(2, 6, 12, 8);
+    ctx.fillRect(6, 2, 6, 6);
 
-        ctx.fillStyle = '#fef08a';
-        ctx.beginPath();
-        ctx.ellipse(11, 14, 8, 6, 0, 0, Math.PI * 2);
-        ctx.fill();
+    ctx.fillStyle = '#f97316';
+    ctx.fillRect(12, 4, 4, 2);
 
-        ctx.beginPath();
-        ctx.arc(14, 8, 5, 0, Math.PI * 2);
-        ctx.fill();
+    ctx.fillStyle = '#000000';
+    ctx.fillRect(9, 3, 2, 2);
 
-        ctx.fillStyle = '#f97316';
-        ctx.beginPath();
-        ctx.moveTo(17, 8);
-        ctx.lineTo(22, 9);
-        ctx.lineTo(17, 11);
-        ctx.closePath();
-        ctx.fill();
+    ctx.fillStyle = '#38bdf8';
+    ctx.fillRect(0, 12, 16, 2);
 
-        ctx.fillStyle = '#000000';
-        ctx.fillRect(15, 6, 2, 2);
-
-        canvas.refresh();
-    }
+    canvas.refresh();
+  }
 }

@@ -2,88 +2,167 @@ import Phaser from 'phaser';
 
 export class PlayerTextures {
     public static create(textures: Phaser.Textures.TextureManager) {
-        this.drawEmotes(textures);
+        this.drawCharacterSpritesheet(textures, 'green', '#81c784', '#388e3c', '#5d4037', false); // Sprout (Green overall, Brown hair)
+        this.drawCharacterSpritesheet(textures, 'blue', '#2196f3', '#0d47a1', '#212121', false);  // Committer (Blue hoodie, Dark hair)
+        this.drawCharacterSpritesheet(textures, 'purple', '#9c27b0', '#4a148c', '#ffffff', false); // Maintainer (Purple robe, White hair)
+        this.drawCharacterSpritesheet(textures, 'crimson', '#f44336', '#b71c1c', '#eceff1', false); // Arch Mage (Crimson wizard, Silver hair)
+        this.drawCharacterSpritesheet(textures, 'cosmic', '#263238', '#00e5ff', '#ffd700', true);  // Legend (Glowing cosmos, Gold Crown)
 
-        this.drawPlayerTexture(textures, 'player_green', '#22c55e', '#16a34a');
-        this.drawPlayerTexture(textures, 'player_blue', '#3b82f6', '#2563eb');
-        this.drawPlayerTexture(textures, 'player_purple', '#a855f7', '#9333ea');
-        this.drawPlayerTexture(textures, 'player_crimson', '#ef4444', '#dc2626');
-        this.drawPlayerTexture(textures, 'player_cosmic', '#ec4899', '#db2777');
+        this.drawEmoteIcon(textures, 'wave', '👋');
+        this.drawEmoteIcon(textures, 'clap', '👏');
+        this.drawEmoteIcon(textures, 'smile', '😊');
+        this.drawEmoteIcon(textures, 'love', '❤️');
+        this.drawEmoteIcon(textures, 'code', '💻');
+        this.drawEmoteIcon(textures, 'mindblown', '🤯');
     }
 
-    private static drawPlayerTexture(textures: Phaser.Textures.TextureManager, key: string, mainColor: string, darkColor: string) {
-        if (textures.exists(key)) return;
-        const canvas = textures.createCanvas(key, 128, 128);
-        
+    public static drawEmoteIcon(textures: Phaser.Textures.TextureManager, key: string, emoji: string) {
+        const fullKey = `emote_${key}`;
+        if (textures.exists(fullKey)) return;
+        const canvas = textures.createCanvas(fullKey, 24, 24);
         if (!canvas) return;
         const ctx = canvas.getContext();
 
-        const directions = ['down', 'left', 'right', 'up'];
-        directions.forEach((dir, dirIdx) => {
-            for (let frame = 0; frame < 4; frame++) {
-                const x = frame * 32;
-                const y = dirIdx * 32;
+        ctx.fillStyle = '#ffffff';
+        ctx.strokeStyle = '#000000';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.arc(12, 12, 10, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
 
-                ctx.fillStyle = 'rgba(0,0,0,0.2)';
-                ctx.beginPath();
-                ctx.ellipse(x + 16, y + 28, 8, 3, 0, 0, Math.PI * 2);
-                ctx.fill();
-
-                ctx.fillStyle = darkColor;
-                const legOffset = (frame % 2 === 1) ? (dirIdx === 1 || dirIdx === 2 ? 2 : 1) : 0;
-                ctx.fillRect(x + 10, y + 20 + legOffset, 4, 8);
-                ctx.fillRect(x + 18, y + 20 - legOffset, 4, 8);
-
-                ctx.fillStyle = mainColor;
-                ctx.fillRect(x + 8, y + 12, 16, 10);
-
-                ctx.fillStyle = '#fde047';
-                ctx.fillRect(x + 10, y + 4, 12, 10);
-
-                ctx.fillStyle = '#000000';
-                if (dir === 'down') {
-                    ctx.fillRect(x + 12, y + 8, 2, 2);
-                    ctx.fillRect(x + 18, y + 8, 2, 2);
-                } else if (dir === 'left') {
-                    ctx.fillRect(x + 11, y + 8, 2, 2);
-                } else if (dir === 'right') {
-                    ctx.fillRect(x + 19, y + 8, 2, 2);
-                }
-
-                ctx.fillStyle = darkColor;
-                ctx.fillRect(x + 8, y + 2, 16, 4);
-            }
-        });
+        ctx.font = '12px serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillStyle = '#000000';
+        ctx.fillText(emoji, 12, 12);
 
         canvas.refresh();
     }
 
-    private static drawEmotes(textures: Phaser.Textures.TextureManager) {
-        const emoteKeys = ['emote_wave', 'emote_clap', 'emote_heart', 'emote_coffee', 'emote_dance'];
-        emoteKeys.forEach(k => {
-            if (!textures.exists(k)) {
-                const canvas = textures.createCanvas(k, 24, 24)
+    public static drawCharacterSpritesheet(
+        textures: Phaser.Textures.TextureManager,
+        tier: string,
+        outfitColor: string,
+        outfitShadowColor: string,
+        hairColor: string,
+        isCosmic: boolean
+    ) {
+        const key = `player_${tier}`;
+        if (textures.exists(key)) return;
+        const canvas = textures.createCanvas(key, 48, 96);
+        if (!canvas) return;
+        const ctx = canvas.getContext();
 
-                if (canvas) {
-                    const ctx = canvas.getContext();
-                    ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
-                    ctx.beginPath();
-                    ctx.arc(12, 12, 10, 0, Math.PI * 2);
-                    ctx.fill();
+        const cols = [0, 1, 2];
+        const rows = [0, 1, 2, 3];
 
-                    ctx.strokeStyle = '#334155';
-                    ctx.lineWidth = 1.5;
-                    ctx.stroke();
+        rows.forEach(row => {
+            cols.forEach(col => {
+                const fx = col * 16;
+                const fy = row * 24;
 
-                    ctx.fillStyle = '#3b82f6';
-                    if (k === 'emote_heart') ctx.fillStyle = '#ef4444';
-                    if (k === 'emote_coffee') ctx.fillStyle = '#78350f';
-                    if (k === 'emote_dance') ctx.fillStyle = '#a855f7';
+                ctx.fillStyle = hairColor;
+                ctx.fillRect(fx + 4, fy + 2, 8, 7);
 
-                    ctx.fillRect(8, 8, 8, 8);
-                    canvas.refresh();
+                ctx.fillStyle = '#ffdbac';
+                ctx.fillRect(fx + 4, fy + 5, 8, 5);
+
+                ctx.fillStyle = hairColor;
+                if (row === 0) {
+                    ctx.fillRect(fx + 4, fy + 2, 8, 3);
+                    ctx.fillRect(fx + 4, fy + 5, 1, 2);
+                    ctx.fillRect(fx + 11, fy + 5, 1, 2);
+                } else if (row === 1) {
+                    ctx.fillRect(fx + 3, fy + 2, 8, 4);
+                    ctx.fillRect(fx + 3, fy + 6, 2, 3);
+                } else if (row === 2) {
+                    ctx.fillRect(fx + 5, fy + 2, 8, 4);
+                    ctx.fillRect(fx + 11, fy + 6, 2, 3);
+                } else if (row === 3) {
+                    ctx.fillRect(fx + 3, fy + 2, 10, 8);
                 }
-            }
+
+                ctx.fillStyle = '#212121';
+                if (row === 0) {
+                    ctx.fillRect(fx + 6, fy + 6, 1, 1);
+                    ctx.fillRect(fx + 9, fy + 6, 1, 1);
+                } else if (row === 1) {
+                    ctx.fillRect(fx + 5, fy + 6, 1, 1);
+                } else if (row === 2) {
+                    ctx.fillRect(fx + 10, fy + 6, 1, 1);
+                }
+
+                ctx.fillStyle = outfitColor;
+                ctx.fillRect(fx + 3, fy + 10, 10, 8);
+                ctx.fillStyle = outfitShadowColor;
+                ctx.fillRect(fx + 8, fy + 10, 5, 8);
+
+                if (tier === 'purple' || tier === 'crimson') {
+                    ctx.fillStyle = '#fbcb24';
+                    ctx.fillRect(fx + 7, fy + 10, 2, 8);
+                } else if (isCosmic) {
+                    ctx.fillStyle = '#00e5ff';
+                    ctx.fillRect(fx + 7, fy + 12, 2, 2);
+                } else if (tier === 'blue') {
+                    ctx.fillStyle = '#ffffff';
+                    ctx.fillRect(fx + 6, fy + 11, 1, 2);
+                    ctx.fillRect(fx + 9, fy + 11, 1, 2);
+                }
+
+                ctx.fillStyle = '#ffdbac';
+                if (row === 0 || row === 3) {
+                    ctx.fillRect(fx + 2, fy + 12, 1, 3);
+                    ctx.fillRect(fx + 13, fy + 12, 1, 3);
+                } else if (row === 1) {
+                    ctx.fillRect(fx + 7, fy + 13, 2, 2);
+                } else if (row === 2) {
+                    ctx.fillRect(fx + 7, fy + 13, 2, 2);
+                }
+
+                ctx.fillStyle = '#374151';
+
+                if (col === 1) {
+                    ctx.fillRect(fx + 5, fy + 18, 2, 4);
+                    ctx.fillRect(fx + 9, fy + 18, 2, 4);
+                    ctx.fillStyle = '#111827';
+                    ctx.fillRect(fx + 4, fy + 22, 3, 1);
+                    ctx.fillRect(fx + 9, fy + 22, 3, 1);
+                } else if (col === 0) {
+                    ctx.fillRect(fx + 5, fy + 17, 2, 5);
+                    ctx.fillRect(fx + 9, fy + 19, 2, 3);
+                    ctx.fillStyle = '#111827';
+                    ctx.fillRect(fx + 4, fy + 22, 3, 1);
+                    ctx.fillRect(fx + 9, fy + 22, 2, 1);
+                } else if (col === 2) {
+                    ctx.fillRect(fx + 5, fy + 19, 2, 3);
+                    ctx.fillRect(fx + 9, fy + 17, 2, 5);
+                    ctx.fillStyle = '#111827';
+                    ctx.fillRect(fx + 5, fy + 22, 2, 1);
+                    ctx.fillRect(fx + 8, fy + 22, 3, 1);
+                }
+
+                if (isCosmic) {
+                    ctx.fillStyle = '#fbbf24';
+                    ctx.fillRect(fx + 5, fy + 0, 6, 2);
+                    ctx.fillRect(fx + 4, fy - 1, 1, 2);
+                    ctx.fillRect(fx + 7, fy - 1, 2, 2);
+                    ctx.fillRect(fx + 11, fy - 1, 1, 2);
+                }
+            });
         });
+
+        canvas.refresh();
+
+        let frameIndex = 0;
+        
+        for (let r = 0; r < 4; r++) {
+            for (let c = 0; c < 3; c++) {
+                const fx = c * 16;
+                const fy = r * 24;
+                canvas.add(frameIndex, 0, fx, fy, 16, 24);
+                frameIndex++;
+            }
+        }
     }
 }

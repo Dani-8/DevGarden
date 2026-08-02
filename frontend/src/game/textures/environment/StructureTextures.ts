@@ -3,19 +3,16 @@ import Phaser from 'phaser';
 export class StructureTextures {
     public static create(textures: Phaser.Textures.TextureManager) {
         this.drawDevGardenArch(textures);
-        this.drawBridgeWoodTile(textures);
         this.drawStreetLampProp(textures);
         this.drawFountainProp(textures);
         this.drawBenchProp(textures, 'bench_horizontal', 48, 18, true);
         this.drawBenchProp(textures, 'bench_vertical', 18, 48, false);
-        this.drawMenuBoardProp(textures);
         this.drawFenceTextures(textures);
     }
 
-    private static drawDevGardenArch(textures: Phaser.Textures.TextureManager) {
+    public static drawDevGardenArch(textures: Phaser.Textures.TextureManager) {
         if (textures.exists('dev_garden_arch')) return;
         const canvas = textures.createCanvas('dev_garden_arch', 128, 80);
-        
         if (!canvas) return;
         const ctx = canvas.getContext();
 
@@ -54,34 +51,9 @@ export class StructureTextures {
         canvas.refresh();
     }
 
-    private static drawBridgeWoodTile(textures: Phaser.Textures.TextureManager) {
-        if (textures.exists('bridge_wood_tile')) return;
-        const canvas = textures.createCanvas('bridge_wood_tile', 32, 32);
-
-        if (!canvas) return;
-        const ctx = canvas.getContext();
-
-        ctx.fillStyle = '#854d0e';
-        ctx.fillRect(0, 0, 32, 32);
-
-        ctx.fillStyle = '#532d08';
-        ctx.fillRect(0, 0, 32, 2);
-        ctx.fillRect(0, 10, 32, 2);
-        ctx.fillRect(0, 20, 32, 2);
-        ctx.fillRect(0, 30, 32, 2);
-
-        ctx.fillStyle = '#a16207';
-        ctx.fillRect(4, 4, 12, 2);
-        ctx.fillRect(18, 14, 10, 2);
-        ctx.fillRect(6, 24, 14, 2);
-
-        canvas.refresh();
-    }
-
-    private static drawStreetLampProp(textures: Phaser.Textures.TextureManager) {
+    public static drawStreetLampProp(textures: Phaser.Textures.TextureManager) {
         if (textures.exists('street_lamp')) return;
         const canvas = textures.createCanvas('street_lamp', 32, 64);
-
         if (!canvas) return;
         const ctx = canvas.getContext();
 
@@ -101,10 +73,9 @@ export class StructureTextures {
         canvas.refresh();
     }
 
-    private static drawFountainProp(textures: Phaser.Textures.TextureManager) {
+    public static drawFountainProp(textures: Phaser.Textures.TextureManager) {
         if (textures.exists('fountain_prop')) return;
         const canvas = textures.createCanvas('fountain_prop', 64, 64);
-
         if (!canvas) return;
         const ctx = canvas.getContext();
 
@@ -146,10 +117,9 @@ export class StructureTextures {
         canvas.refresh();
     }
 
-    private static drawBenchProp(textures: Phaser.Textures.TextureManager, key: string, w: number, h: number, isHorizontal: boolean) {
+    public static drawBenchProp(textures: Phaser.Textures.TextureManager, key: string, w: number, h: number, isHorizontal: boolean) {
         if (textures.exists(key)) return;
         const canvas = textures.createCanvas(key, w, h);
-
         if (!canvas) return;
         const ctx = canvas.getContext();
 
@@ -182,114 +152,30 @@ export class StructureTextures {
         canvas.refresh();
     }
 
-    private static drawMenuBoardProp(textures: Phaser.Textures.TextureManager) {
-        if (textures.exists('cafe_menu_board')) return;
-        const canvas = textures.createCanvas('cafe_menu_board', 26, 34)
-
-        if (!canvas) return;
-        const ctx = canvas.getContext();
-
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
-        ctx.beginPath();
-        ctx.ellipse(13, 31, 10, 3, 0, 0, Math.PI * 2);
-        ctx.fill();
-
-        ctx.fillStyle = '#451a03';
-        ctx.fillRect(12, 16, 2, 14);
-
-        ctx.fillStyle = '#78350f';
-        ctx.fillRect(4, 14, 3, 17);
-        ctx.fillRect(19, 14, 3, 17);
-
-        ctx.fillStyle = '#92400e';
-        ctx.fillRect(4, 14, 1, 17);
-        ctx.fillRect(19, 14, 1, 17);
-
-        ctx.fillStyle = '#78350f';
-        ctx.fillRect(4, 26, 18, 2);
-
-        ctx.fillStyle = '#78350f';
-        ctx.fillRect(2, 2, 22, 21);
-
-        ctx.fillStyle = '#92400e';
-        ctx.fillRect(2, 2, 22, 1);
-        ctx.fillRect(2, 2, 1, 21);
-
-        ctx.fillStyle = '#0f172a';
-        ctx.fillRect(4, 4, 18, 17);
-
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
-        ctx.fillRect(5, 5, 16, 15);
-
-        ctx.fillStyle = '#fef08a';
-        ctx.font = 'bold 6px monospace';
-        ctx.textAlign = 'center';
-        ctx.fillText('MENU', 13, 9);
-
-        ctx.fillStyle = '#ffffff';
-        ctx.fillRect(6, 11, 4, 3);
-        ctx.fillRect(5, 11, 1, 2);
-        ctx.fillStyle = '#fde047';
-        ctx.fillRect(7, 10, 1, 1);
-        ctx.fillRect(9, 10, 1, 1);
-
-        ctx.fillStyle = '#e2e8f0';
-        ctx.fillRect(11, 11, 9, 1);
-        ctx.fillRect(11, 13, 7, 1);
-        ctx.fillRect(6, 16, 12, 1);
-
-        ctx.fillStyle = '#86efac';
-        ctx.fillRect(19, 11, 1, 1);
-        ctx.fillRect(17, 13, 1, 1);
-        ctx.fillRect(17, 16, 1, 1);
-
-        ctx.fillStyle = '#f472b6';
-        ctx.fillRect(18, 18, 2, 2);
-        ctx.fillStyle = '#fef08a';
-        ctx.fillRect(19, 19, 1, 1);
-
-        ctx.fillStyle = '#15803d';
-        ctx.fillRect(1, 0, 24, 3);
-        ctx.fillRect(0, 1, 3, 12);
-        ctx.fillRect(23, 1, 3, 12);
-
-        ctx.fillStyle = '#22c55e';
-        ctx.fillRect(3, 0, 5, 2);
-        ctx.fillRect(11, 0, 6, 2);
-        ctx.fillRect(19, 0, 4, 2);
-        ctx.fillRect(0, 3, 2, 4);
-        ctx.fillRect(24, 4, 2, 5);
-        ctx.fillRect(0, 9, 2, 3);
-        ctx.fillRect(24, 11, 2, 3);
-
-        ctx.fillStyle = '#86efac';
-        ctx.fillRect(5, 0, 2, 1);
-        ctx.fillRect(14, 0, 2, 1);
-        ctx.fillRect(1, 4, 1, 2);
-        ctx.fillRect(24, 6, 1, 2);
-
-        canvas.refresh();
-    }
-
-    private static drawFenceTextures(textures: Phaser.Textures.TextureManager) {
+    public static drawFenceTextures(textures: Phaser.Textures.TextureManager) {
+        // 1. Horizontal Wooden Picket Fence Segment (32x24)
         if (!textures.exists('fence_picket_horizontal')) {
-            const canvas = textures.createCanvas('fence_picket_horizontal', 32, 24)
-
+            const canvas = textures.createCanvas('fence_picket_horizontal', 32, 24);
             if (canvas) {
                 const ctx = canvas.getContext();
 
+                // Soft drop shadow under fence
                 ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
                 ctx.fillRect(0, 20, 32, 3);
 
-                ctx.fillStyle = '#854d0e';
+                // 2 Horizontal wooden rails behind pickets
+                ctx.fillStyle = '#854d0e'; // Warm wood dark
                 ctx.fillRect(0, 6, 32, 3);
                 ctx.fillRect(0, 14, 32, 3);
 
+                // 4 Vertical pickets with pointed tops per 32px block
                 const pickets = [2, 10, 18, 26];
                 pickets.forEach(px => {
-                    ctx.fillStyle = '#fef3c7';
+                    // Picket body (warm cream/natural wood color)
+                    ctx.fillStyle = '#fef3c7'; // Warm ivory
                     ctx.fillRect(px, 4, 4, 16);
 
+                    // Pointed tip top
                     ctx.beginPath();
                     ctx.moveTo(px, 4);
                     ctx.lineTo(px + 2, 1);
@@ -297,9 +183,11 @@ export class StructureTextures {
                     ctx.closePath();
                     ctx.fill();
 
-                    ctx.fillStyle = '#d97706';
+                    // Picket shadow outline for 2.5D depth
+                    ctx.fillStyle = '#d97706'; // Warm wood shadow accent
                     ctx.fillRect(px + 3, 4, 1, 16);
 
+                    // Picket nail heads on horizontal rails
                     ctx.fillStyle = '#451a03';
                     ctx.fillRect(px + 1, 7, 1, 1);
                     ctx.fillRect(px + 1, 15, 1, 1);
@@ -309,24 +197,28 @@ export class StructureTextures {
             }
         }
 
+        // 2. Vertical Wooden Picket Fence Segment (24x32)
         if (!textures.exists('fence_picket_vertical')) {
-            const canvas = textures.createCanvas('fence_picket_vertical', 24, 32)
-
+            const canvas = textures.createCanvas('fence_picket_vertical', 24, 32);
             if (canvas) {
                 const ctx = canvas.getContext();
 
+                // Shadow
                 ctx.fillStyle = 'rgba(0, 0, 0, 0.18)';
                 ctx.fillRect(16, 0, 6, 32);
 
+                // Vertical rails
                 ctx.fillStyle = '#854d0e';
                 ctx.fillRect(6, 0, 3, 32);
                 ctx.fillRect(14, 0, 3, 32);
 
+                // 4 Horizontal pickets along vertical side
                 const pyList = [2, 10, 18, 26];
                 pyList.forEach(py => {
                     ctx.fillStyle = '#fef3c7';
                     ctx.fillRect(2, py, 16, 4);
 
+                    // Pointed tip right side
                     ctx.beginPath();
                     ctx.moveTo(18, py);
                     ctx.lineTo(21, py + 2);
@@ -342,23 +234,26 @@ export class StructureTextures {
             }
         }
 
+        // 3. Grand Gate Posts for Main Entrance (24x40)
         if (!textures.exists('fence_gate_post')) {
-            const canvas = textures.createCanvas('fence_gate_post', 24, 40)
-
+            const canvas = textures.createCanvas('fence_gate_post', 24, 40);
             if (canvas) {
                 const ctx = canvas.getContext();
 
+                // Base shadow
                 ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
                 ctx.beginPath();
                 ctx.ellipse(12, 36, 10, 4, 0, 0, Math.PI * 2);
                 ctx.fill();
 
-                ctx.fillStyle = '#78350f';
+                // Wooden Pillar Body
+                ctx.fillStyle = '#78350f'; // Dark wood
                 ctx.fillRect(6, 10, 12, 28);
-                ctx.fillStyle = '#b45309';
+                ctx.fillStyle = '#b45309'; // Front highlight
                 ctx.fillRect(8, 10, 6, 28);
 
-                ctx.fillStyle = '#f59e0b';
+                // Decorative Post Cap (Pyramid top)
+                ctx.fillStyle = '#f59e0b'; // Amber cap
                 ctx.fillRect(4, 8, 16, 4);
                 ctx.beginPath();
                 ctx.moveTo(4, 8);
@@ -367,31 +262,37 @@ export class StructureTextures {
                 ctx.closePath();
                 ctx.fill();
 
-                ctx.fillStyle = '#10b981';
+                // Lantern / Flower pot decoration on gate post top
+                ctx.fillStyle = '#10b981'; // Green leaf trim
                 ctx.fillRect(7, 6, 10, 2);
 
                 canvas.refresh();
             }
         }
 
+        // 4. Decorative Open Gate Door (32x24)
         if (!textures.exists('fence_gate_door')) {
             const canvas = textures.createCanvas('fence_gate_door', 32, 24);
-
             if (canvas) {
                 const ctx = canvas.getContext();
 
+                // Shadow
                 ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
                 ctx.fillRect(2, 20, 28, 3);
 
+                // Wooden frame
                 ctx.fillStyle = '#92400e';
                 ctx.fillRect(0, 4, 32, 16);
 
+                // Inner lattice diagonal
                 ctx.fillStyle = '#78350f';
                 ctx.fillRect(2, 6, 28, 12);
 
+                // Golden handle / latch
                 ctx.fillStyle = '#f59e0b';
                 ctx.fillRect(26, 10, 4, 4);
 
+                // Warm picket slats on gate
                 const gPickets = [4, 11, 18, 25];
                 gPickets.forEach(px => {
                     ctx.fillStyle = '#fde68a';
