@@ -131,7 +131,7 @@ export default class CodeCafeScene extends Phaser.Scene {
   }
 
   create() {
-    this.physics.world.setBounds(0, 0, 960, 600);
+    this.physics.world.setBounds(0, 0, 1152, 600);
 
     // 1. Draw Interior Tilemap
     CafeTilemap.draw(this);
@@ -178,7 +178,7 @@ export default class CodeCafeScene extends Phaser.Scene {
     }
 
     // 6. Camera setup
-    this.cameras.main.setBounds(0, 0, 960, 600);
+    this.cameras.main.setBounds(0, 0, 1152, 600);
     this.cameras.main.roundPixels = true;
     if (this.playerContainer) {
       this.cameras.main.startFollow(this.playerContainer, true, 0.1, 0.1);
@@ -187,9 +187,8 @@ export default class CodeCafeScene extends Phaser.Scene {
     const updateZoom = (width: number, height: number) => {
       const zoomX = width / 960;
       const zoomY = height / 600;
-      const zoom = Math.min(zoomX, zoomY);
-      this.cameras.main.setZoom(Math.max(zoom, 1));
-      this.cameras.main.centerOn(480, 300);
+      const zoom = Math.max(1, Math.min(zoomX, zoomY));
+      this.cameras.main.setZoom(zoom);
     };
 
     this.scale.on('resize', (gameSize: any) => {
