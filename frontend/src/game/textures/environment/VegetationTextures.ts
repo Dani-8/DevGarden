@@ -15,6 +15,7 @@ export class VegetationTextures {
     private static drawTreeProp(textures: Phaser.Textures.TextureManager) {
         if (textures.exists('tree_prop')) return;
         const canvas = textures.createCanvas('tree_prop', 64, 80);
+
         if (!canvas) return;
         const ctx = canvas.getContext();
 
@@ -51,6 +52,7 @@ export class VegetationTextures {
     private static drawSakuraTreeProp(textures: Phaser.Textures.TextureManager) {
         if (textures.exists('sakura_tree_prop')) return;
         const canvas = textures.createCanvas('sakura_tree_prop', 64, 80);
+
         if (!canvas) return;
         const ctx = canvas.getContext();
 
@@ -92,6 +94,7 @@ export class VegetationTextures {
     private static drawBambooProp(textures: Phaser.Textures.TextureManager) {
         if (textures.exists('bamboo_prop')) return;
         const canvas = textures.createCanvas('bamboo_prop', 32, 64);
+
         if (!canvas) return;
         const ctx = canvas.getContext();
 
@@ -122,6 +125,7 @@ export class VegetationTextures {
     private static drawFlowerPotProp(textures: Phaser.Textures.TextureManager) {
         if (textures.exists('flower_pot')) return;
         const canvas = textures.createCanvas('flower_pot', 20, 24);
+
         if (!canvas) return;
         const ctx = canvas.getContext();
 
@@ -169,6 +173,7 @@ export class VegetationTextures {
     private static drawLeaderboardTree(textures: Phaser.Textures.TextureManager) {
         if (textures.exists('leaderboard_tree')) return;
         const canvas = textures.createCanvas('leaderboard_tree', 64, 80);
+
         if (!canvas) return;
         const ctx = canvas.getContext();
 
@@ -194,6 +199,7 @@ export class VegetationTextures {
 
         if (!textures.exists('leaderboard_crown_icon')) {
             const crownCanvas = textures.createCanvas('leaderboard_crown_icon', 16, 16);
+
             if (crownCanvas) {
                 const crownCtx = crownCanvas.getContext();
                 crownCtx.fillStyle = '#fbbf24';
@@ -218,6 +224,7 @@ export class VegetationTextures {
     private static drawStarTreeStages(textures: Phaser.Textures.TextureManager) {
         if (!textures.exists('star_tree_stage_1')) {
             const canvas = textures.createCanvas('star_tree_stage_1', 64, 64);
+
             if (canvas) {
                 const ctx = canvas.getContext();
                 ctx.fillStyle = 'rgba(0,0,0,0.15)';
@@ -238,6 +245,7 @@ export class VegetationTextures {
 
         if (!textures.exists('star_tree_stage_2')) {
             const canvas = textures.createCanvas('star_tree_stage_2', 64, 64);
+
             if (canvas) {
                 const ctx = canvas.getContext();
                 ctx.fillStyle = 'rgba(0,0,0,0.18)';
@@ -257,6 +265,7 @@ export class VegetationTextures {
 
         if (!textures.exists('star_tree_stage_3')) {
             const canvas = textures.createCanvas('star_tree_stage_3', 64, 80);
+
             if (canvas) {
                 const ctx = canvas.getContext();
                 ctx.fillStyle = 'rgba(0,0,0,0.2)';
@@ -282,6 +291,7 @@ export class VegetationTextures {
 
         if (!textures.exists('star_tree_stage_4')) {
             const canvas = textures.createCanvas('star_tree_stage_4', 80, 96);
+
             if (canvas) {
                 const ctx = canvas.getContext();
                 ctx.fillStyle = 'rgba(0,0,0,0.25)';
@@ -309,8 +319,10 @@ export class VegetationTextures {
     private static drawPetalParticle(textures: Phaser.Textures.TextureManager) {
         if (textures.exists('sakura_petal')) return;
         const canvas = textures.createCanvas('sakura_petal', 6, 6);
+
         if (!canvas) return;
         const ctx = canvas.getContext();
+        
         ctx.fillStyle = '#f472b6';
         ctx.beginPath();
         ctx.arc(3, 3, 2.5, 0, Math.PI * 2);
@@ -321,9 +333,11 @@ export class VegetationTextures {
     private static drawFireflyParticle(textures: Phaser.Textures.TextureManager) {
         if (textures.exists('firefly_particle')) return;
         const canvas = textures.createCanvas('firefly_particle', 6, 6);
+
         if (!canvas) return;
         const ctx = canvas.getContext();
         const grad = ctx.createRadialGradient(3, 3, 0, 3, 3, 3);
+        
         grad.addColorStop(0, '#fef08a');
         grad.addColorStop(1, 'rgba(254, 240, 138, 0)');
         ctx.fillStyle = grad;
