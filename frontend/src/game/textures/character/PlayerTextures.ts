@@ -14,6 +14,7 @@ export class PlayerTextures {
     private static drawPlayerTexture(textures: Phaser.Textures.TextureManager, key: string, mainColor: string, darkColor: string) {
         if (textures.exists(key)) return;
         const canvas = textures.createCanvas(key, 128, 128);
+        
         if (!canvas) return;
         const ctx = canvas.getContext();
 
@@ -61,7 +62,8 @@ export class PlayerTextures {
         const emoteKeys = ['emote_wave', 'emote_clap', 'emote_heart', 'emote_coffee', 'emote_dance'];
         emoteKeys.forEach(k => {
             if (!textures.exists(k)) {
-                const canvas = textures.createCanvas(k, 24, 24);
+                const canvas = textures.createCanvas(k, 24, 24)
+
                 if (canvas) {
                     const ctx = canvas.getContext();
                     ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
