@@ -15,6 +15,7 @@ export class StructureTextures {
     private static drawDevGardenArch(textures: Phaser.Textures.TextureManager) {
         if (textures.exists('dev_garden_arch')) return;
         const canvas = textures.createCanvas('dev_garden_arch', 128, 80);
+        
         if (!canvas) return;
         const ctx = canvas.getContext();
 
@@ -56,6 +57,7 @@ export class StructureTextures {
     private static drawBridgeWoodTile(textures: Phaser.Textures.TextureManager) {
         if (textures.exists('bridge_wood_tile')) return;
         const canvas = textures.createCanvas('bridge_wood_tile', 32, 32);
+
         if (!canvas) return;
         const ctx = canvas.getContext();
 
@@ -79,6 +81,7 @@ export class StructureTextures {
     private static drawStreetLampProp(textures: Phaser.Textures.TextureManager) {
         if (textures.exists('street_lamp')) return;
         const canvas = textures.createCanvas('street_lamp', 32, 64);
+
         if (!canvas) return;
         const ctx = canvas.getContext();
 
@@ -101,6 +104,7 @@ export class StructureTextures {
     private static drawFountainProp(textures: Phaser.Textures.TextureManager) {
         if (textures.exists('fountain_prop')) return;
         const canvas = textures.createCanvas('fountain_prop', 64, 64);
+
         if (!canvas) return;
         const ctx = canvas.getContext();
 
@@ -145,6 +149,7 @@ export class StructureTextures {
     private static drawBenchProp(textures: Phaser.Textures.TextureManager, key: string, w: number, h: number, isHorizontal: boolean) {
         if (textures.exists(key)) return;
         const canvas = textures.createCanvas(key, w, h);
+
         if (!canvas) return;
         const ctx = canvas.getContext();
 
@@ -179,7 +184,8 @@ export class StructureTextures {
 
     private static drawMenuBoardProp(textures: Phaser.Textures.TextureManager) {
         if (textures.exists('cafe_menu_board')) return;
-        const canvas = textures.createCanvas('cafe_menu_board', 26, 34);
+        const canvas = textures.createCanvas('cafe_menu_board', 26, 34)
+
         if (!canvas) return;
         const ctx = canvas.getContext();
 
@@ -267,7 +273,8 @@ export class StructureTextures {
 
     private static drawFenceTextures(textures: Phaser.Textures.TextureManager) {
         if (!textures.exists('fence_picket_horizontal')) {
-            const canvas = textures.createCanvas('fence_picket_horizontal', 32, 24);
+            const canvas = textures.createCanvas('fence_picket_horizontal', 32, 24)
+
             if (canvas) {
                 const ctx = canvas.getContext();
 
@@ -303,7 +310,8 @@ export class StructureTextures {
         }
 
         if (!textures.exists('fence_picket_vertical')) {
-            const canvas = textures.createCanvas('fence_picket_vertical', 24, 32);
+            const canvas = textures.createCanvas('fence_picket_vertical', 24, 32)
+
             if (canvas) {
                 const ctx = canvas.getContext();
 
@@ -335,7 +343,8 @@ export class StructureTextures {
         }
 
         if (!textures.exists('fence_gate_post')) {
-            const canvas = textures.createCanvas('fence_gate_post', 24, 40);
+            const canvas = textures.createCanvas('fence_gate_post', 24, 40)
+
             if (canvas) {
                 const ctx = canvas.getContext();
 
@@ -367,6 +376,7 @@ export class StructureTextures {
 
         if (!textures.exists('fence_gate_door')) {
             const canvas = textures.createCanvas('fence_gate_door', 32, 24);
+
             if (canvas) {
                 const ctx = canvas.getContext();
 
