@@ -52,25 +52,65 @@ export class StructureTextures {
     }
 
     public static drawStreetLampProp(textures: Phaser.Textures.TextureManager) {
-        if (textures.exists('street_lamp')) return;
-        const canvas = textures.createCanvas('street_lamp', 32, 64);
-        if (!canvas) return;
-        const ctx = canvas.getContext();
+        // 1. Street Lamp OFF (Daytime)
+        if (!textures.exists('street_lamp')) {
+            const canvas = textures.createCanvas('street_lamp', 32, 64);
+            if (canvas) {
+                const ctx = canvas.getContext();
 
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
-        ctx.fillRect(10, 58, 12, 4);
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+                ctx.fillRect(10, 58, 12, 4);
 
-        ctx.fillStyle = '#1e293b';
-        ctx.fillRect(14, 16, 4, 44);
-        ctx.fillRect(12, 54, 8, 4);
+                ctx.fillStyle = '#1e293b';
+                ctx.fillRect(14, 16, 4, 44);
+                ctx.fillRect(12, 54, 8, 4);
 
-        ctx.fillStyle = '#334155';
-        ctx.fillRect(10, 8, 12, 10);
+                ctx.fillStyle = '#334155';
+                ctx.fillRect(10, 8, 12, 10);
 
-        ctx.fillStyle = '#fef08a';
-        ctx.fillRect(12, 10, 8, 6);
+                // Unlit frosted glass bulb
+                ctx.fillStyle = '#94a3b8';
+                ctx.fillRect(12, 10, 8, 6);
 
-        canvas.refresh();
+                canvas.refresh();
+            }
+        }
+
+        // 2. Street Lamp ON (Nighttime)
+        if (!textures.exists('street_lamp_on')) {
+            const canvas = textures.createCanvas('street_lamp_on', 32, 64);
+            if (canvas) {
+                const ctx = canvas.getContext();
+
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+                ctx.fillRect(10, 58, 12, 4);
+
+                ctx.fillStyle = '#1e293b';
+                ctx.fillRect(14, 16, 4, 44);
+                ctx.fillRect(12, 54, 8, 4);
+
+                // Warm radial glow around head
+                const glowGrad = ctx.createRadialGradient(16, 13, 2, 16, 13, 18);
+                glowGrad.addColorStop(0, 'rgba(254, 240, 138, 0.9)');
+                glowGrad.addColorStop(0.5, 'rgba(245, 158, 11, 0.4)');
+                glowGrad.addColorStop(1, 'rgba(245, 158, 11, 0)');
+                ctx.fillStyle = glowGrad;
+                ctx.beginPath();
+                ctx.arc(16, 13, 18, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.fillStyle = '#334155';
+                ctx.fillRect(10, 8, 12, 10);
+
+                // Lit glowing bulb
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(12, 10, 8, 6);
+                ctx.fillStyle = '#fef08a';
+                ctx.fillRect(13, 11, 6, 4);
+
+                canvas.refresh();
+            }
+        }
     }
 
     public static drawFountainProp(textures: Phaser.Textures.TextureManager) {

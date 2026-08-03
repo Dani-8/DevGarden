@@ -211,7 +211,11 @@ export class WorldPropsManager {
   }
 
   private static spawnStreetLamp(scene: Phaser.Scene, obstaclesGroup: Phaser.Physics.Arcade.StaticGroup, x: number, y: number) {
-    const lamp = scene.add.image(x, y, 'street_lamp');
+    const hours = new Date().getHours();
+    const isNight = hours >= 17 || hours < 7;
+
+    const lampTexture = isNight ? 'street_lamp_on' : 'street_lamp';
+    const lamp = scene.add.image(x, y, lampTexture);
     lamp.setOrigin(0.5, 0.9);
     lamp.setScale(1.35);
     lamp.setDepth(y);
@@ -233,9 +237,6 @@ export class WorldPropsManager {
     };
     lampBody.updateFromGameObject();
     obstaclesGroup.add(lamp);
-
-    const hours = new Date().getHours();
-    const isNight = hours >= 17 || hours < 7;
 
     if (isNight) {
       const lightBeam = scene.add.graphics();
@@ -259,16 +260,28 @@ export class WorldPropsManager {
       aura.setDepth(y + 1);
       aura.setBlendMode(Phaser.BlendModes.ADD);
 
-      const glow = scene.add.particles(x, y - 56, 'glow_particle', {
-        scale: { start: 1.8, end: 0.8 },
-        alpha: { start: 0.7, end: 0.1 },
-        tint: 0xffa500,
-        speed: 6,
-        lifespan: 1100,
-        frequency: 180,
-        blendMode: 'ADD'
+      // Gentle warm light pulse animation
+      scene.tweens.add({
+        targets: [lightBeam, aura],
+        alpha: { from: 0.82, to: 1.0 },
+        duration: 1800 + Math.random() * 800,
+        yoyo: true,
+        repeat: -1,
+        ease: 'Sine.easeInOut'
       });
-      glow.setDepth(y + 2);
+
+      if (scene.textures.exists('glow_particle')) {
+        const glow = scene.add.particles(x, y - 56, 'glow_particle', {
+          scale: { start: 1.8, end: 0.8 },
+          alpha: { start: 0.7, end: 0.1 },
+          tint: 0xffa500,
+          speed: 6,
+          lifespan: 1100,
+          frequency: 180,
+          blendMode: 'ADD'
+        });
+        glow.setDepth(y + 2);
+      }
     }
   }
 
