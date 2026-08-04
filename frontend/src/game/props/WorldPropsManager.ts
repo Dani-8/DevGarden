@@ -242,13 +242,13 @@ export class WorldPropsManager {
       const lightBeam = scene.add.graphics();
       lightBeam.fillStyle(0xfff3a0, 0.18);
       lightBeam.fillTriangle(x, y - 52, x - 38, y + 16, x + 38, y + 16);
-      
+
       lightBeam.fillStyle(0xffe066, 0.32);
       lightBeam.fillEllipse(x, y + 12, 76, 26);
-      
+
       lightBeam.fillStyle(0xfffbeb, 0.55);
       lightBeam.fillEllipse(x, y + 12, 38, 14);
-      
+
       lightBeam.setDepth(15);
       lightBeam.setBlendMode(Phaser.BlendModes.ADD);
 
