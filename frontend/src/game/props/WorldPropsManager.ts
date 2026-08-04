@@ -303,7 +303,7 @@ export class WorldPropsManager {
   }
 
   private static spawnFencePerimeter(scene: Phaser.Scene, obstaclesGroup: Phaser.Physics.Arcade.StaticGroup) {
-    const fenceY = 660;
+    const fenceY = 665;
 
     for (let x = 0; x <= 456; x += 32) {
       const fence = scene.add.image(x + 16, fenceY, 'fence_picket_horizontal');
