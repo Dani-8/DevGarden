@@ -314,7 +314,7 @@ export class CafePropsManager {
         const pillarLeft = scene.add.image(383, 568, 'cafe_entrance_pillar');
         pillarLeft.setDisplaySize(32, 56);
         pillarLeft.setOrigin(0.5, 0.85);
-        pillarLeft.setDepth(580);
+        pillarLeft.setDepth(568);
         scene.physics.add.existing(pillarLeft, true);
         obstaclesGroup.add(pillarLeft);
 
@@ -322,7 +322,7 @@ export class CafePropsManager {
         const pillarRight = scene.add.image(513, 568, 'cafe_entrance_pillar');
         pillarRight.setDisplaySize(32, 56);
         pillarRight.setOrigin(0.5, 0.85);
-        pillarRight.setDepth(580);
+        pillarRight.setDepth(568);
         scene.physics.add.existing(pillarRight, true);
         obstaclesGroup.add(pillarRight);
 
@@ -334,13 +334,13 @@ export class CafePropsManager {
         const planterWallLeft = scene.add.image(183, 584, 'cafe_entrance_planter_wall');
         planterWallLeft.setDisplaySize(367, 32);
         planterWallLeft.setOrigin(0.5, 0.5);
-        planterWallLeft.setDepth(575);
+        planterWallLeft.setDepth(584);
 
         // Right Bottom Continuous Wall with Green Boxwood Planter (x: 528 to 1152)
         const planterWallRight = scene.add.image(840, 584, 'cafe_entrance_planter_wall');
         planterWallRight.setDisplaySize(624, 32);
         planterWallRight.setOrigin(0.5, 0.5);
-        planterWallRight.setDepth(575);
+        planterWallRight.setDepth(584);
 
         // 8. Canvas Outer Wall Colliders
         const addWallCollider = (x: number, y: number, w: number, h: number) => {
