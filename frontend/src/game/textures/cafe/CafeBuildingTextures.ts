@@ -12,17 +12,23 @@ export class CafeBuildingTextures {
         if (!canvas) return;
         const ctx = canvas.getContext();
 
-        // Drop shadow
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
-        ctx.fillRect(4, 72, 88, 6);
+        // Drop shadow at base
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
+        ctx.fillRect(4, 76, 88, 4);
+
+        // Stone foundation base at building bottom
+        ctx.fillStyle = '#334155';
+        ctx.fillRect(6, 72, 84, 8);
+        ctx.fillStyle = '#475569';
+        ctx.fillRect(6, 72, 84, 2);
 
         // Main wooden building wall
         ctx.fillStyle = '#854d0e';
-        ctx.fillRect(8, 20, 80, 56);
+        ctx.fillRect(8, 20, 80, 52);
 
         // Wood plank texture lines
         ctx.fillStyle = '#713f12';
-        for (let y = 28; y < 76; y += 12) {
+        for (let y = 28; y < 72; y += 10) {
             ctx.fillRect(8, y, 80, 1);
         }
 
@@ -47,7 +53,7 @@ export class CafeBuildingTextures {
 
         // Blue Entrance Door with Glass Window
         ctx.fillStyle = '#0284c7';
-        ctx.fillRect(40, 42, 18, 34);
+        ctx.fillRect(40, 42, 18, 33);
         ctx.fillStyle = '#fef08a'; // Warm glowing door window
         ctx.fillRect(43, 46, 12, 14);
         ctx.fillStyle = '#0284c7';
@@ -56,6 +62,12 @@ export class CafeBuildingTextures {
         // Door handle
         ctx.fillStyle = '#f59e0b';
         ctx.fillRect(42, 62, 3, 3);
+
+        // Stone door step threshold
+        ctx.fillStyle = '#cbd5e1';
+        ctx.fillRect(38, 75, 22, 4);
+        ctx.fillStyle = '#94a3b8';
+        ctx.fillRect(38, 79, 22, 1);
 
         // Large Front Display Window
         ctx.fillStyle = '#38bdf8';

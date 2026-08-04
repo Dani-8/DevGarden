@@ -83,14 +83,14 @@ export class WorldPropsManager {
     this.spawnStreetLamp(scene, obstaclesGroup, 345, 672);
     this.spawnStreetLamp(scene, obstaclesGroup, 720, 672);
 
-    const cafePatio = scene.add.image(150, 672, 'cafe_concrete_patio');
+    const cafePatio = scene.add.image(150, 673, 'cafe_concrete_patio');
     cafePatio.setOrigin(0.5, 0.5);
-    cafePatio.setDepth(656);
+    cafePatio.setDepth(640);
 
-    const codeCafe = scene.add.image(150, 654, 'code_cafe_building');
-    codeCafe.setOrigin(0.5, 0.85);
+    const codeCafe = scene.add.image(150, 668, 'code_cafe_building');
+    codeCafe.setOrigin(0.5, 0.95);
     codeCafe.setScale(1.5, 1.35);
-    codeCafe.setDepth(670);
+    codeCafe.setDepth(654);
     scene.physics.add.existing(codeCafe, true);
 
     const cafeBody = codeCafe.body as Phaser.Physics.Arcade.StaticBody;
@@ -113,10 +113,10 @@ export class WorldPropsManager {
     cafeBody.updateFromGameObject();
     obstaclesGroup.add(codeCafe);
 
-    this.spawnFlowerPot(scene, obstaclesGroup, 70, 672);
-    this.spawnFlowerPot(scene, obstaclesGroup, 83, 672);
-    this.spawnMenuBoard(scene, obstaclesGroup, 190, 667);
-    this.spawnFlowerPot(scene, obstaclesGroup, 220, 672);
+    this.spawnFlowerPot(scene, obstaclesGroup, 80, 672);
+    this.spawnFlowerPot(scene, obstaclesGroup, 90, 672);
+    this.spawnMenuBoard(scene, obstaclesGroup, 190, 670);
+    this.spawnFlowerPot(scene, obstaclesGroup, 210, 672);
 
     // Fireflies
     const fireflyEmitter = scene.add.particles(512, 384, 'firefly_particle', {
@@ -288,7 +288,7 @@ export class WorldPropsManager {
   private static spawnFlowerPot(scene: Phaser.Scene, obstaclesGroup: Phaser.Physics.Arcade.StaticGroup, x: number, y: number) {
     const pot = scene.add.image(x, y, 'flower_pot');
     pot.setOrigin(0.5, 0.85);
-    pot.setDepth(y + 15);
+    pot.setDepth(y);
     scene.physics.add.existing(pot, true);
     obstaclesGroup.add(pot);
   }
@@ -297,24 +297,24 @@ export class WorldPropsManager {
     const board = scene.add.image(x, y, 'cafe_menu_board');
     board.setOrigin(0.5, 0.85);
     board.setScale(1.15);
-    board.setDepth(y + 15);
+    board.setDepth(y);
     scene.physics.add.existing(board, true);
     obstaclesGroup.add(board);
   }
 
   private static spawnFencePerimeter(scene: Phaser.Scene, obstaclesGroup: Phaser.Physics.Arcade.StaticGroup) {
-    const fenceY = 660;
+    const fenceY = 665;
 
     for (let x = 0; x <= 456; x += 32) {
       const fence = scene.add.image(x + 16, fenceY, 'fence_picket_horizontal');
       fence.setOrigin(0.5, 0.5);
-      fence.setDepth(656);
+      fence.setDepth(650);
     }
 
     for (let x = 576; x <= 992; x += 32) {
       const fence = scene.add.image(x + 16, fenceY, 'fence_picket_horizontal');
       fence.setOrigin(0.5, 0.5);
-      fence.setDepth(656);
+      fence.setDepth(650);
     }
 
     const southLeftBarrier = scene.add.zone(225, fenceY, 450, 24);
