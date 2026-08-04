@@ -83,11 +83,11 @@ export class WorldPropsManager {
     this.spawnStreetLamp(scene, obstaclesGroup, 345, 672);
     this.spawnStreetLamp(scene, obstaclesGroup, 720, 672);
 
-    const cafePatio = scene.add.image(150, 672, 'cafe_concrete_patio');
+    const cafePatio = scene.add.image(150, 673, 'cafe_concrete_patio');
     cafePatio.setOrigin(0.5, 0.5);
     cafePatio.setDepth(640);
 
-    const codeCafe = scene.add.image(150, 666, 'code_cafe_building');
+    const codeCafe = scene.add.image(150, 668, 'code_cafe_building');
     codeCafe.setOrigin(0.5, 0.95);
     codeCafe.setScale(1.5, 1.35);
     codeCafe.setDepth(654);
@@ -113,10 +113,10 @@ export class WorldPropsManager {
     cafeBody.updateFromGameObject();
     obstaclesGroup.add(codeCafe);
 
-    this.spawnFlowerPot(scene, obstaclesGroup, 70, 672);
-    this.spawnFlowerPot(scene, obstaclesGroup, 83, 672);
-    this.spawnMenuBoard(scene, obstaclesGroup, 190, 667);
-    this.spawnFlowerPot(scene, obstaclesGroup, 220, 672);
+    this.spawnFlowerPot(scene, obstaclesGroup, 80, 672);
+    this.spawnFlowerPot(scene, obstaclesGroup, 90, 672);
+    this.spawnMenuBoard(scene, obstaclesGroup, 190, 670);
+    this.spawnFlowerPot(scene, obstaclesGroup, 210, 672);
 
     // Fireflies
     const fireflyEmitter = scene.add.particles(512, 384, 'firefly_particle', {
