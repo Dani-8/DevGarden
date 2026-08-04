@@ -85,12 +85,12 @@ export class WorldPropsManager {
 
     const cafePatio = scene.add.image(150, 672, 'cafe_concrete_patio');
     cafePatio.setOrigin(0.5, 0.5);
-    cafePatio.setDepth(656);
+    cafePatio.setDepth(640);
 
     const codeCafe = scene.add.image(150, 654, 'code_cafe_building');
     codeCafe.setOrigin(0.5, 0.85);
     codeCafe.setScale(1.5, 1.35);
-    codeCafe.setDepth(670);
+    codeCafe.setDepth(654);
     scene.physics.add.existing(codeCafe, true);
 
     const cafeBody = codeCafe.body as Phaser.Physics.Arcade.StaticBody;
@@ -242,13 +242,13 @@ export class WorldPropsManager {
       const lightBeam = scene.add.graphics();
       lightBeam.fillStyle(0xfff3a0, 0.18);
       lightBeam.fillTriangle(x, y - 52, x - 38, y + 16, x + 38, y + 16);
-
+      
       lightBeam.fillStyle(0xffe066, 0.32);
       lightBeam.fillEllipse(x, y + 12, 76, 26);
-
+      
       lightBeam.fillStyle(0xfffbeb, 0.55);
       lightBeam.fillEllipse(x, y + 12, 38, 14);
-
+      
       lightBeam.setDepth(15);
       lightBeam.setBlendMode(Phaser.BlendModes.ADD);
 
@@ -288,7 +288,7 @@ export class WorldPropsManager {
   private static spawnFlowerPot(scene: Phaser.Scene, obstaclesGroup: Phaser.Physics.Arcade.StaticGroup, x: number, y: number) {
     const pot = scene.add.image(x, y, 'flower_pot');
     pot.setOrigin(0.5, 0.85);
-    pot.setDepth(y + 15);
+    pot.setDepth(y);
     scene.physics.add.existing(pot, true);
     obstaclesGroup.add(pot);
   }
@@ -297,24 +297,24 @@ export class WorldPropsManager {
     const board = scene.add.image(x, y, 'cafe_menu_board');
     board.setOrigin(0.5, 0.85);
     board.setScale(1.15);
-    board.setDepth(y + 15);
+    board.setDepth(y);
     scene.physics.add.existing(board, true);
     obstaclesGroup.add(board);
   }
 
   private static spawnFencePerimeter(scene: Phaser.Scene, obstaclesGroup: Phaser.Physics.Arcade.StaticGroup) {
-    const fenceY = 665;
+    const fenceY = 660;
 
     for (let x = 0; x <= 456; x += 32) {
       const fence = scene.add.image(x + 16, fenceY, 'fence_picket_horizontal');
       fence.setOrigin(0.5, 0.5);
-      fence.setDepth(656);
+      fence.setDepth(650);
     }
 
     for (let x = 576; x <= 992; x += 32) {
       const fence = scene.add.image(x + 16, fenceY, 'fence_picket_horizontal');
       fence.setOrigin(0.5, 0.5);
-      fence.setDepth(656);
+      fence.setDepth(650);
     }
 
     const southLeftBarrier = scene.add.zone(225, fenceY, 450, 24);
