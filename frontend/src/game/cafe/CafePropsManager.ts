@@ -153,8 +153,8 @@ export class CafePropsManager {
         };
 
         // Counter Flanking Plant Pots
-        spawnPot(276, 110);
-        spawnPot(618, 110);
+        spawnPot(280, 110);
+        spawnPot(615, 110);
         spawnPot(100, 125); // Next to bookshelf
         spawnPot(20, 550);
 
