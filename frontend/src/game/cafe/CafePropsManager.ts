@@ -167,13 +167,13 @@ export class CafePropsManager {
         spawnLamp(395, 450); // Lamp 4
 
         // Right Side of Center Garden Planter: Alternating Lamps & Pots snug against planter (x: 502)
-        spawnLamp(502, 225); // Lamp 1
-        spawnPot(502, 260);  // Pot 1
-        spawnLamp(502, 300); // Lamp 2
-        spawnPot(502, 335);  // Pot 2
-        spawnLamp(502, 395); // Lamp 3
-        spawnPot(502, 435);  // Pot 3
-        spawnLamp(502, 475); // Lamp 4
+        spawnLamp(498, 225); // Lamp 1
+        spawnPot(498, 260);  // Pot 1
+        spawnLamp(498, 300); // Lamp 2
+        spawnPot(498, 335);  // Pot 2
+        spawnLamp(498, 395); // Lamp 3
+        spawnPot(498, 435);  // Pot 3
+        spawnLamp(498, 475); // Lamp 4
 
         // Terrace Seam Divider Plant Line (x: 896)
         spawnPot(896, 150);
