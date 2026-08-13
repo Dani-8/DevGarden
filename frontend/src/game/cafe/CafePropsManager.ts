@@ -169,8 +169,8 @@ export class CafePropsManager {
         // Right Side of Center Garden Planter: Alternating Lamps & Pots snug against planter (x: 502)
         spawnLamp(502, 225); // Lamp 1
         spawnPot(502, 260);  // Pot 1
-        spawnLamp(502, 315); // Lamp 2
-        spawnPot(502, 355);  // Pot 2
+        spawnLamp(502, 300); // Lamp 2
+        spawnPot(502, 335);  // Pot 2
         spawnLamp(502, 395); // Lamp 3
         spawnPot(502, 435);  // Pot 3
         spawnLamp(502, 475); // Lamp 4
