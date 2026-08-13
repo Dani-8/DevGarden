@@ -130,7 +130,7 @@ export class CafePropsManager {
         const centerPlanter = scene.add.image(448, 335, 'cafe_center_garden_planter');
         centerPlanter.setDisplaySize(88, 268);
         centerPlanter.setOrigin(0.5, 0.5);
-        centerPlanter.setDepth(335);
+        centerPlanter.setDepth(200);
         scene.physics.add.existing(centerPlanter, true);
         obstaclesGroup.add(centerPlanter);
 
