@@ -130,7 +130,7 @@ export class CafePropsManager {
         const centerPlanter = scene.add.image(448, 335, 'cafe_center_garden_planter');
         centerPlanter.setDisplaySize(88, 268);
         centerPlanter.setOrigin(0.5, 0.5);
-        centerPlanter.setDepth(335);
+        centerPlanter.setDepth(200);
         scene.physics.add.existing(centerPlanter, true);
         obstaclesGroup.add(centerPlanter);
 
@@ -153,27 +153,28 @@ export class CafePropsManager {
         };
 
         // Counter Flanking Plant Pots
-        spawnPot(276, 135);
-        spawnPot(618, 135);
+        spawnPot(280, 110);
+        spawnPot(615, 110);
         spawnPot(100, 125); // Next to bookshelf
+        spawnPot(20, 550);
 
         // Left Side of Center Garden Planter: Alternating Lamps & Pots snug against planter (x: 394)
-        spawnLamp(394, 235); // Lamp 1
-        spawnPot(394, 275);  // Pot 1
-        spawnLamp(394, 315); // Lamp 2
-        spawnPot(394, 355);  // Pot 2
-        spawnLamp(394, 395); // Lamp 3
-        spawnPot(394, 435);  // Pot 3
-        spawnLamp(394, 475); // Lamp 4
+        spawnLamp(398, 230); // Lamp 1
+        spawnPot(395, 265);  // Pot 1
+        spawnLamp(398, 305); // Lamp 2
+        spawnPot(395, 340);  // Pot 2
+        spawnLamp(398, 380); // Lamp 3
+        spawnPot(395, 415);  // Pot 3
+        spawnLamp(398, 455); // Lamp 4
 
         // Right Side of Center Garden Planter: Alternating Lamps & Pots snug against planter (x: 502)
-        spawnLamp(502, 235); // Lamp 1
-        spawnPot(502, 275);  // Pot 1
-        spawnLamp(502, 315); // Lamp 2
-        spawnPot(502, 355);  // Pot 2
-        spawnLamp(502, 395); // Lamp 3
-        spawnPot(502, 435);  // Pot 3
-        spawnLamp(502, 475); // Lamp 4
+        spawnLamp(494, 230); // Lamp 1
+        spawnPot(498, 265);  // Pot 1
+        spawnLamp(494, 305); // Lamp 2
+        spawnPot(498, 340);  // Pot 2
+        spawnLamp(494, 380); // Lamp 3
+        spawnPot(498, 415);  // Pot 3
+        spawnLamp(494, 455); // Lamp 4
 
         // Terrace Seam Divider Plant Line (x: 896)
         spawnPot(896, 150);
