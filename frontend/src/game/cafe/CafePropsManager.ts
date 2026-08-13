@@ -156,6 +156,7 @@ export class CafePropsManager {
         spawnPot(276, 135);
         spawnPot(618, 135);
         spawnPot(100, 125); // Next to bookshelf
+        spawnPot(20, 125);
 
         // Left Side of Center Garden Planter: Alternating Lamps & Pots snug against planter (x: 394)
         spawnLamp(398, 230); // Lamp 1
