@@ -40,7 +40,7 @@ export class CafePropsManager {
         poster.setDepth(20);
 
         // Detailed Chalkboard Wall Menu
-        const wallMenu = scene.add.image(130, 52, 'cafe_wall_menu');
+        const wallMenu = scene.add.image(190, 52, 'cafe_wall_menu');
         wallMenu.setDisplaySize(140, 70);
         wallMenu.setOrigin(0.5, 0.5);
         wallMenu.setDepth(20);
