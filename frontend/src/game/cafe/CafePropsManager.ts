@@ -171,9 +171,9 @@ export class CafePropsManager {
         spawnPot(498, 260);  // Pot 1
         spawnLamp(498, 300); // Lamp 2
         spawnPot(498, 335);  // Pot 2
-        spawnLamp(498, 395); // Lamp 3
-        spawnPot(498, 435);  // Pot 3
-        spawnLamp(498, 475); // Lamp 4
+        spawnLamp(498, 375); // Lamp 3
+        spawnPot(498, 405);  // Pot 3
+        spawnLamp(498, 450); // Lamp 4
 
         // Terrace Seam Divider Plant Line (x: 896)
         spawnPot(896, 150);
