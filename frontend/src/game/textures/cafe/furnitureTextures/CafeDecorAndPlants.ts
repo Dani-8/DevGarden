@@ -140,24 +140,29 @@ export class CafeDecorAndPlants {
             }
         }
 
-        // 2. Standalone Short Garden Lamp Post (24x48)
+        // 2. Standalone Garden Lamp Post (24x58 - Original lamp style with taller post height)
         if (!textures.exists('cafe_garden_lamp_post')) {
-            const canvas = textures.createCanvas('cafe_garden_lamp_post', 24, 48);
+            const canvas = textures.createCanvas('cafe_garden_lamp_post', 24, 58);
             if (canvas) {
                 const ctx = canvas.getContext();
+
+                // Floor Drop Shadow
                 ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
                 ctx.beginPath();
-                ctx.ellipse(12, 44, 10, 3, 0, 0, Math.PI * 2);
+                ctx.ellipse(12, 54, 10, 3, 0, 0, Math.PI * 2);
                 ctx.fill();
 
+                // Base Wooden Block & Brass Trim
                 ctx.fillStyle = '#451a03';
-                ctx.fillRect(6, 38, 12, 6);
+                ctx.fillRect(6, 48, 12, 6);
                 ctx.fillStyle = '#f59e0b';
-                ctx.fillRect(7, 36, 10, 2);
+                ctx.fillRect(7, 46, 10, 2);
 
+                // Taller Wooden Post (Extended height)
                 ctx.fillStyle = '#270e01';
-                ctx.fillRect(10, 18, 4, 18);
+                ctx.fillRect(10, 18, 4, 28);
 
+                // Radial Glow
                 const glowGrad = ctx.createRadialGradient(12, 12, 2, 12, 12, 16);
                 glowGrad.addColorStop(0, 'rgba(254, 240, 138, 0.9)');
                 glowGrad.addColorStop(0.5, 'rgba(245, 158, 11, 0.4)');
@@ -167,6 +172,7 @@ export class CafeDecorAndPlants {
                 ctx.arc(12, 12, 16, 0, Math.PI * 2);
                 ctx.fill();
 
+                // Lantern Head Top & Body (Original exact art)
                 ctx.fillStyle = '#78350f';
                 ctx.fillRect(8, 16, 8, 3);
                 ctx.fillStyle = '#f59e0b';
@@ -237,136 +243,498 @@ export class CafeDecorAndPlants {
             }
         }
 
-        // 4. Entrance Gateway Step Portal Mat (192x80)
+        // 4. Entrance Gateway Step Portal Mat (256x160 canvas, Realistic Woven Coir / Jute Floor Rug)
         if (!textures.exists('cafe_entrance_gateway')) {
-            const canvas = textures.createCanvas('cafe_entrance_gateway', 192, 80);
+            const canvas = textures.createCanvas('cafe_entrance_gateway', 256, 160);
             if (canvas) {
                 const ctx = canvas.getContext();
-                ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
-                ctx.fillRect(4, 4, 184, 72);
 
-                ctx.fillStyle = '#1e293b';
-                ctx.fillRect(0, 0, 192, 80);
+                // Soft ambient drop shadow underneath on wooden floor
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.45)';
+                ctx.beginPath();
+                ctx.roundRect(8, 12, 240, 140, 12);
+                ctx.fill();
 
-                ctx.fillStyle = '#b45309';
-                ctx.fillRect(4, 4, 184, 72);
-                ctx.fillStyle = '#fef08a';
-                ctx.fillRect(6, 6, 180, 2); ctx.fillRect(6, 6, 2, 68);
+                // Heavy Black Vulcanized Rubber Non-Slip Mat Base & Outer Border
+                ctx.fillStyle = '#1c1917';
+                ctx.beginPath();
+                ctx.roundRect(6, 8, 244, 144, 10);
+                ctx.fill();
 
-                ctx.fillStyle = '#1e3a8a';
-                ctx.fillRect(12, 10, 168, 60);
+                // Rubber Edge Highlight & Texture Grooves
+                ctx.fillStyle = '#292524';
+                ctx.beginPath();
+                ctx.roundRect(8, 10, 240, 140, 8);
+                ctx.fill();
 
-                ctx.fillStyle = '#2563eb';
-                ctx.fillRect(16, 14, 160, 52);
+                ctx.strokeStyle = '#44403c';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.roundRect(10, 12, 236, 136, 6);
+                ctx.stroke();
 
-                ctx.fillStyle = '#fef08a';
-                ctx.fillRect(20, 18, 152, 2);
-                ctx.fillRect(20, 60, 152, 2);
-                ctx.fillRect(20, 18, 2, 44);
-                ctx.fillRect(170, 18, 2, 44);
+                // Heavy Braided Coir Fiber Main Bed (Rich Natural Coconut Coir / Jute)
+                ctx.fillStyle = '#92613b';
+                ctx.fillRect(16, 18, 224, 124);
 
-                ctx.fillStyle = '#fef08a';
-                ctx.font = 'bold 14px "Segoe UI", sans-serif';
+                // Dense woven ribbing / texture across coir bristles
+                for (let y = 18; y < 142; y += 3) {
+                    ctx.fillStyle = (Math.floor(y / 3) % 2 === 0) ? '#a57348' : '#7f502c';
+                    ctx.fillRect(16, y, 224, 2);
+                }
+
+                // Micro speckling / woven cross-hatch fiber details
+                for (let x = 18; x < 238; x += 4) {
+                    for (let y = 19; y < 140; y += 6) {
+                        const rand = ((x * 17 + y * 31) % 100) / 100;
+                        if (rand > 0.6) {
+                            ctx.fillStyle = 'rgba(254, 243, 199, 0.12)';
+                            ctx.fillRect(x, y, 2, 2);
+                        } else if (rand < 0.3) {
+                            ctx.fillStyle = 'rgba(41, 23, 10, 0.28)';
+                            ctx.fillRect(x, y, 2, 2);
+                        }
+                    }
+                }
+
+                // Inner Stenciled Border Box (Matte Carbon Black Ink)
+                ctx.strokeStyle = 'rgba(28, 25, 23, 0.85)';
+                ctx.lineWidth = 4;
+                ctx.strokeRect(26, 26, 204, 108);
+
+                ctx.strokeStyle = 'rgba(68, 64, 60, 0.4)';
+                ctx.lineWidth = 1;
+                ctx.strokeRect(24, 24, 208, 112);
+
+                // Corner decorative stencil accents
+                ctx.fillStyle = 'rgba(28, 25, 23, 0.85)';
+                ctx.fillRect(28, 28, 8, 8);
+                ctx.fillRect(220, 28, 8, 8);
+                ctx.fillRect(28, 124, 8, 8);
+                ctx.fillRect(220, 124, 8, 8);
+
+                // Stenciled Typography (Slightly weathered matte ink pressed into coir fibers)
+                ctx.fillStyle = '#1c1917';
+                ctx.font = '900 17px "Trebuchet MS", "Arial Black", sans-serif';
                 ctx.textAlign = 'center';
-                ctx.fillText('WELCOME TO', 96, 36);
-                ctx.fillText('CODE CAFE', 96, 54);
+                ctx.textBaseline = 'middle';
+                ctx.fillText('WELCOME TO', 128, 60);
+
+                ctx.font = '900 22px "Trebuchet MS", "Arial Black", sans-serif';
+                ctx.fillText('CODE CAFE', 128, 96);
+
+                // Subtle fiber bleed over text to integrate with rug surface
+                for (let y = 48; y < 112; y += 4) {
+                    ctx.fillStyle = 'rgba(165, 115, 72, 0.15)';
+                    ctx.fillRect(36, y, 184, 1);
+                }
 
                 canvas.refresh();
             }
         }
 
-        // 5. Entrance Pillar Post (64x112)
+        // 5. Entrance Dark Stone Pillar with Glowing Lantern (64x120 canvas)
         if (!textures.exists('cafe_entrance_pillar')) {
-            const canvas = textures.createCanvas('cafe_entrance_pillar', 64, 112);
+            const canvas = textures.createCanvas('cafe_entrance_pillar', 64, 120);
             if (canvas) {
                 const ctx = canvas.getContext();
+
+                // Drop shadow
                 ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
-                ctx.fillRect(4, 100, 56, 12);
+                ctx.fillRect(6, 106, 52, 12);
 
-                ctx.fillStyle = '#78350f';
-                ctx.fillRect(8, 88, 48, 20);
+                // --- Stone Pillar Structure ---
+                // Stepped Plinth Base (Bottom stone footing)
+                ctx.fillStyle = '#0f172a';
+                ctx.fillRect(8, 96, 48, 18);
+                ctx.fillStyle = '#334155';
+                ctx.fillRect(10, 94, 44, 12);
+                ctx.fillStyle = '#475569';
+                ctx.fillRect(10, 94, 44, 2);
+                ctx.fillStyle = '#1e293b';
+                ctx.fillRect(10, 104, 44, 2);
+
+                // Main Stone Shaft Body
+                ctx.fillStyle = '#1e293b';
+                ctx.fillRect(12, 42, 40, 54);
+
+                // Stone Vertical Inset Panel Details
+                ctx.fillStyle = '#0f172a';
+                ctx.fillRect(16, 46, 32, 46);
+                ctx.fillStyle = '#334155';
+                ctx.fillRect(18, 48, 28, 42);
+
+                // Stone Fluted Grooves
+                ctx.fillStyle = '#1e293b';
+                ctx.fillRect(23, 50, 4, 38);
+                ctx.fillRect(30, 50, 4, 38);
+                ctx.fillRect(37, 50, 4, 38);
+
+                ctx.fillStyle = '#64748b';
+                ctx.fillRect(18, 48, 28, 1);
+                ctx.fillRect(18, 48, 1, 42);
+
+                // Capital Top Stone Molding
+                ctx.fillStyle = '#0f172a';
+                ctx.fillRect(8, 36, 48, 8);
+                ctx.fillStyle = '#334155';
+                ctx.fillRect(6, 30, 52, 8);
+                ctx.fillStyle = '#64748b';
+                ctx.fillRect(6, 30, 52, 2);
+                ctx.fillStyle = '#1e293b';
+                ctx.fillRect(6, 37, 52, 2);
+
+                // --- Top Lantern ---
+                // Lantern Light Glow Aura
+                const glow = ctx.createRadialGradient(32, 16, 2, 32, 16, 24);
+                glow.addColorStop(0, 'rgba(254, 240, 138, 0.85)');
+                glow.addColorStop(0.4, 'rgba(245, 158, 11, 0.45)');
+                glow.addColorStop(1, 'rgba(245, 158, 11, 0)');
+                ctx.fillStyle = glow;
+                ctx.fillRect(8, 0, 48, 34);
+
+                // Lantern Dark Iron Base Stand
+                ctx.fillStyle = '#0f172a';
+                ctx.fillRect(22, 26, 20, 5);
+                ctx.fillStyle = '#475569';
+                ctx.fillRect(24, 26, 16, 2);
+
+                // Lantern Glass & Glowing Core
                 ctx.fillStyle = '#b45309';
-                ctx.fillRect(8, 88, 48, 4);
+                ctx.fillRect(18, 8, 28, 19);
+                ctx.fillStyle = '#f59e0b';
+                ctx.fillRect(20, 10, 24, 15);
                 ctx.fillStyle = '#fef08a';
-                ctx.fillRect(8, 88, 48, 2);
-
-                ctx.fillStyle = '#270e01';
-                ctx.fillRect(12, 28, 40, 60);
-
-                ctx.fillStyle = '#451a03';
-                ctx.fillRect(18, 30, 6, 56);
-                ctx.fillRect(29, 30, 6, 56);
-                ctx.fillRect(40, 30, 6, 56);
-
-                ctx.fillStyle = '#78350f';
-                ctx.fillRect(14, 28, 2, 60);
-
-                ctx.fillStyle = '#b45309';
-                ctx.fillRect(8, 20, 48, 8);
-                ctx.fillStyle = '#fef08a';
-                ctx.fillRect(8, 20, 48, 2);
-
-                ctx.fillStyle = 'rgba(254, 240, 138, 0.35)';
-                ctx.fillRect(0, 0, 64, 30);
-
-                ctx.fillStyle = '#1c0a02';
-                ctx.fillRect(16, 2, 32, 20);
-                ctx.fillStyle = '#d97706';
-                ctx.fillRect(18, 4, 28, 16);
-
-                ctx.fillStyle = '#fef08a';
-                ctx.fillRect(20, 6, 24, 12);
+                ctx.fillRect(23, 12, 18, 11);
                 ctx.fillStyle = '#ffffff';
-                ctx.fillRect(28, 8, 8, 8);
+                ctx.fillRect(28, 14, 8, 7);
 
-                ctx.fillStyle = '#b45309';
-                ctx.fillRect(24, 0, 16, 3);
+                // Dark Iron Cage Struts & Framing
+                ctx.fillStyle = '#0f172a';
+                ctx.fillRect(18, 8, 2, 19);
+                ctx.fillRect(44, 8, 2, 19);
+                ctx.fillRect(31, 8, 2, 19);
+
+                // Lantern Roof Cap & Ring
+                ctx.fillStyle = '#1e293b';
+                ctx.fillRect(16, 5, 32, 4);
+                ctx.fillStyle = '#475569';
+                ctx.fillRect(18, 5, 28, 2);
+                ctx.fillStyle = '#0f172a';
+                ctx.fillRect(22, 2, 20, 4);
+                ctx.fillStyle = '#f59e0b';
+                ctx.fillRect(28, 0, 8, 3);
 
                 canvas.refresh();
             }
         }
 
-        // 6. Planter Wall (768x64)
+        // 5b. Regular Wall Stone Pillar / Pier without Lantern (64x80 canvas)
+        if (!textures.exists('cafe_wall_pillar')) {
+            const canvas = textures.createCanvas('cafe_wall_pillar', 64, 80);
+            if (canvas) {
+                const ctx = canvas.getContext();
+
+                // Drop shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
+                ctx.fillRect(6, 68, 52, 10);
+
+                // Stepped Plinth Base
+                ctx.fillStyle = '#0f172a';
+                ctx.fillRect(8, 62, 48, 14);
+                ctx.fillStyle = '#334155';
+                ctx.fillRect(10, 60, 44, 10);
+                ctx.fillStyle = '#475569';
+                ctx.fillRect(10, 60, 44, 2);
+
+                // Main Stone Shaft Body
+                ctx.fillStyle = '#1e293b';
+                ctx.fillRect(12, 18, 40, 44);
+
+                // Stone Inset Panel
+                ctx.fillStyle = '#0f172a';
+                ctx.fillRect(16, 22, 32, 36);
+                ctx.fillStyle = '#334155';
+                ctx.fillRect(18, 24, 28, 32);
+
+                // Fluted Grooves
+                ctx.fillStyle = '#1e293b';
+                ctx.fillRect(24, 26, 4, 28);
+                ctx.fillRect(31, 26, 4, 28);
+                ctx.fillRect(38, 26, 4, 28);
+
+                ctx.fillStyle = '#64748b';
+                ctx.fillRect(18, 24, 28, 1);
+                ctx.fillRect(18, 24, 1, 32);
+
+                // Flat Stone Cap (Matching wall coping height with subtle pyramid stone cap)
+                ctx.fillStyle = '#0f172a';
+                ctx.fillRect(6, 10, 52, 10);
+                ctx.fillStyle = '#334155';
+                ctx.fillRect(6, 6, 52, 8);
+                ctx.fillStyle = '#64748b';
+                ctx.fillRect(6, 6, 52, 2);
+                ctx.fillStyle = '#1e293b';
+                ctx.fillRect(6, 14, 52, 2);
+
+                // Subtle top pyramid stone block
+                ctx.fillStyle = '#475569';
+                ctx.fillRect(20, 2, 24, 5);
+                ctx.fillStyle = '#94a3b8';
+                ctx.fillRect(24, 3, 16, 3);
+                ctx.fillStyle = '#f8fafc';
+                ctx.fillRect(28, 3, 8, 2);
+
+                canvas.refresh();
+            }
+        }
+
+        // 6b. Entrance Flanking Thin Wooden Boundary / Railings (Left and Right - Full Edge Width, Mat Height)
+        if (!textures.exists('cafe_entrance_railing_left')) {
+            const canvas = textures.createCanvas('cafe_entrance_railing_left', 390, 120);
+            if (canvas) {
+                const ctx = canvas.getContext();
+
+                // Drop shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+                // Vertical rail shadow
+                ctx.fillRect(380, 8, 4, 106);
+                // Horizontal rail shadow
+                ctx.fillRect(0, 114, 380, 4);
+
+                // --- Horizontal Wooden Rail (Bottom ground edge to screen wall) ---
+                // Dark border
+                ctx.fillStyle = '#271202';
+                ctx.fillRect(0, 104, 382, 12);
+                // Main wood fill
+                ctx.fillStyle = '#854d0e';
+                ctx.fillRect(0, 105, 382, 10);
+                // Wood grain gradient / highlights
+                ctx.fillStyle = '#b45309';
+                ctx.fillRect(0, 106, 382, 5);
+                ctx.fillStyle = '#d97706';
+                ctx.fillRect(0, 105, 382, 2);
+                ctx.fillStyle = '#f59e0b';
+                ctx.fillRect(0, 105, 382, 1);
+                // Dark bottom edge
+                ctx.fillStyle = '#451a03';
+                ctx.fillRect(0, 113, 382, 2);
+
+                // --- Vertical Wooden Rail (Right side, starting at Mat height down to ground) ---
+                // Dark border
+                ctx.fillStyle = '#271202';
+                ctx.fillRect(370, 4, 12, 110);
+                // Main wood fill
+                ctx.fillStyle = '#854d0e';
+                ctx.fillRect(371, 5, 10, 108);
+                // Highlight on left edge of vertical rail
+                ctx.fillStyle = '#b45309';
+                ctx.fillRect(372, 5, 5, 108);
+                ctx.fillStyle = '#d97706';
+                ctx.fillRect(371, 5, 2, 108);
+                ctx.fillStyle = '#f59e0b';
+                ctx.fillRect(371, 6, 1, 106);
+                // Dark shadow on right edge of vertical rail
+                ctx.fillStyle = '#451a03';
+                ctx.fillRect(379, 5, 2, 108);
+
+                // Top rounded/beveled cap on vertical rail (at mat level)
+                ctx.fillStyle = '#271202';
+                ctx.fillRect(369, 2, 14, 4);
+                ctx.fillStyle = '#d97706';
+                ctx.fillRect(370, 2, 12, 2);
+                ctx.fillStyle = '#fef08a';
+                ctx.fillRect(371, 2, 10, 1);
+
+                // --- Corner Planter Pot at junction ---
+                // Base shadow
+                ctx.fillStyle = '#1c1917';
+                ctx.fillRect(364, 96, 22, 22);
+                // Outer pot border
+                ctx.fillStyle = '#451a03';
+                ctx.fillRect(365, 97, 20, 20);
+                // Pot wood fill
+                ctx.fillStyle = '#92400e';
+                ctx.fillRect(366, 98, 18, 18);
+                ctx.fillStyle = '#b45309';
+                ctx.fillRect(366, 98, 18, 5);
+                ctx.fillStyle = '#d97706';
+                ctx.fillRect(366, 98, 18, 2);
+                // Soil
+                ctx.fillStyle = '#271202';
+                ctx.fillRect(368, 99, 14, 6);
+
+                // Succulent Plant Sprout
+                ctx.fillStyle = '#14532d';
+                ctx.fillRect(370, 94, 10, 7);
+                ctx.fillStyle = '#16a34a';
+                ctx.fillRect(368, 90, 6, 8);
+                ctx.fillRect(374, 91, 6, 7);
+                ctx.fillStyle = '#4ade80';
+                ctx.fillRect(371, 87, 5, 7);
+                ctx.fillStyle = '#86efac';
+                ctx.fillRect(372, 88, 2, 3);
+
+                canvas.refresh();
+            }
+        }
+
+        if (!textures.exists('cafe_entrance_railing_right')) {
+            const canvas = textures.createCanvas('cafe_entrance_railing_right', 650, 120);
+            if (canvas) {
+                const ctx = canvas.getContext();
+
+                // Drop shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+                // Vertical rail shadow
+                ctx.fillRect(16, 8, 4, 106);
+                // Horizontal rail shadow
+                ctx.fillRect(0, 114, 650, 4);
+
+                // --- Horizontal Wooden Rail (Bottom ground edge all the way to right screen wall) ---
+                // Dark border
+                ctx.fillStyle = '#271202';
+                ctx.fillRect(0, 104, 650, 12);
+                // Main wood fill
+                ctx.fillStyle = '#854d0e';
+                ctx.fillRect(0, 105, 650, 10);
+                // Wood grain gradient / highlights
+                ctx.fillStyle = '#b45309';
+                ctx.fillRect(0, 106, 650, 5);
+                ctx.fillStyle = '#d97706';
+                ctx.fillRect(0, 105, 650, 2);
+                ctx.fillStyle = '#f59e0b';
+                ctx.fillRect(0, 105, 650, 1);
+                // Dark bottom edge
+                ctx.fillStyle = '#451a03';
+                ctx.fillRect(0, 113, 650, 2);
+
+                // --- Vertical Wooden Rail (Left side, starting at Mat height down to ground) ---
+                // Dark border
+                ctx.fillStyle = '#271202';
+                ctx.fillRect(6, 4, 12, 110);
+                // Main wood fill
+                ctx.fillStyle = '#854d0e';
+                ctx.fillRect(7, 5, 10, 108);
+                // Highlight on left edge of vertical rail
+                ctx.fillStyle = '#b45309';
+                ctx.fillRect(8, 5, 5, 108);
+                ctx.fillStyle = '#d97706';
+                ctx.fillRect(7, 5, 2, 108);
+                ctx.fillStyle = '#f59e0b';
+                ctx.fillRect(7, 6, 1, 106);
+                // Dark shadow on right edge of vertical rail
+                ctx.fillStyle = '#451a03';
+                ctx.fillRect(15, 5, 2, 108);
+
+                // Top rounded/beveled cap on vertical rail (at mat level)
+                ctx.fillStyle = '#271202';
+                ctx.fillRect(5, 2, 14, 4);
+                ctx.fillStyle = '#d97706';
+                ctx.fillRect(6, 2, 12, 2);
+                ctx.fillStyle = '#fef08a';
+                ctx.fillRect(7, 2, 10, 1);
+
+                // --- Corner Planter Pot at junction ---
+                // Base shadow
+                ctx.fillStyle = '#1c1917';
+                ctx.fillRect(2, 96, 22, 22);
+                // Outer pot border
+                ctx.fillStyle = '#451a03';
+                ctx.fillRect(3, 97, 20, 20);
+                // Pot wood fill
+                ctx.fillStyle = '#92400e';
+                ctx.fillRect(4, 98, 18, 18);
+                ctx.fillStyle = '#b45309';
+                ctx.fillRect(4, 98, 18, 5);
+                ctx.fillStyle = '#d97706';
+                ctx.fillRect(4, 98, 18, 2);
+                // Soil
+                ctx.fillStyle = '#271202';
+                ctx.fillRect(6, 99, 14, 6);
+
+                // Succulent Plant Sprout
+                ctx.fillStyle = '#14532d';
+                ctx.fillRect(8, 94, 10, 7);
+                ctx.fillStyle = '#16a34a';
+                ctx.fillRect(6, 90, 6, 8);
+                ctx.fillRect(12, 91, 6, 7);
+                ctx.fillStyle = '#4ade80';
+                ctx.fillRect(9, 87, 5, 7);
+                ctx.fillStyle = '#86efac';
+                ctx.fillRect(10, 88, 2, 3);
+
+                canvas.refresh();
+            }
+        }
         if (!textures.exists('cafe_entrance_planter_wall')) {
             const canvas = textures.createCanvas('cafe_entrance_planter_wall', 768, 64);
             if (canvas) {
                 const ctx = canvas.getContext();
-                ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
-                ctx.fillRect(0, 52, 768, 12);
 
-                ctx.fillStyle = '#270e01';
-                ctx.fillRect(0, 20, 768, 40);
+                // Drop shadow underneath
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
+                ctx.fillRect(0, 56, 768, 8);
 
-                for (let x = 8; x < 768; x += 64) {
-                    ctx.fillStyle = '#451a03';
-                    ctx.fillRect(x, 24, 52, 32);
-                    ctx.fillStyle = '#78350f';
-                    ctx.fillRect(x + 2, 26, 48, 2);
-                    ctx.fillRect(x + 2, 26, 2, 28);
+                // 1. Top Dark Stone Coping/Cap Ledge (Height: 14px)
+                ctx.fillStyle = '#0f172a';
+                ctx.fillRect(0, 2, 768, 14);
+                ctx.fillStyle = '#334155';
+                ctx.fillRect(0, 0, 768, 12);
+                ctx.fillStyle = '#64748b'; // Top edge highlight
+                ctx.fillRect(0, 0, 768, 2);
+                ctx.fillStyle = '#1e293b'; // Coping undercut shadow
+                ctx.fillRect(0, 11, 768, 3);
+
+                // Coping Segment Dividers (stone blocks every 48px)
+                for (let x = 48; x < 768; x += 48) {
+                    ctx.fillStyle = '#0f172a';
+                    ctx.fillRect(x, 0, 2, 13);
+                    ctx.fillStyle = '#64748b';
+                    ctx.fillRect(x + 2, 0, 1, 12);
                 }
 
-                ctx.fillStyle = '#b45309';
-                ctx.fillRect(0, 20, 768, 4);
-                ctx.fillStyle = '#fef08a';
-                ctx.fillRect(0, 20, 768, 1);
+                // 2. Brick Wall Mortar Base Field (Height: 44px)
+                ctx.fillStyle = '#291307';
+                ctx.fillRect(0, 14, 768, 44);
 
-                ctx.fillStyle = '#14532d';
-                ctx.fillRect(0, 0, 768, 22);
+                // 3. Staggered Red/Terracotta Bricks
+                const brickColors = ['#9a3412', '#7c2d12', '#c2410c', '#854d0e', '#9a3412'];
+                const brickH = 7;
+                const brickW = 24;
 
-                for (let x = 4; x < 768; x += 12) {
-                    ctx.fillStyle = '#16a34a';
-                    ctx.fillRect(x, (x % 3) * 2, 10, 16);
-                    ctx.fillStyle = '#4ade80';
-                    ctx.fillRect(x + 2, (x % 3) * 2 + 2, 4, 4);
+                let row = 0;
+                for (let y = 15; y <= 50; y += brickH + 1) {
+                    const xOffset = (row % 2 === 1) ? 12 : 0;
+                    row++;
 
-                    if (x % 36 === 0) {
-                        ctx.fillStyle = '#ef4444';
-                        ctx.fillRect(x + 4, 4, 4, 4);
-                    } else if (x % 48 === 0) {
-                        ctx.fillStyle = '#fef08a';
-                        ctx.fillRect(x + 4, 6, 4, 4);
+                    for (let x = -12 + xOffset; x < 768; x += brickW + 1) {
+                        const colorIdx = Math.abs(Math.floor((x + y * 7) / 19)) % brickColors.length;
+                        const mainColor = brickColors[colorIdx];
+
+                        const drawX = Math.max(0, x);
+                        const drawW = Math.min(brickW, 768 - drawX);
+                        if (drawW <= 0) continue;
+
+                        ctx.fillStyle = mainColor;
+                        ctx.fillRect(drawX, y, drawW, brickH);
+
+                        // Brick top highlight
+                        ctx.fillStyle = 'rgba(255, 255, 255, 0.18)';
+                        ctx.fillRect(drawX, y, drawW, 1);
+                        // Brick bottom shadow
+                        ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+                        ctx.fillRect(drawX, y + brickH - 1, drawW, 1);
                     }
                 }
+
+                // 4. Bottom Stone Foundation Footing Plinth
+                ctx.fillStyle = '#0f172a';
+                ctx.fillRect(0, 58, 768, 6);
+                ctx.fillStyle = '#1e293b';
+                ctx.fillRect(0, 56, 768, 4);
+                ctx.fillStyle = '#334155';
+                ctx.fillRect(0, 56, 768, 1);
 
                 canvas.refresh();
             }
