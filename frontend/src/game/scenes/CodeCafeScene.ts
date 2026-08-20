@@ -133,7 +133,7 @@ export default class CodeCafeScene extends Phaser.Scene {
   }
 
   create() {
-    this.physics.world.setBounds(0, 0, 1152, 600);
+    this.physics.world.setBounds(0, 0, 1152, 736);
 
     // 1. Draw Interior Tilemap
     CafeTilemap.draw(this);
