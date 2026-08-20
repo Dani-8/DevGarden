@@ -126,9 +126,9 @@ export class CafePropsManager {
         ivyVine2.setOrigin(0.5, 0.5);
         ivyVine2.setDepth(25);
 
-        // 5. Centerpiece Grand Garden Planter Island (Centered at x=448, y=335)
-        const centerPlanter = scene.add.image(448, 335, 'cafe_center_garden_planter');
-        centerPlanter.setDisplaySize(88, 268);
+        // 5. Centerpiece Grand Garden Planter Island (Centered at x=448, y=370)
+        const centerPlanter = scene.add.image(448, 370, 'cafe_center_garden_planter');
+        centerPlanter.setDisplaySize(88, 320);
         centerPlanter.setOrigin(0.5, 0.5);
         centerPlanter.setDepth(200);
         scene.physics.add.existing(centerPlanter, true);
@@ -146,9 +146,12 @@ export class CafePropsManager {
         // Helper: Spawn Standalone Garden Lamp Posts
         const spawnLamp = (x: number, y: number) => {
             const lamp = scene.add.image(x, y, 'cafe_garden_lamp_post');
-            lamp.setOrigin(0.5, 0.85);
+            lamp.setOrigin(0.5, 0.92);
             lamp.setDepth(y);
             scene.physics.add.existing(lamp, true);
+            const lBody = lamp.body as Phaser.Physics.Arcade.StaticBody;
+            lBody.setSize(12, 10);
+            lBody.setOffset(6, 44);
             obstaclesGroup.add(lamp);
         };
 
@@ -156,31 +159,31 @@ export class CafePropsManager {
         spawnPot(280, 110);
         spawnPot(615, 110);
         spawnPot(100, 125); // Next to bookshelf
-        spawnPot(20, 550);
+        spawnPot(20, 600);
 
-        // Left Side of Center Garden Planter: Alternating Lamps & Pots snug against planter (x: 394)
+        // Left Side of Center Garden Planter: Alternating Lamps & Pots snug against planter
         spawnLamp(398, 230); // Lamp 1
-        spawnPot(395, 265);  // Pot 1
-        spawnLamp(398, 305); // Lamp 2
-        spawnPot(395, 340);  // Pot 2
-        spawnLamp(398, 380); // Lamp 3
-        spawnPot(395, 415);  // Pot 3
-        spawnLamp(398, 455); // Lamp 4
+        spawnPot(395, 275);  // Pot 1
+        spawnLamp(398, 320); // Lamp 2
+        spawnPot(395, 365);  // Pot 2
+        spawnLamp(398, 410); // Lamp 3
+        spawnPot(395, 455);  // Pot 3
+        spawnLamp(398, 500); // Lamp 4
 
-        // Right Side of Center Garden Planter: Alternating Lamps & Pots snug against planter (x: 502)
+        // Right Side of Center Garden Planter: Alternating Lamps & Pots snug against planter
         spawnLamp(494, 230); // Lamp 1
-        spawnPot(498, 265);  // Pot 1
-        spawnLamp(494, 305); // Lamp 2
-        spawnPot(498, 340);  // Pot 2
-        spawnLamp(494, 380); // Lamp 3
-        spawnPot(498, 415);  // Pot 3
-        spawnLamp(494, 455); // Lamp 4
+        spawnPot(498, 275);  // Pot 1
+        spawnLamp(494, 320); // Lamp 2
+        spawnPot(498, 365);  // Pot 2
+        spawnLamp(494, 410); // Lamp 3
+        spawnPot(498, 455);  // Pot 3
+        spawnLamp(494, 500); // Lamp 4
 
         // Terrace Seam Divider Plant Line (x: 896)
         spawnPot(896, 150);
-        spawnPot(896, 270);
-        spawnPot(896, 410);
-        spawnPot(896, 530);
+        spawnPot(896, 290);
+        spawnPot(896, 430);
+        spawnPot(896, 570);
 
         // 6. Round Dining Table Sets with 4 Red Cushion Armchairs each
         const createTable4Chairs = (x: number, y: number, textureKey: string = 'cafe_interior_table') => {
@@ -239,14 +242,14 @@ export class CafePropsManager {
         };
 
         // Left Seating Column (Wood Floor)
-        createTable4Chairs(230, 240, 'cafe_interior_table_laptop');
-        createTable4Chairs(230, 335, 'cafe_interior_table_coffee');
-        createTable4Chairs(230, 430, 'cafe_interior_table_plant');
+        createTable4Chairs(230, 230, 'cafe_interior_table_laptop');
+        createTable4Chairs(230, 370, 'cafe_interior_table_coffee');
+        createTable4Chairs(230, 510, 'cafe_interior_table_plant');
 
         // Right Seating Column (Wood Floor)
-        createTable4Chairs(666, 240, 'cafe_interior_table_coffee');
-        createTable4Chairs(666, 335, 'cafe_interior_table_plant');
-        createTable4Chairs(666, 430, 'cafe_interior_table_laptop');
+        createTable4Chairs(666, 230, 'cafe_interior_table_coffee');
+        createTable4Chairs(666, 370, 'cafe_interior_table_plant');
+        createTable4Chairs(666, 510, 'cafe_interior_table_laptop');
 
         // Far Left Wall Leather Lounge Booth Sofas
         const createSofaSet = (y: number) => {
@@ -266,7 +269,7 @@ export class CafePropsManager {
         };
 
         createSofaSet(270);
-        createSofaSet(390);
+        createSofaSet(450);
 
         // Terrace Outdoor Patio Sets (2 Chairs: Left & Right)
         const createPatioSet2Chairs = (x: number, y: number) => {
@@ -300,50 +303,179 @@ export class CafePropsManager {
             chairs.push({ x: x + 26, y: y - 3, sprite: chairR, dir: 'right' });
         };
 
-        createPatioSet2Chairs(1024, 240);
-        createPatioSet2Chairs(1024, 335);
-        createPatioSet2Chairs(1024, 430);
+        createPatioSet2Chairs(1024, 230);
+        createPatioSet2Chairs(1024, 370);
+        createPatioSet2Chairs(1024, 510);
 
         // 7. Grand Entrance Area & Gateway (Centered at x=448)
-        // Welcome Entrance Step Portal Mat at (448, 580)
-        const exitMat = scene.add.image(448, 580, 'cafe_entrance_gateway');
-        exitMat.setDisplaySize(100, 40);
+        // Welcome Entrance Step Portal Mat at (448, 664) - Exit interaction point (Realistic Woven Coir Rug)
+        const exitMat = scene.add.image(448, 664, 'cafe_entrance_gateway');
+        exitMat.setDisplaySize(118, 68);
         exitMat.setOrigin(0.5, 0.5);
         exitMat.setDepth(10);
 
-        // Left Entrance Pillar Post with Lantern
-        const pillarLeft = scene.add.image(383, 568, 'cafe_entrance_pillar');
-        pillarLeft.setDisplaySize(32, 56);
-        pillarLeft.setOrigin(0.5, 0.85);
-        pillarLeft.setDepth(568);
-        scene.physics.add.existing(pillarLeft, true);
-        obstaclesGroup.add(pillarLeft);
+        // Thin Wooden Boundaries (Flanking the entrance mat symmetrically, reaching left & right edges, top at mat height)
+        const railingLeft = scene.add.image(380, 736, 'cafe_entrance_railing_left');
+        railingLeft.setDisplaySize(380, 110);
+        railingLeft.setOrigin(1.0, 1.0);
+        railingLeft.setDepth(695);
 
-        // Right Entrance Pillar Post with Lantern
-        const pillarRight = scene.add.image(513, 568, 'cafe_entrance_pillar');
-        pillarRight.setDisplaySize(32, 56);
-        pillarRight.setOrigin(0.5, 0.85);
-        pillarRight.setDepth(568);
-        scene.physics.add.existing(pillarRight, true);
-        obstaclesGroup.add(pillarRight);
+        const railingRight = scene.add.image(516, 736, 'cafe_entrance_railing_right');
+        railingRight.setDisplaySize(636, 110);
+        railingRight.setOrigin(0.0, 1.0);
+        railingRight.setDepth(695);
 
-        // Potted plants beside entrance pillars
-        spawnPot(343, 572);
-        spawnPot(553, 572);
+        // Colliders for Thin Wooden Boundaries
+        const addObstacleZone = (x: number, y: number, w: number, h: number) => {
+            const zone = scene.add.zone(x, y, w, h);
+            scene.physics.add.existing(zone, true);
+            obstaclesGroup.add(zone);
+        };
 
-        // Left Bottom Continuous Wall with Green Boxwood Planter (x: 0 to 367)
-        const planterWallLeft = scene.add.image(183, 584, 'cafe_entrance_planter_wall');
-        planterWallLeft.setDisplaySize(367, 32);
-        planterWallLeft.setOrigin(0.5, 0.5);
-        planterWallLeft.setDepth(584);
+        // Left Boundary Colliders (Vertical rail starting at mat height & horizontal rail across left screen)
+        addObstacleZone(374, 680, 12, 108);
+        addObstacleZone(190, 730, 380, 12);
 
-        // Right Bottom Continuous Wall with Green Boxwood Planter (x: 528 to 1152)
-        const planterWallRight = scene.add.image(840, 584, 'cafe_entrance_planter_wall');
-        planterWallRight.setDisplaySize(624, 32);
-        planterWallRight.setOrigin(0.5, 0.5);
-        planterWallRight.setDepth(584);
+        // Right Boundary Colliders (Vertical rail starting at mat height & horizontal rail across right screen)
+        addObstacleZone(522, 680, 12, 108);
+        addObstacleZone(834, 730, 636, 12);
 
-        // 8. Canvas Outer Wall Colliders
+        // --- Left Entrance Zone: Big L-Shaped High Table, 7 Stools & Lush Corner Palm (From Reference Photo) ---
+        // Big L-Shaped High Wooden Table Counter (Snapped flush against left wall & bottom rail)
+        const bigLTable = scene.add.image(0, 724, 'cafe_big_l_table');
+        bigLTable.setDisplaySize(172, 108);
+        bigLTable.setOrigin(0.0, 1.0);
+        bigLTable.setDepth(665);
+        scene.physics.add.existing(bigLTable, true);
+        const bltBody = bigLTable.body as Phaser.Physics.Arcade.StaticBody;
+        bltBody.setSize(166, 102);
+        bltBody.setOffset(3, 3);
+        obstaclesGroup.add(bigLTable);
+
+        // Helper: Spawn High Bar Stool with interactive seat
+        const spawnHighStool = (x: number, y: number, dir: 'left' | 'right' | 'up' | 'down') => {
+            const stool = scene.add.image(x, y, 'cafe_high_stool');
+            stool.setOrigin(0.5, 0.85);
+            stool.setDepth(y + 2);
+            scene.physics.add.existing(stool, true);
+            const sBody = stool.body as Phaser.Physics.Arcade.StaticBody;
+            sBody.setSize(16, 16);
+            sBody.setOffset(2, 12);
+            obstaclesGroup.add(stool);
+
+            const seatSprite = scene.add.image(x, y - 6, 'cafe_interior_chair');
+            seatSprite.setVisible(false);
+            chairs.push({ x: x, y: y - 6, sprite: seatSprite, dir: dir });
+        };
+
+        // 7 High Bar Stools (3 along vertical wing facing left, 4 along horizontal wing facing down)
+        // Stools along vertical wing
+        spawnHighStool(46, 638, 'left');
+        spawnHighStool(46, 662, 'left');
+        spawnHighStool(46, 686, 'left');
+
+        // Stools along horizontal wing
+        spawnHighStool(78, 678, 'down');
+        spawnHighStool(106, 678, 'down');
+        spawnHighStool(134, 678, 'down');
+        spawnHighStool(162, 678, 'down');
+
+        // Lush Corner Broad-Leaf Palm Tree in Modern Square Planter (Anchoring the outer end-cap of the L-table against bottom rail)
+        const cornerPalm = scene.add.image(190, 716, 'cafe_square_palm_pot');
+        cornerPalm.setOrigin(0.5, 0.85);
+        cornerPalm.setDepth(720);
+        scene.physics.add.existing(cornerPalm, true);
+        const cpBody = cornerPalm.body as Phaser.Physics.Arcade.StaticBody;
+        cpBody.setSize(26, 22);
+        cpBody.setOffset(9, 32);
+        obstaclesGroup.add(cornerPalm);
+
+        // Additional accent plant snug against left entrance divider
+        const plantLeftInner = scene.add.image(360, 716, 'cafe_luxury_plant_pot');
+        plantLeftInner.setOrigin(0.5, 0.85);
+        plantLeftInner.setDepth(718);
+        scene.physics.add.existing(plantLeftInner, true);
+        obstaclesGroup.add(plantLeftInner);
+
+        // --- Right Entrance Zone: Dual L-Shaped Leather Sofas Covering Both Right Corners ---
+        // 1. Sofa 1: Snapped flush into the Far Bottom-Right Corner by the terrace divider & bottom rail
+        const lSofaRight1 = scene.add.image(894, 722, 'cafe_l_sofa_right');
+        lSofaRight1.setDisplaySize(92, 68);
+        lSofaRight1.setOrigin(1.0, 1.0);
+        lSofaRight1.setDepth(675);
+        scene.physics.add.existing(lSofaRight1, true);
+        const lsr1Body = lSofaRight1.body as Phaser.Physics.Arcade.StaticBody;
+        lsr1Body.setSize(84, 46);
+        lsr1Body.setOffset(4, 18);
+        obstaclesGroup.add(lSofaRight1);
+
+        // Interactive seating on Sofa 1
+        const r1Seat1 = scene.add.image(842, 696, 'cafe_interior_chair');
+        r1Seat1.setVisible(false);
+        chairs.push({ x: 842, y: 696, sprite: r1Seat1, dir: 'sofa' });
+
+        const r1Seat2 = scene.add.image(872, 668, 'cafe_interior_chair');
+        r1Seat2.setVisible(false);
+        chairs.push({ x: 872, y: 668, sprite: r1Seat2, dir: 'sofa' });
+
+        // Low Walnut Coffee Table for Sofa 1
+        const lTableRight1 = scene.add.image(832, 668, 'cafe_lounge_coffee_table');
+        lTableRight1.setOrigin(0.5, 0.85);
+        lTableRight1.setDepth(672);
+        scene.physics.add.existing(lTableRight1, true);
+        const ltr1Body = lTableRight1.body as Phaser.Physics.Arcade.StaticBody;
+        ltr1Body.setSize(26, 18);
+        ltr1Body.setOffset(5, 14);
+        obstaclesGroup.add(lTableRight1);
+
+        // 2. Sofa 2: Snapped flush into the Inner Bottom-Right Corner by the entrance divider & bottom rail
+        const lSofaRight2 = scene.add.image(522, 722, 'cafe_l_sofa_left');
+        lSofaRight2.setDisplaySize(92, 68);
+        lSofaRight2.setOrigin(0.0, 1.0);
+        lSofaRight2.setDepth(675);
+        scene.physics.add.existing(lSofaRight2, true);
+        const lsr2Body = lSofaRight2.body as Phaser.Physics.Arcade.StaticBody;
+        lsr2Body.setSize(84, 46);
+        lsr2Body.setOffset(4, 18);
+        obstaclesGroup.add(lSofaRight2);
+
+        // Interactive seating on Sofa 2
+        const r2Seat1 = scene.add.image(544, 668, 'cafe_interior_chair');
+        r2Seat1.setVisible(false);
+        chairs.push({ x: 544, y: 668, sprite: r2Seat1, dir: 'sofa' });
+
+        const r2Seat2 = scene.add.image(574, 696, 'cafe_interior_chair');
+        r2Seat2.setVisible(false);
+        chairs.push({ x: 574, y: 696, sprite: r2Seat2, dir: 'sofa' });
+
+        // Low Walnut Coffee Table for Sofa 2
+        const lTableRight2 = scene.add.image(584, 668, 'cafe_lounge_coffee_table');
+        lTableRight2.setOrigin(0.5, 0.85);
+        lTableRight2.setDepth(672);
+        scene.physics.add.existing(lTableRight2, true);
+        const ltr2Body = lTableRight2.body as Phaser.Physics.Arcade.StaticBody;
+        ltr2Body.setSize(26, 18);
+        ltr2Body.setOffset(5, 14);
+        obstaclesGroup.add(lTableRight2);
+
+        // Tall Lush Monstera Deliciosa Plant in corner nook by terrace divider
+        const plantRightTerrace = scene.add.image(876, 622, 'cafe_plant_monstera');
+        plantRightTerrace.setOrigin(0.5, 0.85);
+        plantRightTerrace.setDepth(630);
+        scene.physics.add.existing(plantRightTerrace, true);
+        const prtBody = plantRightTerrace.body as Phaser.Physics.Arcade.StaticBody;
+        prtBody.setSize(24, 20);
+        prtBody.setOffset(8, 32);
+        obstaclesGroup.add(plantRightTerrace);
+
+        // Additional accent plant by the inner walkway
+        const plantRightInner = scene.add.image(538, 622, 'cafe_luxury_plant_pot');
+        plantRightInner.setOrigin(0.5, 0.85);
+        plantRightInner.setDepth(630);
+        scene.physics.add.existing(plantRightInner, true);
+        obstaclesGroup.add(plantRightInner);
+
+        // 8. Canvas Outer Boundaries Colliders
         const addWallCollider = (x: number, y: number, w: number, h: number) => {
             const wall = scene.add.zone(x, y, w, h);
             scene.physics.add.existing(wall, true);
@@ -351,10 +483,9 @@ export class CafePropsManager {
         };
 
         addWallCollider(576, 50, 1152, 100);  // Top brick wall
-        addWallCollider(6, 300, 12, 600);    // Left canvas edge
-        addWallCollider(1146, 300, 12, 600);  // Right canvas edge
-        addWallCollider(183, 588, 367, 24);  // Bottom left wall collider
-        addWallCollider(840, 588, 624, 24);  // Bottom right wall collider
+        addWallCollider(6, 368, 12, 736);    // Left canvas edge
+        addWallCollider(1146, 368, 12, 736);  // Right canvas edge
+        addWallCollider(576, 730, 1152, 20); // Bottom room boundary collider
 
         return {
             baristaSprite,
