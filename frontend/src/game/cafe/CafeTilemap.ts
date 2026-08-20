@@ -3,11 +3,11 @@ import Phaser from 'phaser';
 export class CafeTilemap {
     /**
      * Renders the interior tilemap floor and wall boundary for Code Cafe.
-     * Canvas Room size: 960 x 600 pixels (30 x 18.75 tiles of 32x32px).
+     * Canvas Room size: 1152 x 736 pixels (36 x 23 tiles of 32x32px).
      */
     static draw(scene: Phaser.Scene) {
         const width = 1152;
-        const height = 600;
+        const height = 736;
         const wallHeight = 100;
         const woodWidth = 896;
 
@@ -24,7 +24,7 @@ export class CafeTilemap {
         wallSkirting.fillRect(0, 94, width, 6);
         wallSkirting.setDepth(1);
 
-        // 2. Main Cafe Wood Checkerboard Floor (x: 0 to 896, y: 100 to 600)
+        // 2. Main Cafe Wood Checkerboard Floor (x: 0 to 896, y: 100 to 736)
         for (let x = 0; x < woodWidth; x += 32) {
             for (let y = wallHeight; y < height; y += 32) {
                 const tileX = Math.floor(x / 32);
@@ -34,7 +34,7 @@ export class CafeTilemap {
             }
         }
 
-        // 3. Right Open Terrace Stone Patio Floor (x: 896 to 1152, y: 100 to 600)
+        // 3. Right Open Terrace Stone Patio Floor (x: 896 to 1152, y: 100 to 736)
         for (let x = woodWidth; x < width; x += 32) {
             for (let y = wallHeight; y < height; y += 32) {
                 scene.add.image(x, y, 'cafe_floor_terrace_stone').setOrigin(0, 0).setDepth(0);

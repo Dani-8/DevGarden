@@ -250,13 +250,13 @@ export default class GardenScene extends Phaser.Scene {
     }
 
     if (this.socket && typeof this.socket.updateScene === 'function') {
-      this.socket.updateScene('CodeCafeScene', 448, 520);
+      this.socket.updateScene('CodeCafeScene', 448, 620);
     }
 
     try {
       localStorage.setItem('devgarden_last_scene', 'CodeCafeScene');
       localStorage.setItem('devgarden_last_x', '448');
-      localStorage.setItem('devgarden_last_y', '520');
+      localStorage.setItem('devgarden_last_y', '620');
     } catch { }
 
     this.cameras.main.fadeOut(300, 0, 0, 0);
@@ -266,7 +266,7 @@ export default class GardenScene extends Phaser.Scene {
         self: this.selfPlayer,
         onSelectPlayer: this.onSelectPlayerCallback,
         onNearLeaderboard: this.onNearLeaderboardCallback,
-        spawnPos: { x: 448, y: 520 },
+        spawnPos: { x: 448, y: 620 },
       });
     });
   }

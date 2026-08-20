@@ -55,7 +55,6 @@ export class CafeInteractionManager {
 
         for (const chair of this.cafeChairs) {
             const dist = Phaser.Math.Distance.Between(playerContainer.x, playerContainer.y, chair.x, chair.y);
-            
             if (dist < minDist) {
                 minDist = dist;
                 nearChair = chair;
@@ -124,8 +123,8 @@ export class CafeInteractionManager {
     }
 
     public checkExitInteraction(playerContainer: Phaser.GameObjects.Container) {
-        const distToExit = Phaser.Math.Distance.Between(playerContainer.x, playerContainer.y, 448, 560);
-        const isNearExit = distToExit < 55 || (playerContainer.y > 525 && Math.abs(playerContainer.x - 448) < 65);
+        const distToExit = Phaser.Math.Distance.Between(playerContainer.x, playerContainer.y, 448, 660);
+        const isNearExit = distToExit < 60 || (playerContainer.y > 620 && Math.abs(playerContainer.x - 448) < 65);
 
         if (isNearExit) {
             this.promptText.setPosition(playerContainer.x, playerContainer.y + 14);
