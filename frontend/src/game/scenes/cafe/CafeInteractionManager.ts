@@ -123,8 +123,8 @@ export class CafeInteractionManager {
     }
 
     public checkExitInteraction(playerContainer: Phaser.GameObjects.Container) {
-        const distToExit = Phaser.Math.Distance.Between(playerContainer.x, playerContainer.y, 448, 660);
-        const isNearExit = distToExit < 60 || (playerContainer.y > 620 && Math.abs(playerContainer.x - 448) < 65);
+        const distToExit = Phaser.Math.Distance.Between(playerContainer.x, playerContainer.y, 480, 660);
+        const isNearExit = distToExit < 60 || (playerContainer.y > 620 && Math.abs(playerContainer.x - 480) < 65);
 
         if (isNearExit) {
             this.promptText.setPosition(playerContainer.x, playerContainer.y + 14);

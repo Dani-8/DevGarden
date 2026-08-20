@@ -9,7 +9,7 @@ export class CafeTilemap {
         const width = 1152;
         const height = 736;
         const wallHeight = 100;
-        const woodWidth = 896;
+        const woodWidth = 960;
 
         // 1. Back Brick Wall along the entire top (y: 0 to 96)
         for (let x = 0; x < width; x += 32) {
