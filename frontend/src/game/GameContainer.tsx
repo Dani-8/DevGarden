@@ -171,14 +171,14 @@ export default function GameContainer({
 
   return (
     <div className="absolute inset-0 w-full h-full overflow-hidden bg-slate-900">
-      <div 
-        ref={containerRef} 
-        id="phaser-game-stage" 
+      <div
+        ref={containerRef}
+        id="phaser-game-stage"
         tabIndex={0}
         onClick={handleCanvasClick}
         className="w-full h-full outline-none focus:ring-0 focus:border-0 transition-all cursor-pointer"
       />
-      
+
       {/* Ambient Top HUD */}
       <div className="absolute top-4 left-6 right-6 flex items-center justify-between pointer-events-none select-none z-10">
         {/* Lawn Server Online box removed as requested */}
@@ -201,7 +201,7 @@ export default function GameContainer({
         </div>
         */}
       </div>
-      
+
       {/* Decor hotbar */}
       <DecorHotbar />
 
