@@ -4,6 +4,7 @@ import GardenScene from './scenes/GardenScene';
 import CodeCafeScene from './scenes/CodeCafeScene';
 import { PlayerState } from '../types/index';
 import DecorHotbar from '../components/decor/DecorHotbar';
+import CafeProjectShowcaseModal from '../components/modals/CafeProjectShowcaseModal';
 
 interface GameContainerProps {
   socket: any;
@@ -25,6 +26,18 @@ export default function GameContainer({
   const containerRef = useRef<HTMLDivElement>(null);
   const gameRef = useRef<Phaser.Game | null>(null);
   const [debugMode, setDebugMode] = useState(false);
+  const [isShowcaseOpen, setIsShowcaseOpen] = useState(false);
+
+  useEffect(() => {
+    const handleOpenShowcase = () => {
+      setIsShowcaseOpen(true);
+    };
+
+    window.addEventListener('open_cafe_showcase', handleOpenShowcase);
+    return () => {
+      window.removeEventListener('open_cafe_showcase', handleOpenShowcase);
+    };
+  }, []);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -158,14 +171,14 @@ export default function GameContainer({
 
   return (
     <div className="absolute inset-0 w-full h-full overflow-hidden bg-slate-900">
-      <div
-        ref={containerRef}
-        id="phaser-game-stage"
+      <div 
+        ref={containerRef} 
+        id="phaser-game-stage" 
         tabIndex={0}
         onClick={handleCanvasClick}
         className="w-full h-full outline-none focus:ring-0 focus:border-0 transition-all cursor-pointer"
       />
-
+      
       {/* Ambient Top HUD */}
       <div className="absolute top-4 left-6 right-6 flex items-center justify-between pointer-events-none select-none z-10">
         {/* Lawn Server Online box removed as requested */}
@@ -188,9 +201,16 @@ export default function GameContainer({
         </div>
         */}
       </div>
-
+      
       {/* Decor hotbar */}
       <DecorHotbar />
+
+      {/* CodeCafe Project Showcase & Wall of Fame Modal */}
+      <CafeProjectShowcaseModal
+        isOpen={isShowcaseOpen}
+        onClose={() => setIsShowcaseOpen(false)}
+        currentUsername={selfPlayer?.username || 'You'}
+      />
     </div>
   );
 }
