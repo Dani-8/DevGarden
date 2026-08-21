@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { CafeCommunityWing } from './communityWing/CafeCommunityWing';
 
 export interface CafeChair {
     x: number;
@@ -11,6 +12,7 @@ export interface CafePropsResult {
     baristaSprite: Phaser.GameObjects.Image;
     exitMat: Phaser.GameObjects.Image;
     chairs: CafeChair[];
+    showcasePos?: { x: number; y: number };
 }
 
 export class CafePropsManager {
@@ -113,11 +115,7 @@ export class CafePropsManager {
         bsBody.setOffset(3, 52);
         obstaclesGroup.add(bookshelf);
 
-        // 4. Right Side: Open Terrace Glass Window Wall & Lush Ivy Vines (Terrace at x=960..1152)
-        const terraceWindow = scene.add.image(1056, 52, 'cafe_terrace_window');
-        terraceWindow.setOrigin(0.5, 0.5);
-        terraceWindow.setDepth(20);
-
+        // 4. Right Side: Lush Hanging Ivy Vines along back wall
         const ivyVine1 = scene.add.image(1005, 88, 'cafe_ivy_vine');
         ivyVine1.setOrigin(0.5, 0.5);
         ivyVine1.setDepth(25);
@@ -178,12 +176,6 @@ export class CafePropsManager {
         spawnLamp(530, 410); // Lamp 3
         spawnPot(533, 455);  // Pot 3
         spawnLamp(530, 500); // Lamp 4
-
-        // Terrace Seam Divider Plant Line (x: 960)
-        spawnPot(960, 150);
-        spawnPot(960, 290);
-        spawnPot(960, 430);
-        spawnPot(960, 570);
 
         // 6. Round Dining Table Sets with 4 Red Cushion Armchairs each
         const createTable4Chairs = (x: number, y: number, textureKey: string = 'cafe_interior_table') => {
@@ -271,41 +263,8 @@ export class CafePropsManager {
         createSofaSet(270);
         createSofaSet(450);
 
-        // Terrace Outdoor Patio Sets (2 Chairs: Left & Right, located at x=1056 on terrace)
-        const createPatioSet2Chairs = (x: number, y: number) => {
-            const table = scene.add.image(x, y, 'cafe_interior_table_plant');
-            table.setOrigin(0.5, 0.85);
-            table.setDepth(y);
-            scene.physics.add.existing(table, true);
-            const tableBody = table.body as Phaser.Physics.Arcade.StaticBody;
-            tableBody.setSize(30, 24);
-            tableBody.setOffset(9, 18);
-            obstaclesGroup.add(table);
-
-            const chairL = scene.add.image(x - 26, y - 3, 'cafe_chair_right');
-            chairL.setOrigin(0.5, 0.85);
-            chairL.setDepth(y - 2);
-            scene.physics.add.existing(chairL, true);
-            const lBody = chairL.body as Phaser.Physics.Arcade.StaticBody;
-            lBody.setSize(16, 16);
-            lBody.setOffset(3, 8);
-            obstaclesGroup.add(chairL);
-            chairs.push({ x: x - 26, y: y - 3, sprite: chairL, dir: 'left' });
-
-            const chairR = scene.add.image(x + 26, y - 3, 'cafe_chair_left');
-            chairR.setOrigin(0.5, 0.85);
-            chairR.setDepth(y - 2);
-            scene.physics.add.existing(chairR, true);
-            const rBody = chairR.body as Phaser.Physics.Arcade.StaticBody;
-            rBody.setSize(16, 16);
-            rBody.setOffset(3, 8);
-            obstaclesGroup.add(chairR);
-            chairs.push({ x: x + 26, y: y - 3, sprite: chairR, dir: 'right' });
-        };
-
-        createPatioSet2Chairs(1056, 230);
-        createPatioSet2Chairs(1056, 370);
-        createPatioSet2Chairs(1056, 510);
+        // 6. Right Side: 3-Section Community & Social Wing
+        const communityWing = CafeCommunityWing.create(scene, obstaclesGroup, chairs);
 
         // 7. Grand Entrance Area & Gateway (Centered at true center x=480)
         // Welcome Entrance Step Portal Mat at (480, 664) - Exit interaction point (Realistic Woven Coir Rug)
@@ -321,7 +280,7 @@ export class CafePropsManager {
         railingLeft.setDepth(695);
 
         const railingRight = scene.add.image(546, 736, 'cafe_entrance_railing_right');
-        railingRight.setDisplaySize(606, 110);
+        railingRight.setDisplaySize(414, 110);
         railingRight.setOrigin(0.0, 1.0);
         railingRight.setDepth(695);
 
@@ -336,9 +295,9 @@ export class CafePropsManager {
         addObstacleZone(408, 680, 12, 108);
         addObstacleZone(207, 730, 414, 12);
 
-        // Right Boundary Colliders (Vertical rail starting at mat height & horizontal rail across right screen)
+        // Right Boundary Colliders (Vertical rail starting at mat height & horizontal rail to wing divider at 960)
         addObstacleZone(552, 680, 12, 108);
-        addObstacleZone(849, 730, 606, 12);
+        addObstacleZone(753, 730, 414, 12);
 
         // --- Left Entrance Zone: Big L-Shaped High Table, 7 Stools & Lush Corner Palm (From Reference Photo) ---
         // Big L-Shaped High Wooden Table Counter (Snapped flush against left wall & bottom rail)
@@ -491,6 +450,7 @@ export class CafePropsManager {
             baristaSprite,
             exitMat,
             chairs,
+            showcasePos: { x: communityWing.showcaseX, y: communityWing.showcaseY },
         };
     }
 }

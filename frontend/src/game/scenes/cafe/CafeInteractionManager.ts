@@ -5,6 +5,7 @@ import { PlayerManager } from '../PlayerManager';
 export class CafeInteractionManager {
     public promptText!: Phaser.GameObjects.Text;
     public sitPromptText!: Phaser.GameObjects.Text;
+    public showcasePromptText!: Phaser.GameObjects.Text;
     public isSitting: boolean = false;
     public isTransitioning: boolean = false;
 
@@ -14,7 +15,8 @@ export class CafeInteractionManager {
         private cafeChairs: CafeChair[],
         private eKey: Phaser.Input.Keyboard.Key,
         private oKey: Phaser.Input.Keyboard.Key,
-        private onExitToGarden: () => void
+        private onExitToGarden: () => void,
+        private onOpenShowcase?: () => void
     ) {
         this.createPrompts();
     }
@@ -43,6 +45,44 @@ export class CafeInteractionManager {
         this.sitPromptText.setOrigin(0.5, 0);
         this.sitPromptText.setDepth(3000);
         this.sitPromptText.setVisible(false);
+
+        this.showcasePromptText = this.scene.add.text(0, 0, 'Press [E] to View & Share Projects 🚀', {
+            fontSize: '10px',
+            fontFamily: 'system-ui, sans-serif',
+            fontStyle: 'bold',
+            color: '#fbbf24',
+            backgroundColor: 'rgba(15, 23, 42, 0.92)',
+            padding: { x: 8, y: 4 },
+        });
+        this.showcasePromptText.setOrigin(0.5, 0);
+        this.showcasePromptText.setDepth(3000);
+        this.showcasePromptText.setVisible(false);
+    }
+
+    public checkShowcaseInteraction(
+        playerContainer: Phaser.GameObjects.Container,
+        showcasePos?: { x: number; y: number }
+    ): boolean {
+        const targetX = showcasePos?.x ?? 1152;
+        const targetY = showcasePos?.y ?? 360;
+        const dist = Phaser.Math.Distance.Between(playerContainer.x, playerContainer.y, targetX, targetY);
+
+        if (dist < 58 && !this.isSitting) {
+            this.showcasePromptText.setPosition(playerContainer.x, playerContainer.y + 14);
+            this.showcasePromptText.setVisible(true);
+
+            if (this.eKey && Phaser.Input.Keyboard.JustDown(this.eKey)) {
+                if (this.onOpenShowcase) {
+                    this.onOpenShowcase();
+                } else {
+                    window.dispatchEvent(new CustomEvent('open_cafe_showcase'));
+                }
+            }
+            return true;
+        } else {
+            if (this.showcasePromptText) this.showcasePromptText.setVisible(false);
+            return false;
+        }
     }
 
     public checkChairInteraction(
@@ -142,6 +182,12 @@ export class CafeInteractionManager {
     public hidePromptText() {
         if (this.promptText) {
             this.promptText.setVisible(false);
+        }
+        if (this.sitPromptText) {
+            this.sitPromptText.setVisible(false);
+        }
+        if (this.showcasePromptText) {
+            this.showcasePromptText.setVisible(false);
         }
     }
 }
