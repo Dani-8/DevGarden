@@ -133,7 +133,7 @@ export default class CodeCafeScene extends Phaser.Scene {
   }
 
   create() {
-    this.physics.world.setBounds(0, 0, 1152, 736);
+    this.physics.world.setBounds(0, 0, 1344, 736);
 
     // 1. Draw Interior Tilemap
     CafeTilemap.draw(this);
@@ -222,7 +222,8 @@ export default class CodeCafeScene extends Phaser.Scene {
       this.selfPlayer,
       this.interactionManager,
       this.baristaManager,
-      this.otherPlayers
+      this.otherPlayers,
+      props.showcasePos
     );
 
     if (this.socket && typeof this.socket.updateScene === 'function' && this.selfPlayer) {

@@ -15,7 +15,8 @@ export class CafeMovementManager {
         private selfPlayer: PlayerState | null,
         private interactionManager: CafeInteractionManager,
         private baristaManager: CafeBaristaManager,
-        private otherPlayers: Map<string, Phaser.GameObjects.Container>
+        private otherPlayers: Map<string, Phaser.GameObjects.Container>,
+        private showcasePos?: { x: number; y: number }
     ) { }
 
     public handleUpdate(
@@ -99,11 +100,9 @@ export class CafeMovementManager {
         this.otherPlayers.forEach((container) => {
             const targetX = container.getData('targetX');
             const targetY = container.getData('targetY');
-
             if (typeof targetX === 'number' && typeof targetY === 'number') {
                 const dx = targetX - container.x;
                 const dy = targetY - container.y;
-                
                 if (Math.abs(dx) > 0.5 || Math.abs(dy) > 0.5) {
                     container.x += dx * 0.25;
                     container.y += dy * 0.25;
@@ -116,7 +115,6 @@ export class CafeMovementManager {
         });
 
         const tier = this.selfPlayer?.visual_tier || 'green';
-
         if (vx === 0 && vy === 0) {
             if (this.lastAnim.includes('left')) animKey = 'idle_left';
             else if (this.lastAnim.includes('right')) animKey = 'idle_right';
@@ -129,6 +127,9 @@ export class CafeMovementManager {
 
         // Barista interaction
         this.baristaManager.checkInteraction(playerContainer.x, playerContainer.y);
+
+        // Project showcase interaction
+        this.interactionManager.checkShowcaseInteraction(playerContainer, this.showcasePos);
 
         // Exit interaction
         this.interactionManager.checkExitInteraction(playerContainer);
