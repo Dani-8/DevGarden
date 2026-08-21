@@ -205,8 +205,8 @@ export default function CafeProjectShowcaseModal({
                                 setIsSubmitting(false);
                             }}
                             className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-colors ${activeTab === 'all' && !isSubmitting
-                                    ? 'bg-amber-600 text-stone-950 font-bold'
-                                    : 'text-stone-400 hover:text-stone-200 bg-stone-800/60'
+                                ? 'bg-amber-600 text-stone-950 font-bold'
+                                : 'text-stone-400 hover:text-stone-200 bg-stone-800/60'
                                 }`}
                         >
                             All Projects ({projects.length})
@@ -217,8 +217,8 @@ export default function CafeProjectShowcaseModal({
                                 setIsSubmitting(false);
                             }}
                             className={`px-3 py-1.5 text-xs font-medium rounded-lg flex items-center space-x-1 transition-colors ${activeTab === 'featured' && !isSubmitting
-                                    ? 'bg-amber-600 text-stone-950 font-bold'
-                                    : 'text-stone-400 hover:text-stone-200 bg-stone-800/60'
+                                ? 'bg-amber-600 text-stone-950 font-bold'
+                                : 'text-stone-400 hover:text-stone-200 bg-stone-800/60'
                                 }`}
                         >
                             <Sparkles className="w-3.5 h-3.5" />
@@ -229,8 +229,8 @@ export default function CafeProjectShowcaseModal({
                     <button
                         onClick={() => setIsSubmitting(!isSubmitting)}
                         className={`px-3.5 py-1.5 text-xs font-semibold rounded-lg flex items-center space-x-1.5 transition-all shadow-md ${isSubmitting
-                                ? 'bg-stone-700 text-stone-200'
-                                : 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-emerald-900/30'
+                            ? 'bg-stone-700 text-stone-200'
+                            : 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-emerald-900/30'
                             }`}
                     >
                         <Plus className="w-3.5 h-3.5" />
@@ -320,8 +320,8 @@ export default function CafeProjectShowcaseModal({
                                     <div
                                         key={project.id}
                                         className={`p-4 rounded-xl border transition-all ${project.featured
-                                                ? 'bg-stone-950/80 border-amber-500/40 shadow-lg shadow-amber-950/20'
-                                                : 'bg-stone-950/50 border-stone-800/80 hover:border-stone-700'
+                                            ? 'bg-stone-950/80 border-amber-500/40 shadow-lg shadow-amber-950/20'
+                                            : 'bg-stone-950/50 border-stone-800/80 hover:border-stone-700'
                                             }`}
                                     >
                                         <div className="flex items-start justify-between gap-3">
@@ -344,8 +344,8 @@ export default function CafeProjectShowcaseModal({
                                             <button
                                                 onClick={() => handleUpvote(project.id)}
                                                 className={`px-3 py-1.5 rounded-lg flex items-center space-x-1.5 text-xs font-bold transition-all ${isUpvoted
-                                                        ? 'bg-amber-500 text-stone-950 shadow-md shadow-amber-500/20'
-                                                        : 'bg-stone-800/80 hover:bg-stone-800 text-stone-300 border border-stone-700'
+                                                    ? 'bg-amber-500 text-stone-950 shadow-md shadow-amber-500/20'
+                                                    : 'bg-stone-800/80 hover:bg-stone-800 text-stone-300 border border-stone-700'
                                                     }`}
                                             >
                                                 <Star className={`w-3.5 h-3.5 ${isUpvoted ? 'fill-stone-950' : 'text-amber-400'}`} />
