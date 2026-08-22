@@ -55,7 +55,7 @@ export default function ChatBar({
                 <button
                     type="button"
                     onClick={handleOpenChat}
-                    className="group relative flex items-center justify-center gap-2 bg-[#faf6eb] hover:bg-[#ffae34] border-2 border-b-0 border-[#3a2f28] text-[#3a2f28] font-serif font-bold text-xs px-3 py-1.5 rounded-t-xl shadow-[0_-3px_10px_rgba(0,0,0,0.2)] cursor-pointer select-none transition-all duration-200 hover:px-4 active:scale-95"
+                    className="group relative flex items-center justify-center gap-0 hover:gap-2 bg-[#faf6eb] hover:bg-[#ffae34] border-2 border-b-0 border-[#3a2f28] text-[#3a2f28] font-serif font-bold text-xs px-3 py-1.5 rounded-t-xl shadow-[0_-3px_10px_rgba(0,0,0,0.2)] cursor-pointer select-none transition-all duration-200 hover:px-4 active:scale-95"
                     title="Open Chat & Emotes"
                 >
                     {hasUnreadChat && (
