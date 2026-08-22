@@ -580,7 +580,7 @@ export class CafeDecorAndPlants {
         }
 
         if (!textures.exists('cafe_entrance_railing_right')) {
-            const canvas = textures.createCanvas('cafe_entrance_railing_right', 650, 120);
+            const canvas = textures.createCanvas('cafe_entrance_railing_right', 390, 120);
             if (canvas) {
                 const ctx = canvas.getContext();
 
@@ -589,25 +589,25 @@ export class CafeDecorAndPlants {
                 // Vertical rail shadow
                 ctx.fillRect(16, 8, 4, 106);
                 // Horizontal rail shadow
-                ctx.fillRect(0, 114, 650, 4);
+                ctx.fillRect(0, 114, 390, 4);
 
                 // --- Horizontal Wooden Rail (Bottom ground edge all the way to right screen wall) ---
                 // Dark border
                 ctx.fillStyle = '#271202';
-                ctx.fillRect(0, 104, 650, 12);
+                ctx.fillRect(0, 104, 390, 12);
                 // Main wood fill
                 ctx.fillStyle = '#854d0e';
-                ctx.fillRect(0, 105, 650, 10);
+                ctx.fillRect(0, 105, 390, 10);
                 // Wood grain gradient / highlights
                 ctx.fillStyle = '#b45309';
-                ctx.fillRect(0, 106, 650, 5);
+                ctx.fillRect(0, 106, 390, 5);
                 ctx.fillStyle = '#d97706';
-                ctx.fillRect(0, 105, 650, 2);
+                ctx.fillRect(0, 105, 390, 2);
                 ctx.fillStyle = '#f59e0b';
-                ctx.fillRect(0, 105, 650, 1);
+                ctx.fillRect(0, 105, 390, 1);
                 // Dark bottom edge
                 ctx.fillStyle = '#451a03';
-                ctx.fillRect(0, 113, 650, 2);
+                ctx.fillRect(0, 113, 390, 2);
 
                 // --- Vertical Wooden Rail (Left side, starting at Mat height down to ground) ---
                 // Dark border
