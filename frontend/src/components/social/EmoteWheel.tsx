@@ -2,12 +2,13 @@ import React, { useState, useRef, useEffect } from 'react';
 
 interface EmoteWheelProps {
   socket?: any;
+  isOpen?: boolean;
   onSelectEmote?: (emoteKey: string) => void;
   onSendChatText?: (text: string) => void;
   onClose?: () => void;
 }
 
-export default function EmoteWheel({ socket, onSelectEmote, onSendChatText, onClose }: EmoteWheelProps) {
+export default function EmoteWheel({ socket, isOpen, onSelectEmote, onSendChatText, onClose }: EmoteWheelProps) {
   const [chatInput, setChatInput] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -21,12 +22,15 @@ export default function EmoteWheel({ socket, onSelectEmote, onSendChatText, onCl
   ];
 
   useEffect(() => {
-    // Focus the input when opened
-    const timer = setTimeout(() => {
-      inputRef.current?.focus();
-    }, 100);
-    return () => clearTimeout(timer);
-  }, []);
+    if (isOpen) {
+      const timer = setTimeout(() => {
+        inputRef.current?.focus();
+      }, 150);
+      return () => clearTimeout(timer);
+    } else {
+      inputRef.current?.blur();
+    }
+  }, [isOpen]);
 
   const handleEmoteClick = (key: string) => {
     if (onSelectEmote) {
