@@ -48,8 +48,8 @@ export default function ChatBar({
             {/* 1. COLLAPSED TRIGGER BUTTON: Slides down when open, slides up when closed */}
             <div
                 className={`fixed bottom-0 left-1/2 -translate-x-1/2 z-20 transition-all duration-300 ease-out transform ${!isChatOpen
-                        ? 'translate-y-0 opacity-100 pointer-events-auto'
-                        : 'translate-y-full opacity-0 pointer-events-none'
+                    ? 'translate-y-0 opacity-100 pointer-events-auto'
+                    : 'translate-y-full opacity-0 pointer-events-none'
                     }`}
             >
                 <button
@@ -80,8 +80,8 @@ export default function ChatBar({
             {/* 2. EXPANDED CHAT PANEL: Smoothly slides up from bottom when open, slides down when closed */}
             <div
                 className={`fixed bottom-4 left-1/2 -translate-x-1/2 z-20 w-[calc(100%-2rem)] max-w-[600px] md:max-w-[650px] flex items-center gap-2 transition-all duration-300 ease-out transform ${isChatOpen
-                        ? 'translate-y-0 opacity-100 scale-100 pointer-events-auto'
-                        : 'translate-y-12 opacity-0 scale-95 pointer-events-none'
+                    ? 'translate-y-0 opacity-100 scale-100 pointer-events-auto'
+                    : 'translate-y-12 opacity-0 scale-95 pointer-events-none'
                     }`}
             >
                 <div className="flex-1 pointer-events-auto">
