@@ -47,7 +47,7 @@ export default function ChatBar({
         <>
             {/* 1. COLLAPSED TRIGGER BUTTON: Slides down when open, slides up when closed */}
             <div
-                className={`fixed bottom-0 left-1/2 -translate-x-1/2 z-20 transition-all duration-300 ease-out transform ${!isChatOpen
+                className={`fixed bottom-0 left-1/2 -translate-x-1/2 z-20 transition-all duration-400 ease-out transform ${!isChatOpen
                     ? 'translate-y-0 opacity-100 pointer-events-auto'
                     : 'translate-y-full opacity-0 pointer-events-none'
                     }`}
@@ -55,7 +55,7 @@ export default function ChatBar({
                 <button
                     type="button"
                     onClick={handleOpenChat}
-                    className="group relative flex items-center justify-center gap-0 hover:gap-2 bg-[#faf6eb] hover:bg-[#ffae34] border-2 border-b-0 border-[#3a2f28] text-[#3a2f28] font-serif font-bold text-xs px-3 py-1.5 rounded-t-xl shadow-[0_-3px_10px_rgba(0,0,0,0.2)] cursor-pointer select-none transition-all duration-200 hover:px-4 active:scale-95"
+                    className="group relative flex items-center justify-center gap-0 hover:gap-2 bg-[#faf6eb] hover:bg-[#ffae34] border-2 border-b-0 border-[#3a2f28] text-[#3a2f28] font-serif font-bold text-xs px-3 py-1.5 rounded-t-xl shadow-[0_-3px_10px_rgba(0,0,0,0.2)] cursor-pointer select-none transition-all duration-400 hover:px-4 active:scale-95"
                     title="Open Chat & Emotes"
                 >
                     {hasUnreadChat && (
@@ -66,7 +66,7 @@ export default function ChatBar({
                     )}
 
                     {/* Smoothly expanding label on hover */}
-                    <span className="max-w-0 overflow-hidden opacity-0 group-hover:max-w-[140px] group-hover:opacity-100 transition-all duration-300 ease-out whitespace-nowrap text-xs font-serif font-bold tracking-tight">
+                    <span className="max-w-0 overflow-hidden opacity-0 group-hover:max-w-[140px] group-hover:opacity-100 transition-all duration-400 ease-out whitespace-nowrap text-xs font-serif font-bold tracking-tight">
                         Chat & Emotes
                     </span>
 
@@ -79,7 +79,7 @@ export default function ChatBar({
 
             {/* 2. EXPANDED CHAT PANEL: Smoothly slides up from bottom when open, slides down when closed */}
             <div
-                className={`fixed bottom-4 left-1/2 -translate-x-1/2 z-20 w-[calc(100%-2rem)] max-w-[600px] md:max-w-[650px] flex items-center gap-2 transition-all duration-300 ease-out transform ${isChatOpen
+                className={`fixed bottom-4 left-1/2 -translate-x-1/2 z-20 w-[calc(100%-2rem)] max-w-[600px] md:max-w-[650px] flex items-center gap-2 transition-all duration-400 ease-out transform ${isChatOpen
                     ? 'translate-y-0 opacity-100 scale-100 pointer-events-auto'
                     : 'translate-y-12 opacity-0 scale-95 pointer-events-none'
                     }`}
