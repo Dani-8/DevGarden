@@ -243,91 +243,98 @@ export class CafeDecorAndPlants {
             }
         }
 
-        // 4. Entrance Gateway Step Portal Mat (256x160 canvas, Realistic Woven Coir / Jute Floor Rug)
+        // 4. Entrance Gateway Step Portal Mat (280x160 canvas, Realistic Woven Coir / Jute Floor Rug with Bold Crisp Welcome Text)
         if (!textures.exists('cafe_entrance_gateway')) {
-            const canvas = textures.createCanvas('cafe_entrance_gateway', 256, 160);
+            const canvas = textures.createCanvas('cafe_entrance_gateway', 280, 160);
             if (canvas) {
                 const ctx = canvas.getContext();
 
                 // Soft ambient drop shadow underneath on wooden floor
                 ctx.fillStyle = 'rgba(0, 0, 0, 0.45)';
                 ctx.beginPath();
-                ctx.roundRect(8, 12, 240, 140, 12);
+                ctx.roundRect(8, 12, 264, 140, 12);
                 ctx.fill();
 
                 // Heavy Black Vulcanized Rubber Non-Slip Mat Base & Outer Border
                 ctx.fillStyle = '#1c1917';
                 ctx.beginPath();
-                ctx.roundRect(6, 8, 244, 144, 10);
+                ctx.roundRect(6, 8, 268, 144, 10);
                 ctx.fill();
 
                 // Rubber Edge Highlight & Texture Grooves
                 ctx.fillStyle = '#292524';
                 ctx.beginPath();
-                ctx.roundRect(8, 10, 240, 140, 8);
+                ctx.roundRect(8, 10, 264, 140, 8);
                 ctx.fill();
 
                 ctx.strokeStyle = '#44403c';
                 ctx.lineWidth = 2;
                 ctx.beginPath();
-                ctx.roundRect(10, 12, 236, 136, 6);
+                ctx.roundRect(10, 12, 260, 136, 6);
                 ctx.stroke();
 
-                // Heavy Braided Coir Fiber Main Bed (Rich Natural Coconut Coir / Jute)
-                ctx.fillStyle = '#92613b';
-                ctx.fillRect(16, 18, 224, 124);
+                // Heavy Braided Coir Fiber Main Bed (Warm Natural Coconut Coir / Jute)
+                ctx.fillStyle = '#9c663b';
+                ctx.fillRect(16, 18, 248, 124);
 
                 // Dense woven ribbing / texture across coir bristles
                 for (let y = 18; y < 142; y += 3) {
-                    ctx.fillStyle = (Math.floor(y / 3) % 2 === 0) ? '#a57348' : '#7f502c';
-                    ctx.fillRect(16, y, 224, 2);
+                    ctx.fillStyle = (Math.floor(y / 3) % 2 === 0) ? '#ad7748' : '#885329';
+                    ctx.fillRect(16, y, 248, 2);
                 }
 
                 // Micro speckling / woven cross-hatch fiber details
-                for (let x = 18; x < 238; x += 4) {
-                    for (let y = 19; y < 140; y += 6) {
+                for (let x = 18; x < 262; x += 6) {
+                    for (let y = 19; y < 140; y += 8) {
                         const rand = ((x * 17 + y * 31) % 100) / 100;
-                        if (rand > 0.6) {
-                            ctx.fillStyle = 'rgba(254, 243, 199, 0.12)';
+                        if (rand > 0.65) {
+                            ctx.fillStyle = 'rgba(254, 243, 199, 0.1)';
                             ctx.fillRect(x, y, 2, 2);
-                        } else if (rand < 0.3) {
-                            ctx.fillStyle = 'rgba(41, 23, 10, 0.28)';
+                        } else if (rand < 0.25) {
+                            ctx.fillStyle = 'rgba(41, 23, 10, 0.2)';
                             ctx.fillRect(x, y, 2, 2);
                         }
                     }
                 }
 
                 // Inner Stenciled Border Box (Matte Carbon Black Ink)
-                ctx.strokeStyle = 'rgba(28, 25, 23, 0.85)';
-                ctx.lineWidth = 4;
-                ctx.strokeRect(26, 26, 204, 108);
+                ctx.strokeStyle = '#1c1917';
+                ctx.lineWidth = 3.5;
+                ctx.strokeRect(24, 24, 232, 112);
 
-                ctx.strokeStyle = 'rgba(68, 64, 60, 0.4)';
+                ctx.strokeStyle = '#d97706';
                 ctx.lineWidth = 1;
-                ctx.strokeRect(24, 24, 208, 112);
+                ctx.strokeRect(27, 27, 226, 106);
 
                 // Corner decorative stencil accents
-                ctx.fillStyle = 'rgba(28, 25, 23, 0.85)';
-                ctx.fillRect(28, 28, 8, 8);
-                ctx.fillRect(220, 28, 8, 8);
-                ctx.fillRect(28, 124, 8, 8);
-                ctx.fillRect(220, 124, 8, 8);
-
-                // Stenciled Typography (Slightly weathered matte ink pressed into coir fibers)
                 ctx.fillStyle = '#1c1917';
-                ctx.font = '900 17px "Trebuchet MS", "Arial Black", sans-serif';
+                ctx.fillRect(24, 24, 8, 8);
+                ctx.fillRect(248, 24, 8, 8);
+                ctx.fillRect(24, 128, 8, 8);
+                ctx.fillRect(248, 128, 8, 8);
+
+                // Stenciled Typography - Large, Bold, Crisp, and Crystal Clear
+                // Top Line: "WELCOME TO"
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
-                ctx.fillText('WELCOME TO', 128, 60);
 
-                ctx.font = '900 22px "Trebuchet MS", "Arial Black", sans-serif';
-                ctx.fillText('CODE CAFE', 128, 96);
+                // Subtle light relief shadow behind text for maximum clarity
+                ctx.fillStyle = 'rgba(254, 243, 199, 0.4)';
+                ctx.font = '900 21px "Trebuchet MS", "Arial Black", "Montserrat", sans-serif';
+                ctx.fillText('WELCOME TO', 140, 56);
 
-                // Subtle fiber bleed over text to integrate with rug surface
-                for (let y = 48; y < 112; y += 4) {
-                    ctx.fillStyle = 'rgba(165, 115, 72, 0.15)';
-                    ctx.fillRect(36, y, 184, 1);
-                }
+                ctx.fillStyle = '#18120c';
+                ctx.font = '900 21px "Trebuchet MS", "Arial Black", "Montserrat", sans-serif';
+                ctx.fillText('WELCOME TO', 140, 55);
+
+                // Bottom Line: "CODE CAFE"
+                ctx.fillStyle = 'rgba(254, 243, 199, 0.4)';
+                ctx.font = '900 31px "Trebuchet MS", "Arial Black", "Impact", sans-serif';
+                ctx.fillText('CODE CAFE', 140, 99);
+
+                ctx.fillStyle = '#18120c';
+                ctx.font = '900 31px "Trebuchet MS", "Arial Black", "Impact", sans-serif';
+                ctx.fillText('CODE CAFE', 140, 98);
 
                 canvas.refresh();
             }
