@@ -114,13 +114,13 @@ export class CafeInteractionManager {
                     body.enable = true;
 
                     if (nearChair.dir === 'up') {
-                        playerContainer.setPosition(nearChair.x, nearChair.y - 18);
-                    } else if (nearChair.dir === 'down') {
                         playerContainer.setPosition(nearChair.x, nearChair.y + 18);
+                    } else if (nearChair.dir === 'down') {
+                        playerContainer.setPosition(nearChair.x, nearChair.y - 18);
                     } else if (nearChair.dir === 'left') {
-                        playerContainer.setPosition(nearChair.x - 18, nearChair.y + 4);
+                        playerContainer.setPosition(nearChair.x + 18, nearChair.y);
                     } else if (nearChair.dir === 'right') {
-                        playerContainer.setPosition(nearChair.x + 18, nearChair.y + 4);
+                        playerContainer.setPosition(nearChair.x - 18, nearChair.y);
                     } else if (nearChair.dir === 'sofa' || nearChair.x < 60) {
                         playerContainer.setPosition(nearChair.x + 22, nearChair.y);
                     } else {
@@ -135,14 +135,14 @@ export class CafeInteractionManager {
                     body.setVelocity(0, 0);
 
                     if (nearChair.dir === 'up') {
-                        setLastAnim('idle_down');
-                    } else if (nearChair.dir === 'down') {
                         setLastAnim('idle_up');
+                    } else if (nearChair.dir === 'down') {
+                        setLastAnim('idle_down');
                     } else if (nearChair.dir === 'left') {
-                        setLastAnim('idle_right');
-                    } else if (nearChair.dir === 'right') {
                         setLastAnim('idle_left');
-                    } else if (nearChair.x < 60) {
+                    } else if (nearChair.dir === 'right') {
+                        setLastAnim('idle_right');
+                    } else if (nearChair.dir === 'sofa' || nearChair.x < 60) {
                         setLastAnim('idle_right');
                     } else {
                         setLastAnim('idle_down');

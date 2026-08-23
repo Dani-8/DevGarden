@@ -269,7 +269,7 @@ export class CafePropsManager {
         // 7. Grand Entrance Area & Gateway (Centered at true center x=480)
         // Welcome Entrance Step Portal Mat at (480, 664) - Exit interaction point (Realistic Woven Coir Rug)
         const exitMat = scene.add.image(480, 664, 'cafe_entrance_gateway');
-        exitMat.setDisplaySize(118, 68);
+        exitMat.setDisplaySize(128, 74);
         exitMat.setOrigin(0.5, 0.5);
         exitMat.setDepth(10);
 
@@ -305,22 +305,22 @@ export class CafePropsManager {
         bigLTable.setDisplaySize(172, 108);
         bigLTable.setOrigin(0.0, 1.0);
         bigLTable.setDepth(665);
-        scene.physics.add.existing(bigLTable, true);
-        const bltBody = bigLTable.body as Phaser.Physics.Arcade.StaticBody;
-        bltBody.setSize(166, 102);
-        bltBody.setOffset(3, 3);
-        obstaclesGroup.add(bigLTable);
+
+        // Accurate L-Shape Obstacles (Thin vertical & horizontal lines instead of one solid square block)
+        // 1. Vertical left bar arm: width 28px along left wall (x: 0..28, y: 616..724)
+        addObstacleZone(14, 670, 28, 108);
+        // 2. Horizontal bottom bar arm: height 26px along bottom rail (x: 0..172, y: 698..724)
+        addObstacleZone(86, 711, 172, 26);
 
         // Helper: Spawn High Bar Stool with interactive seat
         const spawnHighStool = (x: number, y: number, dir: 'left' | 'right' | 'up' | 'down') => {
             const stool = scene.add.image(x, y, 'cafe_high_stool');
             stool.setOrigin(0.5, 0.85);
             stool.setDepth(y + 2);
-            scene.physics.add.existing(stool, true);
-            const sBody = stool.body as Phaser.Physics.Arcade.StaticBody;
-            sBody.setSize(16, 16);
-            sBody.setOffset(2, 12);
-            obstaclesGroup.add(stool);
+            // Small base collider (12x12) so player can walk freely inside the nook and reach every seat
+            const stoolZone = scene.add.zone(x, y - 2, 12, 12);
+            scene.physics.add.existing(stoolZone, true);
+            obstaclesGroup.add(stoolZone);
 
             const seatSprite = scene.add.image(x, y - 6, 'cafe_interior_chair');
             seatSprite.setVisible(false);
@@ -329,15 +329,15 @@ export class CafePropsManager {
 
         // 7 High Bar Stools (3 along vertical wing facing left, 4 along horizontal wing facing down)
         // Stools along vertical wing
-        spawnHighStool(46, 638, 'left');
-        spawnHighStool(46, 662, 'left');
-        spawnHighStool(46, 686, 'left');
+        spawnHighStool(44, 638, 'left');
+        spawnHighStool(44, 662, 'left');
+        spawnHighStool(44, 686, 'left');
 
         // Stools along horizontal wing
-        spawnHighStool(78, 678, 'down');
-        spawnHighStool(106, 678, 'down');
-        spawnHighStool(134, 678, 'down');
-        spawnHighStool(162, 678, 'down');
+        spawnHighStool(76, 680, 'down');
+        spawnHighStool(104, 680, 'down');
+        spawnHighStool(132, 680, 'down');
+        spawnHighStool(160, 680, 'down');
 
         // Lush Corner Broad-Leaf Palm Tree in Modern Square Planter (Anchoring the outer end-cap of the L-table against bottom rail)
         const cornerPalm = scene.add.image(190, 716, 'cafe_square_palm_pot');
@@ -441,10 +441,10 @@ export class CafePropsManager {
             obstaclesGroup.add(wall);
         };
 
-        addWallCollider(576, 50, 1152, 100);  // Top brick wall
-        addWallCollider(6, 368, 12, 736);    // Left canvas edge
-        addWallCollider(1146, 368, 12, 736);  // Right canvas edge
-        addWallCollider(576, 730, 1152, 20); // Bottom room boundary collider
+        addWallCollider(672, 50, 1344, 100);  // Top brick wall
+        addWallCollider(6, 368, 12, 736);     // Left canvas edge
+        addWallCollider(1338, 368, 12, 736);  // Far right canvas edge
+        addWallCollider(672, 730, 1344, 20);  // Bottom room boundary collider
 
         return {
             baristaSprite,
