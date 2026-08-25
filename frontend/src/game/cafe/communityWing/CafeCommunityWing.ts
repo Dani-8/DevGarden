@@ -299,42 +299,42 @@ export class CafeCommunityWing {
         addTopMeetChair(1130);
         addTopMeetChair(1174);
 
-    // Bottom Meeting Chairs
-    const addBtmMeetChair = (x: number) => {
-      const ch = scene.add.image(x, 652, 'cafe_chair_up');
-      ch.setOrigin(0.5, 0.85);
-      ch.setDepth(652);
-      scene.physics.add.existing(ch, true);
-      obstaclesGroup.add(ch);
-      chairs.push({ x, y: 652, sprite: ch, dir: 'up' });
-    };
-    addBtmMeetChair(1130);
-    addBtmMeetChair(1174);
+        // Bottom Meeting Chairs
+        const addBtmMeetChair = (x: number) => {
+            const ch = scene.add.image(x, 652, 'cafe_chair_up');
+            ch.setOrigin(0.5, 0.85);
+            ch.setDepth(652);
+            scene.physics.add.existing(ch, true);
+            obstaclesGroup.add(ch);
+            chairs.push({ x, y: 652, sprite: ch, dir: 'up' });
+        };
+        addBtmMeetChair(1130);
+        addBtmMeetChair(1174);
 
-    // Left Meeting Chair
-    const leftChair = scene.add.image(1088, 622, 'cafe_chair_right');
-    leftChair.setOrigin(0.5, 0.85);
-    leftChair.setDepth(622);
-    scene.physics.add.existing(leftChair, true);
-    obstaclesGroup.add(leftChair);
-    chairs.push({ x: 1088, y: 622, sprite: leftChair, dir: 'left' });
+        // Left Meeting Chair
+        const leftChair = scene.add.image(1088, 622, 'cafe_chair_right');
+        leftChair.setOrigin(0.5, 0.85);
+        leftChair.setDepth(622);
+        scene.physics.add.existing(leftChair, true);
+        obstaclesGroup.add(leftChair);
+        chairs.push({ x: 1088, y: 622, sprite: leftChair, dir: 'left' });
 
-    // Right Meeting Chair
-    const rightChair = scene.add.image(1216, 622, 'cafe_chair_left');
-    rightChair.setOrigin(0.5, 0.85);
-    rightChair.setDepth(622);
-    scene.physics.add.existing(rightChair, true);
-    obstaclesGroup.add(rightChair);
-    chairs.push({ x: 1216, y: 622, sprite: rightChair, dir: 'right' });
+        // Right Meeting Chair
+        const rightChair = scene.add.image(1216, 622, 'cafe_chair_left');
+        rightChair.setOrigin(0.5, 0.85);
+        rightChair.setDepth(622);
+        scene.physics.add.existing(rightChair, true);
+        obstaclesGroup.add(rightChair);
+        chairs.push({ x: 1216, y: 622, sprite: rightChair, dir: 'right' });
 
-    // Flanking plants
-    addPot(1005, 540);
-    addPot(1005, 665);
-    addPot(1295, 665);
+        // Flanking plants
+        addPot(1005, 540);
+        addPot(1005, 665);
+        addPot(1295, 665);
 
-    return {
-      showcaseX: 1152,
-      showcaseY: 360,
-    };
-  }
+        return {
+            showcaseX: 1152,
+            showcaseY: 360,
+        };
+    }
 }
