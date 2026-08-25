@@ -115,16 +115,7 @@ export class CafePropsManager {
         bsBody.setOffset(3, 52);
         obstaclesGroup.add(bookshelf);
 
-        // 4. Right Side: Lush Hanging Ivy Vines along back wall
-        const ivyVine1 = scene.add.image(1005, 88, 'cafe_ivy_vine');
-        ivyVine1.setOrigin(0.5, 0.5);
-        ivyVine1.setDepth(25);
-
-        const ivyVine2 = scene.add.image(1105, 88, 'cafe_ivy_vine');
-        ivyVine2.setOrigin(0.5, 0.5);
-        ivyVine2.setDepth(25);
-
-        // 5. Centerpiece Grand Garden Planter Island (Centered at true center x=480, y=370)
+        // 4. Centerpiece Grand Garden Planter Island (Centered at true center x=480, y=370)
         const centerPlanter = scene.add.image(480, 370, 'cafe_center_garden_planter');
         centerPlanter.setDisplaySize(88, 320);
         centerPlanter.setOrigin(0.5, 0.5);

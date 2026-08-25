@@ -125,11 +125,6 @@ export class CafeCommunityWing {
         loungeRug.setOrigin(0.5, 0.5);
         loungeRug.setDepth(5);
 
-        // Hanging Ivy on top wall
-        const loungeIvy = scene.add.image(1152, 88, 'cafe_ivy_vine');
-        loungeIvy.setOrigin(0.5, 0.5);
-        loungeIvy.setDepth(20);
-
         // Plush Velvet Lounge Sofa (Centered at x=1152, y=142)
         const sofaMain = scene.add.image(1152, 142, 'cafe_lounge_plush_sofa');
         sofaMain.setDisplaySize(100, 48);
