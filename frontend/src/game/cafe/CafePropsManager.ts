@@ -298,16 +298,6 @@ export class CafePropsManager {
         bigLTable.setDepth(665);
 
         // Accurate L-Shape Obstacles (Thin vertical & horizontal lines instead of one solid square block)
-        addObstacleZone(753, 730, 414, 12);
-
-        // --- Left Entrance Zone: Big L-Shaped High Table, 7 Stools & Lush Corner Palm (From Reference Photo) ---
-        // Big L-Shaped High Wooden Table Counter (Snapped flush against left wall & bottom rail)
-        const bigLTable = scene.add.image(0, 724, 'cafe_big_l_table');
-        bigLTable.setDisplaySize(172, 108);
-        bigLTable.setOrigin(0.0, 1.0);
-        bigLTable.setDepth(665);
-
-        // Accurate L-Shape Obstacles (Thin vertical & horizontal lines instead of one solid square block)
         // 1. Vertical left bar arm: width 28px along left wall (x: 0..28, y: 616..724)
         addObstacleZone(14, 670, 28, 108);
         // 2. Horizontal bottom bar arm: height 26px along bottom rail (x: 0..172, y: 698..724)
@@ -398,6 +388,16 @@ export class CafePropsManager {
         lsr2Body.setSize(84, 46);
         lsr2Body.setOffset(4, 18);
         obstaclesGroup.add(lSofaRight2);
+
+        // Interactive seating on Sofa 2
+        const r2Seat1 = scene.add.image(570, 668, 'cafe_interior_chair');
+        r2Seat1.setVisible(false);
+        chairs.push({ x: 570, y: 668, sprite: r2Seat1, dir: 'sofa' });
+
+        const r2Seat2 = scene.add.image(600, 696, 'cafe_interior_chair');
+        r2Seat2.setVisible(false);
+        chairs.push({ x: 600, y: 696, sprite: r2Seat2, dir: 'sofa' });
+
 
         // Interactive seating on Sofa 2
         const r2Seat1 = scene.add.image(570, 668, 'cafe_interior_chair');
