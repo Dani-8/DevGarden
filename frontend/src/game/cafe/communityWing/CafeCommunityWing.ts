@@ -98,106 +98,106 @@ export class CafeCommunityWing {
         // Room 3 Vertical Wall Segments & Gate at y = 590
         addWallPost(960, 495, 126); // y: 432..558
         addGateEntrance(590);       // Gate opening: y = 558..622 (64px wide clear walk-through)
-    addWallPost(960, 665, 86);  // y: 622..708
+        addWallPost(960, 665, 86);  // y: 622..708
 
-    // Right Edge and Top Outer Boundaries for Wing
-    addWallCollider(1344, 418, 16, 636); // Far right wall collider
-    addWallCollider(1152, 96, 384, 12);  // Top wall collider
+        // Right Edge and Top Outer Boundaries for Wing
+        addWallCollider(1344, 418, 16, 636); // Far right wall collider
+        addWallCollider(1152, 96, 384, 12);  // Top wall collider
 
-    // =========================================================================
-    // 2. HORIZONTAL SEPARATION WALLS
-    // =========================================================================
-    // Separation between Room 1 & Room 2
-    addHorizontalWall(300, 'CHILL & LOUNGE NOOK');
+        // =========================================================================
+        // 2. HORIZONTAL SEPARATION WALLS
+        // =========================================================================
+        // Separation between Room 1 & Room 2
+        addHorizontalWall(300, 'CHILL & LOUNGE NOOK');
 
-    // Separation between Room 2 & Room 3
-    addHorizontalWall(500, 'PROJECT SHOWCASE HUB');
+        // Separation between Room 2 & Room 3
+        addHorizontalWall(500, 'PROJECT SHOWCASE HUB');
 
-    // Bottom Wall Enclosure for Room 3
-    addHorizontalWall(708, 'COLLAB & MEETING ROOM');
+        // Bottom Wall Enclosure for Room 3
+        addHorizontalWall(708, 'COLLAB & MEETING ROOM');
 
-    // =========================================================================
-    // 3. ROOM 1: CHILL & LOUNGE NOOK (y = 100..300)
-    // =========================================================================
-    // Cozy Area Rug
-    const loungeRug = scene.add.image(1152, 200, 'cafe_zone_persian_rug');
-    loungeRug.setDisplaySize(170, 110);
-    loungeRug.setOrigin(0.5, 0.5);
-    loungeRug.setDepth(5);
+        // =========================================================================
+        // 3. ROOM 1: CHILL & LOUNGE NOOK (y = 100..300)
+        // =========================================================================
+        // Cozy Area Rug
+        const loungeRug = scene.add.image(1152, 200, 'cafe_zone_persian_rug');
+        loungeRug.setDisplaySize(170, 110);
+        loungeRug.setOrigin(0.5, 0.5);
+        loungeRug.setDepth(5);
 
-    // Plush Velvet Lounge Sofa (Centered at x=1152, y=142)
-    const sofaMain = scene.add.image(1152, 142, 'cafe_lounge_plush_sofa');
-    sofaMain.setDisplaySize(100, 48);
-    sofaMain.setOrigin(0.5, 0.85);
-    sofaMain.setDepth(140);
-    scene.physics.add.existing(sofaMain, true);
-    const sofaBody = sofaMain.body as Phaser.Physics.Arcade.StaticBody;
-    sofaBody.setSize(92, 28);
-    sofaBody.setOffset(4, 10);
-    obstaclesGroup.add(sofaMain);
+        // Plush Velvet Lounge Sofa (Centered at x=1152, y=142)
+        const sofaMain = scene.add.image(1152, 142, 'cafe_lounge_plush_sofa');
+        sofaMain.setDisplaySize(100, 48);
+        sofaMain.setOrigin(0.5, 0.85);
+        sofaMain.setDepth(140);
+        scene.physics.add.existing(sofaMain, true);
+        const sofaBody = sofaMain.body as Phaser.Physics.Arcade.StaticBody;
+        sofaBody.setSize(92, 28);
+        sofaBody.setOffset(4, 10);
+        obstaclesGroup.add(sofaMain);
 
-    // Interactive Sofa Seats
-    const sSeat1 = scene.add.image(1126, 138, 'cafe_interior_chair');
-    sSeat1.setVisible(false);
-    chairs.push({ x: 1126, y: 138, sprite: sSeat1, dir: 'up' });
+        // Interactive Sofa Seats
+        const sSeat1 = scene.add.image(1126, 138, 'cafe_interior_chair');
+        sSeat1.setVisible(false);
+        chairs.push({ x: 1126, y: 138, sprite: sSeat1, dir: 'up' });
 
-    const sSeat2 = scene.add.image(1152, 138, 'cafe_interior_chair');
-    sSeat2.setVisible(false);
-    chairs.push({ x: 1152, y: 138, sprite: sSeat2, dir: 'up' });
+        const sSeat2 = scene.add.image(1152, 138, 'cafe_interior_chair');
+        sSeat2.setVisible(false);
+        chairs.push({ x: 1152, y: 138, sprite: sSeat2, dir: 'up' });
 
-    const sSeat3 = scene.add.image(1178, 138, 'cafe_interior_chair');
-    sSeat3.setVisible(false);
-    chairs.push({ x: 1178, y: 138, sprite: sSeat3, dir: 'up' });
+        const sSeat3 = scene.add.image(1178, 138, 'cafe_interior_chair');
+        sSeat3.setVisible(false);
+        chairs.push({ x: 1178, y: 138, sprite: sSeat3, dir: 'up' });
 
-    // Coffee Table with Laptop & Drinks
-    const coffeeTable = scene.add.image(1152, 195, 'cafe_lounge_coffee_table_deluxe');
-    coffeeTable.setDisplaySize(72, 36);
-    coffeeTable.setOrigin(0.5, 0.85);
-    coffeeTable.setDepth(195);
-    scene.physics.add.existing(coffeeTable, true);
-    const ctBody = coffeeTable.body as Phaser.Physics.Arcade.StaticBody;
-    ctBody.setSize(64, 24);
-    ctBody.setOffset(4, 8);
-    obstaclesGroup.add(coffeeTable);
+        // Coffee Table with Laptop & Drinks
+        const coffeeTable = scene.add.image(1152, 195, 'cafe_lounge_coffee_table_deluxe');
+        coffeeTable.setDisplaySize(72, 36);
+        coffeeTable.setOrigin(0.5, 0.85);
+        coffeeTable.setDepth(195);
+        scene.physics.add.existing(coffeeTable, true);
+        const ctBody = coffeeTable.body as Phaser.Physics.Arcade.StaticBody;
+        ctBody.setSize(64, 24);
+        ctBody.setOffset(4, 8);
+        obstaclesGroup.add(coffeeTable);
 
-    // Armchair (Left)
-    const armChairL = scene.add.image(1075, 195, 'cafe_chair_right');
-    armChairL.setOrigin(0.5, 0.85);
-    armChairL.setDepth(194);
-    scene.physics.add.existing(armChairL, true);
-    obstaclesGroup.add(armChairL);
-    chairs.push({ x: 1075, y: 195, sprite: armChairL, dir: 'left' });
+        // Armchair (Left)
+        const armChairL = scene.add.image(1075, 195, 'cafe_chair_right');
+        armChairL.setOrigin(0.5, 0.85);
+        armChairL.setDepth(194);
+        scene.physics.add.existing(armChairL, true);
+        obstaclesGroup.add(armChairL);
+        chairs.push({ x: 1075, y: 195, sprite: armChairL, dir: 'left' });
 
-    // Armchair (Right)
-    const armChairR = scene.add.image(1229, 195, 'cafe_chair_left');
-    armChairR.setOrigin(0.5, 0.85);
-    armChairR.setDepth(194);
-    scene.physics.add.existing(armChairR, true);
-    obstaclesGroup.add(armChairR);
-    chairs.push({ x: 1229, y: 195, sprite: armChairR, dir: 'right' });
+        // Armchair (Right)
+        const armChairR = scene.add.image(1229, 195, 'cafe_chair_left');
+        armChairR.setOrigin(0.5, 0.85);
+        armChairR.setDepth(194);
+        scene.physics.add.existing(armChairR, true);
+        obstaclesGroup.add(armChairR);
+        chairs.push({ x: 1229, y: 195, sprite: armChairR, dir: 'right' });
 
-    // Bookshelf in top right corner of Room 1
-    const room1Shelf = scene.add.image(1290, 140, 'cafe_bookshelf');
-    room1Shelf.setDisplaySize(38, 54);
-    room1Shelf.setOrigin(0.5, 0.85);
-    room1Shelf.setDepth(140);
-    scene.physics.add.existing(room1Shelf, true);
-    obstaclesGroup.add(room1Shelf);
+        // Bookshelf in top right corner of Room 1
+        const room1Shelf = scene.add.image(1290, 140, 'cafe_bookshelf');
+        room1Shelf.setDisplaySize(38, 54);
+        room1Shelf.setOrigin(0.5, 0.85);
+        room1Shelf.setDepth(140);
+        scene.physics.add.existing(room1Shelf, true);
+        obstaclesGroup.add(room1Shelf);
 
-    // Side table with lamp on right wall
-    const sideTable = scene.add.image(1290, 240, 'cafe_lounge_side_table');
-    sideTable.setOrigin(0.5, 0.85);
-    sideTable.setDepth(240);
-    scene.physics.add.existing(sideTable, true);
-    obstaclesGroup.add(sideTable);
+        // Side table with lamp on right wall
+        const sideTable = scene.add.image(1290, 240, 'cafe_lounge_side_table');
+        sideTable.setOrigin(0.5, 0.85);
+        sideTable.setDepth(240);
+        scene.physics.add.existing(sideTable, true);
+        obstaclesGroup.add(sideTable);
 
-    // Flanking plants
-    addPot(1005, 135);
-    addPot(1005, 265);
+        // Flanking plants
+        addPot(1005, 135);
+        addPot(1005, 265);
 
-    // =========================================================================
-    // 4. ROOM 2: PROJECT SHOWCASE HUB (y = 300..500)
-    // =========================================================================
+        // =========================================================================
+        // 4. ROOM 2: PROJECT SHOWCASE HUB (y = 300..500)
+        // =========================================================================
         addPot(1005, 265);
 
         // =========================================================================
