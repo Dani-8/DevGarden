@@ -190,8 +190,8 @@ export default function GameContainer({
           <button
             onClick={() => setDebugMode(!debugMode)}
             className={`px-3 py-1.5 rounded-lg text-[10px] font-mono font-bold uppercase border transition-all cursor-pointer shadow-md select-none flex items-center gap-1.5 ${debugMode
-                ? 'bg-amber-500/90 hover:bg-amber-500 border-amber-400 text-slate-950 animate-pulse'
-                : 'bg-slate-950/85 hover:bg-slate-900 border-slate-800 text-slate-400 hover:text-slate-200'
+              ? 'bg-amber-500/90 hover:bg-amber-500 border-amber-400 text-slate-950 animate-pulse'
+              : 'bg-slate-950/85 hover:bg-slate-900 border-slate-800 text-slate-400 hover:text-slate-200'
               }`}
           >
             <span>🛠️</span>
