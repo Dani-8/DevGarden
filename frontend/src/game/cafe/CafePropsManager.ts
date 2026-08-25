@@ -115,16 +115,7 @@ export class CafePropsManager {
         bsBody.setOffset(3, 52);
         obstaclesGroup.add(bookshelf);
 
-        // 4. Right Side: Lush Hanging Ivy Vines along back wall
-        const ivyVine1 = scene.add.image(1005, 88, 'cafe_ivy_vine');
-        ivyVine1.setOrigin(0.5, 0.5);
-        ivyVine1.setDepth(25);
-
-        const ivyVine2 = scene.add.image(1105, 88, 'cafe_ivy_vine');
-        ivyVine2.setOrigin(0.5, 0.5);
-        ivyVine2.setDepth(25);
-
-        // 5. Centerpiece Grand Garden Planter Island (Centered at true center x=480, y=370)
+        // 4. Centerpiece Grand Garden Planter Island (Centered at true center x=480, y=370)
         const centerPlanter = scene.add.image(480, 370, 'cafe_center_garden_planter');
         centerPlanter.setDisplaySize(88, 320);
         centerPlanter.setOrigin(0.5, 0.5);
@@ -197,6 +188,16 @@ export class CafePropsManager {
             topBody.setSize(16, 16);
             topBody.setOffset(3, 8);
             obstaclesGroup.add(chairTop);
+            chairs.push({ x: x, y: y - 26, sprite: chairTop, dir: 'up' });
+
+            // Bottom Chair (Facing UP towards table)
+            const chairBottom = scene.add.image(x, y + 20, 'cafe_chair_up');
+            chairBottom.setOrigin(0.5, 0.85);
+            chairBottom.setDepth(y + 10);
+            scene.physics.add.existing(chairBottom, true);
+            const bottomBody = chairBottom.body as Phaser.Physics.Arcade.StaticBody;
+            bottomBody.setSize(16, 16);
+            bottomBody.setOffset(3, 8);
             chairs.push({ x: x, y: y - 26, sprite: chairTop, dir: 'up' });
 
             // Bottom Chair (Facing UP towards table)
