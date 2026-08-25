@@ -198,16 +198,6 @@ export class CafePropsManager {
             const bottomBody = chairBottom.body as Phaser.Physics.Arcade.StaticBody;
             bottomBody.setSize(16, 16);
             bottomBody.setOffset(3, 8);
-            chairs.push({ x: x, y: y - 26, sprite: chairTop, dir: 'up' });
-
-            // Bottom Chair (Facing UP towards table)
-            const chairBottom = scene.add.image(x, y + 20, 'cafe_chair_up');
-            chairBottom.setOrigin(0.5, 0.85);
-            chairBottom.setDepth(y + 10);
-            scene.physics.add.existing(chairBottom, true);
-            const bottomBody = chairBottom.body as Phaser.Physics.Arcade.StaticBody;
-            bottomBody.setSize(16, 16);
-            bottomBody.setOffset(3, 8);
             obstaclesGroup.add(chairBottom);
             chairs.push({ x: x, y: y + 20, sprite: chairBottom, dir: 'down' });
 
@@ -298,6 +288,16 @@ export class CafePropsManager {
 
         // Right Boundary Colliders (Vertical rail starting at mat height & horizontal rail to wing divider at 960)
         addObstacleZone(552, 680, 12, 108);
+        addObstacleZone(753, 730, 414, 12);
+
+        // --- Left Entrance Zone: Big L-Shaped High Table, 7 Stools & Lush Corner Palm (From Reference Photo) ---
+        // Big L-Shaped High Wooden Table Counter (Snapped flush against left wall & bottom rail)
+        const bigLTable = scene.add.image(0, 724, 'cafe_big_l_table');
+        bigLTable.setDisplaySize(172, 108);
+        bigLTable.setOrigin(0.0, 1.0);
+        bigLTable.setDepth(665);
+
+        // Accurate L-Shape Obstacles (Thin vertical & horizontal lines instead of one solid square block)
         addObstacleZone(753, 730, 414, 12);
 
         // --- Left Entrance Zone: Big L-Shaped High Table, 7 Stools & Lush Corner Palm (From Reference Photo) ---
