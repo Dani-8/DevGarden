@@ -398,16 +398,6 @@ export class CafePropsManager {
         r2Seat2.setVisible(false);
         chairs.push({ x: 600, y: 696, sprite: r2Seat2, dir: 'sofa' });
 
-
-        // Interactive seating on Sofa 2
-        const r2Seat1 = scene.add.image(570, 668, 'cafe_interior_chair');
-        r2Seat1.setVisible(false);
-        chairs.push({ x: 570, y: 668, sprite: r2Seat1, dir: 'sofa' });
-
-        const r2Seat2 = scene.add.image(600, 696, 'cafe_interior_chair');
-        r2Seat2.setVisible(false);
-        chairs.push({ x: 600, y: 696, sprite: r2Seat2, dir: 'sofa' });
-
         // Low Walnut Coffee Table for Sofa 2
         const lTableRight2 = scene.add.image(610, 668, 'cafe_lounge_coffee_table');
         lTableRight2.setOrigin(0.5, 0.85);
