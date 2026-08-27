@@ -144,12 +144,12 @@ export default function GitHubLogin({ onSuccess }: GitHubLoginProps) {
             <div className="absolute inset-0 flex flex-col items-center justify-center z-20 pointer-events-none">
                 <div className="pointer-events-auto max-w-sm px-4">
                     <div className="text-center">
-                        <div className="relative inline-flex items-center justify-center w-13 h-13 rounded-2xl bg-[#e3d8c1] border-2 border-[#3a2f28] text-[var(--color-natural-accent)] my-2 shadow-[3px_3px_0px_0px_rgba(58,47,40,0.15)]">
+                        <div className="relative inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-[#e3d8c1] border-2 border-[#3a2f28] text-[var(--color-natural-accent)] my-2 shadow-[3px_3px_0px_0px_rgba(58,47,40,0.15)]">
                             <img src={Favicon} alt="DevGarden" className="w-7 h-7 select-none pointer-events-none" />
                             <span className="absolute -bottom-1 -left-1 text-xs animate-pulse">🌱</span>
                         </div>
 
-                        <p className="text-[11px] text-amber-900/60 font-pixel uppercase tracking-widest mb-2">
+                        <p className="text-xs text-amber-900/60 font-pixel uppercase tracking-widest mb-2">
                             Multiplayer Code Greenhouse
                         </p>
 
@@ -184,7 +184,7 @@ export default function GitHubLogin({ onSuccess }: GitHubLoginProps) {
                         </div>
 
                         <div className="mt-5 text-center">
-                            <span className="text-[12px] text-amber-900/50 font-pixel uppercase tracking-widest block">
+                            <span className="text-xs text-amber-900/50 font-pixel uppercase tracking-widest block">
                                 ☕ Touch some virtual grass today
                             </span>
                         </div>
