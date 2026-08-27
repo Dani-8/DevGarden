@@ -142,7 +142,7 @@ export default function GitHubLogin({ onSuccess }: GitHubLoginProps) {
 
             {imageLoaded && (
             <div className="absolute inset-0 flex flex-col items-center justify-center z-20 pointer-events-none">
-                <div className="pointer-events-auto max-w-sm px-4">
+                <div className="pointer-events-auto bg-pink-300 w-96 px-4">
                     <div className="text-center">
                         <div className="relative inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-[#e3d8c1] border-2 border-[#3a2f28] text-[var(--color-natural-accent)] my-2 shadow-[3px_3px_0px_0px_rgba(58,47,40,0.15)]">
                             <img src={Favicon} alt="DevGarden" className="w-7 h-7 select-none pointer-events-none" />
