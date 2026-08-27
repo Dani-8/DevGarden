@@ -11,6 +11,7 @@ interface GitHubLoginProps {
 export default function GitHubLogin({ onSuccess }: GitHubLoginProps) {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const [imageLoaded, setImageLoaded] = useState(false);
 
     const handleLogin = async () => {
         setLoading(true);
@@ -137,8 +138,9 @@ export default function GitHubLogin({ onSuccess }: GitHubLoginProps) {
         <div className="relative w-full h-full flex-1 flex flex-col items-center justify-center overflow-hidden bg-[#2a2520]">
             <PixelBackdrop />
 
-            <img src={LoginSceneImg} alt="Login Scene" className="w-full h-195 object-contain z-10" />
+            <img src={LoginSceneImg} alt="Login Scene" className="w-full h-195 object-contain z-10" onLoad={() => setImageLoaded(true)} />
 
+            {imageLoaded && (
             <div className="absolute inset-0 flex flex-col items-center justify-center z-20 pointer-events-none">
                 <div className="pointer-events-auto max-w-sm px-4">
                     <div className="text-center">
@@ -189,6 +191,7 @@ export default function GitHubLogin({ onSuccess }: GitHubLoginProps) {
                     </div>
                 </div>
             </div>
+            )}
         </div>
     );
 }
