@@ -181,7 +181,7 @@ export default function GitHubLogin({ onSuccess }: GitHubLoginProps) {
                             </button>
                         </div>
 
-                        <div className="mt-7 text-center">
+                        <div className="mt-5 text-center">
                             <span className="text-[12px] text-amber-900/50 font-pixel uppercase tracking-widest block">
                                 ☕ Touch some virtual grass today
                             </span>
