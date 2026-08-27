@@ -134,10 +134,10 @@ export default function GitHubLogin({ onSuccess }: GitHubLoginProps) {
     };
 
     return (
-        <div className="relative w-full flex-1 flex flex-col items-center justify-center px-4 py-12 overflow-hidden">
+        <div className="relative w-full h-full flex-1 flex flex-col items-center justify-center overflow-hidden">
             <PixelBackdrop />
 
-            <img src={LoginSceneImg} alt="Login Scene" className="w-full max-w-md h-auto relative z-10" />
+            <img src={LoginSceneImg} alt="Login Scene" className="w-full h-full object-contain z-10" />
         </div>
     );
 }
