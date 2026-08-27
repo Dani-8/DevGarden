@@ -142,20 +142,20 @@ export default function GitHubLogin({ onSuccess }: GitHubLoginProps) {
 
             {imageLoaded && (
             <div className="absolute inset-0 flex flex-col items-center justify-center z-20 pointer-events-none">
-                <div className="pointer-events-auto w-72 sm:w-80 md:w-90 lg:w-[400px] px-3 sm:px-4">
+                <div className="pointer-events-auto w-70 sm:w-80 md:w-90 lg:w-[400px] px-3 sm:px-4">
                     <div className="text-center">
-                        <div className="relative inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-[#e3d8c1] border-2 border-[#3a2f28] text-[var(--color-natural-accent)] my-2 shadow-[3px_3px_0px_0px_rgba(58,47,40,0.15)]">
-                            <img src={Favicon} alt="DevGarden" className="w-7 h-7 select-none pointer-events-none" />
+                        <div className="relative inline-flex items-center justify-center w-10 sm:w-11 md:w-12 h-10 sm:h-11 md:h-12 rounded-2xl bg-[#e3d8c1] border-2 border-[#3a2f28] text-[var(--color-natural-accent)] my-2 shadow-[3px_3px_0px_0px_rgba(58,47,40,0.15)]">
+                            <img src={Favicon} alt="DevGarden" className="w-5 sm:w-6 md:w-7 h-5 sm:h-6 md:h-7 select-none pointer-events-none" />
                             <span className="absolute -bottom-1 -left-1 text-xs animate-pulse">🌱</span>
                         </div>
 
-                        <p className="text-xs text-amber-900/60 font-pixel uppercase tracking-widest mb-2">
+                        <p className="text-[10px] sm:text-xs md:text-xs text-amber-900/60 font-pixel uppercase tracking-widest mb-2 sm:mb-3">
                             Multiplayer Code Greenhouse
                         </p>
 
-                        <div className="bg-[#fefcf7] border-2 border-[#3a2f28]/10 p-4 mb-6 text-left rounded-xl shadow-inner relative overflow-hidden">
+                        <div className="bg-[#fefcf7] border-2 border-[#3a2f28]/10 p-3 sm:p-4 mb-4 sm:mb-6 text-left rounded-xl shadow-inner relative overflow-hidden">
                             <div className="absolute top-0 left-0 right-0 h-[3px] bg-amber-900/5" />
-                            <p className="text-[#514339] text-sm md:text-md font-pixel leading-relaxed">
+                            <p className="text-[#514339] text-xs sm:text-sm md:text-sm font-pixel leading-relaxed">
                                 🌿 "Step into a cozy greenhouse. Connect with GitHub to walk around, grow pixel plants with your commits, chat with fellow gardeners, and watch your character blossom."
                             </p>
                         </div>
@@ -174,7 +174,7 @@ export default function GitHubLogin({ onSuccess }: GitHubLoginProps) {
                                 onClick={handleLogin}
                                 disabled={loading}
                                 id="login-btn"
-                                className="w-full py-3 px-5 bg-[#ffae34] hover:bg-[#ffb94f] active:bg-[#e29624] text-[#3a2f28] border-2 border-[#3a2f28] font-pixel text-lg font-bold uppercase tracking-wider rounded-xl flex items-center justify-center gap-2 shadow-[4px_4px_0px_0px_#3a2f28] hover:shadow-[5px_5px_0px_0px_#3a2f28] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_#3a2f28] transition-all cursor-pointer disabled:opacity-50 select-none"
+                                className="w-full py-2 sm:py-3 md:py-3 px-4 sm:px-5 bg-[#ffae34] hover:bg-[#ffb94f] active:bg-[#e29624] text-[#3a2f28] border-2 border-[#3a2f28] font-pixel text-base sm:text-lg font-bold uppercase tracking-wider rounded-xl flex items-center justify-center gap-2 shadow-[4px_4px_0px_0px_#3a2f28] hover:shadow-[5px_5px_0px_0px_#3a2f28] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_#3a2f28] transition-all cursor-pointer disabled:opacity-50 select-none"
                             >
                                 <div className="flex items-center justify-center gap-2">
                                     <Github className="w-5 h-5 fill-[#3a2f28] stroke-none animate-pulse" />
@@ -184,7 +184,7 @@ export default function GitHubLogin({ onSuccess }: GitHubLoginProps) {
                         </div>
 
                         <div className="mt-5 text-center">
-                            <span className="text-xs text-amber-900/50 font-pixel uppercase tracking-widest block">
+                            <span className="text-[10px] sm:text-xs text-amber-900/50 font-pixel uppercase tracking-widest block">
                                 ☕ Touch some virtual grass today
                             </span>
                         </div>
