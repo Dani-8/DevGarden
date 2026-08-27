@@ -137,7 +137,7 @@ export default function GitHubLogin({ onSuccess }: GitHubLoginProps) {
         <div className="relative w-full h-full flex-1 flex flex-col items-center justify-center overflow-hidden">
             <PixelBackdrop />
 
-            <img src={LoginSceneImg} alt="Login Scene" className="w-full h-full object-contain z-10" />
+            <img src={LoginSceneImg} alt="Login Scene" className="w-full h-195 object-contain z-10" />
         </div>
     );
 }
