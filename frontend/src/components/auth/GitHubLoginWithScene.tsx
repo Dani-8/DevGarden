@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Github } from 'lucide-react';
 import PixelBackdrop from '../layout/PixelBackdrop.js';
 import Favicon from "../../../assets/Favicon.png";
-import LoginSceneImg from "../../../assets/LoginPageScene.png";
+import LoginSceneImg from "../../../assets/LoginPageScene2.png";
 
 interface GitHubLoginProps {
     onSuccess: () => void;
