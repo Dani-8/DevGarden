@@ -147,7 +147,7 @@ export default function GitHubLogin({ onSuccess }: GitHubLoginProps) {
                             <span className="absolute -bottom-1 -left-1 text-xs animate-pulse">🌱</span>
                         </div>
 
-                        <p className="text-[10px] text-amber-900/60 font-pixel uppercase tracking-widest mb-4">
+                        <p className="text-[11px] text-amber-900/60 font-pixel uppercase tracking-widest mb-2">
                             Multiplayer Code Greenhouse
                         </p>
 
@@ -181,8 +181,8 @@ export default function GitHubLogin({ onSuccess }: GitHubLoginProps) {
                             </button>
                         </div>
 
-                        <div className="mt-5 text-center">
-                            <span className="text-[10px] text-amber-900/40 font-pixel uppercase tracking-widest block">
+                        <div className="mt-7 text-center">
+                            <span className="text-[12px] text-amber-900/50 font-pixel uppercase tracking-widest block">
                                 ☕ Touch some virtual grass today
                             </span>
                         </div>
