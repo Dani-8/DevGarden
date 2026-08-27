@@ -138,6 +138,61 @@ export default function GitHubLogin({ onSuccess }: GitHubLoginProps) {
             <PixelBackdrop />
 
             <img src={LoginSceneImg} alt="Login Scene" className="w-full h-195 object-contain z-10" />
+
+            <div className="absolute inset-0 flex flex-col items-center justify-center z-20 pointer-events-none">
+                <div className="pointer-events-auto max-w-sm px-4">
+                    <div className="text-center">
+                        <div className="relative inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-[#e3d8c1] border-2 border-[#3a2f28] text-[var(--color-natural-accent)] mb-4 shadow-[3px_3px_0px_0px_rgba(58,47,40,0.15)] animate-bounce [animation-duration:3s]">
+                            <img src={Favicon} alt="DevGarden" className="w-8 h-8 select-none pointer-events-none" />
+                            <span className="absolute -top-1 -right-1 text-[8px] animate-ping opacity-35">🟡</span>
+                            <span className="absolute -bottom-1 -left-1 text-xs animate-pulse">🌱</span>
+                        </div>
+
+                        <h1 className="text-lg md:text-xl font-press tracking-wider text-[#3a2f28] mb-1 select-none">
+                            DEVGARDEN<span className="text-[var(--color-natural-grass)]">.</span>
+                        </h1>
+                        <p className="text-[10px] text-amber-900/60 font-pixel uppercase tracking-widest mb-4">
+                            Multiplayer Code Greenhouse
+                        </p>
+
+                        <div className="bg-[#fefcf7] border-2 border-[#3a2f28]/10 p-4 mb-6 text-left rounded-xl shadow-inner relative overflow-hidden">
+                            <div className="absolute top-0 left-0 right-0 h-[3px] bg-amber-900/5" />
+                            <p className="text-[#514339] text-md md:text-lg font-pixel leading-relaxed">
+                                🌿 "Step into a cozy greenhouse. Connect with GitHub to walk around, grow pixel plants with your commits, chat with fellow gardeners, and watch your character blossom."
+                            </p>
+                        </div>
+
+                        {error && (
+                            <div className="mb-5 p-3 rounded-xl bg-rose-50 border-2 border-rose-900/20 text-rose-800 text-xs font-pixel text-left shadow-sm">
+                                <p className="font-bold uppercase tracking-wide flex items-center gap-1">
+                                    <span>⚠️ Connection Issue:</span>
+                                </p>
+                                <p className="mt-1 leading-relaxed text-rose-700/90">{error}</p>
+                            </div>
+                        )}
+
+                        <div className="flex flex-col gap-3">
+                            <button
+                                onClick={handleLogin}
+                                disabled={loading}
+                                id="login-btn"
+                                className="w-full py-3 px-5 bg-[#ffae34] hover:bg-[#ffb94f] active:bg-[#e29624] text-[#3a2f28] border-2 border-[#3a2f28] font-pixel text-lg font-bold uppercase tracking-wider rounded-xl flex items-center justify-center gap-2 shadow-[4px_4px_0px_0px_#3a2f28] hover:shadow-[5px_5px_0px_0px_#3a2f28] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_#3a2f28] transition-all cursor-pointer disabled:opacity-50 select-none"
+                            >
+                                <div className="flex items-center justify-center gap-2">
+                                    <Github className="w-5 h-5 fill-[#3a2f28] stroke-none animate-pulse" />
+                                    <span>{loading ? 'Entering...' : 'Enter DevGarden'}</span>
+                                </div>
+                            </button>
+                        </div>
+
+                        <div className="mt-5 text-center">
+                            <span className="text-[10px] text-amber-900/40 font-pixel uppercase tracking-widest block">
+                                ☕ Touch some virtual grass today
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }
