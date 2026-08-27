@@ -142,22 +142,18 @@ export default function GitHubLogin({ onSuccess }: GitHubLoginProps) {
             <div className="absolute inset-0 flex flex-col items-center justify-center z-20 pointer-events-none">
                 <div className="pointer-events-auto max-w-sm px-4">
                     <div className="text-center">
-                        <div className="relative inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-[#e3d8c1] border-2 border-[#3a2f28] text-[var(--color-natural-accent)] mb-4 shadow-[3px_3px_0px_0px_rgba(58,47,40,0.15)] animate-bounce [animation-duration:3s]">
-                            <img src={Favicon} alt="DevGarden" className="w-8 h-8 select-none pointer-events-none" />
-                            <span className="absolute -top-1 -right-1 text-[8px] animate-ping opacity-35">🟡</span>
+                        <div className="relative inline-flex items-center justify-center w-13 h-13 rounded-2xl bg-[#e3d8c1] border-2 border-[#3a2f28] text-[var(--color-natural-accent)] my-2 shadow-[3px_3px_0px_0px_rgba(58,47,40,0.15)]">
+                            <img src={Favicon} alt="DevGarden" className="w-7 h-7 select-none pointer-events-none" />
                             <span className="absolute -bottom-1 -left-1 text-xs animate-pulse">🌱</span>
                         </div>
 
-                        <h1 className="text-lg md:text-xl font-press tracking-wider text-[#3a2f28] mb-1 select-none">
-                            DEVGARDEN<span className="text-[var(--color-natural-grass)]">.</span>
-                        </h1>
                         <p className="text-[10px] text-amber-900/60 font-pixel uppercase tracking-widest mb-4">
                             Multiplayer Code Greenhouse
                         </p>
 
                         <div className="bg-[#fefcf7] border-2 border-[#3a2f28]/10 p-4 mb-6 text-left rounded-xl shadow-inner relative overflow-hidden">
                             <div className="absolute top-0 left-0 right-0 h-[3px] bg-amber-900/5" />
-                            <p className="text-[#514339] text-md md:text-lg font-pixel leading-relaxed">
+                            <p className="text-[#514339] text-sm md:text-md font-pixel leading-relaxed">
                                 🌿 "Step into a cozy greenhouse. Connect with GitHub to walk around, grow pixel plants with your commits, chat with fellow gardeners, and watch your character blossom."
                             </p>
                         </div>
