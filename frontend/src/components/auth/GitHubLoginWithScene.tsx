@@ -1,0 +1,194 @@
+import { useState } from 'react';
+import { Github } from 'lucide-react';
+import PixelBackdrop from '../layout/PixelBackdrop.js';
+import Favicon from "../../../assets/Favicon.png";
+import LoginSceneImg from "../../../assets/LoginPageScene2.png";
+
+interface GitHubLoginProps {
+    onSuccess: () => void;
+}
+
+export default function GitHubLogin({ onSuccess }: GitHubLoginProps) {
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+
+    const handleLogin = async () => {
+        setLoading(true);
+        setError(null);
+
+        const popup = window.open(
+            'about:blank',
+            'devgarden_github_auth',
+            'width=600,height=750,resizable=yes,scrollbars=yes'
+        );
+
+        if (!popup) {
+            setError('OAuth popup was blocked by your browser. Please enable popups for this site and try again.');
+            setLoading(false);
+            return;
+        }
+
+        try {
+            popup.document.write(`
+        <html>
+          <head>
+            <title>Connecting to GitHub...</title>
+            <style>
+              body {
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+                background: #0d1117;
+                color: #c9d1d9;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+                margin: 0;
+              }
+              .spinner {
+                border: 4px solid rgba(255,255,255,0.1);
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+                border-left-color: #58a6ff;
+                animation: spin 1s linear infinite;
+                margin-bottom: 16px;
+              }
+              @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+              }
+              p {
+                font-size: 14px;
+                color: #8b949e;
+              }
+            </style>
+          </head>
+          <body>
+            <div class="spinner"></div>
+            <p>Connecting to GitHub Secure Authentication...</p>
+          </body>
+        </html>
+      `);
+        } catch (e) {
+            console.warn('Could not write placeholder to popup:', e);
+        }
+
+        const handleAuthMessage = (event: MessageEvent) => {
+            const origin = event.origin;
+            const apiBase = import.meta.env.VITE_API_URL || '';
+            let isAllowedOrigin = false;
+
+            try {
+                if (apiBase && origin === new URL(apiBase).origin) {
+                    isAllowedOrigin = true;
+                }
+            } catch (_) { }
+
+            if (
+                isAllowedOrigin ||
+                origin.includes('localhost') ||
+                origin.includes('127.0.0.1') ||
+                origin.endsWith('.run.app') ||
+                origin.endsWith('.vercel.app') ||
+                origin.includes('ai.studio')
+            ) {
+                if (event.data?.type === 'OAUTH_AUTH_SUCCESS') {
+                    window.removeEventListener('message', handleAuthMessage);
+                    if (event.data && event.data.token) {
+                        localStorage.setItem('devgarden_token', event.data.token);
+                    }
+                    onSuccess();
+                }
+            }
+        };
+
+        window.addEventListener('message', handleAuthMessage);
+
+        try {
+            const apiBase = import.meta.env.VITE_API_URL || '';
+            const response = await fetch(`${apiBase}/api/auth/url`, { credentials: 'include' });
+            if (!response.ok) {
+                let errMsg = 'Failed to retrieve GitHub OAuth authorization URL from server.';
+                try {
+                    const errData = await response.json();
+                    if (errData && errData.error) {
+                        errMsg = errData.error;
+                    }
+                } catch (_) { }
+                throw new Error(errMsg);
+            }
+
+            const { url } = await response.json();
+            popup.location.href = url;
+
+        } catch (err: any) {
+            console.error(err);
+            setError(err.message || 'OAuth Connection Failed');
+            try {
+                popup.close();
+            } catch (_) { }
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return (
+        <div className="relative w-full h-full flex-1 flex flex-col items-center justify-center overflow-hidden">
+            <PixelBackdrop />
+
+            <img src={LoginSceneImg} alt="Login Scene" className="w-full h-195 object-contain z-10" />
+
+            <div className="absolute inset-0 flex flex-col items-center justify-center z-20 pointer-events-none">
+                <div className="pointer-events-auto max-w-sm px-4">
+                    <div className="text-center">
+                        <div className="relative inline-flex items-center justify-center w-13 h-13 rounded-2xl bg-[#e3d8c1] border-2 border-[#3a2f28] text-[var(--color-natural-accent)] my-2 shadow-[3px_3px_0px_0px_rgba(58,47,40,0.15)]">
+                            <img src={Favicon} alt="DevGarden" className="w-7 h-7 select-none pointer-events-none" />
+                            <span className="absolute -bottom-1 -left-1 text-xs animate-pulse">🌱</span>
+                        </div>
+
+                        <p className="text-[11px] text-amber-900/60 font-pixel uppercase tracking-widest mb-2">
+                            Multiplayer Code Greenhouse
+                        </p>
+
+                        <div className="bg-[#fefcf7] border-2 border-[#3a2f28]/10 p-4 mb-6 text-left rounded-xl shadow-inner relative overflow-hidden">
+                            <div className="absolute top-0 left-0 right-0 h-[3px] bg-amber-900/5" />
+                            <p className="text-[#514339] text-sm md:text-md font-pixel leading-relaxed">
+                                🌿 "Step into a cozy greenhouse. Connect with GitHub to walk around, grow pixel plants with your commits, chat with fellow gardeners, and watch your character blossom."
+                            </p>
+                        </div>
+
+                        {error && (
+                            <div className="mb-5 p-3 rounded-xl bg-rose-50 border-2 border-rose-900/20 text-rose-800 text-xs font-pixel text-left shadow-sm">
+                                <p className="font-bold uppercase tracking-wide flex items-center gap-1">
+                                    <span>⚠️ Connection Issue:</span>
+                                </p>
+                                <p className="mt-1 leading-relaxed text-rose-700/90">{error}</p>
+                            </div>
+                        )}
+
+                        <div className="flex flex-col gap-3">
+                            <button
+                                onClick={handleLogin}
+                                disabled={loading}
+                                id="login-btn"
+                                className="w-full py-3 px-5 bg-[#ffae34] hover:bg-[#ffb94f] active:bg-[#e29624] text-[#3a2f28] border-2 border-[#3a2f28] font-pixel text-lg font-bold uppercase tracking-wider rounded-xl flex items-center justify-center gap-2 shadow-[4px_4px_0px_0px_#3a2f28] hover:shadow-[5px_5px_0px_0px_#3a2f28] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_#3a2f28] transition-all cursor-pointer disabled:opacity-50 select-none"
+                            >
+                                <div className="flex items-center justify-center gap-2">
+                                    <Github className="w-5 h-5 fill-[#3a2f28] stroke-none animate-pulse" />
+                                    <span>{loading ? 'Entering...' : 'Enter DevGarden'}</span>
+                                </div>
+                            </button>
+                        </div>
+
+                        <div className="mt-7 text-center">
+                            <span className="text-[12px] text-amber-900/50 font-pixel uppercase tracking-widest block">
+                                ☕ Touch some virtual grass today
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+}
