@@ -349,7 +349,7 @@ export class CafePropsManager {
 
         // --- Right Entrance Zone: Dual L-Shaped Leather Sofas Covering Both Right Corners ---
         // 1. Sofa 1: Snapped flush into the Far Bottom-Right Corner by the terrace divider (x=960) & bottom rail
-        const lSofaRight1 = scene.add.image(958, 722, 'cafe_l_sofa_right');
+        const lSofaRight1 = scene.add.image(952, 722, 'cafe_l_sofa_right');
         lSofaRight1.setDisplaySize(92, 68);
         lSofaRight1.setOrigin(1.0, 1.0);
         lSofaRight1.setDepth(675);
