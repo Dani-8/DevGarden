@@ -283,11 +283,11 @@ export class CafePropsManager {
         };
 
         // Left Boundary Colliders (Vertical rail starting at mat height & horizontal rail across left screen)
-        addObstacleZone(408, 680, 12, 108);
+        addObstacleZone(400, 680, 12, 108);
         addObstacleZone(207, 730, 414, 12);
 
         // Right Boundary Colliders (Vertical rail starting at mat height & horizontal rail to wing divider at 960)
-        addObstacleZone(552, 680, 12, 108);
+        addObstacleZone(560, 680, 12, 108);
         addObstacleZone(753, 730, 414, 12);
 
         // --- Left Entrance Zone: Big L-Shaped High Table, 7 Stools & Lush Corner Palm (From Reference Photo) ---
@@ -299,9 +299,9 @@ export class CafePropsManager {
 
         // Accurate L-Shape Obstacles (Thin vertical & horizontal lines instead of one solid square block)
         // 1. Vertical left bar arm: width 28px along left wall (x: 0..28, y: 616..724)
-        addObstacleZone(14, 670, 28, 108);
+        addObstacleZone(20, 670, 25, 90);
         // 2. Horizontal bottom bar arm: height 26px along bottom rail (x: 0..172, y: 698..724)
-        addObstacleZone(86, 711, 172, 26);
+        addObstacleZone(88, 700, 160, 26);
 
         // Helper: Spawn High Bar Stool with interactive seat
         const spawnHighStool = (x: number, y: number, dir: 'left' | 'right' | 'up' | 'down') => {
@@ -341,7 +341,7 @@ export class CafePropsManager {
         obstaclesGroup.add(cornerPalm);
 
         // Additional accent plant snug against left entrance divider
-        const plantLeftInner = scene.add.image(394, 716, 'cafe_luxury_plant_pot');
+        const plantLeftInner = scene.add.image(390, 622, 'cafe_luxury_plant_pot');
         plantLeftInner.setOrigin(0.5, 0.85);
         plantLeftInner.setDepth(718);
         scene.physics.add.existing(plantLeftInner, true);
@@ -433,9 +433,9 @@ export class CafePropsManager {
         };
 
         addWallCollider(672, 50, 1344, 100);  // Top brick wall
-        addWallCollider(6, 368, 12, 736);     // Left canvas edge
+        addWallCollider(0, 368, 1, 736);     // Left canvas edge
         addWallCollider(1338, 368, 12, 736);  // Far right canvas edge
-        addWallCollider(672, 730, 1344, 20);  // Bottom room boundary collider
+        addWallCollider(672, 745, 1344, 20);  // Bottom room boundary collider
 
         return {
             baristaSprite,
