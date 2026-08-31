@@ -259,7 +259,7 @@ export class CafePropsManager {
 
         // 7. Grand Entrance Area & Gateway (Centered at true center x=480)
         // Welcome Entrance Step Portal Mat at (480, 664) - Exit interaction point (Realistic Woven Coir Rug)
-        const exitMat = scene.add.image(480, 664, 'cafe_entrance_gateway');
+        const exitMat = scene.add.image(480, 675, 'cafe_entrance_gateway');
         exitMat.setDisplaySize(128, 74);
         exitMat.setOrigin(0.5, 0.5);
         exitMat.setDepth(10);
