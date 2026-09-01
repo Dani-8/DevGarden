@@ -266,3 +266,62 @@ export default function CafeCollabModal({
                   className="w-full px-3 py-2 text-xs rounded-lg bg-slate-900 border border-slate-700 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-blue-500"
                 />
               </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-slate-300 mb-1">
+                  What kind of help / teammate are you looking for?
+                </label>
+                <input
+                  type="text"
+                  placeholder="e.g. Frontend developer, Game balance feedback"
+                  value={seeking}
+                  onChange={(e) => setSeeking(e.target.value)}
+                  className="w-full px-3 py-2 text-xs rounded-lg bg-slate-900 border border-slate-700 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-blue-500"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold text-slate-300 mb-1">
+                Details & Description *
+              </label>
+              <textarea
+                required
+                rows={3}
+                placeholder="Describe your project, current hurdle, or what features you plan to build next..."
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                className="w-full px-3 py-2 text-xs rounded-lg bg-slate-900 border border-slate-700 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-blue-500"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold text-slate-300 mb-1">
+                Tech Stack / Tags (Comma separated)
+              </label>
+              <input
+                type="text"
+                placeholder="React, TypeScript, Tailwind, Socket.io"
+                value={tagsInput}
+                onChange={(e) => setTagsInput(e.target.value)}
+                className="w-full px-3 py-2 text-xs rounded-lg bg-slate-900 border border-slate-700 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-blue-500"
+              />
+            </div>
+
+            <div className="flex justify-end gap-2 pt-1">
+              <button
+                type="button"
+                onClick={() => setIsPosting(false)}
+                className="px-4 py-1.5 text-xs text-slate-400 hover:text-slate-200"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="px-4 py-1.5 text-xs font-bold rounded-lg bg-blue-600 hover:bg-blue-500 text-white shadow-md"
+              >
+                📌 Pin to Whiteboard
+              </button>
+            </div>
+          </form>
+        )}
