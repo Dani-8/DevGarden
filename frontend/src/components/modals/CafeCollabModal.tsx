@@ -373,3 +373,43 @@ export default function CafeCollabModal({
                                 </div>
 
                                 <p className="text-xs text-slate-300 leading-relaxed">{item.description}</p>
+
+                {item.seeking && (
+                  <div className="text-xs px-3 py-1.5 rounded-lg bg-blue-950/40 border border-blue-900/40 text-blue-200 flex items-center gap-1.5">
+                    <span className="font-semibold text-blue-400">🎯 Seeking:</span>
+                    <span>{item.seeking}</span>
+                  </div>
+                )}
+
+                <div className="flex flex-wrap items-center justify-between gap-2 pt-1 border-t border-slate-800/80">
+                  <div className="flex flex-wrap gap-1.5">
+                    {item.tags.map((tag, idx) => (
+                      <span
+                        key={idx}
+                        className="text-[10px] px-2 py-0.5 rounded bg-slate-900 border border-slate-700/60 text-slate-400"
+                      >
+                        #{tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  {item.repoUrl && (
+                    <a
+                      href={item.repoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs font-semibold text-blue-400 hover:text-blue-300 flex items-center gap-1 hover:underline"
+                    >
+                      <span>📂 View Repo</span>
+                      <span>↗</span>
+                    </a>
+                  )}
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
