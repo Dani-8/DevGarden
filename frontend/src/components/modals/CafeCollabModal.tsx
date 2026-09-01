@@ -195,8 +195,8 @@ export default function CafeCollabModal({
                                 key={tab}
                                 onClick={() => setActiveTab(tab)}
                                 className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all whitespace-nowrap ${activeTab === tab
-                                        ? 'bg-blue-600 text-white shadow-sm shadow-blue-500/20'
-                                        : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800'
+                                    ? 'bg-blue-600 text-white shadow-sm shadow-blue-500/20'
+                                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800'
                                     }`}
                             >
                                 {tab === 'All' && '🌟 All Requests'}
@@ -343,12 +343,12 @@ export default function CafeCollabModal({
                                         <div className="flex items-center gap-2 mb-1 flex-wrap">
                                             <span
                                                 className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${item.category === 'Collab'
-                                                        ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40'
-                                                        : item.category === 'Help Wanted'
-                                                            ? 'bg-rose-500/20 text-rose-300 border-rose-500/40'
-                                                            : item.category === 'Brainstorm'
-                                                                ? 'bg-amber-500/20 text-amber-300 border-amber-500/40'
-                                                                : 'bg-purple-500/20 text-purple-300 border-purple-500/40'
+                                                    ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40'
+                                                    : item.category === 'Help Wanted'
+                                                        ? 'bg-rose-500/20 text-rose-300 border-rose-500/40'
+                                                        : item.category === 'Brainstorm'
+                                                            ? 'bg-amber-500/20 text-amber-300 border-amber-500/40'
+                                                            : 'bg-purple-500/20 text-purple-300 border-purple-500/40'
                                                     }`}
                                             >
                                                 {item.category}
@@ -363,8 +363,8 @@ export default function CafeCollabModal({
                                     <button
                                         onClick={() => handleLike(item.id)}
                                         className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold border transition-all ${likedIds.has(item.id)
-                                                ? 'bg-rose-500/20 border-rose-500/40 text-rose-300'
-                                                : 'bg-slate-900 border-slate-700 text-slate-400 hover:text-rose-300 hover:border-rose-500/40'
+                                            ? 'bg-rose-500/20 border-rose-500/40 text-rose-300'
+                                            : 'bg-slate-900 border-slate-700 text-slate-400 hover:text-rose-300 hover:border-rose-500/40'
                                             }`}
                                     >
                                         <span>❤️</span>
