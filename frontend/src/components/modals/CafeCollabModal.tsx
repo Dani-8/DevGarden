@@ -57,52 +57,52 @@ const DEFAULT_COLLABS: CollabItem[] = [
 ];
 
 interface CafeCollabModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  currentUsername?: string;
+    isOpen: boolean;
+    onClose: () => void;
+    currentUsername?: string;
 }
 
 export default function CafeCollabModal({
-  isOpen,
-  onClose,
-  currentUsername = 'You',
+    isOpen,
+    onClose,
+    currentUsername = 'You',
 }: CafeCollabModalProps) {
-  const [collabs, setCollabs] = useState<CollabItem[]>(() => {
-    try {
-      const saved = localStorage.getItem('cafe_collabs_list');
-      if (saved) return JSON.parse(saved);
-    } catch (e) {
-      console.error(e);
-    }
-    return DEFAULT_COLLABS;
-  });
-
-  const [activeTab, setActiveTab] = useState<'All' | 'Collab' | 'Help Wanted' | 'Brainstorm'>('All');
-  const [isPosting, setIsPosting] = useState(false);
-
-  // Form State
-  const [title, setTitle] = useState('');
-  const [category, setCategory] = useState<'Collab' | 'Help Wanted' | 'Brainstorm' | 'Code Review'>('Collab');
-  const [repoUrl, setRepoUrl] = useState('');
-  const [description, setDescription] = useState('');
-  const [seeking, setSeeking] = useState('');
-  const [tagsInput, setTagsInput] = useState('');
-  const [likedIds, setLikedIds] = useState<Set<string>>(new Set());
-
-  if (!isOpen) return null;
-
-  const handleLike = (id: string) => {
-    if (likedIds.has(id)) return;
-    setLikedIds((prev) => new Set([...prev, id]));
-    setCollabs((prev) => {
-      const updated = prev.map((item) =>
-        item.id === id ? { ...item, likes: item.likes + 1 } : item
-      );
-      try {
-        localStorage.setItem('cafe_collabs_list', JSON.stringify(updated));
-      } catch (e) {
-        console.error(e);
-      }
-      return updated;
+    const [collabs, setCollabs] = useState<CollabItem[]>(() => {
+        try {
+            const saved = localStorage.getItem('cafe_collabs_list');
+            if (saved) return JSON.parse(saved);
+        } catch (e) {
+            console.error(e);
+        }
+        return DEFAULT_COLLABS;
     });
-  };
+
+    const [activeTab, setActiveTab] = useState<'All' | 'Collab' | 'Help Wanted' | 'Brainstorm'>('All');
+    const [isPosting, setIsPosting] = useState(false);
+
+    // Form State
+    const [title, setTitle] = useState('');
+    const [category, setCategory] = useState<'Collab' | 'Help Wanted' | 'Brainstorm' | 'Code Review'>('Collab');
+    const [repoUrl, setRepoUrl] = useState('');
+    const [description, setDescription] = useState('');
+    const [seeking, setSeeking] = useState('');
+    const [tagsInput, setTagsInput] = useState('');
+    const [likedIds, setLikedIds] = useState<Set<string>>(new Set());
+
+    if (!isOpen) return null;
+
+    const handleLike = (id: string) => {
+        if (likedIds.has(id)) return;
+        setLikedIds((prev) => new Set([...prev, id]));
+        setCollabs((prev) => {
+            const updated = prev.map((item) =>
+                item.id === id ? { ...item, likes: item.likes + 1 } : item
+            );
+            try {
+                localStorage.setItem('cafe_collabs_list', JSON.stringify(updated));
+            } catch (e) {
+                console.error(e);
+            }
+            return updated;
+        });
+    };
