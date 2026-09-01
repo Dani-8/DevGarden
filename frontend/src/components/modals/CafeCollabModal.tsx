@@ -343,12 +343,12 @@ export default function CafeCollabModal({
                                         <div className="flex items-center gap-2 mb-1 flex-wrap">
                                             <span
                                                 className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${item.category === 'Collab'
-                                                        ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40'
-                                                        : item.category === 'Help Wanted'
-                                                            ? 'bg-rose-500/20 text-rose-300 border-rose-500/40'
-                                                            : item.category === 'Brainstorm'
-                                                                ? 'bg-amber-500/20 text-amber-300 border-amber-500/40'
-                                                                : 'bg-purple-500/20 text-purple-300 border-purple-500/40'
+                                                    ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40'
+                                                    : item.category === 'Help Wanted'
+                                                        ? 'bg-rose-500/20 text-rose-300 border-rose-500/40'
+                                                        : item.category === 'Brainstorm'
+                                                            ? 'bg-amber-500/20 text-amber-300 border-amber-500/40'
+                                                            : 'bg-purple-500/20 text-purple-300 border-purple-500/40'
                                                     }`}
                                             >
                                                 {item.category}
@@ -363,8 +363,8 @@ export default function CafeCollabModal({
                                     <button
                                         onClick={() => handleLike(item.id)}
                                         className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold border transition-all ${likedIds.has(item.id)
-                                                ? 'bg-rose-500/20 border-rose-500/40 text-rose-300'
-                                                : 'bg-slate-900 border-slate-700 text-slate-400 hover:text-rose-300 hover:border-rose-500/40'
+                                            ? 'bg-rose-500/20 border-rose-500/40 text-rose-300'
+                                            : 'bg-slate-900 border-slate-700 text-slate-400 hover:text-rose-300 hover:border-rose-500/40'
                                             }`}
                                     >
                                         <span>❤️</span>
@@ -374,42 +374,42 @@ export default function CafeCollabModal({
 
                                 <p className="text-xs text-slate-300 leading-relaxed">{item.description}</p>
 
-                {item.seeking && (
-                  <div className="text-xs px-3 py-1.5 rounded-lg bg-blue-950/40 border border-blue-900/40 text-blue-200 flex items-center gap-1.5">
-                    <span className="font-semibold text-blue-400">🎯 Seeking:</span>
-                    <span>{item.seeking}</span>
-                  </div>
-                )}
+                                {item.seeking && (
+                                    <div className="text-xs px-3 py-1.5 rounded-lg bg-blue-950/40 border border-blue-900/40 text-blue-200 flex items-center gap-1.5">
+                                        <span className="font-semibold text-blue-400">🎯 Seeking:</span>
+                                        <span>{item.seeking}</span>
+                                    </div>
+                                )}
 
-                <div className="flex flex-wrap items-center justify-between gap-2 pt-1 border-t border-slate-800/80">
-                  <div className="flex flex-wrap gap-1.5">
-                    {item.tags.map((tag, idx) => (
-                      <span
-                        key={idx}
-                        className="text-[10px] px-2 py-0.5 rounded bg-slate-900 border border-slate-700/60 text-slate-400"
-                      >
-                        #{tag}
-                      </span>
-                    ))}
-                  </div>
+                                <div className="flex flex-wrap items-center justify-between gap-2 pt-1 border-t border-slate-800/80">
+                                    <div className="flex flex-wrap gap-1.5">
+                                        {item.tags.map((tag, idx) => (
+                                            <span
+                                                key={idx}
+                                                className="text-[10px] px-2 py-0.5 rounded bg-slate-900 border border-slate-700/60 text-slate-400"
+                                            >
+                                                #{tag}
+                                            </span>
+                                        ))}
+                                    </div>
 
-                  {item.repoUrl && (
-                    <a
-                      href={item.repoUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-xs font-semibold text-blue-400 hover:text-blue-300 flex items-center gap-1 hover:underline"
-                    >
-                      <span>📂 View Repo</span>
-                      <span>↗</span>
-                    </a>
-                  )}
+                                    {item.repoUrl && (
+                                        <a
+                                            href={item.repoUrl}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-xs font-semibold text-blue-400 hover:text-blue-300 flex items-center gap-1 hover:underline"
+                                        >
+                                            <span>📂 View Repo</span>
+                                            <span>↗</span>
+                                        </a>
+                                    )}
+                                </div>
+                            </div>
+                        ))
+                    )}
                 </div>
-              </div>
-            ))
-          )}
+            </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 }
