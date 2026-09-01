@@ -151,22 +151,22 @@ export class CafePropsManager {
         spawnPot(20, 600);
 
         // Left Side of Center Garden Planter: Alternating Lamps & Pots snug against planter (x=430)
-        spawnLamp(430, 230); // Lamp 1
-        spawnPot(427, 275);  // Pot 1
-        spawnLamp(430, 320); // Lamp 2
-        spawnPot(427, 365);  // Pot 2
-        spawnLamp(430, 410); // Lamp 3
-        spawnPot(427, 455);  // Pot 3
-        spawnLamp(430, 500); // Lamp 4
+        spawnLamp(430, 240); // Lamp 1
+        spawnPot(427, 285);  // Pot 1
+        spawnLamp(430, 330); // Lamp 2
+        spawnPot(427, 375);  // Pot 2
+        spawnLamp(430, 420); // Lamp 3
+        spawnPot(427, 465);  // Pot 3
+        spawnLamp(430, 510); // Lamp 4
 
         // Right Side of Center Garden Planter: Alternating Lamps & Pots snug against planter (x=530)
-        spawnLamp(530, 230); // Lamp 1
-        spawnPot(533, 275);  // Pot 1
-        spawnLamp(530, 320); // Lamp 2
-        spawnPot(533, 365);  // Pot 2
-        spawnLamp(530, 410); // Lamp 3
-        spawnPot(533, 455);  // Pot 3
-        spawnLamp(530, 500); // Lamp 4
+        spawnLamp(530, 240); // Lamp 1
+        spawnPot(533, 285);  // Pot 1
+        spawnLamp(530, 330); // Lamp 2
+        spawnPot(533, 375);  // Pot 2
+        spawnLamp(530, 420); // Lamp 3
+        spawnPot(533, 465);  // Pot 3
+        spawnLamp(530, 510); // Lamp 4
 
         // 6. Round Dining Table Sets with 4 Red Cushion Armchairs each
         const createTable4Chairs = (x: number, y: number, textureKey: string = 'cafe_interior_table') => {
