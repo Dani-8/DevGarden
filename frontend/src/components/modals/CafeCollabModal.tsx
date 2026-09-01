@@ -326,52 +326,50 @@ export default function CafeCollabModal({
                     </form>
                 )}
 
-        {/* Requests List Grid */}
-        <div className="p-6 overflow-y-auto space-y-4 flex-1">
-          {filteredCollabs.length === 0 ? (
-            <div className="text-center py-12 text-slate-500 text-sm">
-              No collaboration requests in this category yet. Be the first to pin one!
-            </div>
-          ) : (
-            filteredCollabs.map((item) => (
-              <div
-                key={item.id}
-                className="p-4 rounded-xl bg-slate-950/50 border border-slate-800 hover:border-slate-700 transition-all flex flex-col gap-3"
-              >
-                <div className="flex items-start justify-between gap-2">
-                  <div>
-                    <div className="flex items-center gap-2 mb-1 flex-wrap">
-                      <span
-                        className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${
-                          item.category === 'Collab'
-                            ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40'
-                            : item.category === 'Help Wanted'
-                            ? 'bg-rose-500/20 text-rose-300 border-rose-500/40'
-                            : item.category === 'Brainstorm'
-                            ? 'bg-amber-500/20 text-amber-300 border-amber-500/40'
-                            : 'bg-purple-500/20 text-purple-300 border-purple-500/40'
-                        }`}
-                      >
-                        {item.category}
-                      </span>
-                      <span className="text-[11px] text-slate-400">
-                        Posted by <strong className="text-slate-300">@{item.author}</strong> • {item.createdAt}
-                      </span>
-                    </div>
-                    <h3 className="text-sm font-bold text-slate-100">{item.title}</h3>
-                  </div>
+                {/* Requests List Grid */}
+                <div className="p-6 overflow-y-auto space-y-4 flex-1">
+                    {filteredCollabs.length === 0 ? (
+                        <div className="text-center py-12 text-slate-500 text-sm">
+                            No collaboration requests in this category yet. Be the first to pin one!
+                        </div>
+                    ) : (
+                        filteredCollabs.map((item) => (
+                            <div
+                                key={item.id}
+                                className="p-4 rounded-xl bg-slate-950/50 border border-slate-800 hover:border-slate-700 transition-all flex flex-col gap-3"
+                            >
+                                <div className="flex items-start justify-between gap-2">
+                                    <div>
+                                        <div className="flex items-center gap-2 mb-1 flex-wrap">
+                                            <span
+                                                className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${item.category === 'Collab'
+                                                        ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40'
+                                                        : item.category === 'Help Wanted'
+                                                            ? 'bg-rose-500/20 text-rose-300 border-rose-500/40'
+                                                            : item.category === 'Brainstorm'
+                                                                ? 'bg-amber-500/20 text-amber-300 border-amber-500/40'
+                                                                : 'bg-purple-500/20 text-purple-300 border-purple-500/40'
+                                                    }`}
+                                            >
+                                                {item.category}
+                                            </span>
+                                            <span className="text-[11px] text-slate-400">
+                                                Posted by <strong className="text-slate-300">@{item.author}</strong> • {item.createdAt}
+                                            </span>
+                                        </div>
+                                        <h3 className="text-sm font-bold text-slate-100">{item.title}</h3>
+                                    </div>
 
-                  <button
-                    onClick={() => handleLike(item.id)}
-                    className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold border transition-all ${
-                      likedIds.has(item.id)
-                        ? 'bg-rose-500/20 border-rose-500/40 text-rose-300'
-                        : 'bg-slate-900 border-slate-700 text-slate-400 hover:text-rose-300 hover:border-rose-500/40'
-                    }`}
-                  >
-                    <span>❤️</span>
-                    <span>{item.likes}</span>
-                  </button>
-                </div>
+                                    <button
+                                        onClick={() => handleLike(item.id)}
+                                        className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold border transition-all ${likedIds.has(item.id)
+                                                ? 'bg-rose-500/20 border-rose-500/40 text-rose-300'
+                                                : 'bg-slate-900 border-slate-700 text-slate-400 hover:text-rose-300 hover:border-rose-500/40'
+                                            }`}
+                                    >
+                                        <span>❤️</span>
+                                        <span>{item.likes}</span>
+                                    </button>
+                                </div>
 
-                <p className="text-xs text-slate-300 leading-relaxed">{item.description}</p>
+                                <p className="text-xs text-slate-300 leading-relaxed">{item.description}</p>
