@@ -106,3 +106,47 @@ export default function CafeCollabModal({
             return updated;
         });
     };
+
+  const handleCreatePost = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!title.trim() || !description.trim()) return;
+
+    const tags = tagsInput
+      .split(',')
+      .map((t) => t.trim())
+      .filter((t) => t.length > 0);
+
+    const newCollab: CollabItem = {
+      id: 'collab-' + Date.now(),
+      title: title.trim(),
+      category: category,
+      author: currentUsername,
+      description: description.trim(),
+      repoUrl: repoUrl.trim() || 'https://github.com',
+      tags: tags.length > 0 ? tags : ['General Dev'],
+      seeking: seeking.trim() || 'Collaborators & Feedback',
+      likes: 1,
+      createdAt: 'Just now',
+    };
+
+    const updated = [newCollab, ...collabs];
+    setCollabs(updated);
+    try {
+      localStorage.setItem('cafe_collabs_list', JSON.stringify(updated));
+    } catch (e) {
+      console.error(e);
+    }
+
+    // Reset Form
+    setTitle('');
+    setDescription('');
+    setRepoUrl('');
+    setSeeking('');
+    setTagsInput('');
+    setIsPosting(false);
+  };
+
+  const filteredCollabs = collabs.filter((item) => {
+    if (activeTab === 'All') return true;
+    return item.category === activeTab;
+  });
