@@ -280,8 +280,8 @@ export default function CafeCollabModal({
                         <button
                             onClick={() => setActiveTab('All')}
                             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap ${activeTab === 'All'
-                                    ? 'bg-blue-600 text-white shadow-sm shadow-blue-500/20'
-                                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/80'
+                                ? 'bg-blue-600 text-white shadow-sm shadow-blue-500/20'
+                                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/80'
                                 }`}
                         >
                             <Layers className="w-3.5 h-3.5" />
@@ -290,8 +290,8 @@ export default function CafeCollabModal({
                         <button
                             onClick={() => setActiveTab('Collab')}
                             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap ${activeTab === 'Collab'
-                                    ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-500/20'
-                                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/80'
+                                ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-500/20'
+                                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/80'
                                 }`}
                         >
                             <Users className="w-3.5 h-3.5" />
@@ -300,8 +300,8 @@ export default function CafeCollabModal({
                         <button
                             onClick={() => setActiveTab('Help Wanted')}
                             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap ${activeTab === 'Help Wanted'
-                                    ? 'bg-rose-600 text-white shadow-sm shadow-rose-500/20'
-                                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/80'
+                                ? 'bg-rose-600 text-white shadow-sm shadow-rose-500/20'
+                                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/80'
                                 }`}
                         >
                             <HelpCircle className="w-3.5 h-3.5" />
@@ -310,8 +310,8 @@ export default function CafeCollabModal({
                         <button
                             onClick={() => setActiveTab('Brainstorm')}
                             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap ${activeTab === 'Brainstorm'
-                                    ? 'bg-amber-600 text-white shadow-sm shadow-amber-500/20'
-                                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/80'
+                                ? 'bg-amber-600 text-white shadow-sm shadow-amber-500/20'
+                                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/80'
                                 }`}
                         >
                             <Lightbulb className="w-3.5 h-3.5" />
@@ -476,8 +476,8 @@ export default function CafeCollabModal({
                                         <button
                                             onClick={() => handleToggleLike(item.id)}
                                             className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-semibold border transition-all cursor-pointer ${isLiked
-                                                    ? 'bg-rose-500/20 border-rose-500/50 text-rose-300 shadow-sm shadow-rose-500/10'
-                                                    : 'bg-slate-900 border-slate-700/80 text-slate-400 hover:text-rose-300 hover:border-rose-500/30'
+                                                ? 'bg-rose-500/20 border-rose-500/50 text-rose-300 shadow-sm shadow-rose-500/10'
+                                                : 'bg-slate-900 border-slate-700/80 text-slate-400 hover:text-rose-300 hover:border-rose-500/30'
                                                 }`}
                                             title={isLiked ? 'Unlike' : 'Like'}
                                         >
