@@ -150,3 +150,68 @@ export default function CafeCollabModal({
         if (activeTab === 'All') return true;
         return item.category === activeTab;
     });
+
+  return (
+    <div
+      id="cafe-collab-modal"
+      className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-in fade-in duration-200"
+      onClick={onClose}
+    >
+      <div
+        className="relative w-full max-w-3xl bg-slate-900 border border-slate-700/80 rounded-2xl shadow-2xl overflow-hidden text-slate-100 max-h-[90vh] flex flex-col font-sans"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Modal Header */}
+        <div className="flex items-center justify-between px-6 py-4 border-b border-slate-800 bg-slate-950/60">
+          <div className="flex items-center gap-3">
+            <span className="text-2xl p-2 rounded-xl bg-blue-950/80 border border-blue-800/60">
+              📊
+            </span>
+            <div>
+              <h2 className="text-lg font-bold text-slate-100 flex items-center gap-2">
+                Collab & Meeting Whiteboard
+                <span className="text-xs px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-400 border border-blue-500/30">
+                  Room 3
+                </span>
+              </h2>
+              <p className="text-xs text-slate-400">
+                Post collaboration requests, ask for debugging help, or find project teammates.
+              </p>
+            </div>
+          </div>
+          <button
+            onClick={onClose}
+            className="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-100 hover:bg-slate-800 transition-colors"
+          >
+            ✕
+          </button>
+        </div>
+
+        {/* Action / Filter Bar */}
+        <div className="flex flex-wrap items-center justify-between gap-3 px-6 py-3 bg-slate-900/90 border-b border-slate-800">
+          <div className="flex items-center gap-1.5 overflow-x-auto py-0.5">
+            {(['All', 'Collab', 'Help Wanted', 'Brainstorm'] as const).map((tab) => (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all whitespace-nowrap ${
+                  activeTab === tab
+                    ? 'bg-blue-600 text-white shadow-sm shadow-blue-500/20'
+                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800'
+                }`}
+              >
+                {tab === 'All' && '🌟 All Requests'}
+                {tab === 'Collab' && '🤝 Find Teammates'}
+                {tab === 'Help Wanted' && '🆘 Need Help'}
+                {tab === 'Brainstorm' && '💡 Brainstorm'}
+              </button>
+            ))}
+          </div>
+
+          <button
+            onClick={() => setIsPosting(!isPosting)}
+            className="px-4 py-1.5 rounded-lg text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white shadow-md transition-all flex items-center gap-1.5"
+          >
+            <span>{isPosting ? '✕ Cancel Post' : '➕ Post Request'}</span>
+          </button>
+        </div>
