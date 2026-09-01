@@ -5,6 +5,7 @@ import CodeCafeScene from './scenes/CodeCafeScene';
 import { PlayerState } from '../types/index';
 import DecorHotbar from '../components/decor/DecorHotbar';
 import CafeProjectShowcaseModal from '../components/modals/CafeProjectShowcaseModal';
+import CafeCollabModal from '../components/modals/CafeCollabModal';
 
 interface GameContainerProps {
   socket: any;
@@ -27,15 +28,21 @@ export default function GameContainer({
   const gameRef = useRef<Phaser.Game | null>(null);
   const [debugMode, setDebugMode] = useState(false);
   const [isShowcaseOpen, setIsShowcaseOpen] = useState(false);
+  const [isCollabOpen, setIsCollabOpen] = useState(false);
 
   useEffect(() => {
     const handleOpenShowcase = () => {
       setIsShowcaseOpen(true);
     };
+    const handleOpenCollab = () => {
+      setIsCollabOpen(true);
+    };
 
     window.addEventListener('open_cafe_showcase', handleOpenShowcase);
+    window.addEventListener('open_cafe_collab', handleOpenCollab);
     return () => {
       window.removeEventListener('open_cafe_showcase', handleOpenShowcase);
+      window.removeEventListener('open_cafe_collab', handleOpenCollab);
     };
   }, []);
 
@@ -186,7 +193,7 @@ export default function GameContainer({
 
         {/* Commented out the hitbox debug button in the UI so it can be enabled later if needed */}
 
-        {/* <div className="flex items-center gap-2 pointer-events-auto">
+        <div className="flex items-center gap-2 pointer-events-auto">
           <button
             onClick={() => setDebugMode(!debugMode)}
             className={`px-3 py-1.5 rounded-lg text-[10px] font-mono font-bold uppercase border transition-all cursor-pointer shadow-md select-none flex items-center gap-1.5 ${debugMode
@@ -197,7 +204,7 @@ export default function GameContainer({
             <span>🛠️</span>
             <span>{debugMode ? 'Hide Hitboxes' : 'Show Hitboxes'}</span>
           </button>
-        </div> */}
+        </div>
 
       </div>
 
@@ -208,6 +215,13 @@ export default function GameContainer({
       <CafeProjectShowcaseModal
         isOpen={isShowcaseOpen}
         onClose={() => setIsShowcaseOpen(false)}
+        currentUsername={selfPlayer?.username || 'You'}
+      />
+
+      {/* CodeCafe Collab & Help Whiteboard Modal */}
+      <CafeCollabModal
+        isOpen={isCollabOpen}
+        onClose={() => setIsCollabOpen(false)}
         currentUsername={selfPlayer?.username || 'You'}
       />
     </div>

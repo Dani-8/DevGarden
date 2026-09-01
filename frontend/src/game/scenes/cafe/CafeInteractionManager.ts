@@ -6,6 +6,7 @@ export class CafeInteractionManager {
     public promptText!: Phaser.GameObjects.Text;
     public sitPromptText!: Phaser.GameObjects.Text;
     public showcasePromptText!: Phaser.GameObjects.Text;
+    public collabPromptText!: Phaser.GameObjects.Text;
     public isSitting: boolean = false;
     public isTransitioning: boolean = false;
 
@@ -16,7 +17,8 @@ export class CafeInteractionManager {
         private eKey: Phaser.Input.Keyboard.Key,
         private oKey: Phaser.Input.Keyboard.Key,
         private onExitToGarden: () => void,
-        private onOpenShowcase?: () => void
+        private onOpenShowcase?: () => void,
+        private onOpenCollab?: () => void
     ) {
         this.createPrompts();
     }
@@ -57,6 +59,18 @@ export class CafeInteractionManager {
         this.showcasePromptText.setOrigin(0.5, 0);
         this.showcasePromptText.setDepth(3000);
         this.showcasePromptText.setVisible(false);
+
+        this.collabPromptText = this.scene.add.text(0, 0, 'Press [E] to Open Collab & Help Board 📊', {
+            fontSize: '10px',
+            fontFamily: 'system-ui, sans-serif',
+            fontStyle: 'bold',
+            color: '#60a5fa',
+            backgroundColor: 'rgba(15, 23, 42, 0.92)',
+            padding: { x: 8, y: 4 },
+        });
+        this.collabPromptText.setOrigin(0.5, 0);
+        this.collabPromptText.setDepth(3000);
+        this.collabPromptText.setVisible(false);
     }
 
     public checkShowcaseInteraction(
@@ -81,6 +95,32 @@ export class CafeInteractionManager {
             return true;
         } else {
             if (this.showcasePromptText) this.showcasePromptText.setVisible(false);
+            return false;
+        }
+    }
+
+    public checkCollabInteraction(
+        playerContainer: Phaser.GameObjects.Container,
+        collabPos?: { x: number; y: number }
+    ): boolean {
+        const targetX = collabPos?.x ?? 1152;
+        const targetY = collabPos?.y ?? 550;
+        const dist = Phaser.Math.Distance.Between(playerContainer.x, playerContainer.y, targetX, targetY);
+
+        if (dist < 60 && !this.isSitting) {
+            this.collabPromptText.setPosition(playerContainer.x, playerContainer.y + 14);
+            this.collabPromptText.setVisible(true);
+
+            if (this.eKey && Phaser.Input.Keyboard.JustDown(this.eKey)) {
+                if (this.onOpenCollab) {
+                    this.onOpenCollab();
+                } else {
+                    window.dispatchEvent(new CustomEvent('open_cafe_collab'));
+                }
+            }
+            return true;
+        } else {
+            if (this.collabPromptText) this.collabPromptText.setVisible(false);
             return false;
         }
     }

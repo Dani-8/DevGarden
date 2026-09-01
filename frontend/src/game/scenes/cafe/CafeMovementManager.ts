@@ -131,6 +131,9 @@ export class CafeMovementManager {
         // Project showcase interaction
         this.interactionManager.checkShowcaseInteraction(playerContainer, this.showcasePos);
 
+        // Collab & meeting whiteboard interaction
+        this.interactionManager.checkCollabInteraction(playerContainer);
+
         // Exit interaction
         this.interactionManager.checkExitInteraction(playerContainer);
 

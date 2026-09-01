@@ -151,22 +151,22 @@ export class CafePropsManager {
         spawnPot(20, 600);
 
         // Left Side of Center Garden Planter: Alternating Lamps & Pots snug against planter (x=430)
-        spawnLamp(430, 230); // Lamp 1
-        spawnPot(427, 275);  // Pot 1
-        spawnLamp(430, 320); // Lamp 2
-        spawnPot(427, 365);  // Pot 2
-        spawnLamp(430, 410); // Lamp 3
-        spawnPot(427, 455);  // Pot 3
-        spawnLamp(430, 500); // Lamp 4
+        spawnLamp(430, 240); // Lamp 1
+        spawnPot(427, 285);  // Pot 1
+        spawnLamp(430, 330); // Lamp 2
+        spawnPot(427, 375);  // Pot 2
+        spawnLamp(430, 420); // Lamp 3
+        spawnPot(427, 465);  // Pot 3
+        spawnLamp(430, 510); // Lamp 4
 
         // Right Side of Center Garden Planter: Alternating Lamps & Pots snug against planter (x=530)
-        spawnLamp(530, 230); // Lamp 1
-        spawnPot(533, 275);  // Pot 1
-        spawnLamp(530, 320); // Lamp 2
-        spawnPot(533, 365);  // Pot 2
-        spawnLamp(530, 410); // Lamp 3
-        spawnPot(533, 455);  // Pot 3
-        spawnLamp(530, 500); // Lamp 4
+        spawnLamp(530, 240); // Lamp 1
+        spawnPot(533, 285);  // Pot 1
+        spawnLamp(530, 330); // Lamp 2
+        spawnPot(533, 375);  // Pot 2
+        spawnLamp(530, 420); // Lamp 3
+        spawnPot(533, 465);  // Pot 3
+        spawnLamp(530, 510); // Lamp 4
 
         // 6. Round Dining Table Sets with 4 Red Cushion Armchairs each
         const createTable4Chairs = (x: number, y: number, textureKey: string = 'cafe_interior_table') => {
@@ -290,16 +290,16 @@ export class CafePropsManager {
         addObstacleZone(560, 680, 12, 108);
         addObstacleZone(753, 730, 414, 12);
 
-        // --- Left Entrance Zone: Big L-Shaped High Table, 7 Stools & Lush Corner Palm (From Reference Photo) ---
+        // --- Left Entrance Zone: Big L-Shaped High Table, Stools & Lush Corner Palm (From Reference Photo) ---
         // Big L-Shaped High Wooden Table Counter (Snapped flush against left wall & bottom rail)
         const bigLTable = scene.add.image(0, 724, 'cafe_big_l_table');
-        bigLTable.setDisplaySize(172, 108);
+        bigLTable.setDisplaySize(172, 134);
         bigLTable.setOrigin(0.0, 1.0);
         bigLTable.setDepth(665);
 
         // Accurate L-Shape Obstacles (Thin vertical & horizontal lines instead of one solid square block)
-        // 1. Vertical left bar arm: width 28px along left wall (x: 0..28, y: 616..724)
-        addObstacleZone(20, 670, 25, 90);
+        // 1. Vertical left bar arm: width 28px along left wall (x: 0..28, y: 590..724)
+        addObstacleZone(16, 655, 28, 120);
         // 2. Horizontal bottom bar arm: height 26px along bottom rail (x: 0..172, y: 698..724)
         addObstacleZone(88, 700, 160, 26);
 
@@ -318,11 +318,11 @@ export class CafePropsManager {
             chairs.push({ x: x, y: y - 6, sprite: seatSprite, dir: dir });
         };
 
-        // 7 High Bar Stools (3 along vertical wing facing left, 4 along horizontal wing facing down)
+        // High Bar Stools (3 along vertical wing facing left, 4 along horizontal wing facing down)
         // Stools along vertical wing
-        spawnHighStool(44, 638, 'left');
-        spawnHighStool(44, 662, 'left');
-        spawnHighStool(44, 686, 'left');
+        spawnHighStool(44, 622, 'left');
+        spawnHighStool(44, 652, 'left');
+        spawnHighStool(44, 680, 'left');
 
         // Stools along horizontal wing
         spawnHighStool(76, 680, 'down');

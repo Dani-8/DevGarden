@@ -691,62 +691,62 @@ export class CafeSeatingAndTables {
             }
         }
 
-        // 13. Big L-Shaped High Table Counter (160x100 canvas)
+        // 13. Big L-Shaped High Table Counter (160x125 canvas - balanced height)
         if (!textures.exists('cafe_big_l_table')) {
-            const canvas = textures.createCanvas('cafe_big_l_table', 160, 100);
+            const canvas = textures.createCanvas('cafe_big_l_table', 160, 125);
             if (canvas) {
                 const ctx = canvas.getContext();
 
-                // Floor drop shadow for whole L-table
+                // Floor drop shadow for whole table
                 ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
                 ctx.beginPath();
                 // Shadow under vertical left wing
-                ctx.roundRect(4, 10, 28, 88, 4);
+                ctx.roundRect(4, 10, 28, 113, 4);
                 // Shadow under horizontal bottom wing
-                ctx.roundRect(4, 68, 154, 28, 4);
+                ctx.roundRect(4, 93, 154, 28, 4);
                 ctx.fill();
 
                 // Dark Metal Frame & Sturdy Legs
                 ctx.fillStyle = '#1c1917';
                 // Legs along left wing
-                ctx.fillRect(6, 12, 4, 80);
-                ctx.fillRect(24, 12, 4, 80);
+                ctx.fillRect(6, 12, 4, 105);
+                ctx.fillRect(24, 12, 4, 105);
                 // Legs along bottom wing
-                ctx.fillRect(60, 72, 4, 22);
-                ctx.fillRect(105, 72, 4, 22);
-                ctx.fillRect(150, 72, 4, 22);
+                ctx.fillRect(60, 97, 4, 22);
+                ctx.fillRect(105, 97, 4, 22);
+                ctx.fillRect(150, 97, 4, 22);
                 // Lower support stretchers
-                ctx.fillRect(6, 82, 148, 3);
+                ctx.fillRect(6, 107, 148, 3);
 
                 // --- Tabletop Wooden Surface (Rich Natural Walnut / Teak with Beveled Edges) ---
                 // Base Wood Underlayer
                 ctx.fillStyle = '#451a03';
-                ctx.fillRect(4, 6, 26, 86);   // Left vertical arm
-                ctx.fillRect(4, 64, 154, 26);  // Bottom horizontal arm
+                ctx.fillRect(4, 6, 26, 111);   // Left vertical arm
+                ctx.fillRect(4, 89, 154, 26);  // Bottom horizontal arm
 
                 // Main Warm Wood Surface
                 ctx.fillStyle = '#78350f';
-                ctx.fillRect(6, 8, 22, 82);
-                ctx.fillRect(6, 66, 150, 22);
+                ctx.fillRect(6, 8, 22, 107);
+                ctx.fillRect(6, 91, 150, 22);
 
                 // Lighter Wood Grain Tone
                 ctx.fillStyle = '#92400e';
-                ctx.fillRect(7, 9, 20, 80);
-                ctx.fillRect(7, 67, 148, 20);
+                ctx.fillRect(7, 9, 20, 105);
+                ctx.fillRect(7, 92, 148, 20);
 
                 // Top Edge Highlight (Reflected Light)
                 ctx.fillStyle = '#b45309';
-                ctx.fillRect(7, 9, 2, 78);
-                ctx.fillRect(7, 67, 148, 2);
+                ctx.fillRect(7, 9, 2, 103);
+                ctx.fillRect(7, 92, 148, 2);
 
                 // Subtle wood plank seams
                 ctx.fillStyle = '#78350f';
-                ctx.fillRect(7, 35, 20, 1);
-                ctx.fillRect(60, 67, 1, 20);
-                ctx.fillRect(110, 67, 1, 20);
+                ctx.fillRect(7, 50, 20, 1);
+                ctx.fillRect(60, 92, 1, 20);
+                ctx.fillRect(110, 92, 1, 20);
 
                 // --- Tabletop Accessories (Ceramic Mugs, Glass Latte, Notepad) ---
-                // 1. Ceramic Coffee Mug on vertical wing
+                // 1. Ceramic Coffee Mug on upper vertical wing
                 ctx.fillStyle = '#f8fafc';
                 ctx.beginPath();
                 ctx.arc(17, 24, 5, 0, Math.PI * 2);
@@ -762,26 +762,26 @@ export class CafeSeatingAndTables {
 
                 // 2. Open Journal / Notebook on bottom wing
                 ctx.fillStyle = '#fef3c7';
-                ctx.fillRect(80, 72, 14, 10);
+                ctx.fillRect(80, 97, 14, 10);
                 ctx.fillStyle = '#d97706';
-                ctx.fillRect(86, 72, 1, 10); // Book spine
+                ctx.fillRect(86, 97, 1, 10); // Book spine
                 ctx.fillStyle = '#94a3b8';
-                ctx.fillRect(82, 74, 3, 1);
-                ctx.fillRect(82, 77, 3, 1);
-                ctx.fillRect(88, 74, 4, 1);
-                ctx.fillRect(88, 77, 4, 1);
+                ctx.fillRect(82, 99, 3, 1);
+                ctx.fillRect(82, 102, 3, 1);
+                ctx.fillRect(88, 99, 4, 1);
+                ctx.fillRect(88, 102, 4, 1);
 
                 // 3. Iced Latte Glass on bottom wing
                 ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
                 ctx.beginPath();
-                ctx.arc(135, 75, 4, 0, Math.PI * 2);
+                ctx.arc(135, 100, 4, 0, Math.PI * 2);
                 ctx.fill();
                 ctx.fillStyle = '#b45309';
                 ctx.beginPath();
-                ctx.arc(135, 75, 2.8, 0, Math.PI * 2);
+                ctx.arc(135, 100, 2.8, 0, Math.PI * 2);
                 ctx.fill();
                 ctx.fillStyle = '#22c55e'; // Green eco-straw
-                ctx.fillRect(135, 71, 1.5, 6);
+                ctx.fillRect(135, 96, 1.5, 6);
 
                 canvas.refresh();
             }
