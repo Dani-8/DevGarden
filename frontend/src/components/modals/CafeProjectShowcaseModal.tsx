@@ -247,33 +247,33 @@ export default function CafeProjectShowcaseModal({
         ? projects.filter((p) => p.featured || p.stars >= 30)
         : projects;
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="relative w-full max-w-2xl max-h-[85vh] flex flex-col rounded-2xl bg-stone-900 border border-amber-900/60 shadow-2xl text-stone-100 overflow-hidden">
-        {/* Modal Header */}
-        <div className="px-6 py-4 border-b border-stone-800 bg-stone-950/80 flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400">
-              <Award className="w-5 h-5" />
-            </div>
-            <div>
-              <div className="flex items-center space-x-2">
-                <h2 className="text-lg font-bold tracking-wide text-amber-200 font-mono">
-                  CodeCafe Project Showcase
-                </h2>
-                <span className="px-2 py-0.5 text-xs font-semibold rounded-full bg-emerald-950 text-emerald-300 border border-emerald-800">
-                  Live Hub
-                </span>
-              </div>
-              <p className="text-xs text-stone-400">
-                Share what you are building, get feedback, and explore community creations
-              </p>
-            </div>
-          </div>
-          <button
-            onClick={onClose}
-            className="p-1.5 rounded-lg text-stone-400 hover:text-stone-100 hover:bg-stone-800 transition-colors"
-          >
-            <X className="w-5 h-5" />
-          </button>
-        </div>
+    return (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm animate-in fade-in duration-200">
+            <div className="relative w-full max-w-2xl max-h-[85vh] flex flex-col rounded-2xl bg-stone-900 border border-amber-900/60 shadow-2xl text-stone-100 overflow-hidden">
+                {/* Modal Header */}
+                <div className="px-6 py-4 border-b border-stone-800 bg-stone-950/80 flex items-center justify-between">
+                    <div className="flex items-center space-x-3">
+                        <div className="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400">
+                            <Award className="w-5 h-5" />
+                        </div>
+                        <div>
+                            <div className="flex items-center space-x-2">
+                                <h2 className="text-lg font-bold tracking-wide text-amber-200 font-mono">
+                                    CodeCafe Project Showcase
+                                </h2>
+                                <span className="px-2 py-0.5 text-xs font-semibold rounded-full bg-emerald-950 text-emerald-300 border border-emerald-800">
+                                    Live Hub
+                                </span>
+                            </div>
+                            <p className="text-xs text-stone-400">
+                                Share what you are building, get feedback, and explore community creations
+                            </p>
+                        </div>
+                    </div>
+                    <button
+                        onClick={onClose}
+                        className="p-1.5 rounded-lg text-stone-400 hover:text-stone-100 hover:bg-stone-800 transition-colors"
+                    >
+                        <X className="w-5 h-5" />
+                    </button>
+                </div>
