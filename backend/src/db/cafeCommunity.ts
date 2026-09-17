@@ -12,3 +12,17 @@ export interface ShowcaseProject {
   featured?: boolean;
   createdAt: number;
 }
+
+export interface CollabItem {
+  id: string;
+  title: string;
+  category: 'Collab' | 'Help Wanted' | 'Brainstorm' | 'Code Review';
+  author: string;
+  authorRole?: string;
+  description: string;
+  repoUrl: string;
+  tags: string[];
+  seeking: string;
+  likes: number;
+  createdAt: string | number;
+}
