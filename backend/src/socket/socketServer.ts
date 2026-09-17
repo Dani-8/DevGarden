@@ -2,6 +2,7 @@ import { Server as HttpServer } from 'http';
 import { registerPlayerHandlers } from './playerHandler.js';
 import { registerChatHandlers } from './chatHandler.js';
 import { registerDecorHandlers } from './decorHandler.js';
+import { registerCafeHandlers } from './cafeHandler.js';
 
 let ioInstance: any = null;
 
@@ -16,6 +17,7 @@ export function registerSocketEvents(io: any) {
     registerPlayerHandlers(io, socket);
     registerChatHandlers(io, socket);
     registerDecorHandlers(io, socket);
+    registerCafeHandlers(io, socket);
 
     socket.on('disconnect', () => {
       io.emit('player_left', { id: socket.id });
