@@ -190,3 +190,22 @@ export async function createShowcaseProject(project: Omit<ShowcaseProject, 'id' 
     inMemoryShowcase = [newProject, ...inMemoryShowcase];
     return newProject;
 }
+
+export async function toggleShowcaseStar(id: string, increment: boolean): Promise<ShowcaseProject | null> {
+  const delta = increment ? 1 : -1;
+  const project = inMemoryShowcase.find((p) => p.id === id);
+  if (project) {
+    project.stars = Math.max(0, project.stars + delta);
+  }
+
+  if (isSupabaseConfigured() && project) {
+    try {
+      const supabase = getSupabase();
+      await supabase.from('cafe_showcase').update({ stars: project.stars }).eq('id', id);
+    } catch (err) {
+      console.warn('Supabase stars update error for cafe_showcase:', err);
+    }
+  }
+
+  return project || null;
+}
