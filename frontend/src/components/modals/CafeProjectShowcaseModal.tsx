@@ -64,3 +64,43 @@ const DEFAULT_PROJECTS: ShowcaseProject[] = [
     createdAt: Date.now() - 86400000 * 8,
   },
 ];
+
+interface CafeProjectShowcaseModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  socket?: any;
+  currentUsername?: string;
+}
+
+export default function CafeProjectShowcaseModal({
+  isOpen,
+  onClose,
+  socket,
+  currentUsername = 'You',
+}: CafeProjectShowcaseModalProps) {
+  const [projects, setProjects] = useState<ShowcaseProject[]>(() => {
+    try {
+      const saved = localStorage.getItem('cafe_showcase_projects');
+      if (saved) {
+        return JSON.parse(saved);
+      }
+    } catch { }
+    return DEFAULT_PROJECTS;
+  });
+
+  const [upvotedIds, setUpvotedIds] = useState<string[]>(() => {
+    try {
+      const saved = localStorage.getItem('cafe_showcase_upvotes');
+      if (saved) return JSON.parse(saved);
+    } catch { }
+    return [];
+  });
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [activeTab, setActiveTab] = useState<'all' | 'featured'>('all');
+  const [formData, setFormData] = useState({
+    title: '',
+    description: '',
+    tags: '',
+    link: '',
+  });
