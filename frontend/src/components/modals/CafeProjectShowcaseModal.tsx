@@ -277,3 +277,105 @@ export default function CafeProjectShowcaseModal({
                         <X className="w-5 h-5" />
                     </button>
                 </div>
+
+        {/* Action / Filter Bar */}
+        <div className="px-6 py-3 bg-stone-900/90 border-b border-stone-800 flex items-center justify-between gap-3">
+          <div className="flex items-center space-x-2">
+            <button
+              onClick={() => {
+                setActiveTab('all');
+                setIsSubmitting(false);
+              }}
+              className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-colors ${
+                activeTab === 'all' && !isSubmitting
+                  ? 'bg-amber-600 text-stone-950 font-bold'
+                  : 'text-stone-400 hover:text-stone-200 bg-stone-800/60'
+              }`}
+            >
+              All Projects ({projects.length})
+            </button>
+            <button
+              onClick={() => {
+                setActiveTab('featured');
+                setIsSubmitting(false);
+              }}
+              className={`px-3 py-1.5 text-xs font-medium rounded-lg flex items-center space-x-1 transition-colors ${
+                activeTab === 'featured' && !isSubmitting
+                  ? 'bg-amber-600 text-stone-950 font-bold'
+                  : 'text-stone-400 hover:text-stone-200 bg-stone-800/60'
+              }`}
+            >
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>Top Featured</span>
+            </button>
+          </div>
+
+          <button
+            onClick={() => setIsSubmitting(!isSubmitting)}
+            className={`px-3.5 py-1.5 text-xs font-semibold rounded-lg flex items-center space-x-1.5 transition-all shadow-md ${
+              isSubmitting
+                ? 'bg-stone-700 text-stone-200'
+                : 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-emerald-900/30'
+            }`}
+          >
+            <Plus className="w-3.5 h-3.5" />
+            <span>{isSubmitting ? 'Cancel' : 'Share Your Project'}</span>
+          </button>
+        </div>
+
+        {/* Modal Body */}
+        <div className="flex-1 overflow-y-auto p-6 space-y-4">
+          {isSubmitting ? (
+            /* Submission Form */
+            <form onSubmit={handleSubmit} className="p-5 rounded-xl bg-stone-950/70 border border-stone-800 space-y-4">
+              <div className="flex items-center space-x-2 text-amber-300 text-sm font-semibold">
+                <Sparkles className="w-4 h-4" />
+                <span>Showcase Your Project to CodeCafe</span>
+              </div>
+
+              <div>
+                <label className="block text-xs text-stone-400 mb-1 font-medium">Project Name *</label>
+                <input
+                  type="text"
+                  required
+                  placeholder="e.g., Pixel Quest Multiplayer or AI Prompt Studio"
+                  value={formData.title}
+                  onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                  className="w-full px-3 py-2 text-sm rounded-lg bg-stone-900 border border-stone-700 text-stone-100 placeholder-stone-500 focus:outline-none focus:border-amber-500"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs text-stone-400 mb-1 font-medium">Description / What are you building? *</label>
+                <textarea
+                  required
+                  rows={3}
+                  placeholder="Describe what your project does, what tech stack you used, or what feedback you are looking for..."
+                  value={formData.description}
+                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                  className="w-full px-3 py-2 text-sm rounded-lg bg-stone-900 border border-stone-700 text-stone-100 placeholder-stone-500 focus:outline-none focus:border-amber-500 resize-none"
+                />
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs text-stone-400 mb-1 font-medium">Tech Tags (comma separated)</label>
+                  <input
+                    type="text"
+                    placeholder="e.g., React, TypeScript, Python"
+                    value={formData.tags}
+                    onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
+                    className="w-full px-3 py-2 text-sm rounded-lg bg-stone-900 border border-stone-700 text-stone-100 placeholder-stone-500 focus:outline-none focus:border-amber-500"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs text-stone-400 mb-1 font-medium">Demo / GitHub Link (optional)</label>
+                  <input
+                    type="url"
+                    placeholder="https://github.com/..."
+                    value={formData.link}
+                    onChange={(e) => setFormData({ ...formData, link: e.target.value })}
+                    className="w-full px-3 py-2 text-sm rounded-lg bg-stone-900 border border-stone-700 text-stone-100 placeholder-stone-500 focus:outline-none focus:border-amber-500"
+                  />
+                </div>
+              </div>
