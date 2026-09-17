@@ -68,12 +68,14 @@ const DEFAULT_PROJECTS: ShowcaseProject[] = [
 interface CafeProjectShowcaseModalProps {
     isOpen: boolean;
     onClose: () => void;
+    socket?: any;
     currentUsername?: string;
 }
 
 export default function CafeProjectShowcaseModal({
     isOpen,
     onClose,
+    socket,
     currentUsername = 'You',
 }: CafeProjectShowcaseModalProps) {
     const [projects, setProjects] = useState<ShowcaseProject[]>(() => {
@@ -103,6 +105,55 @@ export default function CafeProjectShowcaseModal({
         link: '',
     });
 
+    // Fetch initial data from backend API
+    useEffect(() => {
+        fetch('/api/cafe/showcase')
+            .then((res) => (res.ok ? res.json() : null))
+            .then((data) => {
+                if (Array.isArray(data) && data.length > 0) {
+                    setProjects(data);
+                    try {
+                        localStorage.setItem('cafe_showcase_projects', JSON.stringify(data));
+                    } catch { }
+                }
+            })
+            .catch((err) => console.warn('Could not load showcase from API:', err));
+    }, []);
+
+    // Listen to live WebSocket events
+    useEffect(() => {
+        if (!socket) return;
+
+        const handleCreated = (newProj: ShowcaseProject) => {
+            setProjects((prev) => {
+                if (prev.some((p) => p.id === newProj.id)) return prev;
+                const updated = [newProj, ...prev];
+                try {
+                    localStorage.setItem('cafe_showcase_projects', JSON.stringify(updated));
+                } catch { }
+                return updated;
+            });
+        };
+
+        const handleUpdated = (updatedProj: ShowcaseProject) => {
+            setProjects((prev) => {
+                const updated = prev.map((p) => (p.id === updatedProj.id ? updatedProj : p));
+                try {
+                    localStorage.setItem('cafe_showcase_projects', JSON.stringify(updated));
+                } catch { }
+                return updated;
+            });
+        };
+
+        socket.on('cafe_showcase_created', handleCreated);
+        socket.on('cafe_showcase_updated', handleUpdated);
+
+        return () => {
+            socket.off('cafe_showcase_created', handleCreated);
+            socket.off('cafe_showcase_updated', handleUpdated);
+        };
+    }, [socket]);
+
     useEffect(() => {
         try {
             localStorage.setItem('cafe_showcase_projects', JSON.stringify(projects));
@@ -117,23 +168,40 @@ export default function CafeProjectShowcaseModal({
 
     if (!isOpen) return null;
 
-    const handleUpvote = (id: string) => {
-        if (upvotedIds.includes(id)) {
-            // Remove upvote
-            setUpvotedIds(upvotedIds.filter((pId) => pId !== id));
-            setProjects((prev) =>
-                prev.map((p) => (p.id === id ? { ...p, stars: Math.max(0, p.stars - 1) } : p))
-            );
+    const handleUpvote = async (id: string) => {
+        const isUpvoted = upvotedIds.includes(id);
+        const updatedUpvotes = isUpvoted
+            ? upvotedIds.filter((pId) => pId !== id)
+            : [...upvotedIds, id];
+
+        setUpvotedIds(updatedUpvotes);
+        try {
+            localStorage.setItem('cafe_showcase_upvotes', JSON.stringify(updatedUpvotes));
+        } catch { }
+
+        setProjects((prev) =>
+            prev.map((p) =>
+                p.id === id ? { ...p, stars: Math.max(0, p.stars + (isUpvoted ? -1 : 1)) } : p
+            )
+        );
+
+        // Sync via socket or API
+        if (socket) {
+            socket.emit('cafe_showcase_star', { id, increment: !isUpvoted });
         } else {
-            // Add upvote
-            setUpvotedIds([...upvotedIds, id]);
-            setProjects((prev) =>
-                prev.map((p) => (p.id === id ? { ...p, stars: p.stars + 1 } : p))
-            );
+            try {
+                await fetch(`/api/cafe/showcase/${id}/star`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ increment: !isUpvoted }),
+                });
+            } catch (err) {
+                console.error('Failed to sync star:', err);
+            }
         }
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!formData.title.trim() || !formData.description.trim()) return;
 
@@ -142,8 +210,7 @@ export default function CafeProjectShowcaseModal({
             .map((t) => t.trim())
             .filter((t) => t.length > 0);
 
-        const newProject: ShowcaseProject = {
-            id: `proj-${Date.now()}`,
+        const payload = {
             title: formData.title.trim(),
             author: currentUsername,
             authorRole: 'Cafe Creator',
@@ -152,11 +219,26 @@ export default function CafeProjectShowcaseModal({
             link: formData.link.trim() || undefined,
             stars: 1,
             featured: false,
-            createdAt: Date.now(),
         };
 
-        setUpvotedIds((prev) => [...prev, newProject.id]);
-        setProjects([newProject, ...projects]);
+        if (socket) {
+            socket.emit('cafe_showcase_create', payload);
+        } else {
+            try {
+                const res = await fetch('/api/cafe/showcase', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload),
+                });
+                if (res.ok) {
+                    const created = await res.json();
+                    setProjects((prev) => [created, ...prev]);
+                }
+            } catch (err) {
+                console.error('Failed to create showcase project:', err);
+            }
+        }
+
         setFormData({ title: '', description: '', tags: '', link: '' });
         setIsSubmitting(false);
     };
