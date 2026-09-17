@@ -1,6 +1,6 @@
 import {
-  createShowcaseProject,
-  toggleShowcaseStar,
-  createCollabItem,
-  toggleCollabLike,
+    createShowcaseProject,
+    toggleShowcaseStar,
+    createCollabItem,
+    toggleCollabLike,
 } from '../db/index.js';
