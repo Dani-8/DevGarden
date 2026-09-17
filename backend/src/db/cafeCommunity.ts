@@ -209,3 +209,35 @@ export async function toggleShowcaseStar(id: string, increment: boolean): Promis
 
   return project || null;
 }
+
+// --- Collab Database Queries ---
+export async function getCollabItems(): Promise<CollabItem[]> {
+  if (isSupabaseConfigured()) {
+    try {
+      const supabase = getSupabase();
+      const { data, error } = await supabase
+        .from('cafe_collabs')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (!error && data && data.length > 0) {
+        return data.map((d: any) => ({
+          id: d.id,
+          title: d.title,
+          category: d.category,
+          author: d.author,
+          authorRole: d.author_role || d.authorRole || 'Developer',
+          description: d.description,
+          repoUrl: d.repo_url || d.link || '',
+          tags: Array.isArray(d.tags) ? d.tags : [],
+          seeking: d.seeking || 'Collaborators',
+          likes: d.likes || 0,
+          createdAt: d.created_at || 'Recently',
+        }));
+      }
+    } catch (err) {
+      console.warn('Supabase fetch error for cafe_collabs, using memory store:', err);
+    }
+  }
+  return inMemoryCollabs;
+}
