@@ -376,3 +376,49 @@ export default function CafeProjectShowcaseModal({
                                     />
                                 </div>
                             </div>
+
+              <div className="flex justify-end space-x-2 pt-2">
+                <button
+                  type="button"
+                  onClick={() => setIsSubmitting(false)}
+                  className="px-4 py-2 text-xs font-medium rounded-lg text-stone-400 hover:text-stone-200 bg-stone-800"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="px-5 py-2 text-xs font-bold rounded-lg bg-amber-500 hover:bg-amber-400 text-stone-950 transition-colors shadow-lg"
+                >
+                  Post to Showcase Board
+                </button>
+              </div>
+            </form>
+          ) : (
+            /* Projects List */
+            <div className="grid grid-cols-1 gap-3.5">
+              {filteredProjects.map((project) => {
+                const isUpvoted = upvotedIds.includes(project.id);
+                return (
+                  <div
+                    key={project.id}
+                    className={`p-4 rounded-xl border transition-all ${
+                      project.featured
+                        ? 'bg-stone-950/80 border-amber-500/40 shadow-lg shadow-amber-950/20'
+                        : 'bg-stone-950/50 border-stone-800/80 hover:border-stone-700'
+                    }`}
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center space-x-2 flex-wrap gap-y-1">
+                          <h3 className="text-sm font-bold text-stone-100 truncate">{project.title}</h3>
+                          {project.featured && (
+                            <span className="px-2 py-0.5 text-[10px] font-bold rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 flex items-center space-x-1">
+                              <Sparkles className="w-2.5 h-2.5" />
+                              <span>Featured</span>
+                            </span>
+                          )}
+                        </div>
+                        <p className="text-xs text-stone-400 mt-0.5">
+                          by <span className="text-amber-300/90 font-medium">{project.author}</span> • {project.authorRole}
+                        </p>
+                      </div>
