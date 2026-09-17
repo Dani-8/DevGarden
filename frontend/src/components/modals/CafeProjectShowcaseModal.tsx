@@ -200,3 +200,49 @@ export default function CafeProjectShowcaseModal({
             }
         }
     };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.title.trim() || !formData.description.trim()) return;
+
+    const parsedTags = formData.tags
+      .split(',')
+      .map((t) => t.trim())
+      .filter((t) => t.length > 0);
+
+    const payload = {
+      title: formData.title.trim(),
+      author: currentUsername,
+      authorRole: 'Cafe Creator',
+      description: formData.description.trim(),
+      tags: parsedTags.length > 0 ? parsedTags : ['Project', 'DevGarden'],
+      link: formData.link.trim() || undefined,
+      stars: 1,
+      featured: false,
+    };
+
+    if (socket) {
+      socket.emit('cafe_showcase_create', payload);
+    } else {
+      try {
+        const res = await fetch('/api/cafe/showcase', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        if (res.ok) {
+          const created = await res.json();
+          setProjects((prev) => [created, ...prev]);
+        }
+      } catch (err) {
+        console.error('Failed to create showcase project:', err);
+      }
+    }
+
+    setFormData({ title: '', description: '', tags: '', link: '' });
+    setIsSubmitting(false);
+  };
+
+  const filteredProjects = activeTab === 'featured'
+    ? projects.filter((p) => p.featured || p.stars >= 30)
+    : projects;
