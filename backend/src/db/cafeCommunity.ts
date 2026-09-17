@@ -120,3 +120,34 @@ let inMemoryCollabs: CollabItem[] = [
     createdAt: 'Yesterday',
   },
 ];
+
+// --- Showcase Database Queries ---
+export async function getShowcaseProjects(): Promise<ShowcaseProject[]> {
+  if (isSupabaseConfigured()) {
+    try {
+      const supabase = getSupabase();
+      const { data, error } = await supabase
+        .from('cafe_showcase')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (!error && data && data.length > 0) {
+        return data.map((d: any) => ({
+          id: d.id,
+          title: d.title,
+          author: d.author,
+          authorRole: d.author_role || d.authorRole || 'Developer',
+          description: d.description,
+          tags: Array.isArray(d.tags) ? d.tags : [],
+          link: d.link || d.repo_url,
+          stars: d.stars || 0,
+          featured: !!d.featured,
+          createdAt: d.created_at ? new Date(d.created_at).getTime() : Date.now(),
+        }));
+      }
+    } catch (err) {
+      console.warn('Supabase fetch error for cafe_showcase, using memory store:', err);
+    }
+  }
+  return inMemoryShowcase;
+}
