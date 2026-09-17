@@ -243,41 +243,41 @@ export async function getCollabItems(): Promise<CollabItem[]> {
 }
 
 export async function createCollabItem(collab: Omit<CollabItem, 'id' | 'createdAt'>): Promise<CollabItem> {
-  const newCollab: CollabItem = {
-    ...collab,
-    id: 'collab-' + Date.now(),
-    likes: collab.likes || 1,
-    createdAt: 'Just now',
-  };
+    const newCollab: CollabItem = {
+        ...collab,
+        id: 'collab-' + Date.now(),
+        likes: collab.likes || 1,
+        createdAt: 'Just now',
+    };
 
-  if (isSupabaseConfigured()) {
-    try {
-      const supabase = getSupabase();
-      const { data, error } = await supabase
-        .from('cafe_collabs')
-        .insert({
-          id: newCollab.id,
-          title: newCollab.title,
-          category: newCollab.category,
-          author: newCollab.author,
-          author_role: newCollab.authorRole,
-          description: newCollab.description,
-          repo_url: newCollab.repoUrl,
-          tags: newCollab.tags,
-          seeking: newCollab.seeking,
-          likes: newCollab.likes,
-        })
-        .select()
-        .single();
+    if (isSupabaseConfigured()) {
+        try {
+            const supabase = getSupabase();
+            const { data, error } = await supabase
+                .from('cafe_collabs')
+                .insert({
+                    id: newCollab.id,
+                    title: newCollab.title,
+                    category: newCollab.category,
+                    author: newCollab.author,
+                    author_role: newCollab.authorRole,
+                    description: newCollab.description,
+                    repo_url: newCollab.repoUrl,
+                    tags: newCollab.tags,
+                    seeking: newCollab.seeking,
+                    likes: newCollab.likes,
+                })
+                .select()
+                .single();
 
-      if (!error && data) {
-        newCollab.id = data.id;
-      }
-    } catch (err) {
-      console.warn('Supabase insert error for cafe_collabs, saved in memory:', err);
+            if (!error && data) {
+                newCollab.id = data.id;
+            }
+        } catch (err) {
+            console.warn('Supabase insert error for cafe_collabs, saved in memory:', err);
+        }
     }
-  }
 
-  inMemoryCollabs = [newCollab, ...inMemoryCollabs];
-  return newCollab;
+    inMemoryCollabs = [newCollab, ...inMemoryCollabs];
+    return newCollab;
 }
