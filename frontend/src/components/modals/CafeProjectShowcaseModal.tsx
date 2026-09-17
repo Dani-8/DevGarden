@@ -422,3 +422,55 @@ export default function CafeProjectShowcaseModal({
                           by <span className="text-amber-300/90 font-medium">{project.author}</span> • {project.authorRole}
                         </p>
                       </div>
+
+                      {/* Upvote Star Button */}
+                      <button
+                        onClick={() => handleUpvote(project.id)}
+                        className={`px-3 py-1.5 rounded-lg flex items-center space-x-1.5 text-xs font-bold transition-all ${
+                          isUpvoted
+                            ? 'bg-amber-500 text-stone-950 shadow-md shadow-amber-500/20'
+                            : 'bg-stone-800/80 hover:bg-stone-800 text-stone-300 border border-stone-700'
+                        }`}
+                      >
+                        <Star className={`w-3.5 h-3.5 ${isUpvoted ? 'fill-stone-950' : 'text-amber-400'}`} />
+                        <span>{project.stars}</span>
+                      </button>
+                    </div>
+
+                    {/* Description */}
+                    <p className="text-xs text-stone-300 mt-2.5 leading-relaxed">
+                      {project.description}
+                    </p>
+
+                    {/* Tags & Action Link */}
+                    <div className="mt-3.5 pt-2.5 border-t border-stone-800/60 flex items-center justify-between flex-wrap gap-2">
+                      <div className="flex items-center space-x-1.5 flex-wrap gap-y-1">
+                        {project.tags.map((tag, i) => (
+                          <span
+                            key={i}
+                            className="px-2 py-0.5 text-[10px] font-medium rounded-md bg-stone-800 text-stone-300 border border-stone-700/60"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+
+                      {project.link && (
+                        <a
+                          href={project.link}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="text-[11px] font-semibold text-amber-400 hover:text-amber-300 flex items-center space-x-1 transition-colors"
+                        >
+                          <span>Explore Project</span>
+                          <ExternalLink className="w-3 h-3" />
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+
