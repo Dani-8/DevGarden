@@ -151,3 +151,42 @@ export async function getShowcaseProjects(): Promise<ShowcaseProject[]> {
   }
   return inMemoryShowcase;
 }
+
+export async function createShowcaseProject(project: Omit<ShowcaseProject, 'id' | 'createdAt'>): Promise<ShowcaseProject> {
+  const newProject: ShowcaseProject = {
+    ...project,
+    id: 'proj-' + Date.now(),
+    stars: project.stars || 1,
+    createdAt: Date.now(),
+  };
+
+  if (isSupabaseConfigured()) {
+    try {
+      const supabase = getSupabase();
+      const { data, error } = await supabase
+        .from('cafe_showcase')
+        .insert({
+          id: newProject.id,
+          title: newProject.title,
+          author: newProject.author,
+          author_role: newProject.authorRole,
+          description: newProject.description,
+          tags: newProject.tags,
+          link: newProject.link,
+          stars: newProject.stars,
+          featured: newProject.featured || false,
+        })
+        .select()
+        .single();
+
+      if (!error && data) {
+        newProject.id = data.id;
+      }
+    } catch (err) {
+      console.warn('Supabase insert error for cafe_showcase, saved in memory:', err);
+    }
+  }
+
+  inMemoryShowcase = [newProject, ...inMemoryShowcase];
+  return newProject;
+}
