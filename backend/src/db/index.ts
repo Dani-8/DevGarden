@@ -3,3 +3,4 @@ export * from './users.js';
 export * from './decorations.js';
 export * from './starTree.js';
 export * from './sessions.js';
+export * from './cafeCommunity.js';
