@@ -37,22 +37,22 @@ export function registerCafeHandlers(io: any, socket: any) {
         }
     });
 
-  // Collab Item Creation
-  socket.on('cafe_collab_create', async (data: any) => {
-    try {
-      const collab = await createCollabItem({
-        title: data.title,
-        category: data.category || 'Collab',
-        author: data.author || 'Gardener',
-        authorRole: data.authorRole || 'Developer',
-        description: data.description,
-        repoUrl: data.repoUrl || 'https://github.com',
-        tags: Array.isArray(data.tags) ? data.tags : ['General'],
-        seeking: data.seeking || 'Collaborators',
-        likes: data.likes || 1,
-      });
-      io.emit('cafe_collab_created', collab);
-    } catch (err) {
-      console.error('Error handling cafe_collab_create:', err);
-    }
-  });
+    // Collab Item Creation
+    socket.on('cafe_collab_create', async (data: any) => {
+        try {
+            const collab = await createCollabItem({
+                title: data.title,
+                category: data.category || 'Collab',
+                author: data.author || 'Gardener',
+                authorRole: data.authorRole || 'Developer',
+                description: data.description,
+                repoUrl: data.repoUrl || 'https://github.com',
+                tags: Array.isArray(data.tags) ? data.tags : ['General'],
+                seeking: data.seeking || 'Collaborators',
+                likes: data.likes || 1,
+            });
+            io.emit('cafe_collab_created', collab);
+        } catch (err) {
+            console.error('Error handling cafe_collab_create:', err);
+        }
+    });
