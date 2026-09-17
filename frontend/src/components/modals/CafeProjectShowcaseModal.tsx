@@ -105,51 +105,51 @@ export default function CafeProjectShowcaseModal({
         link: '',
     });
 
-  // Fetch initial data from backend API
-  useEffect(() => {
-    fetch('/api/cafe/showcase')
-      .then((res) => (res.ok ? res.json() : null))
-      .then((data) => {
-        if (Array.isArray(data) && data.length > 0) {
-          setProjects(data);
-          try {
-            localStorage.setItem('cafe_showcase_projects', JSON.stringify(data));
-          } catch { }
-        }
-      })
-      .catch((err) => console.warn('Could not load showcase from API:', err));
-  }, []);
+    // Fetch initial data from backend API
+    useEffect(() => {
+        fetch('/api/cafe/showcase')
+            .then((res) => (res.ok ? res.json() : null))
+            .then((data) => {
+                if (Array.isArray(data) && data.length > 0) {
+                    setProjects(data);
+                    try {
+                        localStorage.setItem('cafe_showcase_projects', JSON.stringify(data));
+                    } catch { }
+                }
+            })
+            .catch((err) => console.warn('Could not load showcase from API:', err));
+    }, []);
 
-  // Listen to live WebSocket events
-  useEffect(() => {
-    if (!socket) return;
+    // Listen to live WebSocket events
+    useEffect(() => {
+        if (!socket) return;
 
-    const handleCreated = (newProj: ShowcaseProject) => {
-      setProjects((prev) => {
-        if (prev.some((p) => p.id === newProj.id)) return prev;
-        const updated = [newProj, ...prev];
-        try {
-          localStorage.setItem('cafe_showcase_projects', JSON.stringify(updated));
-        } catch { }
-        return updated;
-      });
-    };
+        const handleCreated = (newProj: ShowcaseProject) => {
+            setProjects((prev) => {
+                if (prev.some((p) => p.id === newProj.id)) return prev;
+                const updated = [newProj, ...prev];
+                try {
+                    localStorage.setItem('cafe_showcase_projects', JSON.stringify(updated));
+                } catch { }
+                return updated;
+            });
+        };
 
-    const handleUpdated = (updatedProj: ShowcaseProject) => {
-      setProjects((prev) => {
-        const updated = prev.map((p) => (p.id === updatedProj.id ? updatedProj : p));
-        try {
-          localStorage.setItem('cafe_showcase_projects', JSON.stringify(updated));
-        } catch { }
-        return updated;
-      });
-    };
+        const handleUpdated = (updatedProj: ShowcaseProject) => {
+            setProjects((prev) => {
+                const updated = prev.map((p) => (p.id === updatedProj.id ? updatedProj : p));
+                try {
+                    localStorage.setItem('cafe_showcase_projects', JSON.stringify(updated));
+                } catch { }
+                return updated;
+            });
+        };
 
-    socket.on('cafe_showcase_created', handleCreated);
-    socket.on('cafe_showcase_updated', handleUpdated);
+        socket.on('cafe_showcase_created', handleCreated);
+        socket.on('cafe_showcase_updated', handleUpdated);
 
-    return () => {
-      socket.off('cafe_showcase_created', handleCreated);
-      socket.off('cafe_showcase_updated', handleUpdated);
-    };
-  }, [socket]);
+        return () => {
+            socket.off('cafe_showcase_created', handleCreated);
+            socket.off('cafe_showcase_updated', handleUpdated);
+        };
+    }, [socket]);
