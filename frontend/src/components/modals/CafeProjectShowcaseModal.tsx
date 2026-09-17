@@ -153,3 +153,50 @@ export default function CafeProjectShowcaseModal({
             socket.off('cafe_showcase_updated', handleUpdated);
         };
     }, [socket]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('cafe_showcase_projects', JSON.stringify(projects));
+    } catch { }
+  }, [projects]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('cafe_showcase_upvotes', JSON.stringify(upvotedIds));
+    } catch { }
+  }, [upvotedIds]);
+
+  if (!isOpen) return null;
+
+  const handleUpvote = async (id: string) => {
+    const isUpvoted = upvotedIds.includes(id);
+    const updatedUpvotes = isUpvoted
+      ? upvotedIds.filter((pId) => pId !== id)
+      : [...upvotedIds, id];
+
+    setUpvotedIds(updatedUpvotes);
+    try {
+      localStorage.setItem('cafe_showcase_upvotes', JSON.stringify(updatedUpvotes));
+    } catch { }
+
+    setProjects((prev) =>
+      prev.map((p) =>
+        p.id === id ? { ...p, stars: Math.max(0, p.stars + (isUpvoted ? -1 : 1)) } : p
+      )
+    );
+
+    // Sync via socket or API
+    if (socket) {
+      socket.emit('cafe_showcase_star', { id, increment: !isUpvoted });
+    } else {
+      try {
+        await fetch(`/api/cafe/showcase/${id}/star`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ increment: !isUpvoted }),
+        });
+      } catch (err) {
+        console.error('Failed to sync star:', err);
+      }
+    }
+  };
