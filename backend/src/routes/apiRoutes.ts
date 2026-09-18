@@ -110,3 +110,42 @@ apiRouter.post('/api/decorations', async (req, res) => {
     res.status(500).json({ error: error.message || 'Failed to save decoration' });
   }
 });
+
+apiRouter.delete('/api/decorations/:id', async (req, res) => {
+  try {
+    const sessionId = getSessionIdFromRequest(req);
+    if (!sessionId) {
+      return res.status(401).json({ error: 'Unauthorized: No session token provided' });
+    }
+    const user = await getSessionUser(sessionId);
+    if (!user) {
+      return res.status(401).json({ error: 'Unauthorized: Invalid session' });
+    }
+
+    const id = req.params.id;
+    const decors = await getDecorations();
+    const existing = decors.find((d) => d.id === id);
+    if (!existing) {
+      return res.status(404).json({ error: 'Decoration not found' });
+    }
+
+    if (existing.placed_by !== user.github_id && !id.startsWith('default_')) {
+      return res.status(403).json({ error: 'Forbidden: You can only remove decorations you placed!' });
+    }
+
+    await deleteDecoration(id);
+    res.json({ success: true });
+  } catch (error: any) {
+    res.status(500).json({ error: error.message || 'Failed to delete decoration' });
+  }
+});
+
+// Cafe Showcase Endpoints
+apiRouter.get('/api/cafe/showcase', async (_req, res) => {
+  try {
+    const list = await getShowcaseProjects();
+    res.json(list);
+  } catch (error: any) {
+    res.status(500).json({ error: error.message || 'Failed to fetch showcase projects' });
+  }
+});
