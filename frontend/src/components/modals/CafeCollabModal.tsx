@@ -170,58 +170,58 @@ export default function CafeCollabModal({
             return updated;
         });
 
-    if (socket) {
-      socket.emit('cafe_collab_like', { id, increment: !isCurrentlyLiked });
-    } else {
-      try {
-        await fetch(`/api/cafe/collabs/${id}/like`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ increment: !isCurrentlyLiked }),
-        });
-      } catch (err) {
-        console.error('Failed to sync collab like:', err);
-      }
-    }
-  };
-
-  const handleCreatePost = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!title.trim() || !description.trim()) return;
-
-    const tags = tagsInput
-      .split(',')
-      .map((t) => t.trim())
-      .filter((t) => t.length > 0);
-
-    const payload = {
-      title: title.trim(),
-      category: category,
-      author: currentUsername,
-      description: description.trim(),
-      repoUrl: repoUrl.trim() || 'https://github.com',
-      tags: tags.length > 0 ? tags : ['General Dev'],
-      seeking: seeking.trim() || 'Collaborators',
-      likes: 1,
+        if (socket) {
+            socket.emit('cafe_collab_like', { id, increment: !isCurrentlyLiked });
+        } else {
+            try {
+                await fetch(`/api/cafe/collabs/${id}/like`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ increment: !isCurrentlyLiked }),
+                });
+            } catch (err) {
+                console.error('Failed to sync collab like:', err);
+            }
+        }
     };
 
-    if (socket) {
-      socket.emit('cafe_collab_create', payload);
-    } else {
-      try {
-        const res = await fetch('/api/cafe/collabs', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-        });
-        if (res.ok) {
-          const created = await res.json();
-          setCollabs((prev) => [created, ...prev]);
+    const handleCreatePost = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!title.trim() || !description.trim()) return;
+
+        const tags = tagsInput
+            .split(',')
+            .map((t) => t.trim())
+            .filter((t) => t.length > 0);
+
+        const payload = {
+            title: title.trim(),
+            category: category,
+            author: currentUsername,
+            description: description.trim(),
+            repoUrl: repoUrl.trim() || 'https://github.com',
+            tags: tags.length > 0 ? tags : ['General Dev'],
+            seeking: seeking.trim() || 'Collaborators',
+            likes: 1,
+        };
+
+        if (socket) {
+            socket.emit('cafe_collab_create', payload);
+        } else {
+            try {
+                const res = await fetch('/api/cafe/collabs', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload),
+                });
+                if (res.ok) {
+                    const created = await res.json();
+                    setCollabs((prev) => [created, ...prev]);
+                }
+            } catch (err) {
+                console.error('Failed to post collab request:', err);
+            }
         }
-      } catch (err) {
-        console.error('Failed to post collab request:', err);
-      }
-    }
         console.error(e);
     }
     return new Set();
