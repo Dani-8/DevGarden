@@ -114,92 +114,92 @@ export default function CafeCollabModal({
                 return new Set(JSON.parse(savedLikes));
             }
         } catch (e) {
-    const handleUpdated = (updatedCollab: CollabItem) => {
-      setCollabs((prev) => {
-        const updated = prev.map((c) => (c.id === updatedCollab.id ? updatedCollab : c));
-        try {
-          localStorage.setItem('cafe_collabs_list', JSON.stringify(updated));
-        } catch (e) { }
-        return updated;
-      });
-    };
+            const handleUpdated = (updatedCollab: CollabItem) => {
+                setCollabs((prev) => {
+                    const updated = prev.map((c) => (c.id === updatedCollab.id ? updatedCollab : c));
+                    try {
+                        localStorage.setItem('cafe_collabs_list', JSON.stringify(updated));
+                    } catch (e) { }
+                    return updated;
+                });
+            };
 
-    socket.on('cafe_collab_created', handleCreated);
-    socket.on('cafe_collab_updated', handleUpdated);
+            socket.on('cafe_collab_created', handleCreated);
+            socket.on('cafe_collab_updated', handleUpdated);
 
-    return () => {
-      socket.off('cafe_collab_created', handleCreated);
-      socket.off('cafe_collab_updated', handleUpdated);
-    };
-  }, [socket]);
+            return () => {
+                socket.off('cafe_collab_created', handleCreated);
+                socket.off('cafe_collab_updated', handleUpdated);
+            };
+        }, [socket]);
 
-  if (!isOpen) return null;
+    if (!isOpen) return null;
 
-  const handleToggleLike = async (id: string) => {
-    const isCurrentlyLiked = likedIds.has(id);
-    const updatedLikedIds = new Set(likedIds);
+    const handleToggleLike = async (id: string) => {
+        const isCurrentlyLiked = likedIds.has(id);
+        const updatedLikedIds = new Set(likedIds);
 
-    if (isCurrentlyLiked) {
-      updatedLikedIds.delete(id);
-    } else {
-      updatedLikedIds.add(id);
-    }
-
-    setLikedIds(updatedLikedIds);
-    try {
-      localStorage.setItem('cafe_collabs_liked_ids', JSON.stringify(Array.from(updatedLikedIds)));
-    } catch (e) {
-      console.error(e);
-    }
-
-    setCollabs((prev) => {
-      const updated = prev.map((item) => {
-        if (item.id === id) {
-          return {
-            ...item,
-            likes: Math.max(0, item.likes + (isCurrentlyLiked ? -1 : 1)),
-          };
+        if (isCurrentlyLiked) {
+            updatedLikedIds.delete(id);
+        } else {
+            updatedLikedIds.add(id);
         }
-        return item;
-      });
-      try {
-        localStorage.setItem('cafe_collabs_list', JSON.stringify(updated));
-      } catch (e) {
-        console.error(e);
-      }
-      return updated;
-    });
+
+        setLikedIds(updatedLikedIds);
+        try {
+            localStorage.setItem('cafe_collabs_liked_ids', JSON.stringify(Array.from(updatedLikedIds)));
+        } catch (e) {
             console.error(e);
         }
-        return new Set();
-    });
 
-    // Fetch from backend on modal mount
-    useEffect(() => {
-        fetch('/api/cafe/collabs')
-            .then((res) => (res.ok ? res.json() : null))
-            .then((data) => {
-                if (Array.isArray(data) && data.length > 0) {
-                    setCollabs(data);
-                    try {
-                        localStorage.setItem('cafe_collabs_list', JSON.stringify(data));
-                    } catch (e) { }
+        setCollabs((prev) => {
+            const updated = prev.map((item) => {
+                if (item.id === id) {
+                    return {
+                        ...item,
+                        likes: Math.max(0, item.likes + (isCurrentlyLiked ? -1 : 1)),
+                    };
                 }
-            })
-            .catch((err) => console.warn('Could not load collabs from API:', err));
-    }, []);
-
-    // Listen to live WebSocket events
-    useEffect(() => {
-        if (!socket) return;
-
-        const handleCreated = (newCollab: CollabItem) => {
-            setCollabs((prev) => {
-                if (prev.some((c) => c.id === newCollab.id)) return prev;
-                const updated = [newCollab, ...prev];
-                try {
-                    localStorage.setItem('cafe_collabs_list', JSON.stringify(updated));
-                } catch (e) { }
-                return updated;
+                return item;
             });
-        };
+            try {
+                localStorage.setItem('cafe_collabs_list', JSON.stringify(updated));
+            } catch (e) {
+                console.error(e);
+            }
+            return updated;
+        });
+        console.error(e);
+    }
+    return new Set();
+});
+
+// Fetch from backend on modal mount
+useEffect(() => {
+    fetch('/api/cafe/collabs')
+        .then((res) => (res.ok ? res.json() : null))
+        .then((data) => {
+            if (Array.isArray(data) && data.length > 0) {
+                setCollabs(data);
+                try {
+                    localStorage.setItem('cafe_collabs_list', JSON.stringify(data));
+                } catch (e) { }
+            }
+        })
+        .catch((err) => console.warn('Could not load collabs from API:', err));
+}, []);
+
+// Listen to live WebSocket events
+useEffect(() => {
+    if (!socket) return;
+
+    const handleCreated = (newCollab: CollabItem) => {
+        setCollabs((prev) => {
+            if (prev.some((c) => c.id === newCollab.id)) return prev;
+            const updated = [newCollab, ...prev];
+            try {
+                localStorage.setItem('cafe_collabs_list', JSON.stringify(updated));
+            } catch (e) { }
+            return updated;
+        });
+    };
