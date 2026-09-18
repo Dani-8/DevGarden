@@ -167,3 +167,59 @@ export class CafePropsManager {
         spawnLamp(530, 420); // Lamp 3
         spawnPot(533, 465);  // Pot 3
         spawnLamp(530, 510); // Lamp 4
+
+        // 6. Round Dining Table Sets with 4 Red Cushion Armchairs each
+        const createTable4Chairs = (x: number, y: number, textureKey: string = 'cafe_interior_table') => {
+            const table = scene.add.image(x, y, textureKey);
+            table.setOrigin(0.5, 0.85);
+            table.setDepth(y);
+            scene.physics.add.existing(table, true);
+            const tableBody = table.body as Phaser.Physics.Arcade.StaticBody;
+            tableBody.setSize(30, 24);
+            tableBody.setOffset(9, 18);
+            obstaclesGroup.add(table);
+
+            // Top Chair (Facing DOWN towards table)
+            const chairTop = scene.add.image(x, y - 26, 'cafe_chair_down');
+            chairTop.setOrigin(0.5, 0.85);
+            chairTop.setDepth(y - 10);
+            scene.physics.add.existing(chairTop, true);
+            const topBody = chairTop.body as Phaser.Physics.Arcade.StaticBody;
+            topBody.setSize(16, 16);
+            topBody.setOffset(3, 8);
+            obstaclesGroup.add(chairTop);
+            chairs.push({ x: x, y: y - 26, sprite: chairTop, dir: 'up' });
+
+            // Bottom Chair (Facing UP towards table)
+            const chairBottom = scene.add.image(x, y + 20, 'cafe_chair_up');
+            chairBottom.setOrigin(0.5, 0.85);
+            chairBottom.setDepth(y + 10);
+            scene.physics.add.existing(chairBottom, true);
+            const bottomBody = chairBottom.body as Phaser.Physics.Arcade.StaticBody;
+            bottomBody.setSize(16, 16);
+            bottomBody.setOffset(3, 8);
+            obstaclesGroup.add(chairBottom);
+            chairs.push({ x: x, y: y + 20, sprite: chairBottom, dir: 'down' });
+
+            // Left Chair (Facing RIGHT towards table)
+            const chairL = scene.add.image(x - 26, y - 3, 'cafe_chair_right');
+            chairL.setOrigin(0.5, 0.85);
+            chairL.setDepth(y - 2);
+            scene.physics.add.existing(chairL, true);
+            const lBody = chairL.body as Phaser.Physics.Arcade.StaticBody;
+            lBody.setSize(16, 16);
+            lBody.setOffset(3, 8);
+            obstaclesGroup.add(chairL);
+            chairs.push({ x: x - 26, y: y - 3, sprite: chairL, dir: 'left' });
+
+            // Right Chair (Facing LEFT towards table)
+            const chairR = scene.add.image(x + 26, y - 3, 'cafe_chair_left');
+            chairR.setOrigin(0.5, 0.85);
+            chairR.setDepth(y - 2);
+            scene.physics.add.existing(chairR, true);
+            const rBody = chairR.body as Phaser.Physics.Arcade.StaticBody;
+            rBody.setSize(16, 16);
+            rBody.setOffset(3, 8);
+            obstaclesGroup.add(chairR);
+            chairs.push({ x: x + 26, y: y - 3, sprite: chairR, dir: 'right' });
+        };
