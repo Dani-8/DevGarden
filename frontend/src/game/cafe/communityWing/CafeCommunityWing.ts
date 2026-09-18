@@ -235,29 +235,29 @@ export class CafeCommunityWing {
         addTopShowcaseChair(1168);
         addTopShowcaseChair(1199);
 
-    // 4 Bottom Presentation Chairs (Facing UP)
-    const addBtmShowcaseChair = (x: number) => {
-      const ch = scene.add.image(x, 468, 'cafe_chair_up');
-      ch.setOrigin(0.5, 0.85);
-      ch.setDepth(468);
-      scene.physics.add.existing(ch, true);
-      obstaclesGroup.add(ch);
-      chairs.push({ x, y: 468, sprite: ch, dir: 'up' });
-    };
-    addBtmShowcaseChair(1105);
-    addBtmShowcaseChair(1136);
-    addBtmShowcaseChair(1168);
-    addBtmShowcaseChair(1199);
+        // 4 Bottom Presentation Chairs (Facing UP)
+        const addBtmShowcaseChair = (x: number) => {
+            const ch = scene.add.image(x, 468, 'cafe_chair_up');
+            ch.setOrigin(0.5, 0.85);
+            ch.setDepth(468);
+            scene.physics.add.existing(ch, true);
+            obstaclesGroup.add(ch);
+            chairs.push({ x, y: 468, sprite: ch, dir: 'up' });
+        };
+        addBtmShowcaseChair(1105);
+        addBtmShowcaseChair(1136);
+        addBtmShowcaseChair(1168);
+        addBtmShowcaseChair(1199);
 
-    // Trophy / Awards Showcase Cabinet on right wall
-    const trophyCabinet = scene.add.image(1290, 360, 'cafe_trophy_cabinet');
-    trophyCabinet.setDisplaySize(32, 56);
-    trophyCabinet.setOrigin(0.5, 0.85);
-    trophyCabinet.setDepth(360);
-    scene.physics.add.existing(trophyCabinet, true);
-    obstaclesGroup.add(trophyCabinet);
+        // Trophy / Awards Showcase Cabinet on right wall
+        const trophyCabinet = scene.add.image(1290, 360, 'cafe_trophy_cabinet');
+        trophyCabinet.setDisplaySize(32, 56);
+        trophyCabinet.setOrigin(0.5, 0.85);
+        trophyCabinet.setDepth(360);
+        scene.physics.add.existing(trophyCabinet, true);
+        obstaclesGroup.add(trophyCabinet);
 
-    // Flanking plants
-    addPot(1005, 340);
-    addPot(1005, 465);
-    addPot(1295, 465);
+        // Flanking plants
+        addPot(1005, 340);
+        addPot(1005, 465);
+        addPot(1295, 465);
