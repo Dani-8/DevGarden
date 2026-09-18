@@ -312,96 +312,92 @@ export default function CafeCollabModal({
         }
     };
 
-  return (
-    <div
-      id="cafe-collab-modal"
-      className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-in fade-in duration-200"
-      onClick={onClose}
-    >
-      <div
-        className="relative w-full max-w-3xl bg-slate-900 border border-slate-700/80 rounded-2xl shadow-2xl overflow-hidden text-slate-100 max-h-[90vh] flex flex-col font-sans"
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* Modal Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-slate-800 bg-slate-950/70">
-          <div className="flex items-center gap-3">
-            <div className="p-2.5 rounded-xl bg-blue-500/10 border border-blue-500/30 text-blue-400">
-              <Users className="w-5 h-5" />
-            </div>
-            <div>
-              <h2 className="text-lg font-bold text-slate-100 flex items-center gap-2">
-                Dev Collab & Help Whiteboard
-                <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-blue-500/15 text-blue-400 border border-blue-500/30">
-                  Room 3
-                </span>
-              </h2>
-              <p className="text-xs text-slate-400">
-                Find project partners, ask for debugging assistance, or brainstorm new features.
-              </p>
-            </div>
-          </div>
-          <button
+    return (
+        <div
+            id="cafe-collab-modal"
+            className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-in fade-in duration-200"
             onClick={onClose}
-            className="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-100 hover:bg-slate-800 transition-colors"
-          >
-            <X className="w-4 h-4" />
-          </button>
-        </div>
+        >
+            <div
+                className="relative w-full max-w-3xl bg-slate-900 border border-slate-700/80 rounded-2xl shadow-2xl overflow-hidden text-slate-100 max-h-[90vh] flex flex-col font-sans"
+                onClick={(e) => e.stopPropagation()}
+            >
+                {/* Modal Header */}
+                <div className="flex items-center justify-between px-6 py-4 border-b border-slate-800 bg-slate-950/70">
+                    <div className="flex items-center gap-3">
+                        <div className="p-2.5 rounded-xl bg-blue-500/10 border border-blue-500/30 text-blue-400">
+                            <Users className="w-5 h-5" />
+                        </div>
+                        <div>
+                            <h2 className="text-lg font-bold text-slate-100 flex items-center gap-2">
+                                Dev Collab & Help Whiteboard
+                                <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-blue-500/15 text-blue-400 border border-blue-500/30">
+                                    Room 3
+                                </span>
+                            </h2>
+                            <p className="text-xs text-slate-400">
+                                Find project partners, ask for debugging assistance, or brainstorm new features.
+                            </p>
+                        </div>
+                    </div>
+                    <button
+                        onClick={onClose}
+                        className="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-100 hover:bg-slate-800 transition-colors"
+                    >
+                        <X className="w-4 h-4" />
+                    </button>
+                </div>
 
-        {/* Action & Tab Navigation Bar */}
-        <div className="flex flex-wrap items-center justify-between gap-3 px-6 py-3 bg-slate-900 border-b border-slate-800">
-          <div className="flex items-center gap-1.5 overflow-x-auto py-0.5">
-            <button
-              onClick={() => setActiveTab('All')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap ${
-                activeTab === 'All'
-                  ? 'bg-blue-600 text-white shadow-sm shadow-blue-500/20'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/80'
-              }`}
-            >
-              <Layers className="w-3.5 h-3.5" />
-              <span>All Requests</span>
-            </button>
-            <button
-              onClick={() => setActiveTab('Collab')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap ${
-                activeTab === 'Collab'
-                  ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-500/20'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/80'
-              }`}
-            >
-              <Users className="w-3.5 h-3.5" />
-              <span>Find Partners</span>
-            </button>
-            <button
-              onClick={() => setActiveTab('Help Wanted')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap ${
-                activeTab === 'Help Wanted'
-                  ? 'bg-rose-600 text-white shadow-sm shadow-rose-500/20'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/80'
-              }`}
-            >
-              <HelpCircle className="w-3.5 h-3.5" />
-              <span>Need Help</span>
-            </button>
-            <button
-              onClick={() => setActiveTab('Brainstorm')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap ${
-                activeTab === 'Brainstorm'
-                  ? 'bg-amber-600 text-white shadow-sm shadow-amber-500/20'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/80'
-              }`}
-            >
-              <Lightbulb className="w-3.5 h-3.5" />
-              <span>Brainstorm</span>
-            </button>
-          </div>
+                {/* Action & Tab Navigation Bar */}
+                <div className="flex flex-wrap items-center justify-between gap-3 px-6 py-3 bg-slate-900 border-b border-slate-800">
+                    <div className="flex items-center gap-1.5 overflow-x-auto py-0.5">
+                        <button
+                            onClick={() => setActiveTab('All')}
+                            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap ${activeTab === 'All'
+                                    ? 'bg-blue-600 text-white shadow-sm shadow-blue-500/20'
+                                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/80'
+                                }`}
+                        >
+                            <Layers className="w-3.5 h-3.5" />
+                            <span>All Requests</span>
+                        </button>
+                        <button
+                            onClick={() => setActiveTab('Collab')}
+                            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap ${activeTab === 'Collab'
+                                    ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-500/20'
+                                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/80'
+                                }`}
+                        >
+                            <Users className="w-3.5 h-3.5" />
+                            <span>Find Partners</span>
+                        </button>
+                        <button
+                            onClick={() => setActiveTab('Help Wanted')}
+                            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap ${activeTab === 'Help Wanted'
+                                    ? 'bg-rose-600 text-white shadow-sm shadow-rose-500/20'
+                                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/80'
+                                }`}
+                        >
+                            <HelpCircle className="w-3.5 h-3.5" />
+                            <span>Need Help</span>
+                        </button>
+                        <button
+                            onClick={() => setActiveTab('Brainstorm')}
+                            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap ${activeTab === 'Brainstorm'
+                                    ? 'bg-amber-600 text-white shadow-sm shadow-amber-500/20'
+                                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/80'
+                                }`}
+                        >
+                            <Lightbulb className="w-3.5 h-3.5" />
+                            <span>Brainstorm</span>
+                        </button>
+                    </div>
 
-          <button
-            onClick={() => setIsPosting(!isPosting)}
-            className="px-4 py-1.5 rounded-lg text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white shadow-md transition-all flex items-center gap-1.5"
-          >
-            {isPosting ? <X className="w-3.5 h-3.5" /> : <Plus className="w-3.5 h-3.5" />}
-            <span>{isPosting ? 'Cancel' : 'Post Request'}</span>
-          </button>
-        </div>
+                    <button
+                        onClick={() => setIsPosting(!isPosting)}
+                        className="px-4 py-1.5 rounded-lg text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white shadow-md transition-all flex items-center gap-1.5"
+                    >
+                        {isPosting ? <X className="w-3.5 h-3.5" /> : <Plus className="w-3.5 h-3.5" />}
+                        <span>{isPosting ? 'Cancel' : 'Post Request'}</span>
+                    </button>
+                </div>
