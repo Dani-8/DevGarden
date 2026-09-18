@@ -67,3 +67,46 @@ apiRouter.get('/api/leaderboard', async (req, res) => {
     });
   }
 });
+
+// Decorations Endpoints
+apiRouter.get('/api/decorations', async (req, res) => {
+  try {
+    const list = await getDecorations();
+    res.json(list);
+  } catch (error: any) {
+    res.status(500).json({ error: error.message || 'Failed to fetch decorations' });
+  }
+});
+
+apiRouter.post('/api/decorations', async (req, res) => {
+  try {
+    const sessionId = getSessionIdFromRequest(req);
+    if (!sessionId) {
+      return res.status(401).json({ error: 'Unauthorized: No session token provided' });
+    }
+    const user = await getSessionUser(sessionId);
+    if (!user) {
+      return res.status(401).json({ error: 'Unauthorized: Invalid session' });
+    }
+
+    const { id, item_type, x, y } = req.body;
+    if (!id || !item_type || typeof x !== 'number' || typeof y !== 'number') {
+      return res.status(400).json({ error: 'Missing required decoration fields (id, item_type, x, y)' });
+    }
+
+    const decor = {
+      id,
+      item_type,
+      x: Math.round(x),
+      y: Math.round(y),
+      placed_by: user.github_id,
+      placed_by_username: user.username,
+      created_at: Date.now(),
+    };
+
+    await saveDecoration(decor);
+    res.json({ success: true, decoration: decor });
+  } catch (error: any) {
+    res.status(500).json({ error: error.message || 'Failed to save decoration' });
+  }
+});
