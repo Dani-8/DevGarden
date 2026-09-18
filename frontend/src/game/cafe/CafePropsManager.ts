@@ -253,3 +253,31 @@ export class CafePropsManager {
 
         createSofaSet(270);
         createSofaSet(450);
+
+        // 6. Right Side: 3-Section Community & Social Wing
+        const communityWing = CafeCommunityWing.create(scene, obstaclesGroup, chairs);
+
+        // 7. Grand Entrance Area & Gateway (Centered at true center x=480)
+        // Welcome Entrance Step Portal Mat at (480, 664) - Exit interaction point (Realistic Woven Coir Rug)
+        const exitMat = scene.add.image(480, 675, 'cafe_entrance_gateway');
+        exitMat.setDisplaySize(128, 74);
+        exitMat.setOrigin(0.5, 0.5);
+        exitMat.setDepth(10);
+
+        // Thin Wooden Boundaries (Flanking the entrance mat symmetrically, reaching left & right edges, top at mat height)
+        const railingLeft = scene.add.image(414, 736, 'cafe_entrance_railing_left');
+        railingLeft.setDisplaySize(414, 110);
+        railingLeft.setOrigin(1.0, 1.0);
+        railingLeft.setDepth(695);
+
+        const railingRight = scene.add.image(546, 736, 'cafe_entrance_railing_right');
+        railingRight.setDisplaySize(414, 110);
+        railingRight.setOrigin(0.0, 1.0);
+        railingRight.setDepth(695);
+
+        // Colliders for Thin Wooden Boundaries
+        const addObstacleZone = (x: number, y: number, w: number, h: number) => {
+            const zone = scene.add.zone(x, y, w, h);
+            scene.physics.add.existing(zone, true);
+            obstaclesGroup.add(zone);
+        };
