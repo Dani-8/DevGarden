@@ -44,3 +44,53 @@ const DEFAULT_COLLABS: CollabItem[] = [
         likes: 12,
         createdAt: '1 hour ago',
     },
+  {
+    id: 'collab-2',
+    title: 'Socket.io Latency & State Sync Bug',
+    category: 'Help Wanted',
+    author: 'DevKev',
+    description:
+      'Experiencing slight position jitter when 8+ players move simultaneously across chunk borders. Need a pair-programmer to review interpolation buffer math.',
+    repoUrl: 'https://github.com/topics/multiplayer-game',
+    tags: ['Node.js', 'Socket.io', 'Game Loop'],
+    seeking: 'Backend engineer for 30m code review',
+    likes: 8,
+    createdAt: '3 hours ago',
+  },
+  {
+    id: 'collab-3',
+    title: 'AI Code Reviewer NPC in DevGarden',
+    category: 'Brainstorm',
+    author: 'SamCoder',
+    description:
+      'Idea to let players link a PR and an NPC barista reads the diff and comments cute tips in pixel speech bubbles. Let me know what you think!',
+    repoUrl: 'https://github.com/topics/github-bot',
+    tags: ['Gemini API', 'GitHub API', 'Webhooks'],
+    seeking: 'Ideas & open feedback',
+    likes: 19,
+    createdAt: 'Yesterday',
+  },
+];
+
+interface CafeCollabModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  socket?: any;
+  currentUsername?: string;
+}
+
+export default function CafeCollabModal({
+  isOpen,
+  onClose,
+  socket,
+  currentUsername = 'You',
+}: CafeCollabModalProps) {
+  const [collabs, setCollabs] = useState<CollabItem[]>(() => {
+    try {
+      const saved = localStorage.getItem('cafe_collabs_list');
+      if (saved) return JSON.parse(saved);
+    } catch (e) {
+      console.error(e);
+    }
+    return DEFAULT_COLLABS;
+  });
