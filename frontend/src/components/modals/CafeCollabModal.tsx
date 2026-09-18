@@ -95,56 +95,56 @@ export default function CafeCollabModal({
         return DEFAULT_COLLABS;
     });
 
-  const [activeTab, setActiveTab] = useState<'All' | 'Collab' | 'Help Wanted' | 'Brainstorm' | 'Code Review'>('All');
-  const [isPosting, setIsPosting] = useState(false);
+    const [activeTab, setActiveTab] = useState<'All' | 'Collab' | 'Help Wanted' | 'Brainstorm' | 'Code Review'>('All');
+    const [isPosting, setIsPosting] = useState(false);
 
-  // Form State
-  const [title, setTitle] = useState('');
-  const [category, setCategory] = useState<'Collab' | 'Help Wanted' | 'Brainstorm' | 'Code Review'>('Collab');
-  const [repoUrl, setRepoUrl] = useState('');
-  const [description, setDescription] = useState('');
-  const [seeking, setSeeking] = useState('');
-  const [tagsInput, setTagsInput] = useState('');
+    // Form State
+    const [title, setTitle] = useState('');
+    const [category, setCategory] = useState<'Collab' | 'Help Wanted' | 'Brainstorm' | 'Code Review'>('Collab');
+    const [repoUrl, setRepoUrl] = useState('');
+    const [description, setDescription] = useState('');
+    const [seeking, setSeeking] = useState('');
+    const [tagsInput, setTagsInput] = useState('');
 
-  // Liked IDs State with local storage persistence
-  const [likedIds, setLikedIds] = useState<Set<string>>(() => {
-    try {
-      const savedLikes = localStorage.getItem('cafe_collabs_liked_ids');
-      if (savedLikes) {
-        return new Set(JSON.parse(savedLikes));
-      }
-    } catch (e) {
-      console.error(e);
-    }
-    return new Set();
-  });
-
-  // Fetch from backend on modal mount
-  useEffect(() => {
-    fetch('/api/cafe/collabs')
-      .then((res) => (res.ok ? res.json() : null))
-      .then((data) => {
-        if (Array.isArray(data) && data.length > 0) {
-          setCollabs(data);
-          try {
-            localStorage.setItem('cafe_collabs_list', JSON.stringify(data));
-          } catch (e) { }
-        }
-      })
-      .catch((err) => console.warn('Could not load collabs from API:', err));
-  }, []);
-
-  // Listen to live WebSocket events
-  useEffect(() => {
-    if (!socket) return;
-
-    const handleCreated = (newCollab: CollabItem) => {
-      setCollabs((prev) => {
-        if (prev.some((c) => c.id === newCollab.id)) return prev;
-        const updated = [newCollab, ...prev];
+    // Liked IDs State with local storage persistence
+    const [likedIds, setLikedIds] = useState<Set<string>>(() => {
         try {
-          localStorage.setItem('cafe_collabs_list', JSON.stringify(updated));
-        } catch (e) { }
-        return updated;
-      });
-    };
+            const savedLikes = localStorage.getItem('cafe_collabs_liked_ids');
+            if (savedLikes) {
+                return new Set(JSON.parse(savedLikes));
+            }
+        } catch (e) {
+            console.error(e);
+        }
+        return new Set();
+    });
+
+    // Fetch from backend on modal mount
+    useEffect(() => {
+        fetch('/api/cafe/collabs')
+            .then((res) => (res.ok ? res.json() : null))
+            .then((data) => {
+                if (Array.isArray(data) && data.length > 0) {
+                    setCollabs(data);
+                    try {
+                        localStorage.setItem('cafe_collabs_list', JSON.stringify(data));
+                    } catch (e) { }
+                }
+            })
+            .catch((err) => console.warn('Could not load collabs from API:', err));
+    }, []);
+
+    // Listen to live WebSocket events
+    useEffect(() => {
+        if (!socket) return;
+
+        const handleCreated = (newCollab: CollabItem) => {
+            setCollabs((prev) => {
+                if (prev.some((c) => c.id === newCollab.id)) return prev;
+                const updated = [newCollab, ...prev];
+                try {
+                    localStorage.setItem('cafe_collabs_list', JSON.stringify(updated));
+                } catch (e) { }
+                return updated;
+            });
+        };
