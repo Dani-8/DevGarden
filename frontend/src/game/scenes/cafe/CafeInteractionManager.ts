@@ -140,3 +140,64 @@ export class CafeInteractionManager {
                 nearChair = chair;
             }
         }
+
+    const body = playerContainer.body as Phaser.Physics.Arcade.Body;
+
+    if (nearChair) {
+      this.sitPromptText.setPosition(playerContainer.x, playerContainer.y + 14);
+      this.sitPromptText.setText(this.isSitting ? 'Press [E] to Stand Up 🚶' : 'Press [E] to Sit 🧘');
+      this.sitPromptText.setVisible(true);
+
+      if (this.eKey && Phaser.Input.Keyboard.JustDown(this.eKey)) {
+        if (this.isSitting) {
+          this.isSitting = false;
+          body.enable = true;
+
+          if (nearChair.dir === 'up') {
+            playerContainer.setPosition(nearChair.x, nearChair.y + 18);
+          } else if (nearChair.dir === 'down') {
+            playerContainer.setPosition(nearChair.x, nearChair.y - 18);
+          } else if (nearChair.dir === 'left') {
+            playerContainer.setPosition(nearChair.x + 18, nearChair.y);
+          } else if (nearChair.dir === 'right') {
+            playerContainer.setPosition(nearChair.x - 18, nearChair.y);
+          } else if (nearChair.dir === 'sofa' || nearChair.x < 60) {
+            playerContainer.setPosition(nearChair.x + 22, nearChair.y);
+          } else {
+            playerContainer.setPosition(nearChair.x, nearChair.y + 18);
+          }
+
+          this.playerManager.showChatBubble(playerContainer, '🚶 Stood up!', false);
+        } else {
+          this.isSitting = true;
+          body.enable = false;
+          playerContainer.setPosition(nearChair.x, nearChair.y - 2);
+          body.setVelocity(0, 0);
+
+          if (nearChair.dir === 'up') {
+            setLastAnim('idle_up');
+          } else if (nearChair.dir === 'down') {
+            setLastAnim('idle_down');
+          } else if (nearChair.dir === 'left') {
+            setLastAnim('idle_left');
+          } else if (nearChair.dir === 'right') {
+            setLastAnim('idle_right');
+          } else if (nearChair.dir === 'sofa' || nearChair.x < 60) {
+            setLastAnim('idle_right');
+          } else {
+            setLastAnim('idle_down');
+          }
+
+          this.playerManager.showChatBubble(playerContainer, '🧘 Relaxing at Code Cafe...', false);
+        }
+      }
+    } else {
+      if (this.sitPromptText) this.sitPromptText.setVisible(false);
+      if (this.isSitting) {
+        this.isSitting = false;
+        body.enable = true;
+      }
+    }
+
+    return nearChair;
+  }
