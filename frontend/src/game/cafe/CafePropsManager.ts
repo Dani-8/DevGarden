@@ -104,3 +104,48 @@ export class CafePropsManager {
             });
             steam.setDepth(150);
         }
+
+        // 3. Left Side: Grand Library Bookshelf
+        const bookshelf = scene.add.image(50, 120, 'cafe_bookshelf');
+        bookshelf.setOrigin(0.5, 0.85);
+        bookshelf.setDepth(120);
+        scene.physics.add.existing(bookshelf, true);
+        const bsBody = bookshelf.body as Phaser.Physics.Arcade.StaticBody;
+        bsBody.setSize(50, 32);
+        bsBody.setOffset(3, 52);
+        obstaclesGroup.add(bookshelf);
+
+        // 4. Centerpiece Grand Garden Planter Island (Centered at true center x=480, y=370)
+        const centerPlanter = scene.add.image(480, 370, 'cafe_center_garden_planter');
+        centerPlanter.setDisplaySize(88, 320);
+        centerPlanter.setOrigin(0.5, 0.5);
+        centerPlanter.setDepth(200);
+        scene.physics.add.existing(centerPlanter, true);
+        obstaclesGroup.add(centerPlanter);
+
+        // Helper: Spawn Tall Luxury Ceramic & Brass Plant Pots
+        const spawnPot = (x: number, y: number) => {
+            const pot = scene.add.image(x, y, 'cafe_luxury_plant_pot');
+            pot.setOrigin(0.5, 0.85);
+            pot.setDepth(y);
+            scene.physics.add.existing(pot, true);
+            obstaclesGroup.add(pot);
+        };
+
+        // Helper: Spawn Standalone Garden Lamp Posts
+        const spawnLamp = (x: number, y: number) => {
+            const lamp = scene.add.image(x, y, 'cafe_garden_lamp_post');
+            lamp.setOrigin(0.5, 0.92);
+            lamp.setDepth(y);
+            scene.physics.add.existing(lamp, true);
+            const lBody = lamp.body as Phaser.Physics.Arcade.StaticBody;
+            lBody.setSize(12, 10);
+            lBody.setOffset(6, 44);
+            obstaclesGroup.add(lamp);
+        };
+
+        // Counter Flanking Plant Pots
+        spawnPot(310, 110);
+        spawnPot(650, 110);
+        spawnPot(100, 125); // Next to bookshelf
+        spawnPot(20, 600);
