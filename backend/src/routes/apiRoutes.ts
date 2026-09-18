@@ -149,3 +149,45 @@ apiRouter.get('/api/cafe/showcase', async (_req, res) => {
     res.status(500).json({ error: error.message || 'Failed to fetch showcase projects' });
   }
 });
+
+apiRouter.post('/api/cafe/showcase', async (req, res) => {
+  try {
+    const { title, author, authorRole, description, tags, link, stars, featured } = req.body;
+    if (!title || !description) {
+      return res.status(400).json({ error: 'Title and description are required' });
+    }
+    const project = await createShowcaseProject({
+      title,
+      author: author || 'Gardener',
+      authorRole: authorRole || 'Developer',
+      description,
+      tags: Array.isArray(tags) ? tags : ['General'],
+      link: link || 'https://github.com',
+      stars: stars || 1,
+      featured: !!featured,
+    });
+    res.status(201).json(project);
+  } catch (error: any) {
+    res.status(500).json({ error: error.message || 'Failed to create showcase project' });
+  }
+});
+
+apiRouter.post('/api/cafe/showcase/:id/star', async (req, res) => {
+  try {
+    const { increment } = req.body;
+    const project = await toggleShowcaseStar(req.params.id, increment !== false);
+    res.json(project);
+  } catch (error: any) {
+    res.status(500).json({ error: error.message || 'Failed to update star' });
+  }
+});
+
+// Cafe Collab Endpoints
+apiRouter.get('/api/cafe/collabs', async (_req, res) => {
+  try {
+    const list = await getCollabItems();
+    res.json(list);
+  } catch (error: any) {
+    res.status(500).json({ error: error.message || 'Failed to fetch collab items' });
+  }
+});
