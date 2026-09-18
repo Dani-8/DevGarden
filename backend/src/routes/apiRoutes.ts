@@ -191,3 +191,44 @@ apiRouter.get('/api/cafe/collabs', async (_req, res) => {
     res.status(500).json({ error: error.message || 'Failed to fetch collab items' });
   }
 });
+
+apiRouter.post('/api/cafe/collabs', async (req, res) => {
+  try {
+    const { title, category, author, authorRole, description, repoUrl, tags, seeking, likes } = req.body;
+    if (!title || !description) {
+      return res.status(400).json({ error: 'Title and description are required' });
+    }
+    const collab = await createCollabItem({
+      title,
+      category: category || 'Collab',
+      author: author || 'Gardener',
+      authorRole: authorRole || 'Developer',
+      description,
+      repoUrl: repoUrl || 'https://github.com',
+      tags: Array.isArray(tags) ? tags : ['General'],
+      seeking: seeking || 'Collaborators',
+      likes: likes || 1,
+    });
+    res.status(201).json(collab);
+  } catch (error: any) {
+    res.status(500).json({ error: error.message || 'Failed to create collab post' });
+  }
+});
+
+apiRouter.post('/api/cafe/collabs/:id/like', async (req, res) => {
+  try {
+    const { increment } = req.body;
+    const collab = await toggleCollabLike(req.params.id, increment !== false);
+    res.json(collab);
+  } catch (error: any) {
+    res.status(500).json({ error: error.message || 'Failed to update like' });
+  }
+});
+
+// Health Endpoint
+apiRouter.get('/api/health', (req, res) => {
+  res.json({
+    status: 'ok',
+    time: Date.now(),
+  });
+});
