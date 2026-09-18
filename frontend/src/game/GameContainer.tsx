@@ -215,6 +215,7 @@ export default function GameContainer({
       <CafeProjectShowcaseModal
         isOpen={isShowcaseOpen}
         onClose={() => setIsShowcaseOpen(false)}
+        socket={socket}
         currentUsername={selfPlayer?.username || 'You'}
       />
 
@@ -222,6 +223,7 @@ export default function GameContainer({
       <CafeCollabModal
         isOpen={isCollabOpen}
         onClose={() => setIsCollabOpen(false)}
+        socket={socket}
         currentUsername={selfPlayer?.username || 'You'}
       />
     </div>

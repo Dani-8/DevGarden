@@ -75,12 +75,14 @@ const DEFAULT_COLLABS: CollabItem[] = [
 interface CafeCollabModalProps {
     isOpen: boolean;
     onClose: () => void;
+    socket?: any;
     currentUsername?: string;
 }
 
 export default function CafeCollabModal({
     isOpen,
     onClose,
+    socket,
     currentUsername = 'You',
 }: CafeCollabModalProps) {
     const [collabs, setCollabs] = useState<CollabItem[]>(() => {
@@ -117,9 +119,58 @@ export default function CafeCollabModal({
         return new Set();
     });
 
+    // Fetch from backend on modal mount
+    useEffect(() => {
+        fetch('/api/cafe/collabs')
+            .then((res) => (res.ok ? res.json() : null))
+            .then((data) => {
+                if (Array.isArray(data) && data.length > 0) {
+                    setCollabs(data);
+                    try {
+                        localStorage.setItem('cafe_collabs_list', JSON.stringify(data));
+                    } catch (e) { }
+                }
+            })
+            .catch((err) => console.warn('Could not load collabs from API:', err));
+    }, []);
+
+    // Listen to live WebSocket events
+    useEffect(() => {
+        if (!socket) return;
+
+        const handleCreated = (newCollab: CollabItem) => {
+            setCollabs((prev) => {
+                if (prev.some((c) => c.id === newCollab.id)) return prev;
+                const updated = [newCollab, ...prev];
+                try {
+                    localStorage.setItem('cafe_collabs_list', JSON.stringify(updated));
+                } catch (e) { }
+                return updated;
+            });
+        };
+
+        const handleUpdated = (updatedCollab: CollabItem) => {
+            setCollabs((prev) => {
+                const updated = prev.map((c) => (c.id === updatedCollab.id ? updatedCollab : c));
+                try {
+                    localStorage.setItem('cafe_collabs_list', JSON.stringify(updated));
+                } catch (e) { }
+                return updated;
+            });
+        };
+
+        socket.on('cafe_collab_created', handleCreated);
+        socket.on('cafe_collab_updated', handleUpdated);
+
+        return () => {
+            socket.off('cafe_collab_created', handleCreated);
+            socket.off('cafe_collab_updated', handleUpdated);
+        };
+    }, [socket]);
+
     if (!isOpen) return null;
 
-    const handleToggleLike = (id: string) => {
+    const handleToggleLike = async (id: string) => {
         const isCurrentlyLiked = likedIds.has(id);
         const updatedLikedIds = new Set(likedIds);
 
@@ -153,9 +204,23 @@ export default function CafeCollabModal({
             }
             return updated;
         });
+
+        if (socket) {
+            socket.emit('cafe_collab_like', { id, increment: !isCurrentlyLiked });
+        } else {
+            try {
+                await fetch(`/api/cafe/collabs/${id}/like`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ increment: !isCurrentlyLiked }),
+                });
+            } catch (err) {
+                console.error('Failed to sync collab like:', err);
+            }
+        }
     };
 
-    const handleCreatePost = (e: React.FormEvent) => {
+    const handleCreatePost = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!title.trim() || !description.trim()) return;
 
@@ -164,30 +229,39 @@ export default function CafeCollabModal({
             .map((t) => t.trim())
             .filter((t) => t.length > 0);
 
-        const newCollab: CollabItem = {
-            id: 'collab-' + Date.now(),
+        const payload = {
             title: title.trim(),
             category: category,
             author: currentUsername,
             description: description.trim(),
             repoUrl: repoUrl.trim() || 'https://github.com',
             tags: tags.length > 0 ? tags : ['General Dev'],
-            seeking: seeking.trim() || 'Collaborators & Feedback',
+            seeking: seeking.trim() || 'Collaborators',
             likes: 1,
-            createdAt: 'Just now',
         };
 
-        const updated = [newCollab, ...collabs];
-        setCollabs(updated);
-        try {
-            localStorage.setItem('cafe_collabs_list', JSON.stringify(updated));
-        } catch (e) {
-            console.error(e);
+        if (socket) {
+            socket.emit('cafe_collab_create', payload);
+        } else {
+            try {
+                const res = await fetch('/api/cafe/collabs', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload),
+                });
+                if (res.ok) {
+                    const created = await res.json();
+                    setCollabs((prev) => [created, ...prev]);
+                }
+            } catch (err) {
+                console.error('Failed to post collab request:', err);
+            }
         }
 
-        // Auto-like the user's own new post
+        // Auto-like the user's new post locally
+        const tempId = 'collab-' + Date.now();
         const updatedLikes = new Set(likedIds);
-        updatedLikes.add(newCollab.id);
+        updatedLikes.add(tempId);
         setLikedIds(updatedLikes);
         try {
             localStorage.setItem('cafe_collabs_liked_ids', JSON.stringify(Array.from(updatedLikes)));
