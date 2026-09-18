@@ -354,8 +354,8 @@ export default function CafeCollabModal({
                         <button
                             onClick={() => setActiveTab('All')}
                             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap ${activeTab === 'All'
-                                    ? 'bg-blue-600 text-white shadow-sm shadow-blue-500/20'
-                                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/80'
+                                ? 'bg-blue-600 text-white shadow-sm shadow-blue-500/20'
+                                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/80'
                                 }`}
                         >
                             <Layers className="w-3.5 h-3.5" />
@@ -364,8 +364,8 @@ export default function CafeCollabModal({
                         <button
                             onClick={() => setActiveTab('Collab')}
                             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap ${activeTab === 'Collab'
-                                    ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-500/20'
-                                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/80'
+                                ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-500/20'
+                                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/80'
                                 }`}
                         >
                             <Users className="w-3.5 h-3.5" />
@@ -374,8 +374,8 @@ export default function CafeCollabModal({
                         <button
                             onClick={() => setActiveTab('Help Wanted')}
                             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap ${activeTab === 'Help Wanted'
-                                    ? 'bg-rose-600 text-white shadow-sm shadow-rose-500/20'
-                                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/80'
+                                ? 'bg-rose-600 text-white shadow-sm shadow-rose-500/20'
+                                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/80'
                                 }`}
                         >
                             <HelpCircle className="w-3.5 h-3.5" />
@@ -384,8 +384,8 @@ export default function CafeCollabModal({
                         <button
                             onClick={() => setActiveTab('Brainstorm')}
                             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap ${activeTab === 'Brainstorm'
-                                    ? 'bg-amber-600 text-white shadow-sm shadow-amber-500/20'
-                                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/80'
+                                ? 'bg-amber-600 text-white shadow-sm shadow-amber-500/20'
+                                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/80'
                                 }`}
                         >
                             <Lightbulb className="w-3.5 h-3.5" />
@@ -402,82 +402,82 @@ export default function CafeCollabModal({
                     </button>
                 </div>
 
-        {/* Post Creation Form */}
-        {isPosting && (
-          <form
-            onSubmit={handleCreatePost}
-            className="p-6 bg-slate-950/70 border-b border-slate-800 space-y-4 animate-in slide-in-from-top-2 duration-200"
-          >
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1">
-                  Project Title / Topic *
-                </label>
-                <input
-                  type="text"
-                  required
-                  placeholder="e.g., Multiplayer Combat Engine"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  className="w-full px-3 py-2 text-xs rounded-lg bg-slate-900 border border-slate-700 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-blue-500"
-                />
-              </div>
+                {/* Post Creation Form */}
+                {isPosting && (
+                    <form
+                        onSubmit={handleCreatePost}
+                        className="p-6 bg-slate-950/70 border-b border-slate-800 space-y-4 animate-in slide-in-from-top-2 duration-200"
+                    >
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label className="block text-xs font-semibold text-slate-300 mb-1">
+                                    Project Title / Topic *
+                                </label>
+                                <input
+                                    type="text"
+                                    required
+                                    placeholder="e.g., Multiplayer Combat Engine"
+                                    value={title}
+                                    onChange={(e) => setTitle(e.target.value)}
+                                    className="w-full px-3 py-2 text-xs rounded-lg bg-slate-900 border border-slate-700 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-blue-500"
+                                />
+                            </div>
 
-              <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1">
-                  Goal / Category *
-                </label>
-                <select
-                  value={category}
-                  onChange={(e) => setCategory(e.target.value as any)}
-                  className="w-full px-3 py-2 text-xs rounded-lg bg-slate-900 border border-slate-700 text-slate-100 focus:outline-none focus:border-blue-500"
-                >
-                  <option value="Collab">Looking for Collaborators</option>
-                  <option value="Help Wanted">Need Help / Debugging</option>
-                  <option value="Brainstorm">Idea & Architecture Brainstorm</option>
-                  <option value="Code Review">Code Review & Optimization</option>
-                </select>
-              </div>
-            </div>
+                            <div>
+                                <label className="block text-xs font-semibold text-slate-300 mb-1">
+                                    Goal / Category *
+                                </label>
+                                <select
+                                    value={category}
+                                    onChange={(e) => setCategory(e.target.value as any)}
+                                    className="w-full px-3 py-2 text-xs rounded-lg bg-slate-900 border border-slate-700 text-slate-100 focus:outline-none focus:border-blue-500"
+                                >
+                                    <option value="Collab">Looking for Collaborators</option>
+                                    <option value="Help Wanted">Need Help / Debugging</option>
+                                    <option value="Brainstorm">Idea & Architecture Brainstorm</option>
+                                    <option value="Code Review">Code Review & Optimization</option>
+                                </select>
+                            </div>
+                        </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1">
-                  GitHub / Repository Link
-                </label>
-                <input
-                  type="url"
-                  placeholder="https://github.com/username/project"
-                  value={repoUrl}
-                  onChange={(e) => setRepoUrl(e.target.value)}
-                  className="w-full px-3 py-2 text-xs rounded-lg bg-slate-900 border border-slate-700 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-blue-500"
-                />
-              </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label className="block text-xs font-semibold text-slate-300 mb-1">
+                                    GitHub / Repository Link
+                                </label>
+                                <input
+                                    type="url"
+                                    placeholder="https://github.com/username/project"
+                                    value={repoUrl}
+                                    onChange={(e) => setRepoUrl(e.target.value)}
+                                    className="w-full px-3 py-2 text-xs rounded-lg bg-slate-900 border border-slate-700 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-blue-500"
+                                />
+                            </div>
 
-              <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1">
-                  What kind of help or teammate are you seeking?
-                </label>
-                <input
-                  type="text"
-                  placeholder="e.g., Frontend developer, Game balance feedback"
-                  value={seeking}
-                  onChange={(e) => setSeeking(e.target.value)}
-                  className="w-full px-3 py-2 text-xs rounded-lg bg-slate-900 border border-slate-700 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-blue-500"
-                />
-              </div>
-            </div>
+                            <div>
+                                <label className="block text-xs font-semibold text-slate-300 mb-1">
+                                    What kind of help or teammate are you seeking?
+                                </label>
+                                <input
+                                    type="text"
+                                    placeholder="e.g., Frontend developer, Game balance feedback"
+                                    value={seeking}
+                                    onChange={(e) => setSeeking(e.target.value)}
+                                    className="w-full px-3 py-2 text-xs rounded-lg bg-slate-900 border border-slate-700 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-blue-500"
+                                />
+                            </div>
+                        </div>
 
-            <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1">
-                Details & Description *
-              </label>
-              <textarea
-                required
-                rows={3}
-                placeholder="Describe your project, current hurdle, or what features you plan to build next..."
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                className="w-full px-3 py-2 text-xs rounded-lg bg-slate-900 border border-slate-700 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-blue-500"
-              />
-            </div>
+                        <div>
+                            <label className="block text-xs font-semibold text-slate-300 mb-1">
+                                Details & Description *
+                            </label>
+                            <textarea
+                                required
+                                rows={3}
+                                placeholder="Describe your project, current hurdle, or what features you plan to build next..."
+                                value={description}
+                                onChange={(e) => setDescription(e.target.value)}
+                                className="w-full px-3 py-2 text-xs rounded-lg bg-slate-900 border border-slate-700 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-blue-500"
+                            />
+                        </div>
