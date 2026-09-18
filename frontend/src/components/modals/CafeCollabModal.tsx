@@ -257,3 +257,57 @@ export default function CafeCollabModal({
         console.error('Failed to post collab request:', err);
       }
     }
+
+    // Auto-like the user's new post locally
+    const tempId = 'collab-' + Date.now();
+    const updatedLikes = new Set(likedIds);
+    updatedLikes.add(tempId);
+    setLikedIds(updatedLikes);
+    try {
+      localStorage.setItem('cafe_collabs_liked_ids', JSON.stringify(Array.from(updatedLikes)));
+    } catch (e) {
+      console.error(e);
+    }
+
+    // Reset Form
+    setTitle('');
+    setDescription('');
+    setRepoUrl('');
+    setSeeking('');
+    setTagsInput('');
+    setIsPosting(false);
+  };
+
+  const filteredCollabs = collabs.filter((item) => {
+    if (activeTab === 'All') return true;
+    return item.category === activeTab;
+  });
+
+  const getCategoryBadge = (cat: CollabItem['category']) => {
+    switch (cat) {
+      case 'Collab':
+        return {
+          icon: <Users className="w-3 h-3" />,
+          style: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30',
+          label: 'Looking for Collab',
+        };
+      case 'Help Wanted':
+        return {
+          icon: <HelpCircle className="w-3 h-3" />,
+          style: 'bg-rose-500/15 text-rose-400 border-rose-500/30',
+          label: 'Need Help',
+        };
+      case 'Brainstorm':
+        return {
+          icon: <Lightbulb className="w-3 h-3" />,
+          style: 'bg-amber-500/15 text-amber-400 border-amber-500/30',
+          label: 'Brainstorm',
+        };
+      case 'Code Review':
+        return {
+          icon: <Code2 className="w-3 h-3" />,
+          style: 'bg-blue-500/15 text-blue-400 border-blue-500/30',
+          label: 'Code Review',
+        };
+    }
+  };
