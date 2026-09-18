@@ -114,6 +114,61 @@ export default function CafeCollabModal({
                 return new Set(JSON.parse(savedLikes));
             }
         } catch (e) {
+    const handleUpdated = (updatedCollab: CollabItem) => {
+      setCollabs((prev) => {
+        const updated = prev.map((c) => (c.id === updatedCollab.id ? updatedCollab : c));
+        try {
+          localStorage.setItem('cafe_collabs_list', JSON.stringify(updated));
+        } catch (e) { }
+        return updated;
+      });
+    };
+
+    socket.on('cafe_collab_created', handleCreated);
+    socket.on('cafe_collab_updated', handleUpdated);
+
+    return () => {
+      socket.off('cafe_collab_created', handleCreated);
+      socket.off('cafe_collab_updated', handleUpdated);
+    };
+  }, [socket]);
+
+  if (!isOpen) return null;
+
+  const handleToggleLike = async (id: string) => {
+    const isCurrentlyLiked = likedIds.has(id);
+    const updatedLikedIds = new Set(likedIds);
+
+    if (isCurrentlyLiked) {
+      updatedLikedIds.delete(id);
+    } else {
+      updatedLikedIds.add(id);
+    }
+
+    setLikedIds(updatedLikedIds);
+    try {
+      localStorage.setItem('cafe_collabs_liked_ids', JSON.stringify(Array.from(updatedLikedIds)));
+    } catch (e) {
+      console.error(e);
+    }
+
+    setCollabs((prev) => {
+      const updated = prev.map((item) => {
+        if (item.id === id) {
+          return {
+            ...item,
+            likes: Math.max(0, item.likes + (isCurrentlyLiked ? -1 : 1)),
+          };
+        }
+        return item;
+      });
+      try {
+        localStorage.setItem('cafe_collabs_list', JSON.stringify(updated));
+      } catch (e) {
+        console.error(e);
+      }
+      return updated;
+    });
             console.error(e);
         }
         return new Set();
