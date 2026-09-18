@@ -195,42 +195,153 @@ export class CafeCommunityWing {
         addPot(1005, 135);
         addPot(1005, 265);
 
-    // =========================================================================
-    // 4. ROOM 2: PROJECT SHOWCASE HUB (y = 300..500)
-    // =========================================================================
-    // Freestanding Deluxe Project Showcase Display Easel (Standing on floor at x=1152, y=360)
-    const showcaseBoard = scene.add.image(1152, 360, 'cafe_showcase_wall_board');
-    showcaseBoard.setDisplaySize(92, 68);
-    showcaseBoard.setOrigin(0.5, 0.92);
-    showcaseBoard.setDepth(360);
-    scene.physics.add.existing(showcaseBoard, true);
-    const sbBody = showcaseBoard.body as Phaser.Physics.Arcade.StaticBody;
-    sbBody.setSize(80, 16);
-    sbBody.setOffset(6, 46);
-    obstaclesGroup.add(showcaseBoard);
+        // =========================================================================
+        // 4. ROOM 2: PROJECT SHOWCASE HUB (y = 300..500)
+        // =========================================================================
+        // Freestanding Deluxe Project Showcase Display Easel (Standing on floor at x=1152, y=360)
+        const showcaseBoard = scene.add.image(1152, 360, 'cafe_showcase_wall_board');
+        showcaseBoard.setDisplaySize(92, 68);
+        showcaseBoard.setOrigin(0.5, 0.92);
+        showcaseBoard.setDepth(360);
+        scene.physics.add.existing(showcaseBoard, true);
+        const sbBody = showcaseBoard.body as Phaser.Physics.Arcade.StaticBody;
+        sbBody.setSize(80, 16);
+        sbBody.setOffset(6, 46);
+        obstaclesGroup.add(showcaseBoard);
 
 
-    // Long Project Showcase Presentation Table with blueprints & notebooks (x=1152, y=440)
-    const showcaseTable = scene.add.image(1152, 440, 'cafe_showcase_long_table');
-    showcaseTable.setDisplaySize(120, 38);
-    showcaseTable.setOrigin(0.5, 0.85);
-    showcaseTable.setDepth(440);
-    scene.physics.add.existing(showcaseTable, true);
-    const stBody = showcaseTable.body as Phaser.Physics.Arcade.StaticBody;
-    stBody.setSize(112, 24);
-    stBody.setOffset(4, 8);
-    obstaclesGroup.add(showcaseTable);
+        // Long Project Showcase Presentation Table with blueprints & notebooks (x=1152, y=440)
+        const showcaseTable = scene.add.image(1152, 440, 'cafe_showcase_long_table');
+        showcaseTable.setDisplaySize(120, 38);
+        showcaseTable.setOrigin(0.5, 0.85);
+        showcaseTable.setDepth(440);
+        scene.physics.add.existing(showcaseTable, true);
+        const stBody = showcaseTable.body as Phaser.Physics.Arcade.StaticBody;
+        stBody.setSize(112, 24);
+        stBody.setOffset(4, 8);
+        obstaclesGroup.add(showcaseTable);
 
-    // 4 Top Presentation Chairs (Facing DOWN)
-    const addTopShowcaseChair = (x: number) => {
-      const ch = scene.add.image(x, 412, 'cafe_chair_down');
-      ch.setOrigin(0.5, 0.85);
-      ch.setDepth(412);
-      scene.physics.add.existing(ch, true);
-      obstaclesGroup.add(ch);
-      chairs.push({ x, y: 412, sprite: ch, dir: 'down' });
-    };
-    addTopShowcaseChair(1105);
-    addTopShowcaseChair(1136);
-    addTopShowcaseChair(1168);
-    addTopShowcaseChair(1199);
+        // 4 Top Presentation Chairs (Facing DOWN)
+        const addTopShowcaseChair = (x: number) => {
+            const ch = scene.add.image(x, 412, 'cafe_chair_down');
+            ch.setOrigin(0.5, 0.85);
+            ch.setDepth(412);
+            scene.physics.add.existing(ch, true);
+            obstaclesGroup.add(ch);
+            chairs.push({ x, y: 412, sprite: ch, dir: 'down' });
+        };
+        addTopShowcaseChair(1105);
+        addTopShowcaseChair(1136);
+        addTopShowcaseChair(1168);
+        addTopShowcaseChair(1199);
+
+        // 4 Bottom Presentation Chairs (Facing UP)
+        const addBtmShowcaseChair = (x: number) => {
+            const ch = scene.add.image(x, 468, 'cafe_chair_up');
+            ch.setOrigin(0.5, 0.85);
+            ch.setDepth(468);
+            scene.physics.add.existing(ch, true);
+            obstaclesGroup.add(ch);
+            chairs.push({ x, y: 468, sprite: ch, dir: 'up' });
+        };
+        addBtmShowcaseChair(1105);
+        addBtmShowcaseChair(1136);
+        addBtmShowcaseChair(1168);
+        addBtmShowcaseChair(1199);
+
+        // Trophy / Awards Showcase Cabinet on right wall
+        const trophyCabinet = scene.add.image(1290, 360, 'cafe_trophy_cabinet');
+        trophyCabinet.setDisplaySize(32, 56);
+        trophyCabinet.setOrigin(0.5, 0.85);
+        trophyCabinet.setDepth(360);
+        scene.physics.add.existing(trophyCabinet, true);
+        obstaclesGroup.add(trophyCabinet);
+
+        // Flanking plants
+        addPot(1005, 340);
+        addPot(1005, 465);
+        addPot(1295, 465);
+
+        // =========================================================================
+        // 5. ROOM 3: COLLAB & MEETING ROOM (y = 500..708)
+        // =========================================================================
+        // Freestanding Mobile Rolling Whiteboard (Standing on floor at x=1152, y=546)
+        const whiteboard = scene.add.image(1152, 546, 'cafe_collab_whiteboard');
+        whiteboard.setDisplaySize(96, 66);
+        whiteboard.setOrigin(0.5, 0.92);
+        whiteboard.setDepth(546);
+        scene.physics.add.existing(whiteboard, true);
+        const wbBody = whiteboard.body as Phaser.Physics.Arcade.StaticBody;
+        wbBody.setSize(82, 16);
+        wbBody.setOffset(7, 46);
+        obstaclesGroup.add(whiteboard);
+
+
+        // Cork Bulletin Board on right wall
+        const bulletinBoard = scene.add.image(1285, 545, 'cafe_cork_bulletin_board');
+        bulletinBoard.setDisplaySize(38, 32);
+        bulletinBoard.setOrigin(0.5, 0.5);
+        bulletinBoard.setDepth(545);
+
+        // Discussion & Meeting Table with Laptops & Diagram
+        const collabTable = scene.add.image(1152, 622, 'cafe_collab_group_table');
+        collabTable.setDisplaySize(86, 42);
+        collabTable.setOrigin(0.5, 0.85);
+        collabTable.setDepth(622);
+        scene.physics.add.existing(collabTable, true);
+        const ctBody3 = collabTable.body as Phaser.Physics.Arcade.StaticBody;
+        ctBody3.setSize(78, 26);
+        ctBody3.setOffset(4, 8);
+        obstaclesGroup.add(collabTable);
+
+        // Top Meeting Chairs
+        const addTopMeetChair = (x: number) => {
+            const ch = scene.add.image(x, 592, 'cafe_chair_down');
+            ch.setOrigin(0.5, 0.85);
+            ch.setDepth(592);
+            scene.physics.add.existing(ch, true);
+            obstaclesGroup.add(ch);
+            chairs.push({ x, y: 592, sprite: ch, dir: 'down' });
+        };
+        addTopMeetChair(1130);
+        addTopMeetChair(1174);
+
+        // Bottom Meeting Chairs
+        const addBtmMeetChair = (x: number) => {
+            const ch = scene.add.image(x, 652, 'cafe_chair_up');
+            ch.setOrigin(0.5, 0.85);
+            ch.setDepth(652);
+            scene.physics.add.existing(ch, true);
+            obstaclesGroup.add(ch);
+            chairs.push({ x, y: 652, sprite: ch, dir: 'up' });
+        };
+        addBtmMeetChair(1130);
+        addBtmMeetChair(1174);
+
+        // Left Meeting Chair
+        const leftChair = scene.add.image(1088, 622, 'cafe_chair_right');
+        leftChair.setOrigin(0.5, 0.85);
+        leftChair.setDepth(622);
+        scene.physics.add.existing(leftChair, true);
+        obstaclesGroup.add(leftChair);
+        chairs.push({ x: 1088, y: 622, sprite: leftChair, dir: 'left' });
+
+        // Right Meeting Chair
+        const rightChair = scene.add.image(1216, 622, 'cafe_chair_left');
+        rightChair.setOrigin(0.5, 0.85);
+        rightChair.setDepth(622);
+        scene.physics.add.existing(rightChair, true);
+        obstaclesGroup.add(rightChair);
+        chairs.push({ x: 1216, y: 622, sprite: rightChair, dir: 'right' });
+
+        // Flanking plants
+        addPot(1005, 540);
+        addPot(1005, 665);
+        addPot(1295, 665);
+
+        return {
+            showcaseX: 1152,
+            showcaseY: 360,
+        };
+    }
+}
