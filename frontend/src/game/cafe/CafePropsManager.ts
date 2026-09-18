@@ -223,3 +223,33 @@ export class CafePropsManager {
             obstaclesGroup.add(chairR);
             chairs.push({ x: x + 26, y: y - 3, sprite: chairR, dir: 'right' });
         };
+
+        // Left Seating Column (Wood Floor - Centered at x=240)
+        createTable4Chairs(240, 230, 'cafe_interior_table_laptop');
+        createTable4Chairs(240, 370, 'cafe_interior_table_coffee');
+        createTable4Chairs(240, 510, 'cafe_interior_table_plant');
+
+        // Right Seating Column (Wood Floor - Centered at x=720, exact symmetrical counterpart)
+        createTable4Chairs(720, 230, 'cafe_interior_table_coffee');
+        createTable4Chairs(720, 370, 'cafe_interior_table_plant');
+        createTable4Chairs(720, 510, 'cafe_interior_table_laptop');
+
+        // Far Left Wall Leather Lounge Booth Sofas
+        const createSofaSet = (y: number) => {
+            const sofa = scene.add.image(0, y, 'cafe_sofa_side');
+            sofa.setOrigin(0, 0.5);
+            sofa.setDepth(y);
+            scene.physics.add.existing(sofa, true);
+            obstaclesGroup.add(sofa);
+
+            const seatTop = scene.add.image(22, y - 12, 'cafe_interior_chair');
+            seatTop.setVisible(false);
+            chairs.push({ x: 22, y: y - 12, sprite: seatTop, dir: 'sofa' });
+
+            const seatBottom = scene.add.image(22, y + 12, 'cafe_interior_chair');
+            seatBottom.setVisible(false);
+            chairs.push({ x: 22, y: y + 12, sprite: seatBottom, dir: 'sofa' });
+        };
+
+        createSofaSet(270);
+        createSofaSet(450);
