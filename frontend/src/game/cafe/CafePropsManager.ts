@@ -281,3 +281,39 @@ export class CafePropsManager {
             scene.physics.add.existing(zone, true);
             obstaclesGroup.add(zone);
         };
+
+        // Left Boundary Colliders (Vertical rail starting at mat height & horizontal rail across left screen)
+        addObstacleZone(400, 680, 12, 108);
+        addObstacleZone(207, 730, 414, 12);
+
+        // Right Boundary Colliders (Vertical rail starting at mat height & horizontal rail to wing divider at 960)
+        addObstacleZone(560, 680, 12, 108);
+        addObstacleZone(753, 730, 414, 12);
+
+        // --- Left Entrance Zone: Big L-Shaped High Table, Stools & Lush Corner Palm (From Reference Photo) ---
+        // Big L-Shaped High Wooden Table Counter (Snapped flush against left wall & bottom rail)
+        const bigLTable = scene.add.image(0, 724, 'cafe_big_l_table');
+        bigLTable.setDisplaySize(172, 134);
+        bigLTable.setOrigin(0.0, 1.0);
+        bigLTable.setDepth(665);
+
+        // Accurate L-Shape Obstacles (Thin vertical & horizontal lines instead of one solid square block)
+        // 1. Vertical left bar arm: width 28px along left wall (x: 0..28, y: 590..724)
+        addObstacleZone(16, 655, 28, 120);
+        // 2. Horizontal bottom bar arm: height 26px along bottom rail (x: 0..172, y: 698..724)
+        addObstacleZone(88, 700, 160, 26);
+
+        // Helper: Spawn High Bar Stool with interactive seat
+        const spawnHighStool = (x: number, y: number, dir: 'left' | 'right' | 'up' | 'down') => {
+            const stool = scene.add.image(x, y, 'cafe_high_stool');
+            stool.setOrigin(0.5, 0.85);
+            stool.setDepth(y + 2);
+            // Small base collider (12x12) so player can walk freely inside the nook and reach every seat
+            const stoolZone = scene.add.zone(x, y - 2, 12, 12);
+            scene.physics.add.existing(stoolZone, true);
+            obstaclesGroup.add(stoolZone);
+
+            const seatSprite = scene.add.image(x, y - 6, 'cafe_interior_chair');
+            seatSprite.setVisible(false);
+            chairs.push({ x: x, y: y - 6, sprite: seatSprite, dir: dir });
+        };
