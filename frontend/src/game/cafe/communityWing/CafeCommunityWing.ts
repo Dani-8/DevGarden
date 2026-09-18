@@ -115,3 +115,47 @@ export class CafeCommunityWing {
 
         // Bottom Wall Enclosure for Room 3
         addHorizontalWall(708, 'COLLAB & MEETING ROOM');
+
+    // =========================================================================
+    // 3. ROOM 1: CHILL & LOUNGE NOOK (y = 100..300)
+    // =========================================================================
+    // Cozy Area Rug
+    const loungeRug = scene.add.image(1152, 200, 'cafe_zone_persian_rug');
+    loungeRug.setDisplaySize(170, 110);
+    loungeRug.setOrigin(0.5, 0.5);
+    loungeRug.setDepth(5);
+
+    // Plush Velvet Lounge Sofa (Centered at x=1152, y=142)
+    const sofaMain = scene.add.image(1152, 142, 'cafe_lounge_plush_sofa');
+    sofaMain.setDisplaySize(100, 48);
+    sofaMain.setOrigin(0.5, 0.85);
+    sofaMain.setDepth(140);
+    scene.physics.add.existing(sofaMain, true);
+    const sofaBody = sofaMain.body as Phaser.Physics.Arcade.StaticBody;
+    sofaBody.setSize(92, 28);
+    sofaBody.setOffset(4, 10);
+    obstaclesGroup.add(sofaMain);
+
+    // Interactive Sofa Seats
+    const sSeat1 = scene.add.image(1126, 138, 'cafe_interior_chair');
+    sSeat1.setVisible(false);
+    chairs.push({ x: 1126, y: 138, sprite: sSeat1, dir: 'up' });
+
+    const sSeat2 = scene.add.image(1152, 138, 'cafe_interior_chair');
+    sSeat2.setVisible(false);
+    chairs.push({ x: 1152, y: 138, sprite: sSeat2, dir: 'up' });
+
+    const sSeat3 = scene.add.image(1178, 138, 'cafe_interior_chair');
+    sSeat3.setVisible(false);
+    chairs.push({ x: 1178, y: 138, sprite: sSeat3, dir: 'up' });
+
+    // Coffee Table with Laptop & Drinks
+    const coffeeTable = scene.add.image(1152, 195, 'cafe_lounge_coffee_table_deluxe');
+    coffeeTable.setDisplaySize(72, 36);
+    coffeeTable.setOrigin(0.5, 0.85);
+    coffeeTable.setDepth(195);
+    scene.physics.add.existing(coffeeTable, true);
+    const ctBody = coffeeTable.body as Phaser.Physics.Arcade.StaticBody;
+    ctBody.setSize(64, 24);
+    ctBody.setOffset(4, 8);
+    obstaclesGroup.add(coffeeTable);
