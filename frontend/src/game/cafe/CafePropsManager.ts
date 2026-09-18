@@ -388,3 +388,61 @@ export class CafePropsManager {
         lsr2Body.setSize(84, 46);
         lsr2Body.setOffset(4, 18);
         obstaclesGroup.add(lSofaRight2);
+
+        // Interactive seating on Sofa 2
+        const r2Seat1 = scene.add.image(570, 668, 'cafe_interior_chair');
+        r2Seat1.setVisible(false);
+        chairs.push({ x: 570, y: 668, sprite: r2Seat1, dir: 'sofa' });
+
+        const r2Seat2 = scene.add.image(600, 696, 'cafe_interior_chair');
+        r2Seat2.setVisible(false);
+        chairs.push({ x: 600, y: 696, sprite: r2Seat2, dir: 'sofa' });
+
+        // Low Walnut Coffee Table for Sofa 2
+        const lTableRight2 = scene.add.image(610, 668, 'cafe_lounge_coffee_table');
+        lTableRight2.setOrigin(0.5, 0.85);
+        lTableRight2.setDepth(672);
+        scene.physics.add.existing(lTableRight2, true);
+        const ltr2Body = lTableRight2.body as Phaser.Physics.Arcade.StaticBody;
+        ltr2Body.setSize(26, 18);
+        ltr2Body.setOffset(5, 14);
+        obstaclesGroup.add(lTableRight2);
+
+        // Tall Lush Monstera Deliciosa Plant in corner nook by terrace divider
+        const plantRightTerrace = scene.add.image(940, 622, 'cafe_plant_monstera');
+        plantRightTerrace.setOrigin(0.5, 0.85);
+        plantRightTerrace.setDepth(630);
+        scene.physics.add.existing(plantRightTerrace, true);
+        const prtBody = plantRightTerrace.body as Phaser.Physics.Arcade.StaticBody;
+        prtBody.setSize(24, 20);
+        prtBody.setOffset(8, 32);
+        obstaclesGroup.add(plantRightTerrace);
+
+        // Additional accent plant by the inner walkway
+        const plantRightInner = scene.add.image(564, 622, 'cafe_luxury_plant_pot');
+        plantRightInner.setOrigin(0.5, 0.85);
+        plantRightInner.setDepth(630);
+        scene.physics.add.existing(plantRightInner, true);
+        obstaclesGroup.add(plantRightInner);
+
+        // 8. Canvas Outer Boundaries Colliders
+        const addWallCollider = (x: number, y: number, w: number, h: number) => {
+            const wall = scene.add.zone(x, y, w, h);
+            scene.physics.add.existing(wall, true);
+            obstaclesGroup.add(wall);
+        };
+
+        addWallCollider(672, 50, 1344, 100);  // Top brick wall
+        addWallCollider(0, 368, 1, 736);     // Left canvas edge
+        addWallCollider(1338, 368, 12, 736);  // Far right canvas edge
+        addWallCollider(672, 745, 1344, 20);  // Bottom room boundary collider
+
+        return {
+            baristaSprite,
+            exitMat,
+            chairs,
+            showcasePos: { x: communityWing.showcaseX, y: communityWing.showcaseY },
+        };
+    }
+}
+
