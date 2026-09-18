@@ -346,3 +346,45 @@ export class CafePropsManager {
         plantLeftInner.setDepth(718);
         scene.physics.add.existing(plantLeftInner, true);
         obstaclesGroup.add(plantLeftInner);
+
+        // --- Right Entrance Zone: Dual L-Shaped Leather Sofas Covering Both Right Corners ---
+        // 1. Sofa 1: Snapped flush into the Far Bottom-Right Corner by the terrace divider (x=960) & bottom rail
+        const lSofaRight1 = scene.add.image(950, 722, 'cafe_l_sofa_right');
+        lSofaRight1.setDisplaySize(92, 68);
+        lSofaRight1.setOrigin(1.0, 1.0);
+        lSofaRight1.setDepth(675);
+        scene.physics.add.existing(lSofaRight1, true);
+        const lsr1Body = lSofaRight1.body as Phaser.Physics.Arcade.StaticBody;
+        lsr1Body.setSize(84, 46);
+        lsr1Body.setOffset(4, 18);
+        obstaclesGroup.add(lSofaRight1);
+
+        // Interactive seating on Sofa 1
+        const r1Seat1 = scene.add.image(906, 696, 'cafe_interior_chair');
+        r1Seat1.setVisible(false);
+        chairs.push({ x: 906, y: 696, sprite: r1Seat1, dir: 'sofa' });
+
+        const r1Seat2 = scene.add.image(936, 668, 'cafe_interior_chair');
+        r1Seat2.setVisible(false);
+        chairs.push({ x: 936, y: 668, sprite: r1Seat2, dir: 'sofa' });
+
+        // Low Walnut Coffee Table for Sofa 1
+        const lTableRight1 = scene.add.image(896, 668, 'cafe_lounge_coffee_table');
+        lTableRight1.setOrigin(0.5, 0.85);
+        lTableRight1.setDepth(672);
+        scene.physics.add.existing(lTableRight1, true);
+        const ltr1Body = lTableRight1.body as Phaser.Physics.Arcade.StaticBody;
+        ltr1Body.setSize(26, 18);
+        ltr1Body.setOffset(5, 14);
+        obstaclesGroup.add(lTableRight1);
+
+        // 2. Sofa 2: Snapped flush into the Inner Bottom-Right Corner by the entrance divider (x=546) & bottom rail
+        const lSofaRight2 = scene.add.image(548, 722, 'cafe_l_sofa_left');
+        lSofaRight2.setDisplaySize(92, 68);
+        lSofaRight2.setOrigin(0.0, 1.0);
+        lSofaRight2.setDepth(675);
+        scene.physics.add.existing(lSofaRight2, true);
+        const lsr2Body = lSofaRight2.body as Phaser.Physics.Arcade.StaticBody;
+        lsr2Body.setSize(84, 46);
+        lsr2Body.setOffset(4, 18);
+        obstaclesGroup.add(lSofaRight2);
