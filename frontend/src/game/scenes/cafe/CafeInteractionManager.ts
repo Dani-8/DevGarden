@@ -72,3 +72,55 @@ export class CafeInteractionManager {
         this.collabPromptText.setDepth(3000);
         this.collabPromptText.setVisible(false);
     }
+
+  public checkShowcaseInteraction(
+    playerContainer: Phaser.GameObjects.Container,
+    showcasePos?: { x: number; y: number }
+  ): boolean {
+    const targetX = showcasePos?.x ?? 1152;
+    const targetY = showcasePos?.y ?? 360;
+    const dist = Phaser.Math.Distance.Between(playerContainer.x, playerContainer.y, targetX, targetY);
+
+    if (dist < 58 && !this.isSitting) {
+      this.showcasePromptText.setPosition(playerContainer.x, playerContainer.y + 14);
+      this.showcasePromptText.setVisible(true);
+
+      if (this.eKey && Phaser.Input.Keyboard.JustDown(this.eKey)) {
+        if (this.onOpenShowcase) {
+          this.onOpenShowcase();
+        } else {
+          window.dispatchEvent(new CustomEvent('open_cafe_showcase'));
+        }
+      }
+      return true;
+    } else {
+      if (this.showcasePromptText) this.showcasePromptText.setVisible(false);
+      return false;
+    }
+  }
+
+  public checkCollabInteraction(
+    playerContainer: Phaser.GameObjects.Container,
+    collabPos?: { x: number; y: number }
+  ): boolean {
+    const targetX = collabPos?.x ?? 1152;
+    const targetY = collabPos?.y ?? 550;
+    const dist = Phaser.Math.Distance.Between(playerContainer.x, playerContainer.y, targetX, targetY);
+
+    if (dist < 60 && !this.isSitting) {
+      this.collabPromptText.setPosition(playerContainer.x, playerContainer.y + 14);
+      this.collabPromptText.setVisible(true);
+
+      if (this.eKey && Phaser.Input.Keyboard.JustDown(this.eKey)) {
+        if (this.onOpenCollab) {
+          this.onOpenCollab();
+        } else {
+          window.dispatchEvent(new CustomEvent('open_cafe_collab'));
+        }
+      }
+      return true;
+    } else {
+      if (this.collabPromptText) this.collabPromptText.setVisible(false);
+      return false;
+    }
+  }
