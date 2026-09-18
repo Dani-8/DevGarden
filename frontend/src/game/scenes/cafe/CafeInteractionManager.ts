@@ -124,3 +124,19 @@ export class CafeInteractionManager {
             return false;
         }
     }
+
+  public checkChairInteraction(
+    playerContainer: Phaser.GameObjects.Container,
+    getLastAnim: () => string,
+    setLastAnim: (anim: string) => void
+  ): CafeChair | null {
+    let nearChair: CafeChair | null = null;
+    let minDist = 30;
+
+    for (const chair of this.cafeChairs) {
+      const dist = Phaser.Math.Distance.Between(playerContainer.x, playerContainer.y, chair.x, chair.y);
+      if (dist < minDist) {
+        minDist = dist;
+        nearChair = chair;
+      }
+    }
