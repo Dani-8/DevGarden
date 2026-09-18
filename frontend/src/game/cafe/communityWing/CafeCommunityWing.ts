@@ -20,22 +20,22 @@ export class CafeCommunityWing {
     ): { showcaseX: number; showcaseY: number } {
         CafeCommunityTextures.createAll(scene);
 
-    const addWallCollider = (x: number, y: number, w: number, h: number) => {
-      const zone = scene.add.zone(x, y, w, h);
-      scene.physics.add.existing(zone, true);
-      obstaclesGroup.add(zone);
-    };
+        const addWallCollider = (x: number, y: number, w: number, h: number) => {
+            const zone = scene.add.zone(x, y, w, h);
+            scene.physics.add.existing(zone, true);
+            obstaclesGroup.add(zone);
+        };
 
-    const addWallPost = (x: number, y: number, height: number) => {
-      const wall = scene.add.image(x, y, 'cafe_wing_div_wall_v');
-      wall.setDisplaySize(20, height);
-      wall.setOrigin(0.5, 0.5);
-      wall.setDepth(y + height / 2);
-      addWallCollider(x, y, 18, height);
-    };
+        const addWallPost = (x: number, y: number, height: number) => {
+            const wall = scene.add.image(x, y, 'cafe_wing_div_wall_v');
+            wall.setDisplaySize(20, height);
+            wall.setOrigin(0.5, 0.5);
+            wall.setDepth(y + height / 2);
+            addWallCollider(x, y, 18, height);
+        };
 
-    const addLantern = (x: number, y: number) => {
-      const lantern = scene.add.image(x, y, 'cafe_wing_wall_lantern');
-      lantern.setOrigin(0.5, 0.5);
-      lantern.setDepth(y + 30);
-    };
+        const addLantern = (x: number, y: number) => {
+            const lantern = scene.add.image(x, y, 'cafe_wing_wall_lantern');
+            lantern.setOrigin(0.5, 0.5);
+            lantern.setDepth(y + 30);
+        };
