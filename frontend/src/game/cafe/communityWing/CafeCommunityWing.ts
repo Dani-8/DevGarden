@@ -83,35 +83,35 @@ export class CafeCommunityWing {
             obstaclesGroup.add(pot);
         };
 
-    // =========================================================================
-    // 1. VERTICAL DIVIDING WALL & ENTRANCE GATES (x = 960)
-    // =========================================================================
-    // Clean, continuous vertical wall with NO gold stripes or drawer marks
-    // Room 1 Vertical Wall Segments & Gate at y = 200
-    addWallPost(960, 134, 68); // y: 100..168
-    addGateEntrance(200);      // Gate opening: y = 168..232 (64px wide clear walk-through)
+        // =========================================================================
+        // 1. VERTICAL DIVIDING WALL & ENTRANCE GATES (x = 960)
+        // =========================================================================
+        // Clean, continuous vertical wall with NO gold stripes or drawer marks
+        // Room 1 Vertical Wall Segments & Gate at y = 200
+        addWallPost(960, 134, 68); // y: 100..168
+        addGateEntrance(200);      // Gate opening: y = 168..232 (64px wide clear walk-through)
 
-    // Room 2 Vertical Wall Segments & Gate at y = 400
-    addWallPost(960, 300, 136); // y: 232..368
-    addGateEntrance(400);       // Gate opening: y = 368..432 (64px wide clear walk-through)
+        // Room 2 Vertical Wall Segments & Gate at y = 400
+        addWallPost(960, 300, 136); // y: 232..368
+        addGateEntrance(400);       // Gate opening: y = 368..432 (64px wide clear walk-through)
 
-    // Room 3 Vertical Wall Segments & Gate at y = 590
-    addWallPost(960, 495, 126); // y: 432..558
-    addGateEntrance(590);       // Gate opening: y = 558..622 (64px wide clear walk-through)
-    addWallPost(960, 665, 86);  // y: 622..708
+        // Room 3 Vertical Wall Segments & Gate at y = 590
+        addWallPost(960, 495, 126); // y: 432..558
+        addGateEntrance(590);       // Gate opening: y = 558..622 (64px wide clear walk-through)
+        addWallPost(960, 665, 86);  // y: 622..708
 
-    // Right Edge and Top Outer Boundaries for Wing
-    addWallCollider(1344, 418, 16, 636); // Far right wall collider
-    addWallCollider(1152, 96, 384, 12);  // Top wall collider
+        // Right Edge and Top Outer Boundaries for Wing
+        addWallCollider(1344, 418, 16, 636); // Far right wall collider
+        addWallCollider(1152, 96, 384, 12);  // Top wall collider
 
-    // =========================================================================
-    // 2. HORIZONTAL SEPARATION WALLS
-    // =========================================================================
-    // Separation between Room 1 & Room 2
-    addHorizontalWall(300, 'CHILL & LOUNGE NOOK');
+        // =========================================================================
+        // 2. HORIZONTAL SEPARATION WALLS
+        // =========================================================================
+        // Separation between Room 1 & Room 2
+        addHorizontalWall(300, 'CHILL & LOUNGE NOOK');
 
-    // Separation between Room 2 & Room 3
-    addHorizontalWall(500, 'PROJECT SHOWCASE HUB');
+        // Separation between Room 2 & Room 3
+        addHorizontalWall(500, 'PROJECT SHOWCASE HUB');
 
-    // Bottom Wall Enclosure for Room 3
-    addHorizontalWall(708, 'COLLAB & MEETING ROOM');
+        // Bottom Wall Enclosure for Room 3
+        addHorizontalWall(708, 'COLLAB & MEETING ROOM');
