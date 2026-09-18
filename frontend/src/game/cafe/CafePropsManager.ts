@@ -317,3 +317,32 @@ export class CafePropsManager {
             seatSprite.setVisible(false);
             chairs.push({ x: x, y: y - 6, sprite: seatSprite, dir: dir });
         };
+
+        // High Bar Stools (3 along vertical wing facing left, 4 along horizontal wing facing down)
+        // Stools along vertical wing
+        spawnHighStool(44, 622, 'left');
+        spawnHighStool(44, 652, 'left');
+        spawnHighStool(44, 680, 'left');
+
+        // Stools along horizontal wing
+        spawnHighStool(76, 680, 'down');
+        spawnHighStool(104, 680, 'down');
+        spawnHighStool(132, 680, 'down');
+        spawnHighStool(160, 680, 'down');
+
+        // Lush Corner Broad-Leaf Palm Tree in Modern Square Planter (Anchoring the outer end-cap of the L-table against bottom rail)
+        const cornerPalm = scene.add.image(190, 716, 'cafe_square_palm_pot');
+        cornerPalm.setOrigin(0.5, 0.85);
+        cornerPalm.setDepth(720);
+        scene.physics.add.existing(cornerPalm, true);
+        const cpBody = cornerPalm.body as Phaser.Physics.Arcade.StaticBody;
+        cpBody.setSize(26, 22);
+        cpBody.setOffset(9, 32);
+        obstaclesGroup.add(cornerPalm);
+
+        // Additional accent plant snug against left entrance divider
+        const plantLeftInner = scene.add.image(390, 622, 'cafe_luxury_plant_pot');
+        plantLeftInner.setOrigin(0.5, 0.85);
+        plantLeftInner.setDepth(718);
+        scene.physics.add.existing(plantLeftInner, true);
+        obstaclesGroup.add(plantLeftInner);
