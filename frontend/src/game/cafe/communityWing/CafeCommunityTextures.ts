@@ -896,107 +896,107 @@ export class CafeCommunityTextures {
                 ctx.fillStyle = '#64748b';
                 ctx.fillRect(19, 6, 2, 52);
 
-        // Right Upright Post
-        ctx.fillStyle = '#1e293b';
-        ctx.fillRect(74, 6, 4, 52);
-        ctx.fillStyle = '#64748b';
-        ctx.fillRect(75, 6, 2, 52);
+                // Right Upright Post
+                ctx.fillStyle = '#1e293b';
+                ctx.fillRect(74, 6, 4, 52);
+                ctx.fillStyle = '#64748b';
+                ctx.fillRect(75, 6, 2, 52);
 
-        // Side Swivel Tilt Tightening Knobs
-        ctx.fillStyle = '#0f172a';
-        ctx.fillRect(16, 24, 8, 6);
-        ctx.fillRect(72, 24, 8, 6);
-        ctx.fillStyle = '#3b82f6';
-        ctx.fillRect(17, 26, 2, 2);
-        ctx.fillRect(77, 26, 2, 2);
+                // Side Swivel Tilt Tightening Knobs
+                ctx.fillStyle = '#0f172a';
+                ctx.fillRect(16, 24, 8, 6);
+                ctx.fillRect(72, 24, 8, 6);
+                ctx.fillStyle = '#3b82f6';
+                ctx.fillRect(17, 26, 2, 2);
+                ctx.fillRect(77, 26, 2, 2);
 
-        // 3. Double-Sided Whiteboard Frame & Glossy Canvas
-        // Drop shadow from board onto rear frame
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
-        ctx.fillRect(14, 8, 68, 38);
+                // 3. Double-Sided Whiteboard Frame & Glossy Canvas
+                // Drop shadow from board onto rear frame
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+                ctx.fillRect(14, 8, 68, 38);
 
-        // Aluminum Outer Frame Bevel
-        ctx.fillStyle = '#1e293b';
-        ctx.fillRect(13, 6, 70, 38);
-        ctx.fillStyle = '#475569';
-        ctx.fillRect(14, 7, 68, 36);
-        ctx.fillStyle = '#94a3b8';
-        ctx.fillRect(15, 8, 66, 1);
+                // Aluminum Outer Frame Bevel
+                ctx.fillStyle = '#1e293b';
+                ctx.fillRect(13, 6, 70, 38);
+                ctx.fillStyle = '#475569';
+                ctx.fillRect(14, 7, 68, 36);
+                ctx.fillStyle = '#94a3b8';
+                ctx.fillRect(15, 8, 66, 1);
 
-        // Glossy Crisp White Dry-Erase Board Surface
-        ctx.fillStyle = '#f8fafc';
-        ctx.fillRect(16, 9, 64, 32);
+                // Glossy Crisp White Dry-Erase Board Surface
+                ctx.fillStyle = '#f8fafc';
+                ctx.fillRect(16, 9, 64, 32);
 
-        // Subtle Glass / Board Sheen Diagonal Highlights
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
-        ctx.beginPath();
-        ctx.moveTo(35, 9);
-        ctx.lineTo(45, 9);
-        ctx.lineTo(20, 41);
-        ctx.lineTo(16, 41);
-        ctx.closePath();
-        ctx.fill();
+                // Subtle Glass / Board Sheen Diagonal Highlights
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+                ctx.beginPath();
+                ctx.moveTo(35, 9);
+                ctx.lineTo(45, 9);
+                ctx.lineTo(20, 41);
+                ctx.lineTo(16, 41);
+                ctx.closePath();
+                ctx.fill();
 
-        // 4. Architecture Flowchart Graphics & System Diagram
-        // Node 1: API Gateway (Blue)
-        ctx.fillStyle = '#2563eb';
-        ctx.fillRect(19, 12, 14, 8);
-        ctx.fillStyle = '#93c5fd';
-        ctx.fillRect(20, 13, 12, 2);
+                // 4. Architecture Flowchart Graphics & System Diagram
+                // Node 1: API Gateway (Blue)
+                ctx.fillStyle = '#2563eb';
+                ctx.fillRect(19, 12, 14, 8);
+                ctx.fillStyle = '#93c5fd';
+                ctx.fillRect(20, 13, 12, 2);
 
-        // Node 2: Microservice Engine (Emerald Green)
-        ctx.fillStyle = '#16a34a';
-        ctx.fillRect(41, 12, 14, 8);
-        ctx.fillStyle = '#86efac';
-        ctx.fillRect(42, 13, 12, 2);
+                // Node 2: Microservice Engine (Emerald Green)
+                ctx.fillStyle = '#16a34a';
+                ctx.fillRect(41, 12, 14, 8);
+                ctx.fillStyle = '#86efac';
+                ctx.fillRect(42, 13, 12, 2);
 
-        // Node 3: Database & Cache (Amber / Red)
-        ctx.fillStyle = '#dc2626';
-        ctx.fillRect(63, 12, 14, 8);
-        ctx.fillStyle = '#fca5a5';
-        ctx.fillRect(64, 13, 12, 2);
+                // Node 3: Database & Cache (Amber / Red)
+                ctx.fillStyle = '#dc2626';
+                ctx.fillRect(63, 12, 14, 8);
+                ctx.fillStyle = '#fca5a5';
+                ctx.fillRect(64, 13, 12, 2);
 
-        // Flowchart Connecting Vectors & Arrows
-        ctx.strokeStyle = '#334155';
-        ctx.lineWidth = 1.5;
-        ctx.beginPath();
-        ctx.moveTo(33, 16);
-        ctx.lineTo(41, 16);
-        ctx.moveTo(55, 16);
-        ctx.lineTo(63, 16);
-        ctx.stroke();
+                // Flowchart Connecting Vectors & Arrows
+                ctx.strokeStyle = '#334155';
+                ctx.lineWidth = 1.5;
+                ctx.beginPath();
+                ctx.moveTo(33, 16);
+                ctx.lineTo(41, 16);
+                ctx.moveTo(55, 16);
+                ctx.lineTo(63, 16);
+                ctx.stroke();
 
-        // 5. Colorful Post-it / Sticky Notes Grouping
-        // Yellow Sticky
-        ctx.fillStyle = '#fef08a';
-        ctx.fillRect(19, 23, 10, 9);
-        ctx.fillStyle = '#ca8a04';
-        ctx.fillRect(20, 24, 8, 1);
-        ctx.fillRect(20, 26, 6, 1);
+                // 5. Colorful Post-it / Sticky Notes Grouping
+                // Yellow Sticky
+                ctx.fillStyle = '#fef08a';
+                ctx.fillRect(19, 23, 10, 9);
+                ctx.fillStyle = '#ca8a04';
+                ctx.fillRect(20, 24, 8, 1);
+                ctx.fillRect(20, 26, 6, 1);
 
-        // Pink Sticky
-        ctx.fillStyle = '#fbcfe8';
-        ctx.fillRect(33, 23, 10, 9);
-        ctx.fillStyle = '#db2777';
-        ctx.fillRect(34, 24, 8, 1);
-        ctx.fillRect(34, 26, 7, 1);
+                // Pink Sticky
+                ctx.fillStyle = '#fbcfe8';
+                ctx.fillRect(33, 23, 10, 9);
+                ctx.fillStyle = '#db2777';
+                ctx.fillRect(34, 24, 8, 1);
+                ctx.fillRect(34, 26, 7, 1);
 
-        // Mint Sticky
-        ctx.fillStyle = '#bbf7d0';
-        ctx.fillRect(47, 23, 10, 9);
-        ctx.fillStyle = '#15803d';
-        ctx.fillRect(48, 24, 8, 1);
-        ctx.fillRect(48, 26, 6, 1);
+                // Mint Sticky
+                ctx.fillStyle = '#bbf7d0';
+                ctx.fillRect(47, 23, 10, 9);
+                ctx.fillStyle = '#15803d';
+                ctx.fillRect(48, 24, 8, 1);
+                ctx.fillRect(48, 26, 6, 1);
 
-        // Orange Sticky
-        ctx.fillStyle = '#fed7aa';
-        ctx.fillRect(61, 23, 10, 9);
-        ctx.fillStyle = '#c2410c';
-        ctx.fillRect(62, 24, 8, 1);
-        ctx.fillRect(62, 26, 8, 1);
+                // Orange Sticky
+                ctx.fillStyle = '#fed7aa';
+                ctx.fillRect(61, 23, 10, 9);
+                ctx.fillStyle = '#c2410c';
+                ctx.fillRect(62, 24, 8, 1);
+                ctx.fillRect(62, 26, 8, 1);
 
-        // 6. Full-Width Marker & Felt Eraser Tray at Bottom Edge of Board
-        ctx.fillStyle = '#1e293b';
-        ctx.fillRect(22, 42, 52, 4);
-        ctx.fillStyle = '#475569';
-        ctx.fillRect(23, 42, 50, 2);
+                // 6. Full-Width Marker & Felt Eraser Tray at Bottom Edge of Board
+                ctx.fillStyle = '#1e293b';
+                ctx.fillRect(22, 42, 52, 4);
+                ctx.fillStyle = '#475569';
+                ctx.fillRect(23, 42, 50, 2);
