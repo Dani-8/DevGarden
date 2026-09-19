@@ -243,3 +243,85 @@ export class CafeCommunityTextures {
         // Base skirting line
         ctx.fillStyle = '#3d3832';
         ctx.fillRect(0, 19, 384, 1);
+
+        // Clean Dark Walnut Plaque Backing in Center (x: 100 to 284)
+        ctx.fillStyle = '#1c0c04';
+        ctx.fillRect(100, 2, 184, 16);
+        ctx.fillStyle = '#3a1b0d';
+        ctx.fillRect(102, 3, 180, 14);
+        ctx.fillStyle = '#5c2d15';
+        ctx.fillRect(103, 4, 178, 2);
+
+        // Subtle dark wooden border
+        ctx.strokeStyle = '#271206';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(102, 3, 180, 14);
+
+        canvas.refresh();
+      }
+    }
+
+    // Alias for horizontal wall
+    if (!textures.exists('cafe_wing_div_wall_h')) {
+      const canvas = textures.createCanvas('cafe_wing_div_wall_h', 384, 28);
+      if (canvas) {
+        const source = textures.get('cafe_wing_stone_div_wall').getSourceImage() as any;
+        if (source) {
+          canvas.getContext().drawImage(source, 0, 0);
+          canvas.refresh();
+        }
+      }
+    }
+
+    // =========================================================================
+    // 4. VERTICAL DIVIDING WALL (20x64)
+    // Tiny dark neutral stone-brick column (slightly darker than horizontal dividers)
+    // Matches the stone material without being overly light or distracting.
+    // =========================================================================
+    if (!textures.exists('cafe_wing_div_wall_v')) {
+      const canvas = textures.createCanvas('cafe_wing_div_wall_v', 20, 64);
+      if (canvas) {
+        const ctx = canvas.getContext();
+
+        // Floor / boundary drop shadow on left
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
+        ctx.fillRect(0, 0, 3, 64);
+
+        // Dark outer stone edging / mortar
+        ctx.fillStyle = '#423d36';
+        ctx.fillRect(3, 0, 15, 64);
+
+        // Tiny darker stone-brick body (#9a9386 base, darker than #b8b1a3)
+        ctx.fillStyle = '#9a9386';
+        ctx.fillRect(4, 0, 13, 64);
+
+        // Stone blocks and joints across height (8px blocks)
+        for (let y = 0; y < 64; y += 8) {
+          const isAlt = (y / 8) % 2 === 0;
+          ctx.fillStyle = isAlt ? '#9e978a' : '#8e887b';
+          ctx.fillRect(5, y + 1, 11, 6);
+
+          // Top highlight
+          ctx.fillStyle = '#aba599';
+          ctx.fillRect(5, y + 1, 11, 1);
+
+          // Horizontal mortar joint
+          ctx.fillStyle = '#4e4840';
+          ctx.fillRect(4, y + 7, 13, 1);
+        }
+
+        // Inner vertical bevel line for solid structural depth
+        ctx.fillStyle = '#b5afa3';
+        ctx.fillRect(5, 0, 1, 64);
+
+        ctx.fillStyle = '#615a51';
+        ctx.fillRect(15, 0, 1, 64);
+
+        // Top and bottom stone cap seam
+        ctx.fillStyle = '#2b2722';
+        ctx.fillRect(3, 0, 15, 1);
+        ctx.fillRect(3, 63, 15, 1);
+
+        canvas.refresh();
+      }
+    }
