@@ -1111,3 +1111,54 @@ export class CafeCommunityTextures {
             }
         }
 
+    // =========================================================================
+    // 15. SIDE TABLE WITH COZY LAMP (24x28)
+    // =========================================================================
+    if (!textures.exists('cafe_lounge_side_table')) {
+      const canvas = textures.createCanvas('cafe_lounge_side_table', 24, 28);
+      if (canvas) {
+        const ctx = canvas.getContext();
+
+        // Floor Shadow
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+        ctx.beginPath();
+        ctx.ellipse(12, 25, 10, 3, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Table Legs & Top
+        ctx.fillStyle = '#271206';
+        ctx.fillRect(4, 14, 2, 11);
+        ctx.fillRect(18, 14, 2, 11);
+        ctx.fillStyle = '#4e2712';
+        ctx.fillRect(2, 10, 20, 5);
+
+        // Cozy Table Lamp
+        ctx.fillStyle = '#1c1917';
+        ctx.fillRect(11, 5, 2, 6);
+        ctx.fillStyle = '#fef08a';
+        ctx.beginPath();
+        ctx.moveTo(7, 6);
+        ctx.lineTo(17, 6);
+        ctx.lineTo(19, 1);
+        ctx.lineTo(5, 1);
+        ctx.closePath();
+        ctx.fill();
+
+        canvas.refresh();
+      }
+    }
+
+    // =========================================================================
+    // 16. WARM WALL LANTERN SCONCE (16x16)
+    // =========================================================================
+    if (!textures.exists('cafe_wing_wall_lantern')) {
+      const canvas = textures.createCanvas('cafe_wing_wall_lantern', 16, 16);
+      if (canvas) {
+        const ctx = canvas.getContext();
+
+        // Dark iron bracket
+        ctx.fillStyle = '#1c1917';
+        ctx.fillRect(7, 3, 2, 10);
+        ctx.fillRect(5, 4, 6, 2);
+        ctx.fillRect(4, 11, 8, 2);
+
