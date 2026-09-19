@@ -441,64 +441,64 @@ export class CafeCommunityTextures {
             }
         }
 
-    // =========================================================================
-    // 7. COZY PLUSH CRIMSON LOUNGE SOFA (64x40)
-    // =========================================================================
-    if (!textures.exists('cafe_lounge_plush_sofa')) {
-      const canvas = textures.createCanvas('cafe_lounge_plush_sofa', 64, 40);
-      if (canvas) {
-        const ctx = canvas.getContext();
+        // =========================================================================
+        // 7. COZY PLUSH CRIMSON LOUNGE SOFA (64x40)
+        // =========================================================================
+        if (!textures.exists('cafe_lounge_plush_sofa')) {
+            const canvas = textures.createCanvas('cafe_lounge_plush_sofa', 64, 40);
+            if (canvas) {
+                const ctx = canvas.getContext();
 
-        // Floor shadow
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
-        ctx.beginPath();
-        ctx.ellipse(32, 36, 30, 4, 0, 0, Math.PI * 2);
-        ctx.fill();
+                // Floor shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+                ctx.beginPath();
+                ctx.ellipse(32, 36, 30, 4, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-        // Sofa Wooden Legs
-        ctx.fillStyle = '#270e01';
-        ctx.fillRect(6, 32, 4, 6);
-        ctx.fillRect(54, 32, 4, 6);
+                // Sofa Wooden Legs
+                ctx.fillStyle = '#270e01';
+                ctx.fillRect(6, 32, 4, 6);
+                ctx.fillRect(54, 32, 4, 6);
 
-        // Sofa Base & Seat Frame
-        ctx.fillStyle = '#78350f';
-        ctx.fillRect(4, 26, 56, 8);
+                // Sofa Base & Seat Frame
+                ctx.fillStyle = '#78350f';
+                ctx.fillRect(4, 26, 56, 8);
 
-        // Main Plush Cushions (Warm Crimson)
-        ctx.fillStyle = '#991b1b';
-        ctx.fillRect(6, 16, 25, 12);
-        ctx.fillRect(33, 16, 25, 12);
+                // Main Plush Cushions (Warm Crimson)
+                ctx.fillStyle = '#991b1b';
+                ctx.fillRect(6, 16, 25, 12);
+                ctx.fillRect(33, 16, 25, 12);
 
-        // Cushion Highlights
-        ctx.fillStyle = '#dc2626';
-        ctx.fillRect(8, 17, 21, 3);
-        ctx.fillRect(35, 17, 21, 3);
+                // Cushion Highlights
+                ctx.fillStyle = '#dc2626';
+                ctx.fillRect(8, 17, 21, 3);
+                ctx.fillRect(35, 17, 21, 3);
 
-        // Backrest (Tufted velvet styling)
-        ctx.fillStyle = '#7f1d1d';
-        ctx.fillRect(4, 4, 56, 14);
-        ctx.fillStyle = '#b91c1c';
-        ctx.fillRect(6, 6, 52, 4);
+                // Backrest (Tufted velvet styling)
+                ctx.fillStyle = '#7f1d1d';
+                ctx.fillRect(4, 4, 56, 14);
+                ctx.fillStyle = '#b91c1c';
+                ctx.fillRect(6, 6, 52, 4);
 
-        // Armrests
-        ctx.fillStyle = '#5c1212';
-        ctx.fillRect(2, 10, 6, 20);
-        ctx.fillRect(56, 10, 6, 20);
-        ctx.fillStyle = '#991b1b';
-        ctx.fillRect(3, 11, 4, 18);
+                // Armrests
+                ctx.fillStyle = '#5c1212';
+                ctx.fillRect(2, 10, 6, 20);
+                ctx.fillRect(56, 10, 6, 20);
+                ctx.fillStyle = '#991b1b';
+                ctx.fillRect(3, 11, 4, 18);
 
-        // Accent Throw Pillows
-        ctx.fillStyle = '#0f766e';
-        ctx.fillRect(8, 12, 10, 10);
-        ctx.fillStyle = '#14b8a6';
-        ctx.fillRect(9, 13, 8, 3);
+                // Accent Throw Pillows
+                ctx.fillStyle = '#0f766e';
+                ctx.fillRect(8, 12, 10, 10);
+                ctx.fillStyle = '#14b8a6';
+                ctx.fillRect(9, 13, 8, 3);
 
-        ctx.fillStyle = '#d97706';
-        ctx.fillRect(46, 12, 10, 10);
-        ctx.fillStyle = '#fbbf24';
-        ctx.fillRect(47, 13, 8, 3);
+                ctx.fillStyle = '#d97706';
+                ctx.fillRect(46, 12, 10, 10);
+                ctx.fillStyle = '#fbbf24';
+                ctx.fillRect(47, 13, 8, 3);
 
-        canvas.refresh();
-      }
-    }
+                canvas.refresh();
+            }
+        }
 
