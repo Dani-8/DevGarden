@@ -1001,113 +1001,113 @@ export class CafeCommunityTextures {
                 ctx.fillStyle = '#475569';
                 ctx.fillRect(23, 42, 50, 2);
 
-        // Dry Erase Markers (Red, Blue, Green)
-        ctx.fillStyle = '#ef4444';
-        ctx.fillRect(27, 41, 6, 2);
-        ctx.fillStyle = '#3b82f6';
-        ctx.fillRect(36, 41, 6, 2);
-        ctx.fillStyle = '#10b981';
-        ctx.fillRect(45, 41, 6, 2);
+                // Dry Erase Markers (Red, Blue, Green)
+                ctx.fillStyle = '#ef4444';
+                ctx.fillRect(27, 41, 6, 2);
+                ctx.fillStyle = '#3b82f6';
+                ctx.fillRect(36, 41, 6, 2);
+                ctx.fillStyle = '#10b981';
+                ctx.fillRect(45, 41, 6, 2);
 
-        // Dark Gray Felt Eraser Block
-        ctx.fillStyle = '#0f172a';
-        ctx.fillRect(56, 40, 10, 3);
-        ctx.fillStyle = '#334155';
-        ctx.fillRect(57, 40, 8, 1);
+                // Dark Gray Felt Eraser Block
+                ctx.fillStyle = '#0f172a';
+                ctx.fillRect(56, 40, 10, 3);
+                ctx.fillStyle = '#334155';
+                ctx.fillRect(57, 40, 8, 1);
 
-        canvas.refresh();
-      }
-    }
+                canvas.refresh();
+            }
+        }
 
-    // =========================================================================
-    // 13. CORK BULLETIN BOARD (36x30)
-    // =========================================================================
-    if (!textures.exists('cafe_cork_bulletin_board')) {
-      const canvas = textures.createCanvas('cafe_cork_bulletin_board', 36, 30);
-      if (canvas) {
-        const ctx = canvas.getContext();
+        // =========================================================================
+        // 13. CORK BULLETIN BOARD (36x30)
+        // =========================================================================
+        if (!textures.exists('cafe_cork_bulletin_board')) {
+            const canvas = textures.createCanvas('cafe_cork_bulletin_board', 36, 30);
+            if (canvas) {
+                const ctx = canvas.getContext();
 
-        // Frame
-        ctx.fillStyle = '#271206';
-        ctx.fillRect(0, 0, 36, 30);
-        ctx.fillStyle = '#4e2712';
-        ctx.fillRect(2, 2, 32, 26);
+                // Frame
+                ctx.fillStyle = '#271206';
+                ctx.fillRect(0, 0, 36, 30);
+                ctx.fillStyle = '#4e2712';
+                ctx.fillRect(2, 2, 32, 26);
 
-        // Cork surface
-        ctx.fillStyle = '#9a582c';
-        ctx.fillRect(4, 4, 28, 22);
+                // Cork surface
+                ctx.fillStyle = '#9a582c';
+                ctx.fillRect(4, 4, 28, 22);
 
-        // Pinned notes
-        ctx.fillStyle = '#fef08a';
-        ctx.fillRect(6, 6, 8, 8);
-        ctx.fillStyle = '#ef4444';
-        ctx.fillRect(9, 6, 2, 2);
+                // Pinned notes
+                ctx.fillStyle = '#fef08a';
+                ctx.fillRect(6, 6, 8, 8);
+                ctx.fillStyle = '#ef4444';
+                ctx.fillRect(9, 6, 2, 2);
 
-        ctx.fillStyle = '#bae6fd';
-        ctx.fillRect(18, 8, 10, 10);
-        ctx.fillStyle = '#3b82f6';
-        ctx.fillRect(22, 8, 2, 2);
+                ctx.fillStyle = '#bae6fd';
+                ctx.fillRect(18, 8, 10, 10);
+                ctx.fillStyle = '#3b82f6';
+                ctx.fillRect(22, 8, 2, 2);
 
-        ctx.fillStyle = '#fed7aa';
-        ctx.fillRect(8, 16, 7, 8);
+                ctx.fillStyle = '#fed7aa';
+                ctx.fillRect(8, 16, 7, 8);
 
-        canvas.refresh();
-      }
-    }
+                canvas.refresh();
+            }
+        }
 
-    // =========================================================================
-    // 14. DISCUSSION & COLLABORATION GROUP TABLE (86x42)
-    // =========================================================================
-    if (!textures.exists('cafe_collab_group_table')) {
-      const canvas = textures.createCanvas('cafe_collab_group_table', 86, 42);
-      if (canvas) {
-        const ctx = canvas.getContext();
+        // =========================================================================
+        // 14. DISCUSSION & COLLABORATION GROUP TABLE (86x42)
+        // =========================================================================
+        if (!textures.exists('cafe_collab_group_table')) {
+            const canvas = textures.createCanvas('cafe_collab_group_table', 86, 42);
+            if (canvas) {
+                const ctx = canvas.getContext();
 
-        // Floor Shadow
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
-        ctx.beginPath();
-        ctx.ellipse(43, 38, 40, 4, 0, 0, Math.PI * 2);
-        ctx.fill();
+                // Floor Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+                ctx.beginPath();
+                ctx.ellipse(43, 38, 40, 4, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-        // Solid Oak Legs
-        ctx.fillStyle = '#271206';
-        ctx.fillRect(8, 24, 4, 15);
-        ctx.fillRect(74, 24, 4, 15);
+                // Solid Oak Legs
+                ctx.fillStyle = '#271206';
+                ctx.fillRect(8, 24, 4, 15);
+                ctx.fillRect(74, 24, 4, 15);
 
-        // Solid Warm Oak Surface
-        ctx.fillStyle = '#451a03';
-        ctx.fillRect(4, 6, 78, 20);
-        ctx.fillStyle = '#78350f';
-        ctx.fillRect(6, 7, 74, 17);
-        ctx.fillStyle = '#9a3412';
-        ctx.fillRect(8, 8, 70, 3);
+                // Solid Warm Oak Surface
+                ctx.fillStyle = '#451a03';
+                ctx.fillRect(4, 6, 78, 20);
+                ctx.fillStyle = '#78350f';
+                ctx.fillRect(6, 7, 74, 17);
+                ctx.fillStyle = '#9a3412';
+                ctx.fillRect(8, 8, 70, 3);
 
-        // Laptops (IDE & Notes)
-        ctx.fillStyle = '#1e293b';
-        ctx.fillRect(12, 9, 16, 12);
-        ctx.fillStyle = '#38bdf8';
-        ctx.fillRect(13, 10, 14, 8);
-        ctx.fillStyle = '#475569';
-        ctx.fillRect(11, 18, 18, 3);
+                // Laptops (IDE & Notes)
+                ctx.fillStyle = '#1e293b';
+                ctx.fillRect(12, 9, 16, 12);
+                ctx.fillStyle = '#38bdf8';
+                ctx.fillRect(13, 10, 14, 8);
+                ctx.fillStyle = '#475569';
+                ctx.fillRect(11, 18, 18, 3);
 
-        // Center Blueprint & Coffee Cup
-        ctx.fillStyle = '#1e3a8a';
-        ctx.fillRect(36, 10, 14, 10);
-        ctx.fillStyle = '#60a5fa';
-        ctx.strokeRect(37, 11, 12, 8);
+                // Center Blueprint & Coffee Cup
+                ctx.fillStyle = '#1e3a8a';
+                ctx.fillRect(36, 10, 14, 10);
+                ctx.fillStyle = '#60a5fa';
+                ctx.strokeRect(37, 11, 12, 8);
 
-        ctx.fillStyle = '#ffffff';
-        ctx.beginPath();
-        ctx.arc(33, 16, 2.5, 0, Math.PI * 2);
-        ctx.fill();
+                ctx.fillStyle = '#ffffff';
+                ctx.beginPath();
+                ctx.arc(33, 16, 2.5, 0, Math.PI * 2);
+                ctx.fill();
 
-        // Right Laptop / Notebook
-        ctx.fillStyle = '#1e293b';
-        ctx.fillRect(58, 9, 16, 12);
-        ctx.fillStyle = '#4ade80';
-        ctx.fillRect(59, 10, 14, 8);
+                // Right Laptop / Notebook
+                ctx.fillStyle = '#1e293b';
+                ctx.fillRect(58, 9, 16, 12);
+                ctx.fillStyle = '#4ade80';
+                ctx.fillRect(59, 10, 14, 8);
 
-        canvas.refresh();
-      }
-    }
+                canvas.refresh();
+            }
+        }
 
