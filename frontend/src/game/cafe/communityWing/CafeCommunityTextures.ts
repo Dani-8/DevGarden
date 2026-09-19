@@ -154,3 +154,92 @@ export class CafeCommunityTextures {
         ctx.fillStyle = '#61381d';
         ctx.fillRect(22, 1, 1, 7);
 
+        // Plank 2
+        ctx.fillStyle = '#905b39';
+        ctx.fillRect(0, 9, 32, 7);
+        ctx.fillStyle = '#a56c46';
+        ctx.fillRect(0, 10, 32, 1);
+        ctx.fillStyle = '#61381d';
+        ctx.fillRect(6, 9, 1, 7);
+
+        // Plank 3
+        ctx.fillStyle = '#825130';
+        ctx.fillRect(0, 17, 32, 7);
+        ctx.fillStyle = '#97603b';
+        ctx.fillRect(0, 18, 32, 1);
+        ctx.fillStyle = '#61381d';
+        ctx.fillRect(28, 17, 1, 7);
+
+        // Plank 4
+        ctx.fillStyle = '#8c5836';
+        ctx.fillRect(0, 25, 32, 7);
+        ctx.fillStyle = '#a16843';
+        ctx.fillRect(0, 26, 32, 1);
+        ctx.fillStyle = '#61381d';
+        ctx.fillRect(12, 25, 1, 7);
+
+        // Groove shadows
+        ctx.fillStyle = '#462611';
+        ctx.fillRect(0, 0, 32, 1);
+        ctx.fillRect(0, 8, 32, 1);
+        ctx.fillRect(0, 16, 32, 1);
+        ctx.fillRect(0, 24, 32, 1);
+
+        canvas.refresh();
+      }
+    }
+
+    // =========================================================================
+    // 3. CLEAN, THICK NEUTRAL STONE DIVIDER WALL (384x28)
+    // Base stone color: #B8B1A3, limestone capstone, NO gold stripes
+    // =========================================================================
+    if (!textures.exists('cafe_wing_stone_div_wall')) {
+      const canvas = textures.createCanvas('cafe_wing_stone_div_wall', 384, 28);
+      if (canvas) {
+        const ctx = canvas.getContext();
+
+        // Floor Shadow below wall
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.38)';
+        ctx.fillRect(0, 20, 384, 8);
+
+        // Top Limestone Capstone Rail (y: 0 to 6)
+        ctx.fillStyle = '#c7c0b3';
+        ctx.fillRect(0, 0, 384, 6);
+        ctx.fillStyle = '#ded8cb';
+        ctx.fillRect(0, 0, 384, 2); // Top rim highlight
+        ctx.fillStyle = '#9e978b';
+        ctx.fillRect(0, 5, 384, 1); // Capstone underside shadow
+
+        // Capstone seams every 32px
+        ctx.fillStyle = '#7a7368';
+        for (let x = 32; x < 384; x += 32) {
+          ctx.fillRect(x, 0, 1, 6);
+        }
+
+        // Stone Brick Masonry Body (y: 6 to 20)
+        ctx.fillStyle = '#665f56'; // Mortar base
+        ctx.fillRect(0, 6, 384, 14);
+
+        // Upper Stone Course (y: 7 to 12)
+        for (let x = 0; x < 384; x += 24) {
+          ctx.fillStyle = (Math.floor(x / 24) % 2 === 0) ? '#b8b1a3' : '#aea799';
+          ctx.fillRect(x + 1, 7, 22, 5);
+          ctx.fillStyle = '#cbc4b7';
+          ctx.fillRect(x + 1, 7, 22, 1);
+        }
+
+        // Lower Stone Course (y: 14 to 19)
+        for (let x = -12; x < 384; x += 24) {
+          const rx = Math.max(0, x + 1);
+          const rw = Math.min(22, 384 - rx);
+          if (rw > 0) {
+            ctx.fillStyle = (Math.floor((x + 12) / 24) % 2 === 0) ? '#b0a99b' : '#a69f92';
+            ctx.fillRect(rx, 14, rw, 5);
+            ctx.fillStyle = '#c4bdae';
+            ctx.fillRect(rx, 14, rw, 1);
+          }
+        }
+
+        // Base skirting line
+        ctx.fillStyle = '#3d3832';
+        ctx.fillRect(0, 19, 384, 1);
