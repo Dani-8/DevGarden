@@ -707,3 +707,55 @@ export class CafeCommunityTextures {
                 ctx.fillRect(41, 3, 6, 5);
                 ctx.fillStyle = '#fbbf24';
                 ctx.fillRect(42, 4, 4, 3);
+
+        // Shelf Accessories (Parchment scroll on ledge)
+        ctx.fillStyle = '#e2e8f0';
+        ctx.fillRect(22, 40, 14, 3);
+        ctx.fillStyle = '#94a3b8';
+        ctx.fillRect(22, 40, 2, 3);
+        ctx.fillRect(34, 40, 2, 3);
+
+        canvas.refresh();
+      }
+    }
+
+    // =========================================================================
+    // 10. LONG PROJECT SHOWCASE PRESENTATION TABLE (110x36)
+    // =========================================================================
+    if (!textures.exists('cafe_showcase_long_table')) {
+      const canvas = textures.createCanvas('cafe_showcase_long_table', 110, 36);
+      if (canvas) {
+        const ctx = canvas.getContext();
+
+        // Floor Shadow
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+        ctx.beginPath();
+        ctx.ellipse(55, 32, 52, 4, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Legs
+        ctx.fillStyle = '#271206';
+        ctx.fillRect(8, 20, 4, 13);
+        ctx.fillRect(53, 20, 4, 13);
+        ctx.fillRect(98, 20, 4, 13);
+
+        // Solid Rich Wood Tabletop
+        ctx.fillStyle = '#451a03';
+        ctx.fillRect(4, 6, 102, 16);
+        ctx.fillStyle = '#78350f';
+        ctx.fillRect(6, 7, 98, 13);
+        ctx.fillStyle = '#9a3412';
+        ctx.fillRect(8, 8, 94, 3);
+
+        // Spec Sheet Left
+        ctx.fillStyle = '#f8fafc';
+        ctx.fillRect(14, 9, 10, 8);
+        ctx.fillStyle = '#ef4444';
+        ctx.fillRect(16, 10, 6, 2);
+
+        // Open Blueprints
+        ctx.fillStyle = '#0284c7';
+        ctx.fillRect(32, 8, 16, 9);
+        ctx.fillStyle = '#bae6fd';
+        ctx.fillRect(34, 9, 12, 7);
+
