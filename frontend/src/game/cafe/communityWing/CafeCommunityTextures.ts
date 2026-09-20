@@ -136,4 +136,3 @@ export class CafeCommunityTextures {
         canvas.refresh();
       }
     }
-j
