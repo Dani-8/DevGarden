@@ -827,3 +827,52 @@ export class CafeCommunityTextures {
                 canvas.refresh();
             }
         }
+
+    // =========================================================================
+    // 12. FREESTANDING MOBILE ROLLING WHITEBOARD (96x66) - STANDS ON FLOOR
+    // =========================================================================
+    if (!textures.exists('cafe_collab_whiteboard')) {
+      const canvas = textures.createCanvas('cafe_collab_whiteboard', 96, 66);
+      if (canvas) {
+        const ctx = canvas.getContext();
+
+        // 1. Floor Drop Shadow (Soft ellipse directly under wheeled base)
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
+        ctx.beginPath();
+        ctx.ellipse(48, 62, 44, 4, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // 2. Heavy-Duty Wheeled Tubular Stand Structure
+        // Left Horizontal T-Bar Base on Floor
+        ctx.fillStyle = '#1e293b';
+        ctx.fillRect(8, 57, 24, 4);
+        ctx.fillStyle = '#334155';
+        ctx.fillRect(9, 58, 22, 2);
+
+        // Left 2 Caster Wheels & Swivel Axles
+        ctx.fillStyle = '#0f172a';
+        ctx.fillRect(9, 61, 5, 4);
+        ctx.fillRect(26, 61, 5, 4);
+        ctx.fillStyle = '#94a3b8';
+        ctx.fillRect(10, 62, 3, 2);
+        ctx.fillRect(27, 62, 3, 2);
+
+        // Right Horizontal T-Bar Base on Floor
+        ctx.fillStyle = '#1e293b';
+        ctx.fillRect(64, 57, 24, 4);
+        ctx.fillStyle = '#334155';
+        ctx.fillRect(65, 58, 22, 2);
+
+        // Right 2 Caster Wheels & Swivel Axles
+        ctx.fillStyle = '#0f172a';
+        ctx.fillRect(65, 61, 5, 4);
+        ctx.fillRect(82, 61, 5, 4);
+        ctx.fillStyle = '#94a3b8';
+        ctx.fillRect(66, 62, 3, 2);
+        ctx.fillRect(83, 62, 3, 2);
+
+        // Low Cross-Stabilizer Bar between the two T-bases
+        ctx.fillStyle = '#1e293b';
+        ctx.fillRect(20, 52, 56, 3);
+        ctx.fillStyle = '#475569';
+        ctx.fillRect(20, 52, 56, 1);
