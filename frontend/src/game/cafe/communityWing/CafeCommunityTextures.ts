@@ -543,3 +543,239 @@ export class CafeCommunityTextures {
                 canvas.refresh();
             }
         }
+
+        // =========================================================================
+        // 9. FREESTANDING PROJECT SHOWCASE DISPLAY EASEL (88x66) - STANDS ON FLOOR
+        // =========================================================================
+        if (!textures.exists('cafe_showcase_wall_board')) {
+            const canvas = textures.createCanvas('cafe_showcase_wall_board', 88, 66);
+            if (canvas) {
+                const ctx = canvas.getContext();
+
+                // 1. Floor Drop Shadow (Soft ellipse directly under easel legs)
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
+                ctx.beginPath();
+                ctx.ellipse(44, 62, 38, 4, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                // 2. Rear Center Wooden Mast (Extends from top finial to near floor)
+                ctx.fillStyle = '#221106';
+                ctx.fillRect(42, 2, 4, 58);
+                ctx.fillStyle = '#451a03';
+                ctx.fillRect(43, 2, 2, 58);
+
+                // 3. Front A-Frame Easel Legs (Angled wooden legs)
+                // Left Leg
+                ctx.fillStyle = '#221106';
+                ctx.beginPath();
+                ctx.moveTo(42, 10);
+                ctx.lineTo(46, 10);
+                ctx.lineTo(17, 62);
+                ctx.lineTo(13, 62);
+                ctx.closePath();
+                ctx.fill();
+
+                ctx.fillStyle = '#5a2a0c';
+                ctx.beginPath();
+                ctx.moveTo(43, 10);
+                ctx.lineTo(45, 10);
+                ctx.lineTo(16, 61);
+                ctx.lineTo(14, 61);
+                ctx.closePath();
+                ctx.fill();
+
+                // Right Leg
+                ctx.fillStyle = '#221106';
+                ctx.beginPath();
+                ctx.moveTo(42, 10);
+                ctx.lineTo(46, 10);
+                ctx.lineTo(75, 62);
+                ctx.lineTo(71, 62);
+                ctx.closePath();
+                ctx.fill();
+
+                ctx.fillStyle = '#5a2a0c';
+                ctx.beginPath();
+                ctx.moveTo(43, 10);
+                ctx.lineTo(45, 10);
+                ctx.lineTo(74, 61);
+                ctx.lineTo(72, 61);
+                ctx.closePath();
+                ctx.fill();
+
+                // Brass Floor Feet Caps
+                ctx.fillStyle = '#b45309';
+                ctx.fillRect(12, 60, 6, 3);
+                ctx.fillRect(70, 60, 6, 3);
+                ctx.fillStyle = '#f59e0b';
+                ctx.fillRect(13, 61, 4, 1);
+                ctx.fillRect(71, 61, 4, 1);
+
+                // Horizontal Wooden Cross-Brace Bar
+                ctx.fillStyle = '#2d1405';
+                ctx.fillRect(20, 52, 48, 4);
+                ctx.fillStyle = '#4e2712';
+                ctx.fillRect(20, 53, 48, 2);
+
+                // Support Shelf Ledge (Holds the display board)
+                ctx.fillStyle = '#1c0c03';
+                ctx.fillRect(8, 41, 72, 5);
+                ctx.fillStyle = '#652e0e';
+                ctx.fillRect(9, 41, 70, 3);
+                ctx.fillStyle = '#b45309';
+                ctx.fillRect(15, 45, 4, 2);
+                ctx.fillRect(69, 45, 4, 2);
+
+                // 4. Mounted Display Board (Resting on easel shelf)
+                // Drop shadow behind board onto easel
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.45)';
+                ctx.fillRect(12, 7, 66, 36);
+
+                // Dark Walnut & Brass Trim Frame
+                ctx.fillStyle = '#1e0f05';
+                ctx.fillRect(10, 5, 68, 36);
+                ctx.fillStyle = '#4a240e';
+                ctx.fillRect(12, 7, 64, 32);
+
+                // Corner Brass Reinforcement Brackets
+                ctx.fillStyle = '#f59e0b';
+                ctx.fillRect(10, 5, 5, 5);
+                ctx.fillRect(73, 5, 5, 5);
+                ctx.fillRect(10, 36, 5, 5);
+                ctx.fillRect(73, 36, 5, 5);
+                ctx.fillStyle = '#fbbf24';
+                ctx.fillRect(11, 6, 3, 3);
+                ctx.fillRect(74, 6, 3, 3);
+
+                // Inner Felt Slate Backing
+                ctx.fillStyle = '#090d16';
+                ctx.fillRect(14, 9, 60, 28);
+
+                // Top Header Banner ("PROJECT SHOWCASE")
+                ctx.fillStyle = '#1e293b';
+                ctx.fillRect(18, 11, 52, 6);
+                ctx.fillStyle = '#f59e0b';
+                ctx.fillRect(20, 12, 48, 4);
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(22, 13, 2, 2);
+                ctx.fillRect(25, 13, 10, 2);
+                ctx.fillRect(37, 13, 12, 2);
+                ctx.fillRect(51, 13, 14, 2);
+
+                // 3 Pinned Showcase Project Cards
+                // Card 1 (Cyan - Web Audio)
+                ctx.fillStyle = '#0f172a';
+                ctx.fillRect(17, 19, 15, 15);
+                ctx.fillStyle = '#0284c7';
+                ctx.fillRect(18, 20, 13, 13);
+                ctx.fillStyle = '#38bdf8';
+                ctx.fillRect(19, 21, 11, 2);
+                ctx.fillRect(20, 25, 9, 1);
+                ctx.fillRect(20, 28, 6, 1);
+                // Golden Thumbtack
+                ctx.fillStyle = '#fbbf24';
+                ctx.fillRect(24, 19, 2, 2);
+
+                // Card 2 (Emerald - Git Visualizer)
+                ctx.fillStyle = '#0f172a';
+                ctx.fillRect(36, 19, 16, 15);
+                ctx.fillStyle = '#16a34a';
+                ctx.fillRect(37, 20, 14, 13);
+                ctx.fillStyle = '#4ade80';
+                ctx.fillRect(38, 21, 12, 2);
+                ctx.fillRect(39, 25, 10, 1);
+                ctx.fillRect(39, 28, 8, 1);
+                // Golden Thumbtack
+                ctx.fillStyle = '#fbbf24';
+                ctx.fillRect(44, 19, 2, 2);
+
+                // Card 3 (Purple - Game Engine)
+                ctx.fillStyle = '#0f172a';
+                ctx.fillRect(56, 19, 15, 15);
+                ctx.fillStyle = '#9333ea';
+                ctx.fillRect(57, 20, 13, 13);
+                ctx.fillStyle = '#c084fc';
+                ctx.fillRect(58, 21, 11, 2);
+                ctx.fillRect(59, 25, 9, 1);
+                ctx.fillRect(59, 28, 5, 1);
+                // Golden Thumbtack
+                ctx.fillStyle = '#fbbf24';
+                ctx.fillRect(63, 19, 2, 2);
+
+                // Top Brass Clamp securing board to mast
+                ctx.fillStyle = '#d97706';
+                ctx.fillRect(41, 3, 6, 5);
+                ctx.fillStyle = '#fbbf24';
+                ctx.fillRect(42, 4, 4, 3);
+
+                // Shelf Accessories (Parchment scroll on ledge)
+                ctx.fillStyle = '#e2e8f0';
+                ctx.fillRect(22, 40, 14, 3);
+                ctx.fillStyle = '#94a3b8';
+                ctx.fillRect(22, 40, 2, 3);
+                ctx.fillRect(34, 40, 2, 3);
+
+                canvas.refresh();
+            }
+        }
+
+        // =========================================================================
+        // 10. LONG PROJECT SHOWCASE PRESENTATION TABLE (110x36)
+        // =========================================================================
+        if (!textures.exists('cafe_showcase_long_table')) {
+            const canvas = textures.createCanvas('cafe_showcase_long_table', 110, 36);
+            if (canvas) {
+                const ctx = canvas.getContext();
+
+                // Floor Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+                ctx.beginPath();
+                ctx.ellipse(55, 32, 52, 4, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Legs
+                ctx.fillStyle = '#271206';
+                ctx.fillRect(8, 20, 4, 13);
+                ctx.fillRect(53, 20, 4, 13);
+                ctx.fillRect(98, 20, 4, 13);
+
+                // Solid Rich Wood Tabletop
+                ctx.fillStyle = '#451a03';
+                ctx.fillRect(4, 6, 102, 16);
+                ctx.fillStyle = '#78350f';
+                ctx.fillRect(6, 7, 98, 13);
+                ctx.fillStyle = '#9a3412';
+                ctx.fillRect(8, 8, 94, 3);
+
+                // Spec Sheet Left
+                ctx.fillStyle = '#f8fafc';
+                ctx.fillRect(14, 9, 10, 8);
+                ctx.fillStyle = '#ef4444';
+                ctx.fillRect(16, 10, 6, 2);
+
+                // Open Blueprints
+                ctx.fillStyle = '#0284c7';
+                ctx.fillRect(32, 8, 16, 9);
+                ctx.fillStyle = '#bae6fd';
+                ctx.fillRect(34, 9, 12, 7);
+
+                // Center succulent plant pot
+                ctx.fillStyle = '#b45309';
+                ctx.beginPath();
+                ctx.arc(55, 14, 4, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = '#16a34a';
+                ctx.beginPath();
+                ctx.arc(55, 13, 3, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Notebooks Right
+                ctx.fillStyle = '#15803d';
+                ctx.fillRect(72, 9, 10, 8);
+                ctx.fillStyle = '#38bdf8';
+                ctx.fillRect(86, 9, 8, 8);
+
+                canvas.refresh();
+            }
+        }
+
