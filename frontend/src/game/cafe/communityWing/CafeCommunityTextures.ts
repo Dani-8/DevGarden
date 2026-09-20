@@ -349,81 +349,81 @@ export class CafeCommunityTextures {
                     ctx.fillRect(5, y, 54, 2);
                 }
 
-        // Inner Stenciled Border Box
-        ctx.strokeStyle = '#1c1917';
-        ctx.lineWidth = 2;
-        ctx.strokeRect(9, 10, 46, 76);
+                // Inner Stenciled Border Box
+                ctx.strokeStyle = '#1c1917';
+                ctx.lineWidth = 2;
+                ctx.strokeRect(9, 10, 46, 76);
 
-        ctx.strokeStyle = '#d97706';
-        ctx.lineWidth = 1;
-        ctx.strokeRect(11, 12, 42, 72);
+                ctx.strokeStyle = '#d97706';
+                ctx.lineWidth = 1;
+                ctx.strokeRect(11, 12, 42, 72);
 
-        // Corner stencil accents
-        ctx.fillStyle = '#1c1917';
-        ctx.fillRect(9, 10, 4, 4);
-        ctx.fillRect(51, 10, 4, 4);
-        ctx.fillRect(9, 82, 4, 4);
-        ctx.fillRect(51, 82, 4, 4);
+                // Corner stencil accents
+                ctx.fillStyle = '#1c1917';
+                ctx.fillRect(9, 10, 4, 4);
+                ctx.fillRect(51, 10, 4, 4);
+                ctx.fillRect(9, 82, 4, 4);
+                ctx.fillRect(51, 82, 4, 4);
 
-        canvas.refresh();
-      }
-    }
-
-    if (!textures.exists('cafe_wing_gate_threshold')) {
-      const canvas = textures.createCanvas('cafe_wing_gate_threshold', 64, 96);
-      if (canvas) {
-        const source = textures.get('cafe_wing_gate_mat').getSourceImage() as any;
-        if (source) {
-          canvas.getContext().drawImage(source, 0, 0);
-          canvas.refresh();
-        }
-      }
-    }
-
-    // =========================================================================
-    // 6. OLIVE & MOSS GREEN LOUNGE AREA RUG (170x110)
-    // =========================================================================
-    if (!textures.exists('cafe_zone_olive_rug')) {
-      const canvas = textures.createCanvas('cafe_zone_olive_rug', 170, 110);
-      if (canvas) {
-        const ctx = canvas.getContext();
-
-        // Floor Shadow
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
-        ctx.fillRect(3, 3, 164, 104);
-
-        // Dark Slate / Forest Outer Border
-        ctx.fillStyle = '#1c2819';
-        ctx.fillRect(0, 0, 170, 110);
-
-        // Rich Warm Olive / Moss Field
-        ctx.fillStyle = '#324528';
-        ctx.fillRect(4, 4, 162, 102);
-        ctx.fillStyle = '#3c5330';
-        ctx.fillRect(8, 8, 154, 94);
-
-        // Woven textile grain
-        for (let y = 10; y < 100; y += 4) {
-          ctx.fillStyle = (Math.floor(y / 4) % 2 === 0) ? '#455e37' : '#354b2b';
-          ctx.fillRect(10, y, 150, 2);
+                canvas.refresh();
+            }
         }
 
-        // Inner decorative border trim
-        ctx.strokeStyle = '#5a7849';
-        ctx.lineWidth = 1.5;
-        ctx.strokeRect(12, 12, 146, 86);
-
-        canvas.refresh();
-      }
-    }
-
-    if (!textures.exists('cafe_zone_persian_rug')) {
-      const canvas = textures.createCanvas('cafe_zone_persian_rug', 170, 110);
-      if (canvas) {
-        const source = textures.get('cafe_zone_olive_rug').getSourceImage() as any;
-        if (source) {
-          canvas.getContext().drawImage(source, 0, 0);
-          canvas.refresh();
+        if (!textures.exists('cafe_wing_gate_threshold')) {
+            const canvas = textures.createCanvas('cafe_wing_gate_threshold', 64, 96);
+            if (canvas) {
+                const source = textures.get('cafe_wing_gate_mat').getSourceImage() as any;
+                if (source) {
+                    canvas.getContext().drawImage(source, 0, 0);
+                    canvas.refresh();
+                }
+            }
         }
-      }
-    }
+
+        // =========================================================================
+        // 6. OLIVE & MOSS GREEN LOUNGE AREA RUG (170x110)
+        // =========================================================================
+        if (!textures.exists('cafe_zone_olive_rug')) {
+            const canvas = textures.createCanvas('cafe_zone_olive_rug', 170, 110);
+            if (canvas) {
+                const ctx = canvas.getContext();
+
+                // Floor Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+                ctx.fillRect(3, 3, 164, 104);
+
+                // Dark Slate / Forest Outer Border
+                ctx.fillStyle = '#1c2819';
+                ctx.fillRect(0, 0, 170, 110);
+
+                // Rich Warm Olive / Moss Field
+                ctx.fillStyle = '#324528';
+                ctx.fillRect(4, 4, 162, 102);
+                ctx.fillStyle = '#3c5330';
+                ctx.fillRect(8, 8, 154, 94);
+
+                // Woven textile grain
+                for (let y = 10; y < 100; y += 4) {
+                    ctx.fillStyle = (Math.floor(y / 4) % 2 === 0) ? '#455e37' : '#354b2b';
+                    ctx.fillRect(10, y, 150, 2);
+                }
+
+                // Inner decorative border trim
+                ctx.strokeStyle = '#5a7849';
+                ctx.lineWidth = 1.5;
+                ctx.strokeRect(12, 12, 146, 86);
+
+                canvas.refresh();
+            }
+        }
+
+        if (!textures.exists('cafe_zone_persian_rug')) {
+            const canvas = textures.createCanvas('cafe_zone_persian_rug', 170, 110);
+            if (canvas) {
+                const source = textures.get('cafe_zone_olive_rug').getSourceImage() as any;
+                if (source) {
+                    canvas.getContext().drawImage(source, 0, 0);
+                    canvas.refresh();
+                }
+            }
+        }
