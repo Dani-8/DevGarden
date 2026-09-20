@@ -1209,13 +1209,13 @@ export class CafeCommunityTextures {
                 ctx.arc(15, 14, 10, 0, Math.PI * 2);
                 ctx.fill();
 
-        ctx.fillStyle = '#4ade80';
-        ctx.beginPath();
-        ctx.arc(13, 12, 5, 0, Math.PI * 2);
-        ctx.fill();
+                ctx.fillStyle = '#4ade80';
+                ctx.beginPath();
+                ctx.arc(13, 12, 5, 0, Math.PI * 2);
+                ctx.fill();
 
-        canvas.refresh();
-      }
+                canvas.refresh();
+            }
+        }
     }
-  }
 }
