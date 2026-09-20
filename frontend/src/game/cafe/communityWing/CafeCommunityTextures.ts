@@ -1120,45 +1120,45 @@ export class CafeCommunityTextures {
                 ctx.fillStyle = '#4e2712';
                 ctx.fillRect(2, 10, 20, 5);
 
-        // Cozy Table Lamp
-        ctx.fillStyle = '#1c1917';
-        ctx.fillRect(11, 5, 2, 6);
-        ctx.fillStyle = '#fef08a';
-        ctx.beginPath();
-        ctx.moveTo(7, 6);
-        ctx.lineTo(17, 6);
-        ctx.lineTo(19, 1);
-        ctx.lineTo(5, 1);
-        ctx.closePath();
-        ctx.fill();
+                // Cozy Table Lamp
+                ctx.fillStyle = '#1c1917';
+                ctx.fillRect(11, 5, 2, 6);
+                ctx.fillStyle = '#fef08a';
+                ctx.beginPath();
+                ctx.moveTo(7, 6);
+                ctx.lineTo(17, 6);
+                ctx.lineTo(19, 1);
+                ctx.lineTo(5, 1);
+                ctx.closePath();
+                ctx.fill();
 
-        canvas.refresh();
-      }
-    }
+                canvas.refresh();
+            }
+        }
 
-    // =========================================================================
-    // 16. WARM WALL LANTERN SCONCE (16x16)
-    // =========================================================================
-    if (!textures.exists('cafe_wing_wall_lantern')) {
-      const canvas = textures.createCanvas('cafe_wing_wall_lantern', 16, 16);
-      if (canvas) {
-        const ctx = canvas.getContext();
+        // =========================================================================
+        // 16. WARM WALL LANTERN SCONCE (16x16)
+        // =========================================================================
+        if (!textures.exists('cafe_wing_wall_lantern')) {
+            const canvas = textures.createCanvas('cafe_wing_wall_lantern', 16, 16);
+            if (canvas) {
+                const ctx = canvas.getContext();
 
-        // Dark iron bracket
-        ctx.fillStyle = '#1c1917';
-        ctx.fillRect(7, 3, 2, 10);
-        ctx.fillRect(5, 4, 6, 2);
-        ctx.fillRect(4, 11, 8, 2);
+                // Dark iron bracket
+                ctx.fillStyle = '#1c1917';
+                ctx.fillRect(7, 3, 2, 10);
+                ctx.fillRect(5, 4, 6, 2);
+                ctx.fillRect(4, 11, 8, 2);
 
-        // Warm Glowing Amber Lantern Glass
-        ctx.fillStyle = '#f59e0b';
-        ctx.fillRect(5, 6, 6, 5);
-        ctx.fillStyle = '#fef08a';
-        ctx.fillRect(6, 7, 4, 3);
-        ctx.fillStyle = '#ffffff';
-        ctx.fillRect(7, 7, 2, 2);
+                // Warm Glowing Amber Lantern Glass
+                ctx.fillStyle = '#f59e0b';
+                ctx.fillRect(5, 6, 6, 5);
+                ctx.fillStyle = '#fef08a';
+                ctx.fillRect(6, 7, 4, 3);
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(7, 7, 2, 2);
 
-        canvas.refresh();
-      }
-    }
+                canvas.refresh();
+            }
+        }
 
