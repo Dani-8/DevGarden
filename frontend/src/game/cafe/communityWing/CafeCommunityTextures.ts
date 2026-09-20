@@ -297,54 +297,54 @@ export class CafeCommunityTextures {
                     ctx.fillRect(4, y + 7, 13, 1);
                 }
 
-        // Inner vertical bevel line for solid structural depth
-        ctx.fillStyle = '#b5afa3';
-        ctx.fillRect(5, 0, 1, 64);
+                // Inner vertical bevel line for solid structural depth
+                ctx.fillStyle = '#b5afa3';
+                ctx.fillRect(5, 0, 1, 64);
 
-        ctx.fillStyle = '#615a51';
-        ctx.fillRect(15, 0, 1, 64);
+                ctx.fillStyle = '#615a51';
+                ctx.fillRect(15, 0, 1, 64);
 
-        // Top and bottom stone cap seam
-        ctx.fillStyle = '#2b2722';
-        ctx.fillRect(3, 0, 15, 1);
-        ctx.fillRect(3, 63, 15, 1);
+                // Top and bottom stone cap seam
+                ctx.fillStyle = '#2b2722';
+                ctx.fillRect(3, 0, 15, 1);
+                ctx.fillRect(3, 63, 15, 1);
 
-        canvas.refresh();
-      }
-    }
-
-    // =========================================================================
-    // 5. WARM WOVEN COIR DOORWAY MAT (64x96)
-    // =========================================================================
-    if (!textures.exists('cafe_wing_gate_mat')) {
-      const canvas = textures.createCanvas('cafe_wing_gate_mat', 64, 96);
-      if (canvas) {
-        const ctx = canvas.getContext();
-
-        // Floor Shadow
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
-        ctx.beginPath();
-        ctx.roundRect(2, 3, 60, 90, 6);
-        ctx.fill();
-
-        // Heavy Black Vulcanized Rubber Rim
-        ctx.fillStyle = '#1c1917';
-        ctx.beginPath();
-        ctx.roundRect(1, 2, 62, 92, 5);
-        ctx.fill();
-
-        // Rubber Edge Highlight
-        ctx.fillStyle = '#292524';
-        ctx.beginPath();
-        ctx.roundRect(2, 3, 60, 90, 4);
-        ctx.fill();
-
-        // Heavy Braided Coir Fiber Bed
-        ctx.fillStyle = '#9c663b';
-        ctx.fillRect(5, 6, 54, 84);
-
-        // Dense woven ribbing texture
-        for (let y = 6; y < 90; y += 3) {
-          ctx.fillStyle = (Math.floor(y / 3) % 2 === 0) ? '#ad7748' : '#885329';
-          ctx.fillRect(5, y, 54, 2);
+                canvas.refresh();
+            }
         }
+
+        // =========================================================================
+        // 5. WARM WOVEN COIR DOORWAY MAT (64x96)
+        // =========================================================================
+        if (!textures.exists('cafe_wing_gate_mat')) {
+            const canvas = textures.createCanvas('cafe_wing_gate_mat', 64, 96);
+            if (canvas) {
+                const ctx = canvas.getContext();
+
+                // Floor Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+                ctx.beginPath();
+                ctx.roundRect(2, 3, 60, 90, 6);
+                ctx.fill();
+
+                // Heavy Black Vulcanized Rubber Rim
+                ctx.fillStyle = '#1c1917';
+                ctx.beginPath();
+                ctx.roundRect(1, 2, 62, 92, 5);
+                ctx.fill();
+
+                // Rubber Edge Highlight
+                ctx.fillStyle = '#292524';
+                ctx.beginPath();
+                ctx.roundRect(2, 3, 60, 90, 4);
+                ctx.fill();
+
+                // Heavy Braided Coir Fiber Bed
+                ctx.fillStyle = '#9c663b';
+                ctx.fillRect(5, 6, 54, 84);
+
+                // Dense woven ribbing texture
+                for (let y = 6; y < 90; y += 3) {
+                    ctx.fillStyle = (Math.floor(y / 3) % 2 === 0) ? '#ad7748' : '#885329';
+                    ctx.fillRect(5, y, 54, 2);
+                }
