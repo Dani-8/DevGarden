@@ -488,3 +488,58 @@ export class CafeCommunityTextures {
                 canvas.refresh();
             }
         }
+
+    // =========================================================================
+    // 8. OVAL / DELUXE COFFEE TABLE WITH LAPTOP & DRINKS (48x28)
+    // =========================================================================
+    if (!textures.exists('cafe_lounge_coffee_table_deluxe')) {
+      const canvas = textures.createCanvas('cafe_lounge_coffee_table_deluxe', 48, 28);
+      if (canvas) {
+        const ctx = canvas.getContext();
+
+        // Floor Shadow
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+        ctx.beginPath();
+        ctx.ellipse(24, 25, 22, 3, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Table Legs
+        ctx.fillStyle = '#1c1917';
+        ctx.fillRect(6, 16, 3, 10);
+        ctx.fillRect(39, 16, 3, 10);
+
+        // Warm Walnut Oval Tabletop
+        ctx.fillStyle = '#451a03';
+        ctx.beginPath();
+        ctx.ellipse(24, 12, 22, 9, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = '#78350f';
+        ctx.beginPath();
+        ctx.ellipse(24, 11, 20, 8, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = '#9a3412';
+        ctx.beginPath();
+        ctx.ellipse(24, 10, 16, 5, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Open Book / Magazine
+        ctx.fillStyle = '#fef08a';
+        ctx.fillRect(12, 8, 10, 6);
+        ctx.fillStyle = '#cbd5e1';
+        ctx.fillRect(16, 8, 1, 6);
+
+        // Ceramic Coffee Mug with Latte Art
+        ctx.fillStyle = '#ffffff';
+        ctx.beginPath();
+        ctx.arc(33, 11, 3.5, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#92400e';
+        ctx.beginPath();
+        ctx.arc(33, 11, 2.5, 0, Math.PI * 2);
+        ctx.fill();
+
+        canvas.refresh();
+      }
+    }
