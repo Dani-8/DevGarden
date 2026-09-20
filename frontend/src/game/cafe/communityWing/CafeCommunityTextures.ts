@@ -1162,3 +1162,50 @@ export class CafeCommunityTextures {
             }
         }
 
+    // =========================================================================
+    // 17. SPHERICAL LUXURY POTTED PLANT POT (32x56)
+    // =========================================================================
+    if (!textures.exists('cafe_luxury_plant_pot')) {
+      const canvas = textures.createCanvas('cafe_luxury_plant_pot', 32, 56);
+      if (canvas) {
+        const ctx = canvas.getContext();
+
+        // Floor Shadow
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+        ctx.beginPath();
+        ctx.ellipse(16, 52, 12, 3, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Terracotta Pot Base
+        ctx.fillStyle = '#9a3412';
+        ctx.beginPath();
+        ctx.moveTo(8, 36);
+        ctx.lineTo(24, 36);
+        ctx.lineTo(21, 52);
+        ctx.lineTo(11, 52);
+        ctx.closePath();
+        ctx.fill();
+
+        // Pot Rim
+        ctx.fillStyle = '#c2410c';
+        ctx.fillRect(6, 33, 20, 4);
+
+        // White accent pot band
+        ctx.fillStyle = '#f8fafc';
+        ctx.fillRect(9, 41, 14, 3);
+
+        // Trunk / Stem
+        ctx.fillStyle = '#451a03';
+        ctx.fillRect(15, 20, 2, 14);
+
+        // Lush Spherical Foliage (Topiary sphere)
+        ctx.fillStyle = '#14532d';
+        ctx.beginPath();
+        ctx.arc(16, 16, 12, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = '#16a34a';
+        ctx.beginPath();
+        ctx.arc(15, 14, 10, 0, Math.PI * 2);
+        ctx.fill();
+
