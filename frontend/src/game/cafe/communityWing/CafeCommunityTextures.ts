@@ -41,42 +41,42 @@ export class CafeCommunityTextures {
                 ctx.fillRect(21, 5, 5, 3);
                 ctx.fillRect(27, 9, 2, 2);
 
-        // Course 2 (y: 17 to 31) - Staggered Ashlar Stone Blocks
-        // Block 2A (x: 0 to 6)
-        ctx.fillStyle = '#b4ada0';
-        ctx.fillRect(0, 17, 7, 14);
-        ctx.fillStyle = '#ccc6bb';
-        ctx.fillRect(0, 18, 6, 2);
-        ctx.fillStyle = '#999285';
-        ctx.fillRect(0, 29, 6, 2);
+                // Course 2 (y: 17 to 31) - Staggered Ashlar Stone Blocks
+                // Block 2A (x: 0 to 6)
+                ctx.fillStyle = '#b4ada0';
+                ctx.fillRect(0, 17, 7, 14);
+                ctx.fillStyle = '#ccc6bb';
+                ctx.fillRect(0, 18, 6, 2);
+                ctx.fillStyle = '#999285';
+                ctx.fillRect(0, 29, 6, 2);
 
-        // Block 2B (x: 9 to 22)
-        ctx.fillStyle = '#b8b1a3';
-        ctx.fillRect(9, 17, 14, 14);
-        ctx.fillStyle = '#d2ccbf';
-        ctx.fillRect(10, 18, 12, 2);
-        ctx.fillStyle = '#9f988b';
-        ctx.fillRect(10, 29, 12, 2);
-        ctx.fillStyle = '#aaa396';
-        ctx.fillRect(13, 22, 5, 3);
+                // Block 2B (x: 9 to 22)
+                ctx.fillStyle = '#b8b1a3';
+                ctx.fillRect(9, 17, 14, 14);
+                ctx.fillStyle = '#d2ccbf';
+                ctx.fillRect(10, 18, 12, 2);
+                ctx.fillStyle = '#9f988b';
+                ctx.fillRect(10, 29, 12, 2);
+                ctx.fillStyle = '#aaa396';
+                ctx.fillRect(13, 22, 5, 3);
 
-        // Block 2C (x: 25 to 31)
-        ctx.fillStyle = '#ada698';
-        ctx.fillRect(25, 17, 7, 14);
-        ctx.fillStyle = '#c5bfae';
-        ctx.fillRect(26, 18, 6, 2);
-        ctx.fillStyle = '#928b7e';
-        ctx.fillRect(26, 29, 6, 2);
+                // Block 2C (x: 25 to 31)
+                ctx.fillStyle = '#ada698';
+                ctx.fillRect(25, 17, 7, 14);
+                ctx.fillStyle = '#c5bfae';
+                ctx.fillRect(26, 18, 6, 2);
+                ctx.fillStyle = '#928b7e';
+                ctx.fillRect(26, 29, 6, 2);
 
-        // Mortar lines & shadow seams
-        ctx.fillStyle = '#524c44';
-        ctx.fillRect(0, 15, 32, 2);
-        ctx.fillRect(0, 31, 32, 1);
-        ctx.fillRect(15, 0, 2, 16);
-        ctx.fillRect(7, 16, 2, 16);
-        ctx.fillRect(23, 16, 2, 16);
+                // Mortar lines & shadow seams
+                ctx.fillStyle = '#524c44';
+                ctx.fillRect(0, 15, 32, 2);
+                ctx.fillRect(0, 31, 32, 1);
+                ctx.fillRect(15, 0, 2, 16);
+                ctx.fillRect(7, 16, 2, 16);
+                ctx.fillRect(23, 16, 2, 16);
 
-        canvas.refresh();
-      }
-    }
+                canvas.refresh();
+            }
+        }
 
