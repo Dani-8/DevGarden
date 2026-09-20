@@ -876,3 +876,52 @@ export class CafeCommunityTextures {
                 ctx.fillRect(20, 52, 56, 3);
                 ctx.fillStyle = '#475569';
                 ctx.fillRect(20, 52, 56, 1);
+
+        // Twin Vertical Steel Tubular Uprights
+        // Left Upright Post
+        ctx.fillStyle = '#1e293b';
+        ctx.fillRect(18, 6, 4, 52);
+        ctx.fillStyle = '#64748b';
+        ctx.fillRect(19, 6, 2, 52);
+
+        // Right Upright Post
+        ctx.fillStyle = '#1e293b';
+        ctx.fillRect(74, 6, 4, 52);
+        ctx.fillStyle = '#64748b';
+        ctx.fillRect(75, 6, 2, 52);
+
+        // Side Swivel Tilt Tightening Knobs
+        ctx.fillStyle = '#0f172a';
+        ctx.fillRect(16, 24, 8, 6);
+        ctx.fillRect(72, 24, 8, 6);
+        ctx.fillStyle = '#3b82f6';
+        ctx.fillRect(17, 26, 2, 2);
+        ctx.fillRect(77, 26, 2, 2);
+
+        // 3. Double-Sided Whiteboard Frame & Glossy Canvas
+        // Drop shadow from board onto rear frame
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+        ctx.fillRect(14, 8, 68, 38);
+
+        // Aluminum Outer Frame Bevel
+        ctx.fillStyle = '#1e293b';
+        ctx.fillRect(13, 6, 70, 38);
+        ctx.fillStyle = '#475569';
+        ctx.fillRect(14, 7, 68, 36);
+        ctx.fillStyle = '#94a3b8';
+        ctx.fillRect(15, 8, 66, 1);
+
+        // Glossy Crisp White Dry-Erase Board Surface
+        ctx.fillStyle = '#f8fafc';
+        ctx.fillRect(16, 9, 64, 32);
+
+        // Subtle Glass / Board Sheen Diagonal Highlights
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+        ctx.beginPath();
+        ctx.moveTo(35, 9);
+        ctx.lineTo(45, 9);
+        ctx.lineTo(20, 41);
+        ctx.lineTo(16, 41);
+        ctx.closePath();
+        ctx.fill();
+
