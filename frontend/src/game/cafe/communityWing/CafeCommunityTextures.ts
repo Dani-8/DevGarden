@@ -759,3 +759,23 @@ export class CafeCommunityTextures {
                 ctx.fillStyle = '#bae6fd';
                 ctx.fillRect(34, 9, 12, 7);
 
+        // Center succulent plant pot
+        ctx.fillStyle = '#b45309';
+        ctx.beginPath();
+        ctx.arc(55, 14, 4, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#16a34a';
+        ctx.beginPath();
+        ctx.arc(55, 13, 3, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Notebooks Right
+        ctx.fillStyle = '#15803d';
+        ctx.fillRect(72, 9, 10, 8);
+        ctx.fillStyle = '#38bdf8';
+        ctx.fillRect(86, 9, 8, 8);
+
+        canvas.refresh();
+      }
+    }
+
