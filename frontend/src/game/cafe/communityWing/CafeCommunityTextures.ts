@@ -976,52 +976,52 @@ export class CafeCommunityTextures {
                 ctx.fillRect(48, 24, 8, 1);
                 ctx.fillRect(48, 26, 6, 1);
 
-        // Orange Sticky
-        ctx.fillStyle = '#fed7aa';
-        ctx.fillRect(61, 23, 10, 9);
-        ctx.fillStyle = '#c2410c';
-        ctx.fillRect(62, 24, 8, 1);
-        ctx.fillRect(62, 26, 8, 1);
+                // Orange Sticky
+                ctx.fillStyle = '#fed7aa';
+                ctx.fillRect(61, 23, 10, 9);
+                ctx.fillStyle = '#c2410c';
+                ctx.fillRect(62, 24, 8, 1);
+                ctx.fillRect(62, 26, 8, 1);
 
-        // 6. Full-Width Marker & Felt Eraser Tray at Bottom Edge of Board
-        ctx.fillStyle = '#1e293b';
-        ctx.fillRect(22, 42, 52, 4);
-        ctx.fillStyle = '#475569';
-        ctx.fillRect(23, 42, 50, 2);
+                // 6. Full-Width Marker & Felt Eraser Tray at Bottom Edge of Board
+                ctx.fillStyle = '#1e293b';
+                ctx.fillRect(22, 42, 52, 4);
+                ctx.fillStyle = '#475569';
+                ctx.fillRect(23, 42, 50, 2);
 
-        // Dry Erase Markers (Red, Blue, Green)
-        ctx.fillStyle = '#ef4444';
-        ctx.fillRect(27, 41, 6, 2);
-        ctx.fillStyle = '#3b82f6';
-        ctx.fillRect(36, 41, 6, 2);
-        ctx.fillStyle = '#10b981';
-        ctx.fillRect(45, 41, 6, 2);
+                // Dry Erase Markers (Red, Blue, Green)
+                ctx.fillStyle = '#ef4444';
+                ctx.fillRect(27, 41, 6, 2);
+                ctx.fillStyle = '#3b82f6';
+                ctx.fillRect(36, 41, 6, 2);
+                ctx.fillStyle = '#10b981';
+                ctx.fillRect(45, 41, 6, 2);
 
-        // Dark Gray Felt Eraser Block
-        ctx.fillStyle = '#0f172a';
-        ctx.fillRect(56, 40, 10, 3);
-        ctx.fillStyle = '#334155';
-        ctx.fillRect(57, 40, 8, 1);
+                // Dark Gray Felt Eraser Block
+                ctx.fillStyle = '#0f172a';
+                ctx.fillRect(56, 40, 10, 3);
+                ctx.fillStyle = '#334155';
+                ctx.fillRect(57, 40, 8, 1);
 
-        canvas.refresh();
-      }
-    }
+                canvas.refresh();
+            }
+        }
 
-    // =========================================================================
-    // 13. CORK BULLETIN BOARD (36x30)
-    // =========================================================================
-    if (!textures.exists('cafe_cork_bulletin_board')) {
-      const canvas = textures.createCanvas('cafe_cork_bulletin_board', 36, 30);
-      if (canvas) {
-        const ctx = canvas.getContext();
+        // =========================================================================
+        // 13. CORK BULLETIN BOARD (36x30)
+        // =========================================================================
+        if (!textures.exists('cafe_cork_bulletin_board')) {
+            const canvas = textures.createCanvas('cafe_cork_bulletin_board', 36, 30);
+            if (canvas) {
+                const ctx = canvas.getContext();
 
-        // Frame
-        ctx.fillStyle = '#271206';
-        ctx.fillRect(0, 0, 36, 30);
-        ctx.fillStyle = '#4e2712';
-        ctx.fillRect(2, 2, 32, 26);
+                // Frame
+                ctx.fillStyle = '#271206';
+                ctx.fillRect(0, 0, 36, 30);
+                ctx.fillStyle = '#4e2712';
+                ctx.fillRect(2, 2, 32, 26);
 
-        // Cork surface
-        ctx.fillStyle = '#9a582c';
-        ctx.fillRect(4, 4, 28, 22);
+                // Cork surface
+                ctx.fillStyle = '#9a582c';
+                ctx.fillRect(4, 4, 28, 22);
 
