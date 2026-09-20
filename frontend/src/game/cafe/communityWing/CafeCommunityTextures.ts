@@ -1078,44 +1078,44 @@ export class CafeCommunityTextures {
                 ctx.fillStyle = '#475569';
                 ctx.fillRect(11, 18, 18, 3);
 
-        // Center Blueprint & Coffee Cup
-        ctx.fillStyle = '#1e3a8a';
-        ctx.fillRect(36, 10, 14, 10);
-        ctx.fillStyle = '#60a5fa';
-        ctx.strokeRect(37, 11, 12, 8);
+                // Center Blueprint & Coffee Cup
+                ctx.fillStyle = '#1e3a8a';
+                ctx.fillRect(36, 10, 14, 10);
+                ctx.fillStyle = '#60a5fa';
+                ctx.strokeRect(37, 11, 12, 8);
 
-        ctx.fillStyle = '#ffffff';
-        ctx.beginPath();
-        ctx.arc(33, 16, 2.5, 0, Math.PI * 2);
-        ctx.fill();
+                ctx.fillStyle = '#ffffff';
+                ctx.beginPath();
+                ctx.arc(33, 16, 2.5, 0, Math.PI * 2);
+                ctx.fill();
 
-        // Right Laptop / Notebook
-        ctx.fillStyle = '#1e293b';
-        ctx.fillRect(58, 9, 16, 12);
-        ctx.fillStyle = '#4ade80';
-        ctx.fillRect(59, 10, 14, 8);
+                // Right Laptop / Notebook
+                ctx.fillStyle = '#1e293b';
+                ctx.fillRect(58, 9, 16, 12);
+                ctx.fillStyle = '#4ade80';
+                ctx.fillRect(59, 10, 14, 8);
 
-        canvas.refresh();
-      }
-    }
+                canvas.refresh();
+            }
+        }
 
-    // =========================================================================
-    // 15. SIDE TABLE WITH COZY LAMP (24x28)
-    // =========================================================================
-    if (!textures.exists('cafe_lounge_side_table')) {
-      const canvas = textures.createCanvas('cafe_lounge_side_table', 24, 28);
-      if (canvas) {
-        const ctx = canvas.getContext();
+        // =========================================================================
+        // 15. SIDE TABLE WITH COZY LAMP (24x28)
+        // =========================================================================
+        if (!textures.exists('cafe_lounge_side_table')) {
+            const canvas = textures.createCanvas('cafe_lounge_side_table', 24, 28);
+            if (canvas) {
+                const ctx = canvas.getContext();
 
-        // Floor Shadow
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
-        ctx.beginPath();
-        ctx.ellipse(12, 25, 10, 3, 0, 0, Math.PI * 2);
-        ctx.fill();
+                // Floor Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+                ctx.beginPath();
+                ctx.ellipse(12, 25, 10, 3, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-        // Table Legs & Top
-        ctx.fillStyle = '#271206';
-        ctx.fillRect(4, 14, 2, 11);
-        ctx.fillRect(18, 14, 2, 11);
-        ctx.fillStyle = '#4e2712';
-        ctx.fillRect(2, 10, 20, 5);
+                // Table Legs & Top
+                ctx.fillStyle = '#271206';
+                ctx.fillRect(4, 14, 2, 11);
+                ctx.fillRect(18, 14, 2, 11);
+                ctx.fillStyle = '#4e2712';
+                ctx.fillRect(2, 10, 20, 5);
