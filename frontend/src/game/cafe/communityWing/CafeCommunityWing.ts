@@ -89,51 +89,51 @@ export class CafeCommunityWing {
         addGateEntrance(590);       // Gate opening: y = 558..622 (64px wide clear walk-through)
         addWallPost(960, 665, 86);  // y: 622..708
 
-    // Right Edge and Top Outer Boundaries for Wing
-    addWallCollider(1344, 418, 16, 636); // Far right wall collider
-    addWallCollider(1152, 96, 384, 12);  // Top wall collider
+        // Right Edge and Top Outer Boundaries for Wing
+        addWallCollider(1344, 418, 16, 636); // Far right wall collider
+        addWallCollider(1152, 96, 384, 12);  // Top wall collider
 
-    // =========================================================================
-    // 2. HORIZONTAL SEPARATION WALLS
-    // =========================================================================
-    // Separation between Room 1 & Room 2
-    addHorizontalWall(300);
+        // =========================================================================
+        // 2. HORIZONTAL SEPARATION WALLS
+        // =========================================================================
+        // Separation between Room 1 & Room 2
+        addHorizontalWall(300);
 
-    // Separation between Room 2 & Room 3
-    addHorizontalWall(500);
+        // Separation between Room 2 & Room 3
+        addHorizontalWall(500);
 
-    // Bottom Wall Enclosure for Room 3
-    addHorizontalWall(708);
+        // Bottom Wall Enclosure for Room 3
+        addHorizontalWall(708);
 
-    // =========================================================================
-    // 3. ROOM 1: CHILL & LOUNGE NOOK (y = 100..300)
-    // =========================================================================
-    // Cozy Area Rug
-    const loungeRug = scene.add.image(1152, 200, 'cafe_zone_persian_rug');
-    loungeRug.setDisplaySize(170, 110);
-    loungeRug.setOrigin(0.5, 0.5);
-    loungeRug.setDepth(5);
+        // =========================================================================
+        // 3. ROOM 1: CHILL & LOUNGE NOOK (y = 100..300)
+        // =========================================================================
+        // Cozy Area Rug
+        const loungeRug = scene.add.image(1152, 200, 'cafe_zone_persian_rug');
+        loungeRug.setDisplaySize(170, 110);
+        loungeRug.setOrigin(0.5, 0.5);
+        loungeRug.setDepth(5);
 
-    // Plush Velvet Lounge Sofa (Centered at x=1152, y=142)
-    const sofaMain = scene.add.image(1152, 142, 'cafe_lounge_plush_sofa');
-    sofaMain.setDisplaySize(100, 48);
-    sofaMain.setOrigin(0.5, 0.85);
-    sofaMain.setDepth(140);
-    scene.physics.add.existing(sofaMain, true);
-    const sofaBody = sofaMain.body as Phaser.Physics.Arcade.StaticBody;
-    sofaBody.setSize(92, 28);
-    sofaBody.setOffset(4, 10);
-    obstaclesGroup.add(sofaMain);
+        // Plush Velvet Lounge Sofa (Centered at x=1152, y=142)
+        const sofaMain = scene.add.image(1152, 142, 'cafe_lounge_plush_sofa');
+        sofaMain.setDisplaySize(100, 48);
+        sofaMain.setOrigin(0.5, 0.85);
+        sofaMain.setDepth(140);
+        scene.physics.add.existing(sofaMain, true);
+        const sofaBody = sofaMain.body as Phaser.Physics.Arcade.StaticBody;
+        sofaBody.setSize(92, 28);
+        sofaBody.setOffset(4, 10);
+        obstaclesGroup.add(sofaMain);
 
-    // Interactive Sofa Seats
-    const sSeat1 = scene.add.image(1126, 138, 'cafe_interior_chair');
-    sSeat1.setVisible(false);
-    chairs.push({ x: 1126, y: 138, sprite: sSeat1, dir: 'down', standPos: { x: 1126, y: 166 } });
+        // Interactive Sofa Seats
+        const sSeat1 = scene.add.image(1126, 138, 'cafe_interior_chair');
+        sSeat1.setVisible(false);
+        chairs.push({ x: 1126, y: 138, sprite: sSeat1, dir: 'down', standPos: { x: 1126, y: 166 } });
 
-    const sSeat2 = scene.add.image(1152, 138, 'cafe_interior_chair');
-    sSeat2.setVisible(false);
-    chairs.push({ x: 1152, y: 138, sprite: sSeat2, dir: 'down', standPos: { x: 1152, y: 166 } });
+        const sSeat2 = scene.add.image(1152, 138, 'cafe_interior_chair');
+        sSeat2.setVisible(false);
+        chairs.push({ x: 1152, y: 138, sprite: sSeat2, dir: 'down', standPos: { x: 1152, y: 166 } });
 
-    const sSeat3 = scene.add.image(1178, 138, 'cafe_interior_chair');
-    sSeat3.setVisible(false);
-    chairs.push({ x: 1178, y: 138, sprite: sSeat3, dir: 'down', standPos: { x: 1178, y: 166 } });
+        const sSeat3 = scene.add.image(1178, 138, 'cafe_interior_chair');
+        sSeat3.setVisible(false);
+        chairs.push({ x: 1178, y: 138, sprite: sSeat3, dir: 'down', standPos: { x: 1178, y: 166 } });
