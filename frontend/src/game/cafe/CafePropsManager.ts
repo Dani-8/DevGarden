@@ -92,3 +92,42 @@ export class CafePropsManager {
         espressoMachine.setOrigin(0.5, 0.85);
         espressoMachine.setDepth(145);
 
+        // Animated Rising Steam / Smoke Particle Emitter from Coffee Machine
+        if (scene.add.particles) {
+            const steam = scene.add.particles(385, 100, 'cafe_steam_particle', {
+                speedY: { min: -12, max: -26 },
+                speedX: { min: -3, max: 3 },
+                scale: { start: 0.6, end: 1.8 },
+                alpha: { start: 0.7, end: 0 },
+                lifespan: 1300,
+                frequency: 240,
+            });
+            steam.setDepth(150);
+        }
+
+        // 3. Left Side: Grand Library Bookshelf
+        const bookshelf = scene.add.image(50, 120, 'cafe_bookshelf');
+        bookshelf.setOrigin(0.5, 0.85);
+        bookshelf.setDepth(120);
+        scene.physics.add.existing(bookshelf, true);
+        const bsBody = bookshelf.body as Phaser.Physics.Arcade.StaticBody;
+        bsBody.setSize(50, 32);
+        bsBody.setOffset(3, 52);
+        obstaclesGroup.add(bookshelf);
+
+        // 4. Centerpiece Grand Garden Planter Island (Centered at true center x=480, y=370)
+        const centerPlanter = scene.add.image(480, 370, 'cafe_center_garden_planter');
+        centerPlanter.setDisplaySize(88, 320);
+        centerPlanter.setOrigin(0.5, 0.5);
+        centerPlanter.setDepth(200);
+        scene.physics.add.existing(centerPlanter, true);
+        obstaclesGroup.add(centerPlanter);
+
+        // Helper: Spawn Tall Luxury Ceramic & Brass Plant Pots
+        const spawnPot = (x: number, y: number) => {
+            const pot = scene.add.image(x, y, 'cafe_luxury_plant_pot');
+            pot.setOrigin(0.5, 0.85);
+            pot.setDepth(y);
+            scene.physics.add.existing(pot, true);
+            obstaclesGroup.add(pot);
+        };
