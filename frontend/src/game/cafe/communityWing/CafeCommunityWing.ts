@@ -137,3 +137,50 @@ export class CafeCommunityWing {
         const sSeat3 = scene.add.image(1178, 138, 'cafe_interior_chair');
         sSeat3.setVisible(false);
         chairs.push({ x: 1178, y: 138, sprite: sSeat3, dir: 'down', standPos: { x: 1178, y: 166 } });
+
+    // Coffee Table with Laptop & Drinks
+    const coffeeTable = scene.add.image(1152, 195, 'cafe_lounge_coffee_table_deluxe');
+    coffeeTable.setDisplaySize(72, 36);
+    coffeeTable.setOrigin(0.5, 0.85);
+    coffeeTable.setDepth(195);
+    scene.physics.add.existing(coffeeTable, true);
+    const ctBody = coffeeTable.body as Phaser.Physics.Arcade.StaticBody;
+    ctBody.setSize(64, 24);
+    ctBody.setOffset(4, 8);
+    obstaclesGroup.add(coffeeTable);
+
+    // Armchair (Left - Facing RIGHT towards table)
+    const armChairL = scene.add.image(1075, 195, 'cafe_chair_right');
+    armChairL.setOrigin(0.5, 0.85);
+    armChairL.setDepth(194);
+    scene.physics.add.existing(armChairL, true);
+    obstaclesGroup.add(armChairL);
+    chairs.push({ x: 1075, y: 195, sprite: armChairL, dir: 'right', standPos: { x: 1046, y: 195 } });
+
+    // Armchair (Right - Facing LEFT towards table)
+    const armChairR = scene.add.image(1229, 195, 'cafe_chair_left');
+    armChairR.setOrigin(0.5, 0.85);
+    armChairR.setDepth(194);
+    scene.physics.add.existing(armChairR, true);
+    obstaclesGroup.add(armChairR);
+    chairs.push({ x: 1229, y: 195, sprite: armChairR, dir: 'left', standPos: { x: 1258, y: 195 } });
+
+    // Bookshelf in top right corner of Room 1
+    const room1Shelf = scene.add.image(1290, 140, 'cafe_bookshelf');
+    room1Shelf.setDisplaySize(38, 54);
+    room1Shelf.setOrigin(0.5, 0.85);
+    room1Shelf.setDepth(140);
+    scene.physics.add.existing(room1Shelf, true);
+    obstaclesGroup.add(room1Shelf);
+
+    // Side table with lamp on right wall
+    const sideTable = scene.add.image(1290, 240, 'cafe_lounge_side_table');
+    sideTable.setOrigin(0.5, 0.85);
+    sideTable.setDepth(240);
+    scene.physics.add.existing(sideTable, true);
+    obstaclesGroup.add(sideTable);
+
+    // Flanking plants
+    addPot(1005, 135);
+    addPot(1005, 265);
+
