@@ -52,23 +52,12 @@ export class CafeCommunityWing {
             addLantern(960, gateY + 34);
         };
 
-        const addHorizontalWall = (y: number, title: string) => {
+        const addHorizontalWall = (y: number) => {
             const wall = scene.add.image(1152, y, 'cafe_wing_div_wall_h');
             wall.setDisplaySize(384, 26);
             wall.setOrigin(0.5, 0.5);
             wall.setDepth(y + 10);
             addWallCollider(1152, y, 384, 20);
-
-            // Clean Section Title Plaque Text
-            const titleText = scene.add.text(1152, y - 2, title, {
-                fontSize: '9px',
-                fontFamily: 'monospace',
-                fontStyle: 'bold',
-                color: '#fef3c7',
-                align: 'center',
-            });
-            titleText.setOrigin(0.5, 0.5);
-            titleText.setDepth(y + 15);
         };
 
         const addPot = (x: number, y: number) => {
@@ -108,13 +97,13 @@ export class CafeCommunityWing {
         // 2. HORIZONTAL SEPARATION WALLS
         // =========================================================================
         // Separation between Room 1 & Room 2
-        addHorizontalWall(300, 'CHILL & LOUNGE NOOK');
+        addHorizontalWall(300);
 
         // Separation between Room 2 & Room 3
-        addHorizontalWall(500, 'PROJECT SHOWCASE HUB');
+        addHorizontalWall(500);
 
         // Bottom Wall Enclosure for Room 3
-        addHorizontalWall(708, 'COLLAB & MEETING ROOM');
+        addHorizontalWall(708);
 
         // =========================================================================
         // 3. ROOM 1: CHILL & LOUNGE NOOK (y = 100..300)
@@ -139,15 +128,15 @@ export class CafeCommunityWing {
         // Interactive Sofa Seats
         const sSeat1 = scene.add.image(1126, 138, 'cafe_interior_chair');
         sSeat1.setVisible(false);
-        chairs.push({ x: 1126, y: 138, sprite: sSeat1, dir: 'up' });
+        chairs.push({ x: 1126, y: 138, sprite: sSeat1, dir: 'down', standPos: { x: 1126, y: 166 } });
 
         const sSeat2 = scene.add.image(1152, 138, 'cafe_interior_chair');
         sSeat2.setVisible(false);
-        chairs.push({ x: 1152, y: 138, sprite: sSeat2, dir: 'up' });
+        chairs.push({ x: 1152, y: 138, sprite: sSeat2, dir: 'down', standPos: { x: 1152, y: 166 } });
 
         const sSeat3 = scene.add.image(1178, 138, 'cafe_interior_chair');
         sSeat3.setVisible(false);
-        chairs.push({ x: 1178, y: 138, sprite: sSeat3, dir: 'up' });
+        chairs.push({ x: 1178, y: 138, sprite: sSeat3, dir: 'down', standPos: { x: 1178, y: 166 } });
 
         // Coffee Table with Laptop & Drinks
         const coffeeTable = scene.add.image(1152, 195, 'cafe_lounge_coffee_table_deluxe');
@@ -160,21 +149,21 @@ export class CafeCommunityWing {
         ctBody.setOffset(4, 8);
         obstaclesGroup.add(coffeeTable);
 
-        // Armchair (Left)
+        // Armchair (Left - Facing RIGHT towards table)
         const armChairL = scene.add.image(1075, 195, 'cafe_chair_right');
         armChairL.setOrigin(0.5, 0.85);
         armChairL.setDepth(194);
         scene.physics.add.existing(armChairL, true);
         obstaclesGroup.add(armChairL);
-        chairs.push({ x: 1075, y: 195, sprite: armChairL, dir: 'left' });
+        chairs.push({ x: 1075, y: 195, sprite: armChairL, dir: 'right', standPos: { x: 1046, y: 195 } });
 
-        // Armchair (Right)
+        // Armchair (Right - Facing LEFT towards table)
         const armChairR = scene.add.image(1229, 195, 'cafe_chair_left');
         armChairR.setOrigin(0.5, 0.85);
         armChairR.setDepth(194);
         scene.physics.add.existing(armChairR, true);
         obstaclesGroup.add(armChairR);
-        chairs.push({ x: 1229, y: 195, sprite: armChairR, dir: 'right' });
+        chairs.push({ x: 1229, y: 195, sprite: armChairR, dir: 'left', standPos: { x: 1258, y: 195 } });
 
         // Bookshelf in top right corner of Room 1
         const room1Shelf = scene.add.image(1290, 140, 'cafe_bookshelf');
@@ -221,28 +210,28 @@ export class CafeCommunityWing {
         stBody.setOffset(4, 8);
         obstaclesGroup.add(showcaseTable);
 
-        // 4 Top Presentation Chairs (Facing DOWN)
+        // 4 Top Presentation Chairs (Facing DOWN towards table)
         const addTopShowcaseChair = (x: number) => {
             const ch = scene.add.image(x, 412, 'cafe_chair_down');
             ch.setOrigin(0.5, 0.85);
             ch.setDepth(412);
             scene.physics.add.existing(ch, true);
             obstaclesGroup.add(ch);
-            chairs.push({ x, y: 412, sprite: ch, dir: 'down' });
+            chairs.push({ x, y: 412, sprite: ch, dir: 'down', standPos: { x, y: 382 } });
         };
         addTopShowcaseChair(1105);
         addTopShowcaseChair(1136);
         addTopShowcaseChair(1168);
         addTopShowcaseChair(1199);
 
-        // 4 Bottom Presentation Chairs (Facing UP)
+        // 4 Bottom Presentation Chairs (Facing UP towards table)
         const addBtmShowcaseChair = (x: number) => {
             const ch = scene.add.image(x, 468, 'cafe_chair_up');
             ch.setOrigin(0.5, 0.85);
             ch.setDepth(468);
             scene.physics.add.existing(ch, true);
             obstaclesGroup.add(ch);
-            chairs.push({ x, y: 468, sprite: ch, dir: 'up' });
+            chairs.push({ x, y: 468, sprite: ch, dir: 'up', standPos: { x, y: 494 } });
         };
         addBtmShowcaseChair(1105);
         addBtmShowcaseChair(1136);
@@ -294,45 +283,45 @@ export class CafeCommunityWing {
         ctBody3.setOffset(4, 8);
         obstaclesGroup.add(collabTable);
 
-        // Top Meeting Chairs
+        // Top Meeting Chairs (Facing DOWN towards table)
         const addTopMeetChair = (x: number) => {
             const ch = scene.add.image(x, 592, 'cafe_chair_down');
             ch.setOrigin(0.5, 0.85);
             ch.setDepth(592);
             scene.physics.add.existing(ch, true);
             obstaclesGroup.add(ch);
-            chairs.push({ x, y: 592, sprite: ch, dir: 'down' });
+            chairs.push({ x, y: 592, sprite: ch, dir: 'down', standPos: { x, y: 562 } });
         };
         addTopMeetChair(1130);
         addTopMeetChair(1174);
 
-        // Bottom Meeting Chairs
+        // Bottom Meeting Chairs (Facing UP towards table)
         const addBtmMeetChair = (x: number) => {
             const ch = scene.add.image(x, 652, 'cafe_chair_up');
             ch.setOrigin(0.5, 0.85);
             ch.setDepth(652);
             scene.physics.add.existing(ch, true);
             obstaclesGroup.add(ch);
-            chairs.push({ x, y: 652, sprite: ch, dir: 'up' });
+            chairs.push({ x, y: 652, sprite: ch, dir: 'up', standPos: { x, y: 680 } });
         };
         addBtmMeetChair(1130);
         addBtmMeetChair(1174);
 
-        // Left Meeting Chair
+        // Left Meeting Chair (Facing RIGHT towards table)
         const leftChair = scene.add.image(1088, 622, 'cafe_chair_right');
         leftChair.setOrigin(0.5, 0.85);
         leftChair.setDepth(622);
         scene.physics.add.existing(leftChair, true);
         obstaclesGroup.add(leftChair);
-        chairs.push({ x: 1088, y: 622, sprite: leftChair, dir: 'left' });
+        chairs.push({ x: 1088, y: 622, sprite: leftChair, dir: 'right', standPos: { x: 1058, y: 622 } });
 
-        // Right Meeting Chair
+        // Right Meeting Chair (Facing LEFT towards table)
         const rightChair = scene.add.image(1216, 622, 'cafe_chair_left');
         rightChair.setOrigin(0.5, 0.85);
         rightChair.setDepth(622);
         scene.physics.add.existing(rightChair, true);
         obstaclesGroup.add(rightChair);
-        chairs.push({ x: 1216, y: 622, sprite: rightChair, dir: 'right' });
+        chairs.push({ x: 1216, y: 622, sprite: rightChair, dir: 'left', standPos: { x: 1246, y: 622 } });
 
         // Flanking plants
         addPot(1005, 540);
