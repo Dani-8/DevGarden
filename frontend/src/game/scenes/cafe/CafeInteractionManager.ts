@@ -177,3 +177,57 @@ export class CafeInteractionManager {
                             standY = nearChair.y + 24;
                         }
                     }
+
+          playerContainer.setPosition(standX, standY);
+          if (body) {
+            body.reset(standX, standY);
+            body.setVelocity(0, 0);
+            body.enable = true;
+          }
+
+          // Face the direction of the open aisle
+          const dx = standX - nearChair.x;
+          const dy = standY - nearChair.y;
+          if (Math.abs(dx) > Math.abs(dy)) {
+            setLastAnim(dx > 0 ? 'idle_right' : 'idle_left');
+          } else if (Math.abs(dy) > 0) {
+            setLastAnim(dy > 0 ? 'idle_down' : 'idle_up');
+          }
+
+          this.playerManager.showChatBubble(playerContainer, '🚶 Stood up!', false);
+        } else {
+          this.isSitting = true;
+          if (body) {
+            body.enable = false;
+            body.setVelocity(0, 0);
+          }
+          playerContainer.setPosition(nearChair.x, nearChair.y - 2);
+
+          if (nearChair.dir === 'up') {
+            setLastAnim('idle_up');
+          } else if (nearChair.dir === 'down') {
+            setLastAnim('idle_down');
+          } else if (nearChair.dir === 'left') {
+            setLastAnim('idle_left');
+          } else if (nearChair.dir === 'right') {
+            setLastAnim('idle_right');
+          } else if (nearChair.dir === 'sofa' || nearChair.x < 60) {
+            setLastAnim('idle_right');
+          } else {
+            setLastAnim('idle_down');
+          }
+
+          this.playerManager.showChatBubble(playerContainer, '🧘 Relaxing at Code Cafe...', false);
+        }
+      }
+    } else {
+      if (this.sitPromptText) this.sitPromptText.setVisible(false);
+      if (this.isSitting) {
+        this.isSitting = false;
+        if (body) body.enable = true;
+      }
+    }
+
+    return nearChair;
+  }
+
