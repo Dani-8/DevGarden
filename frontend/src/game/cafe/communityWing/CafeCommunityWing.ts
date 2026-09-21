@@ -237,3 +237,48 @@ export class CafeCommunityWing {
         addBtmShowcaseChair(1136);
         addBtmShowcaseChair(1168);
         addBtmShowcaseChair(1199);
+
+    // Trophy / Awards Showcase Cabinet on right wall
+    const trophyCabinet = scene.add.image(1290, 360, 'cafe_trophy_cabinet');
+    trophyCabinet.setDisplaySize(32, 56);
+    trophyCabinet.setOrigin(0.5, 0.85);
+    trophyCabinet.setDepth(360);
+    scene.physics.add.existing(trophyCabinet, true);
+    obstaclesGroup.add(trophyCabinet);
+
+    // Flanking plants
+    addPot(1005, 340);
+    addPot(1005, 465);
+    addPot(1295, 465);
+
+    // =========================================================================
+    // 5. ROOM 3: COLLAB & MEETING ROOM (y = 500..708)
+    // =========================================================================
+    // Freestanding Mobile Rolling Whiteboard (Standing on floor at x=1152, y=546)
+    const whiteboard = scene.add.image(1152, 546, 'cafe_collab_whiteboard');
+    whiteboard.setDisplaySize(96, 66);
+    whiteboard.setOrigin(0.5, 0.92);
+    whiteboard.setDepth(546);
+    scene.physics.add.existing(whiteboard, true);
+    const wbBody = whiteboard.body as Phaser.Physics.Arcade.StaticBody;
+    wbBody.setSize(82, 16);
+    wbBody.setOffset(7, 46);
+    obstaclesGroup.add(whiteboard);
+
+
+    // Cork Bulletin Board on right wall
+    const bulletinBoard = scene.add.image(1285, 545, 'cafe_cork_bulletin_board');
+    bulletinBoard.setDisplaySize(38, 32);
+    bulletinBoard.setOrigin(0.5, 0.5);
+    bulletinBoard.setDepth(545);
+
+    // Discussion & Meeting Table with Laptops & Diagram
+    const collabTable = scene.add.image(1152, 622, 'cafe_collab_group_table');
+    collabTable.setDisplaySize(86, 42);
+    collabTable.setOrigin(0.5, 0.85);
+    collabTable.setDepth(622);
+    scene.physics.add.existing(collabTable, true);
+    const ctBody3 = collabTable.body as Phaser.Physics.Arcade.StaticBody;
+    ctBody3.setSize(78, 26);
+    ctBody3.setOffset(4, 8);
+    obstaclesGroup.add(collabTable);
