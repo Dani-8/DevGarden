@@ -184,3 +184,56 @@ export class CafeCommunityWing {
         addPot(1005, 135);
         addPot(1005, 265);
 
+    // =========================================================================
+    // 4. ROOM 2: PROJECT SHOWCASE HUB (y = 300..500)
+    // =========================================================================
+    // Freestanding Deluxe Project Showcase Display Easel (Standing on floor at x=1152, y=360)
+    const showcaseBoard = scene.add.image(1152, 360, 'cafe_showcase_wall_board');
+    showcaseBoard.setDisplaySize(92, 68);
+    showcaseBoard.setOrigin(0.5, 0.92);
+    showcaseBoard.setDepth(360);
+    scene.physics.add.existing(showcaseBoard, true);
+    const sbBody = showcaseBoard.body as Phaser.Physics.Arcade.StaticBody;
+    sbBody.setSize(80, 16);
+    sbBody.setOffset(6, 46);
+    obstaclesGroup.add(showcaseBoard);
+
+
+    // Long Project Showcase Presentation Table with blueprints & notebooks (x=1152, y=440)
+    const showcaseTable = scene.add.image(1152, 440, 'cafe_showcase_long_table');
+    showcaseTable.setDisplaySize(120, 38);
+    showcaseTable.setOrigin(0.5, 0.85);
+    showcaseTable.setDepth(440);
+    scene.physics.add.existing(showcaseTable, true);
+    const stBody = showcaseTable.body as Phaser.Physics.Arcade.StaticBody;
+    stBody.setSize(112, 24);
+    stBody.setOffset(4, 8);
+    obstaclesGroup.add(showcaseTable);
+
+    // 4 Top Presentation Chairs (Facing DOWN towards table)
+    const addTopShowcaseChair = (x: number) => {
+      const ch = scene.add.image(x, 412, 'cafe_chair_down');
+      ch.setOrigin(0.5, 0.85);
+      ch.setDepth(412);
+      scene.physics.add.existing(ch, true);
+      obstaclesGroup.add(ch);
+      chairs.push({ x, y: 412, sprite: ch, dir: 'down', standPos: { x, y: 382 } });
+    };
+    addTopShowcaseChair(1105);
+    addTopShowcaseChair(1136);
+    addTopShowcaseChair(1168);
+    addTopShowcaseChair(1199);
+
+    // 4 Bottom Presentation Chairs (Facing UP towards table)
+    const addBtmShowcaseChair = (x: number) => {
+      const ch = scene.add.image(x, 468, 'cafe_chair_up');
+      ch.setOrigin(0.5, 0.85);
+      ch.setDepth(468);
+      scene.physics.add.existing(ch, true);
+      obstaclesGroup.add(ch);
+      chairs.push({ x, y: 468, sprite: ch, dir: 'up', standPos: { x, y: 494 } });
+    };
+    addBtmShowcaseChair(1105);
+    addBtmShowcaseChair(1136);
+    addBtmShowcaseChair(1168);
+    addBtmShowcaseChair(1199);
