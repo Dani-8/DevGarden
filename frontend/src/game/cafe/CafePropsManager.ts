@@ -6,6 +6,7 @@ export interface CafeChair {
     y: number;
     sprite: Phaser.GameObjects.Image;
     dir?: 'up' | 'down' | 'left' | 'right' | 'sofa';
+    standPos?: { x: number; y: number };
 }
 
 export interface CafePropsResult {
@@ -188,7 +189,7 @@ export class CafePropsManager {
             topBody.setSize(16, 16);
             topBody.setOffset(3, 8);
             obstaclesGroup.add(chairTop);
-            chairs.push({ x: x, y: y - 26, sprite: chairTop, dir: 'up' });
+            chairs.push({ x: x, y: y - 26, sprite: chairTop, dir: 'down', standPos: { x: x, y: y - 52 } });
 
             // Bottom Chair (Facing UP towards table)
             const chairBottom = scene.add.image(x, y + 20, 'cafe_chair_up');
@@ -199,7 +200,7 @@ export class CafePropsManager {
             bottomBody.setSize(16, 16);
             bottomBody.setOffset(3, 8);
             obstaclesGroup.add(chairBottom);
-            chairs.push({ x: x, y: y + 20, sprite: chairBottom, dir: 'down' });
+            chairs.push({ x: x, y: y + 20, sprite: chairBottom, dir: 'up', standPos: { x: x, y: y + 46 } });
 
             // Left Chair (Facing RIGHT towards table)
             const chairL = scene.add.image(x - 26, y - 3, 'cafe_chair_right');
@@ -210,7 +211,7 @@ export class CafePropsManager {
             lBody.setSize(16, 16);
             lBody.setOffset(3, 8);
             obstaclesGroup.add(chairL);
-            chairs.push({ x: x - 26, y: y - 3, sprite: chairL, dir: 'left' });
+            chairs.push({ x: x - 26, y: y - 3, sprite: chairL, dir: 'right', standPos: { x: x - 52, y: y - 3 } });
 
             // Right Chair (Facing LEFT towards table)
             const chairR = scene.add.image(x + 26, y - 3, 'cafe_chair_left');
@@ -221,7 +222,7 @@ export class CafePropsManager {
             rBody.setSize(16, 16);
             rBody.setOffset(3, 8);
             obstaclesGroup.add(chairR);
-            chairs.push({ x: x + 26, y: y - 3, sprite: chairR, dir: 'right' });
+            chairs.push({ x: x + 26, y: y - 3, sprite: chairR, dir: 'left', standPos: { x: x + 52, y: y - 3 } });
         };
 
         // Left Seating Column (Wood Floor - Centered at x=240)
@@ -244,11 +245,11 @@ export class CafePropsManager {
 
             const seatTop = scene.add.image(22, y - 12, 'cafe_interior_chair');
             seatTop.setVisible(false);
-            chairs.push({ x: 22, y: y - 12, sprite: seatTop, dir: 'sofa' });
+            chairs.push({ x: 22, y: y - 12, sprite: seatTop, dir: 'sofa', standPos: { x: 52, y: y - 12 } });
 
             const seatBottom = scene.add.image(22, y + 12, 'cafe_interior_chair');
             seatBottom.setVisible(false);
-            chairs.push({ x: 22, y: y + 12, sprite: seatBottom, dir: 'sofa' });
+            chairs.push({ x: 22, y: y + 12, sprite: seatBottom, dir: 'sofa', standPos: { x: 52, y: y + 12 } });
         };
 
         createSofaSet(270);
@@ -304,7 +305,7 @@ export class CafePropsManager {
         addObstacleZone(88, 700, 160, 26);
 
         // Helper: Spawn High Bar Stool with interactive seat
-        const spawnHighStool = (x: number, y: number, dir: 'left' | 'right' | 'up' | 'down') => {
+        const spawnHighStool = (x: number, y: number, dir: 'left' | 'right' | 'up' | 'down', standPos: { x: number; y: number }) => {
             const stool = scene.add.image(x, y, 'cafe_high_stool');
             stool.setOrigin(0.5, 0.85);
             stool.setDepth(y + 2);
@@ -315,20 +316,20 @@ export class CafePropsManager {
 
             const seatSprite = scene.add.image(x, y - 6, 'cafe_interior_chair');
             seatSprite.setVisible(false);
-            chairs.push({ x: x, y: y - 6, sprite: seatSprite, dir: dir });
+            chairs.push({ x: x, y: y - 6, sprite: seatSprite, dir: dir, standPos });
         };
 
         // High Bar Stools (3 along vertical wing facing left, 4 along horizontal wing facing down)
         // Stools along vertical wing
-        spawnHighStool(44, 622, 'left');
-        spawnHighStool(44, 652, 'left');
-        spawnHighStool(44, 680, 'left');
+        spawnHighStool(44, 622, 'left', { x: 74, y: 622 });
+        spawnHighStool(44, 652, 'left', { x: 74, y: 652 });
+        spawnHighStool(44, 680, 'left', { x: 74, y: 680 });
 
         // Stools along horizontal wing
-        spawnHighStool(76, 680, 'down');
-        spawnHighStool(104, 680, 'down');
-        spawnHighStool(132, 680, 'down');
-        spawnHighStool(160, 680, 'down');
+        spawnHighStool(76, 680, 'down', { x: 76, y: 652 });
+        spawnHighStool(104, 680, 'down', { x: 104, y: 652 });
+        spawnHighStool(132, 680, 'down', { x: 132, y: 652 });
+        spawnHighStool(160, 680, 'down', { x: 160, y: 652 });
 
         // Lush Corner Broad-Leaf Palm Tree in Modern Square Planter (Anchoring the outer end-cap of the L-table against bottom rail)
         const cornerPalm = scene.add.image(190, 716, 'cafe_square_palm_pot');
@@ -362,11 +363,11 @@ export class CafePropsManager {
         // Interactive seating on Sofa 1
         const r1Seat1 = scene.add.image(906, 696, 'cafe_interior_chair');
         r1Seat1.setVisible(false);
-        chairs.push({ x: 906, y: 696, sprite: r1Seat1, dir: 'sofa' });
+        chairs.push({ x: 906, y: 696, sprite: r1Seat1, dir: 'sofa', standPos: { x: 882, y: 652 } });
 
         const r1Seat2 = scene.add.image(936, 668, 'cafe_interior_chair');
         r1Seat2.setVisible(false);
-        chairs.push({ x: 936, y: 668, sprite: r1Seat2, dir: 'sofa' });
+        chairs.push({ x: 936, y: 668, sprite: r1Seat2, dir: 'sofa', standPos: { x: 882, y: 652 } });
 
         // Low Walnut Coffee Table for Sofa 1
         const lTableRight1 = scene.add.image(896, 668, 'cafe_lounge_coffee_table');
@@ -392,11 +393,11 @@ export class CafePropsManager {
         // Interactive seating on Sofa 2
         const r2Seat1 = scene.add.image(570, 668, 'cafe_interior_chair');
         r2Seat1.setVisible(false);
-        chairs.push({ x: 570, y: 668, sprite: r2Seat1, dir: 'sofa' });
+        chairs.push({ x: 570, y: 668, sprite: r2Seat1, dir: 'sofa', standPos: { x: 590, y: 638 } });
 
         const r2Seat2 = scene.add.image(600, 696, 'cafe_interior_chair');
         r2Seat2.setVisible(false);
-        chairs.push({ x: 600, y: 696, sprite: r2Seat2, dir: 'sofa' });
+        chairs.push({ x: 600, y: 696, sprite: r2Seat2, dir: 'sofa', standPos: { x: 590, y: 638 } });
 
         // Low Walnut Coffee Table for Sofa 2
         const lTableRight2 = scene.add.image(610, 668, 'cafe_lounge_coffee_table');
