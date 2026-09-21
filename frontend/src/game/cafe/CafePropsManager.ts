@@ -212,3 +212,48 @@ export class CafePropsManager {
             lBody.setOffset(3, 8);
             obstaclesGroup.add(chairL);
             chairs.push({ x: x - 26, y: y - 3, sprite: chairL, dir: 'right', standPos: { x: x - 52, y: y - 3 } });
+
+            // Right Chair (Facing LEFT towards table)
+            const chairR = scene.add.image(x + 26, y - 3, 'cafe_chair_left');
+            chairR.setOrigin(0.5, 0.85);
+            chairR.setDepth(y - 2);
+            scene.physics.add.existing(chairR, true);
+            const rBody = chairR.body as Phaser.Physics.Arcade.StaticBody;
+            rBody.setSize(16, 16);
+            rBody.setOffset(3, 8);
+            obstaclesGroup.add(chairR);
+            chairs.push({ x: x + 26, y: y - 3, sprite: chairR, dir: 'left', standPos: { x: x + 52, y: y - 3 } });
+        };
+
+        // Left Seating Column (Wood Floor - Centered at x=240)
+        createTable4Chairs(240, 230, 'cafe_interior_table_laptop');
+        createTable4Chairs(240, 370, 'cafe_interior_table_coffee');
+        createTable4Chairs(240, 510, 'cafe_interior_table_plant');
+
+        // Right Seating Column (Wood Floor - Centered at x=720, exact symmetrical counterpart)
+        createTable4Chairs(720, 230, 'cafe_interior_table_coffee');
+        createTable4Chairs(720, 370, 'cafe_interior_table_plant');
+        createTable4Chairs(720, 510, 'cafe_interior_table_laptop');
+
+        // Far Left Wall Leather Lounge Booth Sofas
+        const createSofaSet = (y: number) => {
+            const sofa = scene.add.image(0, y, 'cafe_sofa_side');
+            sofa.setOrigin(0, 0.5);
+            sofa.setDepth(y);
+            scene.physics.add.existing(sofa, true);
+            obstaclesGroup.add(sofa);
+
+            const seatTop = scene.add.image(22, y - 12, 'cafe_interior_chair');
+            seatTop.setVisible(false);
+            chairs.push({ x: 22, y: y - 12, sprite: seatTop, dir: 'sofa', standPos: { x: 52, y: y - 12 } });
+
+            const seatBottom = scene.add.image(22, y + 12, 'cafe_interior_chair');
+            seatBottom.setVisible(false);
+            chairs.push({ x: 22, y: y + 12, sprite: seatBottom, dir: 'sofa', standPos: { x: 52, y: y + 12 } });
+        };
+
+        createSofaSet(270);
+        createSofaSet(450);
+
+        // 6. Right Side: 3-Section Community & Social Wing
+        const communityWing = CafeCommunityWing.create(scene, obstaclesGroup, chairs);
