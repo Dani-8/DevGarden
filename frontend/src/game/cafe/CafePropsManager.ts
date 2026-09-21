@@ -55,3 +55,40 @@ export class CafePropsManager {
         counter.setDepth(140);
         scene.physics.add.existing(counter, true);
         obstaclesGroup.add(counter);
+
+        // Left Side Return Counter Wing
+        const counterSideL = scene.add.image(332, 115, 'cafe_counter_side');
+        counterSideL.setDisplaySize(18, 48);
+        counterSideL.setOrigin(0.5, 0.5);
+        counterSideL.setDepth(138);
+        scene.physics.add.existing(counterSideL, true);
+        obstaclesGroup.add(counterSideL);
+
+        // Right Side Return Counter Wing
+        const counterSideR = scene.add.image(628, 115, 'cafe_counter_side');
+        counterSideR.setDisplaySize(18, 48);
+        counterSideR.setOrigin(0.5, 0.5);
+        counterSideR.setDepth(138);
+        scene.physics.add.existing(counterSideR, true);
+        obstaclesGroup.add(counterSideR);
+
+        // Barista NPC behind counter
+        const baristaSprite = scene.add.image(460, 108, 'cafe_barista');
+        baristaSprite.setOrigin(0.5, 0.85);
+        baristaSprite.setDepth(130);
+
+        // POS Cash Register Terminal on Counter
+        const posTerminal = scene.add.image(495, 126, 'cafe_pos_terminal');
+        posTerminal.setOrigin(0.5, 0.85);
+        posTerminal.setDepth(145);
+
+        // Pastry Display Case on right side of counter
+        const pastryDisplay = scene.add.image(555, 126, 'cafe_pastry_display');
+        pastryDisplay.setOrigin(0.5, 0.85);
+        pastryDisplay.setDepth(145);
+
+        // Commercial Dual-Grouphead Espresso Machine on left side of counter
+        const espressoMachine = scene.add.image(385, 126, 'cafe_espresso_machine');
+        espressoMachine.setOrigin(0.5, 0.85);
+        espressoMachine.setDepth(145);
+
