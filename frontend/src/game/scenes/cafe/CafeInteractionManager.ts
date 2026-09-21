@@ -231,32 +231,32 @@ export class CafeInteractionManager {
         return nearChair;
     }
 
-  public checkExitInteraction(playerContainer: Phaser.GameObjects.Container) {
-    const distToExit = Phaser.Math.Distance.Between(playerContainer.x, playerContainer.y, 480, 660);
-    const isNearExit = distToExit < 60 || (playerContainer.y > 620 && Math.abs(playerContainer.x - 480) < 65);
+    public checkExitInteraction(playerContainer: Phaser.GameObjects.Container) {
+        const distToExit = Phaser.Math.Distance.Between(playerContainer.x, playerContainer.y, 480, 660);
+        const isNearExit = distToExit < 60 || (playerContainer.y > 620 && Math.abs(playerContainer.x - 480) < 65);
 
-    if (isNearExit) {
-      this.promptText.setPosition(playerContainer.x, playerContainer.y + 14);
-      this.promptText.setText('Press [O] to Exit to Dev Garden 🌿');
-      this.promptText.setVisible(true);
+        if (isNearExit) {
+            this.promptText.setPosition(playerContainer.x, playerContainer.y + 14);
+            this.promptText.setText('Press [O] to Exit to Dev Garden 🌿');
+            this.promptText.setVisible(true);
 
-      if (this.oKey && Phaser.Input.Keyboard.JustDown(this.oKey) && !this.isTransitioning) {
-        this.onExitToGarden();
-      }
-    } else {
-      this.promptText.setVisible(false);
+            if (this.oKey && Phaser.Input.Keyboard.JustDown(this.oKey) && !this.isTransitioning) {
+                this.onExitToGarden();
+            }
+        } else {
+            this.promptText.setVisible(false);
+        }
     }
-  }
 
-  public hidePromptText() {
-    if (this.promptText) {
-      this.promptText.setVisible(false);
+    public hidePromptText() {
+        if (this.promptText) {
+            this.promptText.setVisible(false);
+        }
+        if (this.sitPromptText) {
+            this.sitPromptText.setVisible(false);
+        }
+        if (this.showcasePromptText) {
+            this.showcasePromptText.setVisible(false);
+        }
     }
-    if (this.sitPromptText) {
-      this.sitPromptText.setVisible(false);
-    }
-    if (this.showcasePromptText) {
-      this.showcasePromptText.setVisible(false);
-    }
-  }
 }
