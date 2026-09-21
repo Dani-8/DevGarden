@@ -15,6 +15,7 @@ export interface CafePropsResult {
     chairs: CafeChair[];
     showcasePos?: { x: number; y: number };
 }
+
 export class CafePropsManager {
     static createProps(
         scene: Phaser.Scene,
@@ -131,3 +132,39 @@ export class CafePropsManager {
             scene.physics.add.existing(pot, true);
             obstaclesGroup.add(pot);
         };
+
+        // Helper: Spawn Standalone Garden Lamp Posts
+        const spawnLamp = (x: number, y: number) => {
+            const lamp = scene.add.image(x, y, 'cafe_garden_lamp_post');
+            lamp.setOrigin(0.5, 0.92);
+            lamp.setDepth(y);
+            scene.physics.add.existing(lamp, true);
+            const lBody = lamp.body as Phaser.Physics.Arcade.StaticBody;
+            lBody.setSize(12, 10);
+            lBody.setOffset(6, 44);
+            obstaclesGroup.add(lamp);
+        };
+
+        // Counter Flanking Plant Pots
+        spawnPot(310, 110);
+        spawnPot(650, 110);
+        spawnPot(100, 125); // Next to bookshelf
+        spawnPot(20, 600);
+
+        // Left Side of Center Garden Planter: Alternating Lamps & Pots snug against planter (x=430)
+        spawnLamp(430, 240); // Lamp 1
+        spawnPot(427, 285);  // Pot 1
+        spawnLamp(430, 330); // Lamp 2
+        spawnPot(427, 375);  // Pot 2
+        spawnLamp(430, 420); // Lamp 3
+        spawnPot(427, 465);  // Pot 3
+        spawnLamp(430, 510); // Lamp 4
+
+        // Right Side of Center Garden Planter: Alternating Lamps & Pots snug against planter (x=530)
+        spawnLamp(530, 240); // Lamp 1
+        spawnPot(533, 285);  // Pot 1
+        spawnLamp(530, 330); // Lamp 2
+        spawnPot(533, 375);  // Pot 2
+        spawnLamp(530, 420); // Lamp 3
+        spawnPot(533, 465);  // Pot 3
+        spawnLamp(530, 510); // Lamp 4
