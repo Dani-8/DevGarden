@@ -134,9 +134,13 @@ export class CafeInteractionManager {
         let minDist = 30;
 
         for (const chair of this.cafeChairs) {
-            const dist = Phaser.Math.Distance.Between(playerContainer.x, playerContainer.y, chair.x, chair.y);
-            if (dist < minDist) {
-                minDist = dist;
+            const distToChair = Phaser.Math.Distance.Between(playerContainer.x, playerContainer.y, chair.x, chair.y);
+            const distToStand = chair.standPos
+                ? Phaser.Math.Distance.Between(playerContainer.x, playerContainer.y, chair.standPos.x, chair.standPos.y)
+                : 999;
+            const effectiveDist = Math.min(distToChair, distToStand);
+            if (effectiveDist < minDist) {
+                minDist = effectiveDist;
                 nearChair = chair;
             }
         }
@@ -151,28 +155,53 @@ export class CafeInteractionManager {
             if (this.eKey && Phaser.Input.Keyboard.JustDown(this.eKey)) {
                 if (this.isSitting) {
                     this.isSitting = false;
-                    body.enable = true;
 
-                    if (nearChair.dir === 'up') {
-                        playerContainer.setPosition(nearChair.x, nearChair.y + 18);
-                    } else if (nearChair.dir === 'down') {
-                        playerContainer.setPosition(nearChair.x, nearChair.y - 18);
-                    } else if (nearChair.dir === 'left') {
-                        playerContainer.setPosition(nearChair.x + 18, nearChair.y);
-                    } else if (nearChair.dir === 'right') {
-                        playerContainer.setPosition(nearChair.x - 18, nearChair.y);
-                    } else if (nearChair.dir === 'sofa' || nearChair.x < 60) {
-                        playerContainer.setPosition(nearChair.x + 22, nearChair.y);
+                    let standX = nearChair.x;
+                    let standY = nearChair.y;
+
+                    if (nearChair.standPos) {
+                        standX = nearChair.standPos.x;
+                        standY = nearChair.standPos.y;
                     } else {
-                        playerContainer.setPosition(nearChair.x, nearChair.y + 18);
+                        if (nearChair.dir === 'up') {
+                            standY = nearChair.y + 24;
+                        } else if (nearChair.dir === 'down') {
+                            standY = nearChair.y - 24;
+                        } else if (nearChair.dir === 'left') {
+                            standX = nearChair.x - 24;
+                        } else if (nearChair.dir === 'right') {
+                            standX = nearChair.x + 24;
+                        } else if (nearChair.dir === 'sofa' || nearChair.x < 60) {
+                            standX = nearChair.x + 26;
+                        } else {
+                            standY = nearChair.y + 24;
+                        }
+                    }
+
+                    playerContainer.setPosition(standX, standY);
+                    if (body) {
+                        body.reset(standX, standY);
+                        body.setVelocity(0, 0);
+                        body.enable = true;
+                    }
+
+                    // Face the direction of the open aisle
+                    const dx = standX - nearChair.x;
+                    const dy = standY - nearChair.y;
+                    if (Math.abs(dx) > Math.abs(dy)) {
+                        setLastAnim(dx > 0 ? 'idle_right' : 'idle_left');
+                    } else if (Math.abs(dy) > 0) {
+                        setLastAnim(dy > 0 ? 'idle_down' : 'idle_up');
                     }
 
                     this.playerManager.showChatBubble(playerContainer, '🚶 Stood up!', false);
                 } else {
                     this.isSitting = true;
-                    body.enable = false;
+                    if (body) {
+                        body.enable = false;
+                        body.setVelocity(0, 0);
+                    }
                     playerContainer.setPosition(nearChair.x, nearChair.y - 2);
-                    body.setVelocity(0, 0);
 
                     if (nearChair.dir === 'up') {
                         setLastAnim('idle_up');
@@ -195,7 +224,7 @@ export class CafeInteractionManager {
             if (this.sitPromptText) this.sitPromptText.setVisible(false);
             if (this.isSitting) {
                 this.isSitting = false;
-                body.enable = true;
+                if (body) body.enable = true;
             }
         }
 
