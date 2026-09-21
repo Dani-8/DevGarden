@@ -257,3 +257,50 @@ export class CafePropsManager {
 
         // 6. Right Side: 3-Section Community & Social Wing
         const communityWing = CafeCommunityWing.create(scene, obstaclesGroup, chairs);
+
+        // 7. Grand Entrance Area & Gateway (Centered at true center x=480)
+        // Welcome Entrance Step Portal Mat at (480, 664) - Exit interaction point (Realistic Woven Coir Rug)
+        const exitMat = scene.add.image(480, 675, 'cafe_entrance_gateway');
+        exitMat.setDisplaySize(128, 74);
+        exitMat.setOrigin(0.5, 0.5);
+        exitMat.setDepth(10);
+
+        // Thin Wooden Boundaries (Flanking the entrance mat symmetrically, reaching left & right edges, top at mat height)
+        const railingLeft = scene.add.image(414, 736, 'cafe_entrance_railing_left');
+        railingLeft.setDisplaySize(414, 110);
+        railingLeft.setOrigin(1.0, 1.0);
+        railingLeft.setDepth(695);
+
+        const railingRight = scene.add.image(546, 736, 'cafe_entrance_railing_right');
+        railingRight.setDisplaySize(414, 110);
+        railingRight.setOrigin(0.0, 1.0);
+        railingRight.setDepth(695);
+
+        // Colliders for Thin Wooden Boundaries
+        const addObstacleZone = (x: number, y: number, w: number, h: number) => {
+            const zone = scene.add.zone(x, y, w, h);
+            scene.physics.add.existing(zone, true);
+            obstaclesGroup.add(zone);
+        };
+
+        // Left Boundary Colliders (Vertical rail starting at mat height & horizontal rail across left screen)
+        addObstacleZone(400, 680, 12, 108);
+        addObstacleZone(207, 730, 414, 12);
+
+        // Right Boundary Colliders (Vertical rail starting at mat height & horizontal rail to wing divider at 960)
+        addObstacleZone(560, 680, 12, 108);
+        addObstacleZone(753, 730, 414, 12);
+
+        // --- Left Entrance Zone: Big L-Shaped High Table, Stools & Lush Corner Palm (From Reference Photo) ---
+        // Big L-Shaped High Wooden Table Counter (Snapped flush against left wall & bottom rail)
+        const bigLTable = scene.add.image(0, 724, 'cafe_big_l_table');
+        bigLTable.setDisplaySize(172, 134);
+        bigLTable.setOrigin(0.0, 1.0);
+        bigLTable.setDepth(665);
+
+        // Accurate L-Shape Obstacles (Thin vertical & horizontal lines instead of one solid square block)
+        // 1. Vertical left bar arm: width 28px along left wall (x: 0..28, y: 590..724)
+        addObstacleZone(16, 655, 28, 120);
+        // 2. Horizontal bottom bar arm: height 26px along bottom rail (x: 0..172, y: 698..724)
+        addObstacleZone(88, 700, 160, 26);
+
