@@ -2882,53 +2882,53 @@ export class CafeCommunityTextures {
                 ctx.ellipse(9, 12, 8, 7, 0, 0, Math.PI * 2);
                 ctx.fill();
 
-        ctx.fillStyle = '#f59e0b';
-        ctx.beginPath();
-        ctx.ellipse(9, 11, 7, 6, 0, 0, Math.PI * 2);
-        ctx.fill();
+                ctx.fillStyle = '#f59e0b';
+                ctx.beginPath();
+                ctx.ellipse(9, 11, 7, 6, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-        ctx.fillStyle = '#fef08a';
-        ctx.beginPath();
-        ctx.ellipse(9, 10, 5, 4, 0, 0, Math.PI * 2);
-        ctx.fill();
+                ctx.fillStyle = '#fef08a';
+                ctx.beginPath();
+                ctx.ellipse(9, 10, 5, 4, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-        // Center light bulb highlight
-        ctx.fillStyle = '#ffffff';
-        ctx.beginPath();
-        ctx.arc(9, 9, 2, 0, Math.PI * 2);
-        ctx.fill();
+                // Center light bulb highlight
+                ctx.fillStyle = '#ffffff';
+                ctx.beginPath();
+                ctx.arc(9, 9, 2, 0, Math.PI * 2);
+                ctx.fill();
 
-        canvas.refresh();
-      }
-    }
-
-    // =========================================================================
-    // 41. WALL DRAPED BOTANICAL VINES (180x28) [From User's Image!]
-    // =========================================================================
-    if (!textures.exists('cafe_concept1_wall_vines')) {
-      const canvas = textures.createCanvas('cafe_concept1_wall_vines', 180, 28);
-      if (canvas) {
-        const ctx = canvas.getContext();
-
-        // Trailing vines along top wall beam
-        ctx.fillStyle = '#166534';
-        for (let x = 6; x < 174; x += 14) {
-          const drop = 8 + ((x * 7) % 16);
-          // Vine stem
-          ctx.fillRect(x, 0, 2, drop);
-          // Leaf clusters
-          ctx.fillStyle = '#15803d';
-          ctx.beginPath();
-          ctx.arc(x - 2, drop - 4, 3, 0, Math.PI * 2);
-          ctx.arc(x + 3, drop - 2, 3, 0, Math.PI * 2);
-          ctx.arc(x, drop, 3.5, 0, Math.PI * 2);
-          ctx.fill();
-          ctx.fillStyle = '#4ade80';
-          ctx.fillRect(x - 1, drop - 3, 2, 2);
+                canvas.refresh();
+            }
         }
 
-        canvas.refresh();
-      }
+        // =========================================================================
+        // 41. WALL DRAPED BOTANICAL VINES (180x28) [From User's Image!]
+        // =========================================================================
+        if (!textures.exists('cafe_concept1_wall_vines')) {
+            const canvas = textures.createCanvas('cafe_concept1_wall_vines', 180, 28);
+            if (canvas) {
+                const ctx = canvas.getContext();
+
+                // Trailing vines along top wall beam
+                ctx.fillStyle = '#166534';
+                for (let x = 6; x < 174; x += 14) {
+                    const drop = 8 + ((x * 7) % 16);
+                    // Vine stem
+                    ctx.fillRect(x, 0, 2, drop);
+                    // Leaf clusters
+                    ctx.fillStyle = '#15803d';
+                    ctx.beginPath();
+                    ctx.arc(x - 2, drop - 4, 3, 0, Math.PI * 2);
+                    ctx.arc(x + 3, drop - 2, 3, 0, Math.PI * 2);
+                    ctx.arc(x, drop, 3.5, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.fillStyle = '#4ade80';
+                    ctx.fillRect(x - 1, drop - 3, 2, 2);
+                }
+
+                canvas.refresh();
+            }
+        }
     }
-  }
 }
