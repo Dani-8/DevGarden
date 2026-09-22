@@ -2249,79 +2249,79 @@ export class CafeCommunityTextures {
                 ctx.fillStyle = '#143320';
                 ctx.fillRect(12, 12, 196, 100);
 
-        // Rich Forest Emerald Main Field
-        ctx.fillStyle = '#1b4332';
-        ctx.fillRect(15, 15, 190, 94);
-        ctx.fillStyle = '#245640';
-        ctx.fillRect(18, 18, 184, 88);
+                // Rich Forest Emerald Main Field
+                ctx.fillStyle = '#1b4332';
+                ctx.fillRect(15, 15, 190, 94);
+                ctx.fillStyle = '#245640';
+                ctx.fillRect(18, 18, 184, 88);
 
-        // Subtle Botanical Woven Cross-Grain
-        for (let y = 20; y < 104; y += 4) {
-          ctx.fillStyle = (Math.floor(y / 4) % 2 === 0) ? '#2a634a' : '#1f4c38';
-          ctx.fillRect(20, y, 180, 2);
+                // Subtle Botanical Woven Cross-Grain
+                for (let y = 20; y < 104; y += 4) {
+                    ctx.fillStyle = (Math.floor(y / 4) % 2 === 0) ? '#2a634a' : '#1f4c38';
+                    ctx.fillRect(20, y, 180, 2);
+                }
+
+                // Subtle Inner Gold Geometric Frame
+                ctx.strokeStyle = '#b45309';
+                ctx.lineWidth = 1;
+                ctx.strokeRect(26, 26, 168, 72);
+
+                // Corner Flourishes
+                const drawGoldCorner = (cx: number, cy: number) => {
+                    ctx.fillStyle = '#f59e0b';
+                    ctx.fillRect(cx - 2, cy - 2, 5, 5);
+                    ctx.fillStyle = '#1b4332';
+                    ctx.fillRect(cx - 1, cy - 1, 3, 3);
+                };
+                drawGoldCorner(26, 26);
+                drawGoldCorner(194, 26);
+                drawGoldCorner(26, 98);
+                drawGoldCorner(194, 98);
+
+                canvas.refresh();
+            }
         }
 
-        // Subtle Inner Gold Geometric Frame
-        ctx.strokeStyle = '#b45309';
-        ctx.lineWidth = 1;
-        ctx.strokeRect(26, 26, 168, 72);
+        // =========================================================================
+        // 31. FRAMED MOUNTAIN & PINE LANDSCAPE PAINTING (76x24) [Concept 1]
+        // =========================================================================
+        if (!textures.exists('cafe_lounge_wall_landscape')) {
+            const canvas = textures.createCanvas('cafe_lounge_wall_landscape', 76, 24);
+            if (canvas) {
+                const ctx = canvas.getContext();
 
-        // Corner Flourishes
-        const drawGoldCorner = (cx: number, cy: number) => {
-          ctx.fillStyle = '#f59e0b';
-          ctx.fillRect(cx - 2, cy - 2, 5, 5);
-          ctx.fillStyle = '#1b4332';
-          ctx.fillRect(cx - 1, cy - 1, 3, 3);
-        };
-        drawGoldCorner(26, 26);
-        drawGoldCorner(194, 26);
-        drawGoldCorner(26, 98);
-        drawGoldCorner(194, 98);
+                // Dark Walnut Frame Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
+                ctx.fillRect(1, 2, 74, 22);
 
-        canvas.refresh();
-      }
-    }
+                // Polished Walnut Frame
+                ctx.fillStyle = '#2e1205';
+                ctx.fillRect(0, 0, 76, 22);
 
-    // =========================================================================
-    // 31. FRAMED MOUNTAIN & PINE LANDSCAPE PAINTING (76x24) [Concept 1]
-    // =========================================================================
-    if (!textures.exists('cafe_lounge_wall_landscape')) {
-      const canvas = textures.createCanvas('cafe_lounge_wall_landscape', 76, 24);
-      if (canvas) {
-        const ctx = canvas.getContext();
+                // Inner Brass Bevel
+                ctx.fillStyle = '#b45309';
+                ctx.fillRect(2, 2, 72, 18);
+                ctx.fillStyle = '#d97706';
+                ctx.fillRect(3, 3, 70, 16);
 
-        // Dark Walnut Frame Shadow
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
-        ctx.fillRect(1, 2, 74, 22);
+                // Canvas: Sky Gradient (Dawn Amber to Mountain Blue)
+                ctx.fillStyle = '#fed7aa';
+                ctx.fillRect(4, 4, 68, 14);
+                ctx.fillStyle = '#bae6fd';
+                ctx.fillRect(4, 4, 68, 7);
 
-        // Polished Walnut Frame
-        ctx.fillStyle = '#2e1205';
-        ctx.fillRect(0, 0, 76, 22);
+                // Distant Misty Blue Peaks
+                ctx.fillStyle = '#64748b';
+                ctx.beginPath();
+                ctx.moveTo(8, 14);
+                ctx.lineTo(20, 6);
+                ctx.lineTo(32, 14);
+                ctx.fill();
 
-        // Inner Brass Bevel
-        ctx.fillStyle = '#b45309';
-        ctx.fillRect(2, 2, 72, 18);
-        ctx.fillStyle = '#d97706';
-        ctx.fillRect(3, 3, 70, 16);
-
-        // Canvas: Sky Gradient (Dawn Amber to Mountain Blue)
-        ctx.fillStyle = '#fed7aa';
-        ctx.fillRect(4, 4, 68, 14);
-        ctx.fillStyle = '#bae6fd';
-        ctx.fillRect(4, 4, 68, 7);
-
-        // Distant Misty Blue Peaks
-        ctx.fillStyle = '#64748b';
-        ctx.beginPath();
-        ctx.moveTo(8, 14);
-        ctx.lineTo(20, 6);
-        ctx.lineTo(32, 14);
-        ctx.fill();
-
-        ctx.fillStyle = '#475569';
-        ctx.beginPath();
-        ctx.moveTo(26, 14);
-        ctx.lineTo(40, 5);
-        ctx.lineTo(54, 14);
-        ctx.fill();
+                ctx.fillStyle = '#475569';
+                ctx.beginPath();
+                ctx.moveTo(26, 14);
+                ctx.lineTo(40, 5);
+                ctx.lineTo(54, 14);
+                ctx.fill();
 
