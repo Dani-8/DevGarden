@@ -2040,55 +2040,55 @@ export class CafeCommunityTextures {
                     ctx.fill();
                 };
 
-        // Outer medallion navy & gold
-        drawMedallion(90, 56, 32, 20, '#0f172a');
-        drawMedallion(90, 56, 28, 17, '#b45309');
-        drawMedallion(90, 56, 22, 13, '#7f1d1d');
-        drawMedallion(90, 56, 16, 9, '#f59e0b');
-        drawMedallion(90, 56, 9, 5, '#1e3a8a');
-        drawMedallion(90, 56, 4, 2.5, '#fef08a');
+                // Outer medallion navy & gold
+                drawMedallion(90, 56, 32, 20, '#0f172a');
+                drawMedallion(90, 56, 28, 17, '#b45309');
+                drawMedallion(90, 56, 22, 13, '#7f1d1d');
+                drawMedallion(90, 56, 16, 9, '#f59e0b');
+                drawMedallion(90, 56, 9, 5, '#1e3a8a');
+                drawMedallion(90, 56, 4, 2.5, '#fef08a');
 
-        // Corner Medallion Ornaments
-        const drawCorner = (cx: number, cy: number) => {
-          ctx.fillStyle = '#b45309';
-          ctx.beginPath();
-          ctx.arc(cx, cy, 12, 0, Math.PI * 2);
-          ctx.fill();
-          ctx.fillStyle = '#0f172a';
-          ctx.beginPath();
-          ctx.arc(cx, cy, 8, 0, Math.PI * 2);
-          ctx.fill();
-          ctx.fillStyle = '#f59e0b';
-          ctx.beginPath();
-          ctx.arc(cx, cy, 4, 0, Math.PI * 2);
-          ctx.fill();
-        };
+                // Corner Medallion Ornaments
+                const drawCorner = (cx: number, cy: number) => {
+                    ctx.fillStyle = '#b45309';
+                    ctx.beginPath();
+                    ctx.arc(cx, cy, 12, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.fillStyle = '#0f172a';
+                    ctx.beginPath();
+                    ctx.arc(cx, cy, 8, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.fillStyle = '#f59e0b';
+                    ctx.beginPath();
+                    ctx.arc(cx, cy, 4, 0, Math.PI * 2);
+                    ctx.fill();
+                };
 
-        drawCorner(28, 28);
-        drawCorner(152, 28);
-        drawCorner(28, 84);
-        drawCorner(152, 84);
+                drawCorner(28, 28);
+                drawCorner(152, 28);
+                drawCorner(28, 84);
+                drawCorner(152, 84);
 
-        canvas.refresh();
-      }
-    }
+                canvas.refresh();
+            }
+        }
 
-    // =========================================================================
-    // 28. PERFECTLY PROPORTIONED COGNAC LEATHER LOUNGE SOFA (76x36)
-    // =========================================================================
-    if (!textures.exists('cafe_lounge_proportional_sofa')) {
-      const canvas = textures.createCanvas('cafe_lounge_proportional_sofa', 76, 36);
-      if (canvas) {
-        const ctx = canvas.getContext();
+        // =========================================================================
+        // 28. PERFECTLY PROPORTIONED COGNAC LEATHER LOUNGE SOFA (76x36)
+        // =========================================================================
+        if (!textures.exists('cafe_lounge_proportional_sofa')) {
+            const canvas = textures.createCanvas('cafe_lounge_proportional_sofa', 76, 36);
+            if (canvas) {
+                const ctx = canvas.getContext();
 
-        // Floor Shadow
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.32)';
-        ctx.beginPath();
-        ctx.ellipse(38, 33, 35, 3.5, 0, 0, Math.PI * 2);
-        ctx.fill();
+                // Floor Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.32)';
+                ctx.beginPath();
+                ctx.ellipse(38, 33, 35, 3.5, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-        // Tapered Walnut Peg Legs
-        ctx.fillStyle = '#271206';
-        ctx.fillRect(8, 28, 3, 6);
-        ctx.fillRect(65, 28, 3, 6);
-        ctx.fillRect(36, 28, 3, 6);
+                // Tapered Walnut Peg Legs
+                ctx.fillStyle = '#271206';
+                ctx.fillRect(8, 28, 3, 6);
+                ctx.fillRect(65, 28, 3, 6);
+                ctx.fillRect(36, 28, 3, 6);
