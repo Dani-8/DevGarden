@@ -2377,3 +2377,57 @@ export class CafeCommunityTextures {
                 ctx.beginPath();
                 ctx.ellipse(15, 27, 13, 16, 0, 0, Math.PI * 2);
                 ctx.fill();
+
+        ctx.fillStyle = '#9a3412';
+        ctx.beginPath();
+        ctx.ellipse(15, 27, 11, 14, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = '#b45309';
+        ctx.beginPath();
+        ctx.ellipse(15, 27, 9.5, 12, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Wicker Cross-Weave Texture
+        ctx.fillStyle = '#78350f';
+        for (let y = 16; y < 38; y += 4) {
+          ctx.fillRect(6, y, 18, 1);
+        }
+
+        // Plush Tufted Cream Nest Cushion
+        ctx.fillStyle = '#fef3c7';
+        ctx.beginPath();
+        ctx.ellipse(15, 30, 8, 9, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#fde68a';
+        ctx.beginPath();
+        ctx.ellipse(15, 32, 7, 6, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Sage Velvet Accent Pillow
+        ctx.fillStyle = '#065f46';
+        ctx.fillRect(12, 26, 6, 6);
+        ctx.fillStyle = '#047857';
+        ctx.fillRect(13, 27, 4, 4);
+
+        canvas.refresh();
+      }
+    }
+
+    // =========================================================================
+    // 33. SLIM FLOOR-STANDING LIBRARY BOOKCASE (28x56) [Concept 1 & 6]
+    // =========================================================================
+    if (!textures.exists('cafe_lounge_tall_bookshelf')) {
+      const canvas = textures.createCanvas('cafe_lounge_tall_bookshelf', 28, 56);
+      if (canvas) {
+        const ctx = canvas.getContext();
+
+        // Floor Shadow
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+        ctx.fillRect(2, 52, 24, 4);
+
+        // Solid Walnut Outer Frame
+        ctx.fillStyle = '#271206';
+        ctx.fillRect(0, 0, 28, 52);
+        ctx.fillStyle = '#3c1b09';
+        ctx.fillRect(2, 2, 24, 48);
