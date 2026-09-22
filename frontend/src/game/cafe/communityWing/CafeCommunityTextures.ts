@@ -1948,43 +1948,43 @@ export class CafeCommunityTextures {
                 ctx.ellipse(12, 18, 5, 5, 0, 0, Math.PI * 2);
                 ctx.fill();
 
-        ctx.fillStyle = '#ca8a04';
-        ctx.beginPath();
-        ctx.ellipse(12, 18, 4, 4, 0, 0, Math.PI * 2);
-        ctx.fill();
+                ctx.fillStyle = '#ca8a04';
+                ctx.beginPath();
+                ctx.ellipse(12, 18, 4, 4, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-        // Soundhole
-        ctx.fillStyle = '#271206';
-        ctx.beginPath();
-        ctx.arc(12, 22, 2, 0, Math.PI * 2);
-        ctx.fill();
+                // Soundhole
+                ctx.fillStyle = '#271206';
+                ctx.beginPath();
+                ctx.arc(12, 22, 2, 0, Math.PI * 2);
+                ctx.fill();
 
-        // Bridge
-        ctx.fillStyle = '#1c0c04';
-        ctx.fillRect(10, 30, 4, 1.5);
+                // Bridge
+                ctx.fillStyle = '#1c0c04';
+                ctx.fillRect(10, 30, 4, 1.5);
 
-        // Fretboard & Neck
-        ctx.fillStyle = '#271206';
-        ctx.fillRect(11, 4, 2, 14);
+                // Fretboard & Neck
+                ctx.fillStyle = '#271206';
+                ctx.fillRect(11, 4, 2, 14);
 
-        // Headstock with Tuning Pegs
-        ctx.fillStyle = '#5c2d13';
-        ctx.fillRect(10, 1, 4, 4);
-        ctx.fillStyle = '#fef08a';
-        ctx.fillRect(9, 2, 1, 1);
-        ctx.fillRect(9, 4, 1, 1);
-        ctx.fillRect(14, 2, 1, 1);
-        ctx.fillRect(14, 4, 1, 1);
+                // Headstock with Tuning Pegs
+                ctx.fillStyle = '#5c2d13';
+                ctx.fillRect(10, 1, 4, 4);
+                ctx.fillStyle = '#fef08a';
+                ctx.fillRect(9, 2, 1, 1);
+                ctx.fillRect(9, 4, 1, 1);
+                ctx.fillRect(14, 2, 1, 1);
+                ctx.fillRect(14, 4, 1, 1);
 
-        // Canvas Basket with Sheet Music on Right Side
-        ctx.fillStyle = '#78350f';
-        ctx.fillRect(18, 30, 7, 10);
-        ctx.fillStyle = '#a16207';
-        ctx.fillRect(19, 31, 5, 8);
-        ctx.fillStyle = '#fef3c7';
-        ctx.fillRect(20, 26, 2, 8);
-        ctx.fillRect(22, 28, 2, 6);
+                // Canvas Basket with Sheet Music on Right Side
+                ctx.fillStyle = '#78350f';
+                ctx.fillRect(18, 30, 7, 10);
+                ctx.fillStyle = '#a16207';
+                ctx.fillRect(19, 31, 5, 8);
+                ctx.fillStyle = '#fef3c7';
+                ctx.fillRect(20, 26, 2, 8);
+                ctx.fillRect(22, 28, 2, 6);
 
-        canvas.refresh();
-      }
-    }
+                canvas.refresh();
+            }
+        }
