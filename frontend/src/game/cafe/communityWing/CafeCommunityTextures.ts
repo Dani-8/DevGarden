@@ -1790,56 +1790,56 @@ export class CafeCommunityTextures {
                 ctx.lineTo(22, 55);
                 ctx.stroke();
 
-        // Soil
-        ctx.fillStyle = '#271206';
-        ctx.fillRect(11, 41, 14, 2);
+                // Soil
+                ctx.fillStyle = '#271206';
+                ctx.fillRect(11, 41, 14, 2);
 
-        // Natural Woody Trunk
-        ctx.fillStyle = '#5c2d13';
-        ctx.fillRect(17, 24, 3, 18);
-        ctx.fillRect(18, 12, 2, 14);
+                // Natural Woody Trunk
+                ctx.fillStyle = '#5c2d13';
+                ctx.fillRect(17, 24, 3, 18);
+                ctx.fillRect(18, 12, 2, 14);
 
-        // Large Sculptural Fiddle Leaves
-        const drawLeaf = (cx: number, cy: number, rx: number, ry: number, angle: number) => {
-          ctx.save();
-          ctx.translate(cx, cy);
-          ctx.rotate(angle);
+                // Large Sculptural Fiddle Leaves
+                const drawLeaf = (cx: number, cy: number, rx: number, ry: number, angle: number) => {
+                    ctx.save();
+                    ctx.translate(cx, cy);
+                    ctx.rotate(angle);
 
-          // Leaf body
-          ctx.fillStyle = '#064e3b';
-          ctx.beginPath();
-          ctx.ellipse(0, 0, rx, ry, 0, 0, Math.PI * 2);
-          ctx.fill();
+                    // Leaf body
+                    ctx.fillStyle = '#064e3b';
+                    ctx.beginPath();
+                    ctx.ellipse(0, 0, rx, ry, 0, 0, Math.PI * 2);
+                    ctx.fill();
 
-          ctx.fillStyle = '#047857';
-          ctx.beginPath();
-          ctx.ellipse(0, -1, rx - 1.5, ry - 1.5, 0, 0, Math.PI * 2);
-          ctx.fill();
+                    ctx.fillStyle = '#047857';
+                    ctx.beginPath();
+                    ctx.ellipse(0, -1, rx - 1.5, ry - 1.5, 0, 0, Math.PI * 2);
+                    ctx.fill();
 
-          ctx.fillStyle = '#10b981';
-          ctx.beginPath();
-          ctx.ellipse(0, -2, rx - 3, ry - 3, 0, 0, Math.PI * 2);
-          ctx.fill();
+                    ctx.fillStyle = '#10b981';
+                    ctx.beginPath();
+                    ctx.ellipse(0, -2, rx - 3, ry - 3, 0, 0, Math.PI * 2);
+                    ctx.fill();
 
-          // Main leaf vein
-          ctx.strokeStyle = '#6ee7b7';
-          ctx.lineWidth = 0.8;
-          ctx.beginPath();
-          ctx.moveTo(0, ry - 2);
-          ctx.lineTo(0, -ry + 2);
-          ctx.stroke();
+                    // Main leaf vein
+                    ctx.strokeStyle = '#6ee7b7';
+                    ctx.lineWidth = 0.8;
+                    ctx.beginPath();
+                    ctx.moveTo(0, ry - 2);
+                    ctx.lineTo(0, -ry + 2);
+                    ctx.stroke();
 
-          ctx.restore();
-        };
+                    ctx.restore();
+                };
 
-        drawLeaf(9, 36, 8, 5, -0.4);
-        drawLeaf(27, 34, 8, 5, 0.4);
-        drawLeaf(8, 24, 9, 6, -0.6);
-        drawLeaf(28, 22, 9, 6, 0.5);
-        drawLeaf(11, 14, 8, 5, -0.3);
-        drawLeaf(25, 12, 8, 5, 0.3);
-        drawLeaf(18, 6, 7, 5, 0);
+                drawLeaf(9, 36, 8, 5, -0.4);
+                drawLeaf(27, 34, 8, 5, 0.4);
+                drawLeaf(8, 24, 9, 6, -0.6);
+                drawLeaf(28, 22, 9, 6, 0.5);
+                drawLeaf(11, 14, 8, 5, -0.3);
+                drawLeaf(25, 12, 8, 5, 0.3);
+                drawLeaf(18, 6, 7, 5, 0);
 
-        canvas.refresh();
-      }
-    }
+                canvas.refresh();
+            }
+        }
