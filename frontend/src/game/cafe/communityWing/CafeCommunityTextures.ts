@@ -2145,3 +2145,55 @@ export class CafeCommunityTextures {
                 ctx.fillRect(9, 11, 9, 9);
                 ctx.fillStyle = '#047857';
                 ctx.fillRect(10, 12, 6, 6);
+
+        // Right Throw Pillow (Cream Gold Wool)
+        ctx.fillStyle = '#b45309';
+        ctx.fillRect(58, 11, 9, 9);
+        ctx.fillStyle = '#fde68a';
+        ctx.fillRect(59, 12, 6, 6);
+
+        canvas.refresh();
+      }
+    }
+
+    // =========================================================================
+    // 29. PERFECTLY PROPORTIONED WALNUT COFFEE TABLE (52x26)
+    // =========================================================================
+    if (!textures.exists('cafe_lounge_proportional_table')) {
+      const canvas = textures.createCanvas('cafe_lounge_proportional_table', 52, 26);
+      if (canvas) {
+        const ctx = canvas.getContext();
+
+        // Floor Shadow
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+        ctx.beginPath();
+        ctx.ellipse(26, 23, 23, 3, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Hairpin Iron Legs
+        ctx.fillStyle = '#1c1917';
+        ctx.fillRect(8, 14, 2, 9);
+        ctx.fillRect(42, 14, 2, 9);
+
+        // Solid Walnut Oval Tabletop
+        ctx.fillStyle = '#361502';
+        ctx.beginPath();
+        ctx.ellipse(26, 12, 24, 9, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = '#5c2406';
+        ctx.beginPath();
+        ctx.ellipse(26, 11, 23, 8, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = '#78350f';
+        ctx.beginPath();
+        ctx.ellipse(26, 10, 20, 6, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Open Paperback Book
+        ctx.fillStyle = '#fef3c7';
+        ctx.fillRect(14, 7, 10, 6);
+        ctx.fillStyle = '#94a3b8';
+        ctx.fillRect(18, 7, 1, 6);
+
