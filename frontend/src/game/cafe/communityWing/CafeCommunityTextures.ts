@@ -2619,106 +2619,106 @@ export class CafeCommunityTextures {
             }
         }
 
-    // =========================================================================
-    // 37. GRAND PLUSH CREAM & WOOD FRAME LOUNGE SOFA (132x46) [Concept 1]
-    // =========================================================================
-    if (!textures.exists('cafe_concept1_cream_sofa')) {
-      const canvas = textures.createCanvas('cafe_concept1_cream_sofa', 132, 46);
-      if (canvas) {
-        const ctx = canvas.getContext();
+        // =========================================================================
+        // 37. GRAND PLUSH CREAM & WOOD FRAME LOUNGE SOFA (132x46) [Concept 1]
+        // =========================================================================
+        if (!textures.exists('cafe_concept1_cream_sofa')) {
+            const canvas = textures.createCanvas('cafe_concept1_cream_sofa', 132, 46);
+            if (canvas) {
+                const ctx = canvas.getContext();
 
-        // Soft Floor Drop Shadow
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
-        ctx.beginPath();
-        ctx.ellipse(66, 42, 64, 4, 0, 0, Math.PI * 2);
-        ctx.fill();
+                // Soft Floor Drop Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+                ctx.beginPath();
+                ctx.ellipse(66, 42, 64, 4, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-        // 4 Tapered Walnut Feet
-        ctx.fillStyle = '#3b1d09';
-        ctx.fillRect(10, 36, 4, 6);
-        ctx.fillRect(48, 36, 4, 6);
-        ctx.fillRect(80, 36, 4, 6);
-        ctx.fillRect(118, 36, 4, 6);
+                // 4 Tapered Walnut Feet
+                ctx.fillStyle = '#3b1d09';
+                ctx.fillRect(10, 36, 4, 6);
+                ctx.fillRect(48, 36, 4, 6);
+                ctx.fillRect(80, 36, 4, 6);
+                ctx.fillRect(118, 36, 4, 6);
 
-        // Solid Honey-Walnut Wood Base Rail
-        ctx.fillStyle = '#5c2d13';
-        ctx.fillRect(6, 33, 120, 5);
-        ctx.fillStyle = '#8a471b';
-        ctx.fillRect(7, 34, 118, 3);
-        ctx.fillStyle = '#a85924';
-        ctx.fillRect(8, 34, 116, 1);
+                // Solid Honey-Walnut Wood Base Rail
+                ctx.fillStyle = '#5c2d13';
+                ctx.fillRect(6, 33, 120, 5);
+                ctx.fillStyle = '#8a471b';
+                ctx.fillRect(7, 34, 118, 3);
+                ctx.fillStyle = '#a85924';
+                ctx.fillRect(8, 34, 116, 1);
 
-        // Wooden Outer Armrests (Left & Right ends)
-        ctx.fillStyle = '#5c2d13';
-        ctx.fillRect(2, 8, 6, 26);
-        ctx.fillRect(124, 8, 6, 26);
-        ctx.fillStyle = '#8a471b';
-        ctx.fillRect(3, 9, 4, 24);
-        ctx.fillRect(125, 9, 4, 24);
-        ctx.fillStyle = '#a85924';
-        ctx.fillRect(4, 9, 2, 23);
-        ctx.fillRect(126, 9, 2, 23);
+                // Wooden Outer Armrests (Left & Right ends)
+                ctx.fillStyle = '#5c2d13';
+                ctx.fillRect(2, 8, 6, 26);
+                ctx.fillRect(124, 8, 6, 26);
+                ctx.fillStyle = '#8a471b';
+                ctx.fillRect(3, 9, 4, 24);
+                ctx.fillRect(125, 9, 4, 24);
+                ctx.fillStyle = '#a85924';
+                ctx.fillRect(4, 9, 2, 23);
+                ctx.fillRect(126, 9, 2, 23);
 
-        // 4-Section Tufted Plush Cream Backrest (y = 5 to 22)
-        ctx.fillStyle = '#ded3c2';
-        ctx.fillRect(7, 5, 118, 17);
+                // 4-Section Tufted Plush Cream Backrest (y = 5 to 22)
+                ctx.fillStyle = '#ded3c2';
+                ctx.fillRect(7, 5, 118, 17);
 
-        // Individual Backrest Cushions (4 wide cushions)
-        const cushionWidth = 29;
-        for (let i = 0; i < 4; i++) {
-          const cx = 8 + (i * cushionWidth);
-          // Cushion Body
-          ctx.fillStyle = '#ede5d8';
-          ctx.fillRect(cx, 6, cushionWidth - 1, 15);
-          // Highlight
-          ctx.fillStyle = '#f8f4ec';
-          ctx.fillRect(cx + 1, 7, cushionWidth - 3, 11);
-          // Top Bevel
-          ctx.fillStyle = '#fffdfa';
-          ctx.fillRect(cx + 2, 7, cushionWidth - 5, 2);
-          // Tufting indentation
-          ctx.fillStyle = '#c5b8a5';
-          ctx.fillRect(cx + 13, 12, 2, 2);
+                // Individual Backrest Cushions (4 wide cushions)
+                const cushionWidth = 29;
+                for (let i = 0; i < 4; i++) {
+                    const cx = 8 + (i * cushionWidth);
+                    // Cushion Body
+                    ctx.fillStyle = '#ede5d8';
+                    ctx.fillRect(cx, 6, cushionWidth - 1, 15);
+                    // Highlight
+                    ctx.fillStyle = '#f8f4ec';
+                    ctx.fillRect(cx + 1, 7, cushionWidth - 3, 11);
+                    // Top Bevel
+                    ctx.fillStyle = '#fffdfa';
+                    ctx.fillRect(cx + 2, 7, cushionWidth - 5, 2);
+                    // Tufting indentation
+                    ctx.fillStyle = '#c5b8a5';
+                    ctx.fillRect(cx + 13, 12, 2, 2);
+                }
+
+                // 4 Plush Cream Seat Cushions (y = 20 to 34)
+                for (let i = 0; i < 4; i++) {
+                    const cx = 8 + (i * cushionWidth);
+                    // Base shadow
+                    ctx.fillStyle = '#ded3c2';
+                    ctx.fillRect(cx, 20, cushionWidth - 1, 14);
+                    // Cushion surface
+                    ctx.fillStyle = '#f5f0e6';
+                    ctx.fillRect(cx, 21, cushionWidth - 1, 12);
+                    // Top highlight
+                    ctx.fillStyle = '#fdfbf7';
+                    ctx.fillRect(cx + 1, 21, cushionWidth - 3, 3);
+                    // Bottom rounding shadow
+                    ctx.fillStyle = '#d5c8b5';
+                    ctx.fillRect(cx, 32, cushionWidth - 1, 2);
+                }
+
+                // Left Olive/Forest Green Accent Pillow (from user's image)
+                ctx.fillStyle = '#283e28';
+                ctx.fillRect(13, 13, 14, 14);
+                ctx.fillStyle = '#3d5a3a';
+                ctx.fillRect(14, 14, 12, 12);
+                ctx.fillStyle = '#537a4e';
+                ctx.fillRect(15, 15, 8, 8);
+                ctx.fillStyle = '#283e28';
+                ctx.fillRect(19, 19, 2, 2); // pillow button
+
+                // Right Olive/Forest Green Accent Pillow (from user's image)
+                ctx.fillStyle = '#283e28';
+                ctx.fillRect(105, 13, 14, 14);
+                ctx.fillStyle = '#3d5a3a';
+                ctx.fillRect(106, 14, 12, 12);
+                ctx.fillStyle = '#537a4e';
+                ctx.fillRect(107, 15, 8, 8);
+                ctx.fillStyle = '#283e28';
+                ctx.fillRect(111, 19, 2, 2); // pillow button
+
+                canvas.refresh();
+            }
         }
-
-        // 4 Plush Cream Seat Cushions (y = 20 to 34)
-        for (let i = 0; i < 4; i++) {
-          const cx = 8 + (i * cushionWidth);
-          // Base shadow
-          ctx.fillStyle = '#ded3c2';
-          ctx.fillRect(cx, 20, cushionWidth - 1, 14);
-          // Cushion surface
-          ctx.fillStyle = '#f5f0e6';
-          ctx.fillRect(cx, 21, cushionWidth - 1, 12);
-          // Top highlight
-          ctx.fillStyle = '#fdfbf7';
-          ctx.fillRect(cx + 1, 21, cushionWidth - 3, 3);
-          // Bottom rounding shadow
-          ctx.fillStyle = '#d5c8b5';
-          ctx.fillRect(cx, 32, cushionWidth - 1, 2);
-        }
-
-        // Left Olive/Forest Green Accent Pillow (from user's image)
-        ctx.fillStyle = '#283e28';
-        ctx.fillRect(13, 13, 14, 14);
-        ctx.fillStyle = '#3d5a3a';
-        ctx.fillRect(14, 14, 12, 12);
-        ctx.fillStyle = '#537a4e';
-        ctx.fillRect(15, 15, 8, 8);
-        ctx.fillStyle = '#283e28';
-        ctx.fillRect(19, 19, 2, 2); // pillow button
-
-        // Right Olive/Forest Green Accent Pillow (from user's image)
-        ctx.fillStyle = '#283e28';
-        ctx.fillRect(105, 13, 14, 14);
-        ctx.fillStyle = '#3d5a3a';
-        ctx.fillRect(106, 14, 12, 12);
-        ctx.fillStyle = '#537a4e';
-        ctx.fillRect(107, 15, 8, 8);
-        ctx.fillStyle = '#283e28';
-        ctx.fillRect(111, 19, 2, 2); // pillow button
-
-        canvas.refresh();
-      }
-    }
 
