@@ -1703,38 +1703,38 @@ export class CafeCommunityTextures {
                 ctx.ellipse(13, 19, 11, 3, 0, 0, Math.PI * 2);
                 ctx.fill();
 
-        // Woven Knit Rust/Terracotta Body
-        ctx.fillStyle = '#7c2d12';
-        ctx.beginPath();
-        ctx.ellipse(13, 12, 11, 7, 0, 0, Math.PI * 2);
-        ctx.fill();
+                // Woven Knit Rust/Terracotta Body
+                ctx.fillStyle = '#7c2d12';
+                ctx.beginPath();
+                ctx.ellipse(13, 12, 11, 7, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-        ctx.fillStyle = '#c2410c';
-        ctx.beginPath();
-        ctx.ellipse(13, 10, 10, 6, 0, 0, Math.PI * 2);
-        ctx.fill();
+                ctx.fillStyle = '#c2410c';
+                ctx.beginPath();
+                ctx.ellipse(13, 10, 10, 6, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-        ctx.fillStyle = '#ea580c';
-        ctx.beginPath();
-        ctx.ellipse(13, 9, 8, 4.5, 0, 0, Math.PI * 2);
-        ctx.fill();
+                ctx.fillStyle = '#ea580c';
+                ctx.beginPath();
+                ctx.ellipse(13, 9, 8, 4.5, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-        // Radial knit ribs
-        ctx.strokeStyle = '#9a3412';
-        ctx.lineWidth = 0.8;
-        for (let a = 0; a < Math.PI * 2; a += Math.PI / 4) {
-          ctx.beginPath();
-          ctx.moveTo(13, 9);
-          ctx.lineTo(13 + Math.cos(a) * 8, 9 + Math.sin(a) * 4.5);
-          ctx.stroke();
+                // Radial knit ribs
+                ctx.strokeStyle = '#9a3412';
+                ctx.lineWidth = 0.8;
+                for (let a = 0; a < Math.PI * 2; a += Math.PI / 4) {
+                    ctx.beginPath();
+                    ctx.moveTo(13, 9);
+                    ctx.lineTo(13 + Math.cos(a) * 8, 9 + Math.sin(a) * 4.5);
+                    ctx.stroke();
+                }
+
+                // Center button tuft
+                ctx.fillStyle = '#431407';
+                ctx.beginPath();
+                ctx.arc(13, 9, 1.5, 0, Math.PI * 2);
+                ctx.fill();
+
+                canvas.refresh();
+            }
         }
-
-        // Center button tuft
-        ctx.fillStyle = '#431407';
-        ctx.beginPath();
-        ctx.arc(13, 9, 1.5, 0, Math.PI * 2);
-        ctx.fill();
-
-        canvas.refresh();
-      }
-    }
