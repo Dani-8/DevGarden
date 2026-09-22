@@ -2531,3 +2531,45 @@ export class CafeCommunityTextures {
                 canvas.refresh();
             }
         }
+
+    // =========================================================================
+    // 35. CIRCULAR WALNUT SIDE TABLE WITH LIT CANDLE (18x22) [Concept 1]
+    // =========================================================================
+    if (!textures.exists('cafe_lounge_side_table_candle')) {
+      const canvas = textures.createCanvas('cafe_lounge_side_table_candle', 18, 22);
+      if (canvas) {
+        const ctx = canvas.getContext();
+
+        // Shadow
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+        ctx.beginPath();
+        ctx.ellipse(9, 19, 8, 2.5, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Tripod Wood Legs
+        ctx.fillStyle = '#271206';
+        ctx.fillRect(4, 11, 2, 8);
+        ctx.fillRect(12, 11, 2, 8);
+        ctx.fillRect(8, 11, 2, 9);
+
+        // Round Walnut Tabletop
+        ctx.fillStyle = '#3c1b09';
+        ctx.beginPath();
+        ctx.ellipse(9, 10, 8, 4, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#5c2d13';
+        ctx.beginPath();
+        ctx.ellipse(9, 9, 7.5, 3.5, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Glass Votive Candle (Glowing Amber Flame)
+        ctx.fillStyle = '#f8fafc';
+        ctx.fillRect(7.5, 4, 3, 4);
+        ctx.fillStyle = '#f59e0b';
+        ctx.fillRect(8, 2, 2, 3);
+        ctx.fillStyle = '#fef08a';
+        ctx.fillRect(8.5, 1, 1, 2);
+
+        canvas.refresh();
+      }
+    }
