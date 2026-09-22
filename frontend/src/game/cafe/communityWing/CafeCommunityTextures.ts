@@ -2197,3 +2197,55 @@ export class CafeCommunityTextures {
                 ctx.fillStyle = '#94a3b8';
                 ctx.fillRect(18, 7, 1, 6);
 
+        // Ceramic Coffee Mug with Latte Art
+        ctx.fillStyle = '#f8fafc';
+        ctx.beginPath();
+        ctx.arc(34, 9, 3, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#78350f';
+        ctx.beginPath();
+        ctx.arc(34, 9, 2, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#fef08a';
+        ctx.fillRect(33, 8, 1.5, 1.5);
+
+        canvas.refresh();
+      }
+    }
+
+    // =========================================================================
+    // 30. DEEP FOREST EMERALD & GOLD ACCENT AREA RUG (220x124) [Concept 1 & 5]
+    // =========================================================================
+    if (!textures.exists('cafe_lounge_emerald_gold_rug')) {
+      const canvas = textures.createCanvas('cafe_lounge_emerald_gold_rug', 220, 124);
+      if (canvas) {
+        const ctx = canvas.getContext();
+
+        // Soft Floor Drop Shadow
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.28)';
+        ctx.fillRect(4, 4, 212, 116);
+
+        // Fringes on Left and Right ends
+        ctx.fillStyle = '#cfc6b8';
+        for (let y = 8; y < 116; y += 4) {
+          ctx.fillRect(0, y, 4, 2);
+          ctx.fillRect(216, y, 4, 2);
+        }
+
+        // Deep Forest Charcoal Outer Rim
+        ctx.fillStyle = '#0f2015';
+        ctx.fillRect(4, 4, 212, 116);
+
+        // Warm Polished Brass / Gold Inlay Band (From Concept 1)
+        ctx.fillStyle = '#b45309';
+        ctx.fillRect(8, 8, 204, 108);
+        ctx.fillStyle = '#d97706';
+        ctx.fillRect(9, 9, 202, 106);
+        ctx.fillStyle = '#f59e0b';
+        ctx.fillRect(10, 10, 200, 1);
+        ctx.fillRect(10, 113, 200, 1);
+
+        // Dark Moss Transition Border
+        ctx.fillStyle = '#143320';
+        ctx.fillRect(12, 12, 196, 100);
+
