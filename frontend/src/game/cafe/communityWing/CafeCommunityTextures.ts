@@ -2827,57 +2827,57 @@ export class CafeCommunityTextures {
                 ctx.ellipse(17, 15, 14, 12, 0, 0, Math.PI * 2);
                 ctx.fill();
 
-        ctx.fillStyle = '#1b4332';
-        ctx.beginPath();
-        ctx.ellipse(17, 15, 12, 10, 0, 0, Math.PI * 2);
-        ctx.fill();
+                ctx.fillStyle = '#1b4332';
+                ctx.beginPath();
+                ctx.ellipse(17, 15, 12, 10, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-        // Deep Emerald Cushion
-        ctx.fillStyle = '#2d6a4f';
-        ctx.beginPath();
-        ctx.ellipse(17, 18, 10, 8, 0, 0, Math.PI * 2);
-        ctx.fill();
+                // Deep Emerald Cushion
+                ctx.fillStyle = '#2d6a4f';
+                ctx.beginPath();
+                ctx.ellipse(17, 18, 10, 8, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-        ctx.fillStyle = '#40916c';
-        ctx.beginPath();
-        ctx.ellipse(17, 18, 8, 6, 0, 0, Math.PI * 2);
-        ctx.fill();
+                ctx.fillStyle = '#40916c';
+                ctx.beginPath();
+                ctx.ellipse(17, 18, 8, 6, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-        // Gold Trim Piping Accent
-        ctx.fillStyle = '#b45309';
-        ctx.fillRect(6, 16, 2, 5);
-        ctx.fillRect(26, 16, 2, 5);
+                // Gold Trim Piping Accent
+                ctx.fillStyle = '#b45309';
+                ctx.fillRect(6, 16, 2, 5);
+                ctx.fillRect(26, 16, 2, 5);
 
-        canvas.refresh();
-      }
-    }
+                canvas.refresh();
+            }
+        }
 
-    // =========================================================================
-    // 40. MUSHROOM FLOOR LAMP WITH AMBER GLOW (18x46) [From User's Image!]
-    // =========================================================================
-    if (!textures.exists('cafe_concept1_mushroom_lamp')) {
-      const canvas = textures.createCanvas('cafe_concept1_mushroom_lamp', 18, 46);
-      if (canvas) {
-        const ctx = canvas.getContext();
+        // =========================================================================
+        // 40. MUSHROOM FLOOR LAMP WITH AMBER GLOW (18x46) [From User's Image!]
+        // =========================================================================
+        if (!textures.exists('cafe_concept1_mushroom_lamp')) {
+            const canvas = textures.createCanvas('cafe_concept1_mushroom_lamp', 18, 46);
+            if (canvas) {
+                const ctx = canvas.getContext();
 
-        // Shadow
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
-        ctx.beginPath();
-        ctx.ellipse(9, 43, 7, 2.5, 0, 0, Math.PI * 2);
-        ctx.fill();
+                // Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+                ctx.beginPath();
+                ctx.ellipse(9, 43, 7, 2.5, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-        // Weighted Dark Bronze Round Base
-        ctx.fillStyle = '#292524';
-        ctx.fillRect(4, 40, 10, 3);
-        ctx.fillStyle = '#44403c';
-        ctx.fillRect(5, 39, 8, 2);
+                // Weighted Dark Bronze Round Base
+                ctx.fillStyle = '#292524';
+                ctx.fillRect(4, 40, 10, 3);
+                ctx.fillStyle = '#44403c';
+                ctx.fillRect(5, 39, 8, 2);
 
-        // Slim Stand Pole
-        ctx.fillStyle = '#292524';
-        ctx.fillRect(8, 14, 2, 26);
+                // Slim Stand Pole
+                ctx.fillStyle = '#292524';
+                ctx.fillRect(8, 14, 2, 26);
 
-        // Glowing Mushroom Dome Lampshade (Warm Amber / Golden Glow)
-        ctx.fillStyle = '#b45309';
-        ctx.beginPath();
-        ctx.ellipse(9, 12, 8, 7, 0, 0, Math.PI * 2);
-        ctx.fill();
+                // Glowing Mushroom Dome Lampshade (Warm Amber / Golden Glow)
+                ctx.fillStyle = '#b45309';
+                ctx.beginPath();
+                ctx.ellipse(9, 12, 8, 7, 0, 0, Math.PI * 2);
+                ctx.fill();
