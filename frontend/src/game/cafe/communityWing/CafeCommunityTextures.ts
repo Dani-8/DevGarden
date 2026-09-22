@@ -2574,47 +2574,47 @@ export class CafeCommunityTextures {
             }
         }
 
-    // =========================================================================
-    // 36. ROUNDED COZY VELVET CLUB ARMCHAIR (26x26) [Concept 1]
-    // =========================================================================
-    if (!textures.exists('cafe_lounge_club_armchair')) {
-      const canvas = textures.createCanvas('cafe_lounge_club_armchair', 26, 26);
-      if (canvas) {
-        const ctx = canvas.getContext();
+        // =========================================================================
+        // 36. ROUNDED COZY VELVET CLUB ARMCHAIR (26x26) [Concept 1]
+        // =========================================================================
+        if (!textures.exists('cafe_lounge_club_armchair')) {
+            const canvas = textures.createCanvas('cafe_lounge_club_armchair', 26, 26);
+            if (canvas) {
+                const ctx = canvas.getContext();
 
-        // Shadow
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.32)';
-        ctx.beginPath();
-        ctx.ellipse(13, 23, 11, 3, 0, 0, Math.PI * 2);
-        ctx.fill();
+                // Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.32)';
+                ctx.beginPath();
+                ctx.ellipse(13, 23, 11, 3, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-        // Tapered Walnut Legs
-        ctx.fillStyle = '#271206';
-        ctx.fillRect(4, 18, 2, 5);
-        ctx.fillRect(20, 18, 2, 5);
+                // Tapered Walnut Legs
+                ctx.fillStyle = '#271206';
+                ctx.fillRect(4, 18, 2, 5);
+                ctx.fillRect(20, 18, 2, 5);
 
-        // Curved Barrel Backrest (Deep Forest Emerald Velvet)
-        ctx.fillStyle = '#0f291e';
-        ctx.beginPath();
-        ctx.ellipse(13, 11, 11, 9, 0, 0, Math.PI * 2);
-        ctx.fill();
+                // Curved Barrel Backrest (Deep Forest Emerald Velvet)
+                ctx.fillStyle = '#0f291e';
+                ctx.beginPath();
+                ctx.ellipse(13, 11, 11, 9, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-        ctx.fillStyle = '#1b4332';
-        ctx.beginPath();
-        ctx.ellipse(13, 11, 9.5, 7.5, 0, 0, Math.PI * 2);
-        ctx.fill();
+                ctx.fillStyle = '#1b4332';
+                ctx.beginPath();
+                ctx.ellipse(13, 11, 9.5, 7.5, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-        // Plush Circular Cushion
-        ctx.fillStyle = '#2d6a4f';
-        ctx.beginPath();
-        ctx.ellipse(13, 13, 7.5, 6, 0, 0, Math.PI * 2);
-        ctx.fill();
+                // Plush Circular Cushion
+                ctx.fillStyle = '#2d6a4f';
+                ctx.beginPath();
+                ctx.ellipse(13, 13, 7.5, 6, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-        // Gold Trim Highlight
-        ctx.fillStyle = '#b45309';
-        ctx.fillRect(6, 12, 1, 4);
-        ctx.fillRect(19, 12, 1, 4);
+                // Gold Trim Highlight
+                ctx.fillStyle = '#b45309';
+                ctx.fillRect(6, 12, 1, 4);
+                ctx.fillRect(19, 12, 1, 4);
 
-        canvas.refresh();
-      }
-    }
+                canvas.refresh();
+            }
+        }
