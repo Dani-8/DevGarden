@@ -1592,3 +1592,65 @@ export class CafeCommunityTextures {
             }
         }
 
+    // =========================================================================
+    // 22. RUSTIC LIVE-EDGE COFFEE TABLE WITH BOARD GAME & COFFEE (70x36)
+    // =========================================================================
+    if (!textures.exists('cafe_lofi_coffee_table')) {
+      const canvas = textures.createCanvas('cafe_lofi_coffee_table', 70, 36);
+      if (canvas) {
+        const ctx = canvas.getContext();
+
+        // Floor Shadow
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+        ctx.beginPath();
+        ctx.ellipse(35, 31, 31, 4, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Hairpin Iron Legs
+        ctx.strokeStyle = '#18181b';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(10, 18);
+        ctx.lineTo(8, 30);
+        ctx.moveTo(60, 18);
+        ctx.lineTo(62, 30);
+        ctx.stroke();
+
+        // Warm Teak Tabletop
+        ctx.fillStyle = '#451a03';
+        ctx.beginPath();
+        ctx.ellipse(35, 16, 31, 12, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = '#78350f';
+        ctx.beginPath();
+        ctx.ellipse(35, 15, 29, 10.5, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = '#9a3412';
+        ctx.beginPath();
+        ctx.ellipse(35, 14, 25, 8, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Live edge wood grain rings
+        ctx.strokeStyle = '#b45309';
+        ctx.lineWidth = 0.8;
+        ctx.beginPath();
+        ctx.ellipse(35, 14, 21, 6, 0, 0, Math.PI * 2);
+        ctx.stroke();
+
+        // --- ITEMS ON TABLE ---
+        // Wooden Board Game (Mini Chessboard Grid)
+        ctx.fillStyle = '#fef3c7';
+        ctx.fillRect(16, 9, 14, 11);
+        ctx.fillStyle = '#78350f';
+        for (let row = 0; row < 3; row++) {
+          for (let col = 0; col < 4; col++) {
+            if ((row + col) % 2 === 0) {
+              ctx.fillRect(16 + col * 3.5, 9 + row * 3.5, 3.5, 3.5);
+            }
+          }
+        }
+        ctx.strokeStyle = '#451a03';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(16, 9, 14, 11);
