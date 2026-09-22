@@ -720,63 +720,63 @@ export class CafeCommunityTextures {
             }
         }
 
-    // =========================================================================
-    // 10. LONG PROJECT SHOWCASE PRESENTATION TABLE (110x36)
-    // =========================================================================
-    if (!textures.exists('cafe_showcase_long_table')) {
-      const canvas = textures.createCanvas('cafe_showcase_long_table', 110, 36);
-      if (canvas) {
-        const ctx = canvas.getContext();
+        // =========================================================================
+        // 10. LONG PROJECT SHOWCASE PRESENTATION TABLE (110x36)
+        // =========================================================================
+        if (!textures.exists('cafe_showcase_long_table')) {
+            const canvas = textures.createCanvas('cafe_showcase_long_table', 110, 36);
+            if (canvas) {
+                const ctx = canvas.getContext();
 
-        // Floor Shadow
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
-        ctx.beginPath();
-        ctx.ellipse(55, 32, 52, 4, 0, 0, Math.PI * 2);
-        ctx.fill();
+                // Floor Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+                ctx.beginPath();
+                ctx.ellipse(55, 32, 52, 4, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-        // Legs
-        ctx.fillStyle = '#271206';
-        ctx.fillRect(8, 20, 4, 13);
-        ctx.fillRect(53, 20, 4, 13);
-        ctx.fillRect(98, 20, 4, 13);
+                // Legs
+                ctx.fillStyle = '#271206';
+                ctx.fillRect(8, 20, 4, 13);
+                ctx.fillRect(53, 20, 4, 13);
+                ctx.fillRect(98, 20, 4, 13);
 
-        // Solid Rich Wood Tabletop
-        ctx.fillStyle = '#451a03';
-        ctx.fillRect(4, 6, 102, 16);
-        ctx.fillStyle = '#78350f';
-        ctx.fillRect(6, 7, 98, 13);
-        ctx.fillStyle = '#9a3412';
-        ctx.fillRect(8, 8, 94, 3);
+                // Solid Rich Wood Tabletop
+                ctx.fillStyle = '#451a03';
+                ctx.fillRect(4, 6, 102, 16);
+                ctx.fillStyle = '#78350f';
+                ctx.fillRect(6, 7, 98, 13);
+                ctx.fillStyle = '#9a3412';
+                ctx.fillRect(8, 8, 94, 3);
 
-        // Spec Sheet Left
-        ctx.fillStyle = '#f8fafc';
-        ctx.fillRect(14, 9, 10, 8);
-        ctx.fillStyle = '#ef4444';
-        ctx.fillRect(16, 10, 6, 2);
+                // Spec Sheet Left
+                ctx.fillStyle = '#f8fafc';
+                ctx.fillRect(14, 9, 10, 8);
+                ctx.fillStyle = '#ef4444';
+                ctx.fillRect(16, 10, 6, 2);
 
-        // Open Blueprints
-        ctx.fillStyle = '#0284c7';
-        ctx.fillRect(32, 8, 16, 9);
-        ctx.fillStyle = '#bae6fd';
-        ctx.fillRect(34, 9, 12, 7);
+                // Open Blueprints
+                ctx.fillStyle = '#0284c7';
+                ctx.fillRect(32, 8, 16, 9);
+                ctx.fillStyle = '#bae6fd';
+                ctx.fillRect(34, 9, 12, 7);
 
-        // Center succulent plant pot
-        ctx.fillStyle = '#b45309';
-        ctx.beginPath();
-        ctx.arc(55, 14, 4, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.fillStyle = '#16a34a';
-        ctx.beginPath();
-        ctx.arc(55, 13, 3, 0, Math.PI * 2);
-        ctx.fill();
+                // Center succulent plant pot
+                ctx.fillStyle = '#b45309';
+                ctx.beginPath();
+                ctx.arc(55, 14, 4, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = '#16a34a';
+                ctx.beginPath();
+                ctx.arc(55, 13, 3, 0, Math.PI * 2);
+                ctx.fill();
 
-        // Notebooks Right
-        ctx.fillStyle = '#15803d';
-        ctx.fillRect(72, 9, 10, 8);
-        ctx.fillStyle = '#38bdf8';
-        ctx.fillRect(86, 9, 8, 8);
+                // Notebooks Right
+                ctx.fillStyle = '#15803d';
+                ctx.fillRect(72, 9, 10, 8);
+                ctx.fillStyle = '#38bdf8';
+                ctx.fillRect(86, 9, 8, 8);
 
-        canvas.refresh();
-      }
-    }
+                canvas.refresh();
+            }
+        }
 
