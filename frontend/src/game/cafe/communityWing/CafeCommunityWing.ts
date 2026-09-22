@@ -285,3 +285,85 @@ export class CafeCommunityWing {
         addBtmShowcaseChair(1136);
         addBtmShowcaseChair(1168);
         addBtmShowcaseChair(1199);
+
+    // Flanking plants
+    addPot(1005, 340);
+    addPot(1005, 465);
+    addPot(1295, 465);
+
+    // =========================================================================
+    // 5. ROOM 3: COLLAB & MEETING ROOM (y = 500..708)
+    // =========================================================================
+    // Freestanding Mobile Rolling Whiteboard (Standing on floor at x=1152, y=546)
+    const whiteboard = scene.add.image(1152, 546, 'cafe_collab_whiteboard');
+    whiteboard.setDisplaySize(96, 66);
+    whiteboard.setOrigin(0.5, 0.92);
+    whiteboard.setDepth(546);
+    scene.physics.add.existing(whiteboard, true);
+    const wbBody = whiteboard.body as Phaser.Physics.Arcade.StaticBody;
+    wbBody.setSize(82, 16);
+    wbBody.setOffset(7, 46);
+    obstaclesGroup.add(whiteboard);
+
+    // Discussion & Meeting Table with Laptops & Diagram
+    const collabTable = scene.add.image(1152, 622, 'cafe_collab_group_table');
+    collabTable.setDisplaySize(86, 42);
+    collabTable.setOrigin(0.5, 0.85);
+    collabTable.setDepth(622);
+    scene.physics.add.existing(collabTable, true);
+    const ctBody3 = collabTable.body as Phaser.Physics.Arcade.StaticBody;
+    ctBody3.setSize(78, 26);
+    ctBody3.setOffset(4, 8);
+    obstaclesGroup.add(collabTable);
+
+    // Top Meeting Chairs (Facing DOWN towards table)
+    const addTopMeetChair = (x: number) => {
+      const ch = scene.add.image(x, 592, 'cafe_chair_down');
+      ch.setOrigin(0.5, 0.85);
+      ch.setDepth(592);
+      scene.physics.add.existing(ch, true);
+      obstaclesGroup.add(ch);
+      chairs.push({ x, y: 592, sprite: ch, dir: 'down', standPos: { x, y: 562 } });
+    };
+    addTopMeetChair(1130);
+    addTopMeetChair(1174);
+
+    // Bottom Meeting Chairs (Facing UP towards table)
+    const addBtmMeetChair = (x: number) => {
+      const ch = scene.add.image(x, 652, 'cafe_chair_up');
+      ch.setOrigin(0.5, 0.85);
+      ch.setDepth(652);
+      scene.physics.add.existing(ch, true);
+      obstaclesGroup.add(ch);
+      chairs.push({ x, y: 652, sprite: ch, dir: 'up', standPos: { x, y: 680 } });
+    };
+    addBtmMeetChair(1130);
+    addBtmMeetChair(1174);
+
+    // Left Meeting Chair (Facing RIGHT towards table)
+    const leftChair = scene.add.image(1088, 622, 'cafe_chair_right');
+    leftChair.setOrigin(0.5, 0.85);
+    leftChair.setDepth(622);
+    scene.physics.add.existing(leftChair, true);
+    obstaclesGroup.add(leftChair);
+    chairs.push({ x: 1088, y: 622, sprite: leftChair, dir: 'right', standPos: { x: 1058, y: 622 } });
+
+    // Right Meeting Chair (Facing LEFT towards table)
+    const rightChair = scene.add.image(1216, 622, 'cafe_chair_left');
+    rightChair.setOrigin(0.5, 0.85);
+    rightChair.setDepth(622);
+    scene.physics.add.existing(rightChair, true);
+    obstaclesGroup.add(rightChair);
+    chairs.push({ x: 1216, y: 622, sprite: rightChair, dir: 'left', standPos: { x: 1246, y: 622 } });
+
+    // Flanking plants
+    addPot(1005, 540);
+    addPot(1005, 665);
+    addPot(1295, 665);
+
+    return {
+      showcaseX: 1152,
+      showcaseY: 360,
+    };
+  }
+}
