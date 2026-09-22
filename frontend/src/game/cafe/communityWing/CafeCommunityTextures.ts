@@ -2722,57 +2722,57 @@ export class CafeCommunityTextures {
             }
         }
 
-    // =========================================================================
-    // 38. GENEROUS HONEY-OAK COFFEE TABLE WITH SUCCULENT & BOOK (74x36) [Concept 1]
-    // =========================================================================
-    if (!textures.exists('cafe_concept1_coffee_table')) {
-      const canvas = textures.createCanvas('cafe_concept1_coffee_table', 74, 36);
-      if (canvas) {
-        const ctx = canvas.getContext();
+        // =========================================================================
+        // 38. GENEROUS HONEY-OAK COFFEE TABLE WITH SUCCULENT & BOOK (74x36) [Concept 1]
+        // =========================================================================
+        if (!textures.exists('cafe_concept1_coffee_table')) {
+            const canvas = textures.createCanvas('cafe_concept1_coffee_table', 74, 36);
+            if (canvas) {
+                const ctx = canvas.getContext();
 
-        // Soft Floor Shadow
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.32)';
-        ctx.beginPath();
-        ctx.ellipse(37, 32, 34, 4, 0, 0, Math.PI * 2);
-        ctx.fill();
+                // Soft Floor Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.32)';
+                ctx.beginPath();
+                ctx.ellipse(37, 32, 34, 4, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-        // 4 Warm Walnut Tapered Legs
-        ctx.fillStyle = '#3b1d09';
-        ctx.fillRect(8, 20, 3, 12);
-        ctx.fillRect(63, 20, 3, 12);
-        ctx.fillRect(16, 20, 3, 12);
-        ctx.fillRect(55, 20, 3, 12);
+                // 4 Warm Walnut Tapered Legs
+                ctx.fillStyle = '#3b1d09';
+                ctx.fillRect(8, 20, 3, 12);
+                ctx.fillRect(63, 20, 3, 12);
+                ctx.fillRect(16, 20, 3, 12);
+                ctx.fillRect(55, 20, 3, 12);
 
-        // Solid Honey-Oak Rounded Tabletop
-        ctx.fillStyle = '#4a250e';
-        ctx.beginPath();
-        ctx.roundRect(3, 8, 68, 18, 6);
-        ctx.fill();
+                // Solid Honey-Oak Rounded Tabletop
+                ctx.fillStyle = '#4a250e';
+                ctx.beginPath();
+                ctx.roundRect(3, 8, 68, 18, 6);
+                ctx.fill();
 
-        ctx.fillStyle = '#78350f';
-        ctx.beginPath();
-        ctx.roundRect(4, 7, 66, 18, 5);
-        ctx.fill();
+                ctx.fillStyle = '#78350f';
+                ctx.beginPath();
+                ctx.roundRect(4, 7, 66, 18, 5);
+                ctx.fill();
 
-        ctx.fillStyle = '#9a3412';
-        ctx.beginPath();
-        ctx.roundRect(5, 6, 64, 17, 5);
-        ctx.fill();
+                ctx.fillStyle = '#9a3412';
+                ctx.beginPath();
+                ctx.roundRect(5, 6, 64, 17, 5);
+                ctx.fill();
 
-        ctx.fillStyle = '#b45309';
-        ctx.beginPath();
-        ctx.roundRect(6, 6, 62, 15, 4);
-        ctx.fill();
+                ctx.fillStyle = '#b45309';
+                ctx.beginPath();
+                ctx.roundRect(6, 6, 62, 15, 4);
+                ctx.fill();
 
-        // Center Table Items (from Concept 1):
-        // 1. Ceramic bowl with potted green succulent plant
-        ctx.fillStyle = '#f8fafc';
-        ctx.beginPath();
-        ctx.ellipse(37, 13, 6, 4, 0, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.fillStyle = '#15803d';
-        ctx.beginPath();
-        ctx.arc(37, 12, 4, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.fillStyle = '#4ade80';
-        ctx.fillRect(36, 11, 2, 2);
+                // Center Table Items (from Concept 1):
+                // 1. Ceramic bowl with potted green succulent plant
+                ctx.fillStyle = '#f8fafc';
+                ctx.beginPath();
+                ctx.ellipse(37, 13, 6, 4, 0, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = '#15803d';
+                ctx.beginPath();
+                ctx.arc(37, 12, 4, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = '#4ade80';
+                ctx.fillRect(36, 11, 2, 2);
