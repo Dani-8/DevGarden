@@ -51,3 +51,56 @@ export class CafeCommunityWing {
             addLantern(960, gateY - 34);
             addLantern(960, gateY + 34);
         };
+
+    const addHorizontalWall = (y: number) => {
+      const wall = scene.add.image(1152, y, 'cafe_wing_div_wall_h');
+      wall.setDisplaySize(384, 26);
+      wall.setOrigin(0.5, 0.5);
+      wall.setDepth(y + 10);
+      addWallCollider(1152, y, 384, 20);
+    };
+
+    const addPot = (x: number, y: number) => {
+      const pot = scene.add.image(x, y, 'cafe_luxury_plant_pot');
+      pot.setDisplaySize(28, 48);
+      pot.setOrigin(0.5, 0.85);
+      pot.setDepth(y);
+      scene.physics.add.existing(pot, true);
+      const pBody = pot.body as Phaser.Physics.Arcade.StaticBody;
+      pBody.setSize(18, 16);
+      pBody.setOffset(5, 26);
+      obstaclesGroup.add(pot);
+    };
+
+    // =========================================================================
+    // 1. VERTICAL DIVIDING WALL & ENTRANCE GATES (x = 960)
+    // =========================================================================
+    // Clean, continuous vertical wall with NO gold stripes or drawer marks
+    // Room 1 Vertical Wall Segments & Gate at y = 200
+    addWallPost(960, 134, 68); // y: 100..168
+    addGateEntrance(200);      // Gate opening: y = 168..232 (64px wide clear walk-through)
+
+    // Room 2 Vertical Wall Segments & Gate at y = 400
+    addWallPost(960, 300, 136); // y: 232..368
+    addGateEntrance(400);       // Gate opening: y = 368..432 (64px wide clear walk-through)
+
+    // Room 3 Vertical Wall Segments & Gate at y = 590
+    addWallPost(960, 495, 126); // y: 432..558
+    addGateEntrance(590);       // Gate opening: y = 558..622 (64px wide clear walk-through)
+    addWallPost(960, 665, 86);  // y: 622..708
+
+    // Right Edge and Top Outer Boundaries for Wing
+    addWallCollider(1344, 418, 16, 636); // Far right wall collider
+    addWallCollider(1152, 96, 384, 12);  // Top wall collider
+
+    // =========================================================================
+    // 2. HORIZONTAL SEPARATION WALLS
+    // =========================================================================
+    // Separation between Room 1 & Room 2
+    addHorizontalWall(300);
+
+    // Separation between Room 2 & Room 3
+    addHorizontalWall(500);
+
+    // Bottom Wall Enclosure for Room 3
+    addHorizontalWall(708);
