@@ -1286,141 +1286,141 @@ export class CafeCommunityTextures {
             }
         }
 
-    // =========================================================================
-    // 19. RETRO VINYL TURNTABLE & STEREO CREDENZA (92x48)
-    // =========================================================================
-    if (!textures.exists('cafe_vinyl_turntable_station')) {
-      const canvas = textures.createCanvas('cafe_vinyl_turntable_station', 92, 48);
-      if (canvas) {
-        const ctx = canvas.getContext();
+        // =========================================================================
+        // 19. RETRO VINYL TURNTABLE & STEREO CREDENZA (92x48)
+        // =========================================================================
+        if (!textures.exists('cafe_vinyl_turntable_station')) {
+            const canvas = textures.createCanvas('cafe_vinyl_turntable_station', 92, 48);
+            if (canvas) {
+                const ctx = canvas.getContext();
 
-        // Floor Shadow
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
-        ctx.beginPath();
-        ctx.ellipse(46, 44, 42, 4, 0, 0, Math.PI * 2);
-        ctx.fill();
+                // Floor Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+                ctx.beginPath();
+                ctx.ellipse(46, 44, 42, 4, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-        // Tapered Mid-Century Wooden Peg Legs with Brass Tips
-        ctx.fillStyle = '#271206';
-        ctx.fillRect(10, 36, 4, 9);
-        ctx.fillRect(78, 36, 4, 9);
-        ctx.fillRect(32, 36, 3, 9);
-        ctx.fillRect(57, 36, 3, 9);
-        ctx.fillStyle = '#f59e0b';
-        ctx.fillRect(10, 42, 4, 3);
-        ctx.fillRect(78, 42, 4, 3);
+                // Tapered Mid-Century Wooden Peg Legs with Brass Tips
+                ctx.fillStyle = '#271206';
+                ctx.fillRect(10, 36, 4, 9);
+                ctx.fillRect(78, 36, 4, 9);
+                ctx.fillRect(32, 36, 3, 9);
+                ctx.fillRect(57, 36, 3, 9);
+                ctx.fillStyle = '#f59e0b';
+                ctx.fillRect(10, 42, 4, 3);
+                ctx.fillRect(78, 42, 4, 3);
 
-        // Teak Credenza Body
-        ctx.fillStyle = '#361502';
-        ctx.fillRect(4, 14, 84, 24);
-        ctx.fillStyle = '#5c2406';
-        ctx.fillRect(5, 15, 82, 22);
+                // Teak Credenza Body
+                ctx.fillStyle = '#361502';
+                ctx.fillRect(4, 14, 84, 24);
+                ctx.fillStyle = '#5c2406';
+                ctx.fillRect(5, 15, 82, 22);
 
-        // Credenza Top Surface Lip
-        ctx.fillStyle = '#78350f';
-        ctx.fillRect(3, 12, 86, 3);
-        ctx.fillStyle = '#9a3412';
-        ctx.fillRect(4, 12, 84, 1);
+                // Credenza Top Surface Lip
+                ctx.fillStyle = '#78350f';
+                ctx.fillRect(3, 12, 86, 3);
+                ctx.fillStyle = '#9a3412';
+                ctx.fillRect(4, 12, 84, 1);
 
-        // Lower Shelves with Stored Vinyl Record Spines
-        ctx.fillStyle = '#1c0c04';
-        ctx.fillRect(8, 22, 76, 13);
+                // Lower Shelves with Stored Vinyl Record Spines
+                ctx.fillStyle = '#1c0c04';
+                ctx.fillRect(8, 22, 76, 13);
 
-        // Shelf Dividers
-        ctx.fillStyle = '#5c2406';
-        ctx.fillRect(32, 22, 2, 13);
-        ctx.fillRect(58, 22, 2, 13);
+                // Shelf Dividers
+                ctx.fillStyle = '#5c2406';
+                ctx.fillRect(32, 22, 2, 13);
+                ctx.fillRect(58, 22, 2, 13);
 
-        // Vinyl Album Spines (Colorful vertical slices)
-        const spineColors = [
-          '#ef4444', '#f59e0b', '#10b981', '#3b82f6', '#8b5cf6', '#ec4899', '#f97316',
-          '#e2e8f0', '#06b6d4', '#84cc16', '#a855f7', '#f43f5e', '#fbbf24', '#64748b'
-        ];
-        let px = 10;
-        for (let i = 0; px < 30; i++) {
-          ctx.fillStyle = spineColors[i % spineColors.length];
-          ctx.fillRect(px, 23, 2, 11);
-          px += 2;
+                // Vinyl Album Spines (Colorful vertical slices)
+                const spineColors = [
+                    '#ef4444', '#f59e0b', '#10b981', '#3b82f6', '#8b5cf6', '#ec4899', '#f97316',
+                    '#e2e8f0', '#06b6d4', '#84cc16', '#a855f7', '#f43f5e', '#fbbf24', '#64748b'
+                ];
+                let px = 10;
+                for (let i = 0; px < 30; i++) {
+                    ctx.fillStyle = spineColors[i % spineColors.length];
+                    ctx.fillRect(px, 23, 2, 11);
+                    px += 2;
+                }
+
+                px = 35;
+                for (let i = 4; px < 56; i++) {
+                    ctx.fillStyle = spineColors[i % spineColors.length];
+                    ctx.fillRect(px, 23, 2, 11);
+                    px += 2;
+                }
+
+                px = 61;
+                for (let i = 8; px < 82; i++) {
+                    ctx.fillStyle = spineColors[i % spineColors.length];
+                    ctx.fillRect(px, 23, 2, 11);
+                    px += 2;
+                }
+
+                // --- TOP DECK EQUIPMENT ---
+                // Left Studio Monitor Speaker
+                ctx.fillStyle = '#1c1917';
+                ctx.fillRect(6, 2, 12, 11);
+                ctx.fillStyle = '#292524';
+                ctx.fillRect(7, 3, 10, 9);
+                ctx.fillStyle = '#d97706';
+                ctx.beginPath();
+                ctx.arc(12, 7, 3, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Right Studio Monitor Speaker
+                ctx.fillStyle = '#1c1917';
+                ctx.fillRect(74, 2, 12, 11);
+                ctx.fillStyle = '#292524';
+                ctx.fillRect(75, 3, 10, 9);
+                ctx.fillStyle = '#d97706';
+                ctx.beginPath();
+                ctx.arc(80, 7, 3, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Center-Left Turntable (Player)
+                ctx.fillStyle = '#1e293b';
+                ctx.fillRect(22, 3, 24, 10);
+                ctx.fillStyle = '#0f172a';
+                ctx.fillRect(23, 4, 22, 8);
+
+                // Spinning Vinyl Platter (Black disc with red label)
+                ctx.fillStyle = '#020617';
+                ctx.beginPath();
+                ctx.ellipse(33, 8, 7, 3.5, 0, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = '#ef4444';
+                ctx.beginPath();
+                ctx.ellipse(33, 8, 2.5, 1.2, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Silver Tonearm
+                ctx.strokeStyle = '#cbd5e1';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(42, 5);
+                ctx.lineTo(39, 7);
+                ctx.lineTo(36, 8);
+                ctx.stroke();
+
+                // Center-Right Vintage Receiver with Warm Amber Dials
+                ctx.fillStyle = '#27272a';
+                ctx.fillRect(50, 4, 20, 9);
+                ctx.fillStyle = '#18181b';
+                ctx.fillRect(51, 5, 18, 7);
+
+                // Glowing Amber Frequency Display
+                ctx.fillStyle = '#f59e0b';
+                ctx.fillRect(53, 6, 9, 3);
+                ctx.fillStyle = '#fbbf24';
+                ctx.fillRect(57, 6, 1, 3); // needle
+
+                // Dials
+                ctx.fillStyle = '#a1a1aa';
+                ctx.beginPath();
+                ctx.arc(65, 8, 1.5, 0, Math.PI * 2);
+                ctx.fill();
+
+                canvas.refresh();
+            }
         }
-
-        px = 35;
-        for (let i = 4; px < 56; i++) {
-          ctx.fillStyle = spineColors[i % spineColors.length];
-          ctx.fillRect(px, 23, 2, 11);
-          px += 2;
-        }
-
-        px = 61;
-        for (let i = 8; px < 82; i++) {
-          ctx.fillStyle = spineColors[i % spineColors.length];
-          ctx.fillRect(px, 23, 2, 11);
-          px += 2;
-        }
-
-        // --- TOP DECK EQUIPMENT ---
-        // Left Studio Monitor Speaker
-        ctx.fillStyle = '#1c1917';
-        ctx.fillRect(6, 2, 12, 11);
-        ctx.fillStyle = '#292524';
-        ctx.fillRect(7, 3, 10, 9);
-        ctx.fillStyle = '#d97706';
-        ctx.beginPath();
-        ctx.arc(12, 7, 3, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Right Studio Monitor Speaker
-        ctx.fillStyle = '#1c1917';
-        ctx.fillRect(74, 2, 12, 11);
-        ctx.fillStyle = '#292524';
-        ctx.fillRect(75, 3, 10, 9);
-        ctx.fillStyle = '#d97706';
-        ctx.beginPath();
-        ctx.arc(80, 7, 3, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Center-Left Turntable (Player)
-        ctx.fillStyle = '#1e293b';
-        ctx.fillRect(22, 3, 24, 10);
-        ctx.fillStyle = '#0f172a';
-        ctx.fillRect(23, 4, 22, 8);
-
-        // Spinning Vinyl Platter (Black disc with red label)
-        ctx.fillStyle = '#020617';
-        ctx.beginPath();
-        ctx.ellipse(33, 8, 7, 3.5, 0, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.fillStyle = '#ef4444';
-        ctx.beginPath();
-        ctx.ellipse(33, 8, 2.5, 1.2, 0, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Silver Tonearm
-        ctx.strokeStyle = '#cbd5e1';
-        ctx.lineWidth = 1;
-        ctx.beginPath();
-        ctx.moveTo(42, 5);
-        ctx.lineTo(39, 7);
-        ctx.lineTo(36, 8);
-        ctx.stroke();
-
-        // Center-Right Vintage Receiver with Warm Amber Dials
-        ctx.fillStyle = '#27272a';
-        ctx.fillRect(50, 4, 20, 9);
-        ctx.fillStyle = '#18181b';
-        ctx.fillRect(51, 5, 18, 7);
-
-        // Glowing Amber Frequency Display
-        ctx.fillStyle = '#f59e0b';
-        ctx.fillRect(53, 6, 9, 3);
-        ctx.fillStyle = '#fbbf24';
-        ctx.fillRect(57, 6, 1, 3); // needle
-
-        // Dials
-        ctx.fillStyle = '#a1a1aa';
-        ctx.beginPath();
-        ctx.arc(65, 8, 1.5, 0, Math.PI * 2);
-        ctx.fill();
-
-        canvas.refresh();
-      }
-    }
