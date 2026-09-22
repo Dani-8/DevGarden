@@ -106,83 +106,131 @@ export class CafeCommunityWing {
         addHorizontalWall(708);
 
         // =========================================================================
-        // 3. ROOM 1: CHILL & LOUNGE NOOK (y = 100..300)
+        // 3. ROOM 1: COZY SOFA LOUNGE (y = 100..300) [Exact Concept 1 Design]
         // =========================================================================
-        // Cozy Area Rug
-        const loungeRug = scene.add.image(1152, 200, 'cafe_zone_persian_rug');
-        loungeRug.setDisplaySize(170, 110);
+        // Large Grounded Forest Emerald & Gold Trim Area Rug (240x140)
+        const loungeRug = scene.add.image(1152, 185, 'cafe_lounge_emerald_gold_rug');
+        loungeRug.setDisplaySize(240, 140);
         loungeRug.setOrigin(0.5, 0.5);
         loungeRug.setDepth(5);
 
-        // Plush Velvet Lounge Sofa (Centered at x=1152, y=142)
-        const sofaMain = scene.add.image(1152, 142, 'cafe_lounge_plush_sofa');
-        sofaMain.setDisplaySize(100, 48);
-        sofaMain.setOrigin(0.5, 0.85);
-        sofaMain.setDepth(140);
-        scene.physics.add.existing(sofaMain, true);
-        const sofaBody = sofaMain.body as Phaser.Physics.Arcade.StaticBody;
-        sofaBody.setSize(92, 28);
-        sofaBody.setOffset(4, 10);
-        obstaclesGroup.add(sofaMain);
+        // Back Wall Mounted Mountain Landscape Artwork (Mounted ON the back wall at y=48)
+        const wallArt = scene.add.image(1152, 48, 'cafe_lounge_wall_landscape');
+        wallArt.setDisplaySize(84, 26);
+        wallArt.setOrigin(0.5, 0.5);
+        wallArt.setDepth(2);
 
-        // Interactive Sofa Seats
-        const sSeat1 = scene.add.image(1126, 138, 'cafe_interior_chair');
+        // Wall Draped Botanical Vines along Top Wall Beam
+        const wallVines = scene.add.image(1152, 14, 'cafe_concept1_wall_vines');
+        wallVines.setDisplaySize(180, 28);
+        wallVines.setOrigin(0.5, 0.5);
+        wallVines.setDepth(3);
+
+        // Flanking Warm Amber Wall Lanterns on the Back Wall (y=48)
+        addLantern(1074, 48);
+        addLantern(1230, 48);
+
+        // Grand Plush Cream & Wood Frame Lounge Sofa (132x46, at x=1152, y=122)
+        const loungeSofa = scene.add.image(1152, 122, 'cafe_concept1_cream_sofa');
+        loungeSofa.setDisplaySize(132, 46);
+        loungeSofa.setOrigin(0.5, 0.85);
+        loungeSofa.setDepth(122);
+        scene.physics.add.existing(loungeSofa, true);
+        const sofaBody = loungeSofa.body as Phaser.Physics.Arcade.StaticBody;
+        sofaBody.setSize(124, 22);
+        sofaBody.setOffset(4, 16);
+        obstaclesGroup.add(loungeSofa);
+
+        // Interactive Sofa Seats (3 plush seating spots with forward egress)
+        const sSeat1 = scene.add.image(1114, 118, 'cafe_interior_chair');
         sSeat1.setVisible(false);
-        chairs.push({ x: 1126, y: 138, sprite: sSeat1, dir: 'down', standPos: { x: 1126, y: 166 } });
+        chairs.push({ x: 1114, y: 118, sprite: sSeat1, dir: 'down', standPos: { x: 1114, y: 148 } });
 
-        const sSeat2 = scene.add.image(1152, 138, 'cafe_interior_chair');
+        const sSeat2 = scene.add.image(1152, 118, 'cafe_interior_chair');
         sSeat2.setVisible(false);
-        chairs.push({ x: 1152, y: 138, sprite: sSeat2, dir: 'down', standPos: { x: 1152, y: 166 } });
+        chairs.push({ x: 1152, y: 118, sprite: sSeat2, dir: 'down', standPos: { x: 1152, y: 148 } });
 
-        const sSeat3 = scene.add.image(1178, 138, 'cafe_interior_chair');
+        const sSeat3 = scene.add.image(1190, 118, 'cafe_interior_chair');
         sSeat3.setVisible(false);
-        chairs.push({ x: 1178, y: 138, sprite: sSeat3, dir: 'down', standPos: { x: 1178, y: 166 } });
+        chairs.push({ x: 1190, y: 118, sprite: sSeat3, dir: 'down', standPos: { x: 1190, y: 148 } });
 
-        // Coffee Table with Laptop & Drinks
-        const coffeeTable = scene.add.image(1152, 195, 'cafe_lounge_coffee_table_deluxe');
-        coffeeTable.setDisplaySize(72, 36);
+        // Left Mushroom Floor Lamp (Beside sofa at x=1068, y=126)
+        const lampL = scene.add.image(1068, 126, 'cafe_concept1_mushroom_lamp');
+        lampL.setDisplaySize(18, 46);
+        lampL.setOrigin(0.5, 0.92);
+        lampL.setDepth(126);
+        scene.physics.add.existing(lampL, true);
+        const llBody = lampL.body as Phaser.Physics.Arcade.StaticBody;
+        llBody.setSize(12, 10);
+        llBody.setOffset(3, 34);
+        obstaclesGroup.add(lampL);
+
+        // Right Mushroom Floor Lamp (Beside sofa at x=1236, y=126, directly from user's image)
+        const lampR = scene.add.image(1236, 126, 'cafe_concept1_mushroom_lamp');
+        lampR.setDisplaySize(18, 46);
+        lampR.setOrigin(0.5, 0.92);
+        lampR.setDepth(126);
+        scene.physics.add.existing(lampR, true);
+        const lrBody = lampR.body as Phaser.Physics.Arcade.StaticBody;
+        lrBody.setSize(12, 10);
+        lrBody.setOffset(3, 34);
+        obstaclesGroup.add(lampR);
+
+        // Top-Left Broad-Leaf Plant in Terracotta Pot (at x=1030, y=124)
+        addPot(1030, 124);
+
+        // Top-Right Broad-Leaf Plant in Terracotta Pot (at x=1274, y=124, from user's image)
+        addPot(1274, 124);
+
+        // Generous Honey-Oak Coffee Table with Succulent & Book (74x36, at x=1152, y=172)
+        const coffeeTable = scene.add.image(1152, 172, 'cafe_concept1_coffee_table');
+        coffeeTable.setDisplaySize(74, 36);
         coffeeTable.setOrigin(0.5, 0.85);
-        coffeeTable.setDepth(195);
+        coffeeTable.setDepth(172);
         scene.physics.add.existing(coffeeTable, true);
         const ctBody = coffeeTable.body as Phaser.Physics.Arcade.StaticBody;
-        ctBody.setSize(64, 24);
-        ctBody.setOffset(4, 8);
+        ctBody.setSize(70, 20);
+        ctBody.setOffset(2, 8);
         obstaclesGroup.add(coffeeTable);
 
-        // Armchair (Left - Facing RIGHT towards table)
-        const armChairL = scene.add.image(1075, 195, 'cafe_chair_right');
+        // Left Emerald Club Armchair (at x=1108, y=222, facing UP towards coffee table)
+        const armChairL = scene.add.image(1108, 222, 'cafe_concept1_emerald_armchair');
+        armChairL.setDisplaySize(34, 34);
         armChairL.setOrigin(0.5, 0.85);
-        armChairL.setDepth(194);
+        armChairL.setDepth(222);
         scene.physics.add.existing(armChairL, true);
+        const acBodyL = armChairL.body as Phaser.Physics.Arcade.StaticBody;
+        acBodyL.setSize(28, 20);
+        acBodyL.setOffset(3, 10);
         obstaclesGroup.add(armChairL);
-        chairs.push({ x: 1075, y: 195, sprite: armChairL, dir: 'right', standPos: { x: 1046, y: 195 } });
+        chairs.push({ x: 1108, y: 222, sprite: armChairL, dir: 'up', standPos: { x: 1108, y: 250 } });
 
-        // Armchair (Right - Facing LEFT towards table)
-        const armChairR = scene.add.image(1229, 195, 'cafe_chair_left');
+        // Right Emerald Club Armchair (at x=1196, y=222, facing UP towards coffee table)
+        const armChairR = scene.add.image(1196, 222, 'cafe_concept1_emerald_armchair');
+        armChairR.setDisplaySize(34, 34);
         armChairR.setOrigin(0.5, 0.85);
-        armChairR.setDepth(194);
+        armChairR.setDepth(222);
         scene.physics.add.existing(armChairR, true);
+        const acBodyR = armChairR.body as Phaser.Physics.Arcade.StaticBody;
+        acBodyR.setSize(28, 20);
+        acBodyR.setOffset(3, 10);
         obstaclesGroup.add(armChairR);
-        chairs.push({ x: 1229, y: 195, sprite: armChairR, dir: 'left', standPos: { x: 1258, y: 195 } });
+        chairs.push({ x: 1196, y: 222, sprite: armChairR, dir: 'up', standPos: { x: 1196, y: 250 } });
 
-        // Bookshelf in top right corner of Room 1
-        const room1Shelf = scene.add.image(1290, 140, 'cafe_bookshelf');
-        room1Shelf.setDisplaySize(38, 54);
-        room1Shelf.setOrigin(0.5, 0.85);
-        room1Shelf.setDepth(140);
-        scene.physics.add.existing(room1Shelf, true);
-        obstaclesGroup.add(room1Shelf);
+        // Small Round Wooden Side Table with Lit Candle (Between club chairs at x=1152, y=222)
+        const centerSideTable = scene.add.image(1152, 222, 'cafe_lounge_side_table_candle');
+        centerSideTable.setDisplaySize(18, 22);
+        centerSideTable.setOrigin(0.5, 0.85);
+        centerSideTable.setDepth(222);
+        scene.physics.add.existing(centerSideTable, true);
+        const cstBody = centerSideTable.body as Phaser.Physics.Arcade.StaticBody;
+        cstBody.setSize(14, 12);
+        cstBody.setOffset(2, 8);
+        obstaclesGroup.add(centerSideTable);
 
-        // Side table with lamp on right wall
-        const sideTable = scene.add.image(1290, 240, 'cafe_lounge_side_table');
-        sideTable.setOrigin(0.5, 0.85);
-        sideTable.setDepth(240);
-        scene.physics.add.existing(sideTable, true);
-        obstaclesGroup.add(sideTable);
-
-        // Flanking plants
-        addPot(1005, 135);
-        addPot(1005, 265);
+        // Flanking doorway entrance plants
+        addPot(1005, 170);
+        addPot(1005, 238);
 
         // =========================================================================
         // 4. ROOM 2: PROJECT SHOWCASE HUB (y = 300..500)
@@ -238,14 +286,6 @@ export class CafeCommunityWing {
         addBtmShowcaseChair(1168);
         addBtmShowcaseChair(1199);
 
-        // Trophy / Awards Showcase Cabinet on right wall
-        const trophyCabinet = scene.add.image(1290, 360, 'cafe_trophy_cabinet');
-        trophyCabinet.setDisplaySize(32, 56);
-        trophyCabinet.setOrigin(0.5, 0.85);
-        trophyCabinet.setDepth(360);
-        scene.physics.add.existing(trophyCabinet, true);
-        obstaclesGroup.add(trophyCabinet);
-
         // Flanking plants
         addPot(1005, 340);
         addPot(1005, 465);
@@ -264,13 +304,6 @@ export class CafeCommunityWing {
         wbBody.setSize(82, 16);
         wbBody.setOffset(7, 46);
         obstaclesGroup.add(whiteboard);
-
-
-        // Cork Bulletin Board on right wall
-        const bulletinBoard = scene.add.image(1285, 545, 'cafe_cork_bulletin_board');
-        bulletinBoard.setDisplaySize(38, 32);
-        bulletinBoard.setOrigin(0.5, 0.5);
-        bulletinBoard.setDepth(545);
 
         // Discussion & Meeting Table with Laptops & Diagram
         const collabTable = scene.add.image(1152, 622, 'cafe_collab_group_table');

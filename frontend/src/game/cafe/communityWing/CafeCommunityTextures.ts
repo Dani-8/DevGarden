@@ -428,7 +428,6 @@ export class CafeCommunityTextures {
             }
         }
 
-
         // =========================================================================
         // 7. COZY PLUSH CRIMSON LOUNGE SOFA (64x40)
         // =========================================================================
@@ -779,7 +778,6 @@ export class CafeCommunityTextures {
                 canvas.refresh();
             }
         }
-
 
         // =========================================================================
         // 11. DELUXE GLASS TROPHY & AWARDS CABINET (32x56)
@@ -1424,7 +1422,6 @@ export class CafeCommunityTextures {
                 canvas.refresh();
             }
         }
-
 
         // =========================================================================
         // 20. FRAMED RETRO ALBUM ART POSTERS (22x22 each)
