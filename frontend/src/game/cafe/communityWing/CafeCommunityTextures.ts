@@ -312,3 +312,59 @@ export class CafeCommunityTextures {
                 canvas.refresh();
             }
         }
+
+    // =========================================================================
+    // 5. WARM WOVEN COIR DOORWAY MAT (64x96)
+    // =========================================================================
+    if (!textures.exists('cafe_wing_gate_mat')) {
+      const canvas = textures.createCanvas('cafe_wing_gate_mat', 64, 96);
+      if (canvas) {
+        const ctx = canvas.getContext();
+
+        // Floor Shadow
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+        ctx.beginPath();
+        ctx.roundRect(2, 3, 60, 90, 6);
+        ctx.fill();
+
+        // Heavy Black Vulcanized Rubber Rim
+        ctx.fillStyle = '#1c1917';
+        ctx.beginPath();
+        ctx.roundRect(1, 2, 62, 92, 5);
+        ctx.fill();
+
+        // Rubber Edge Highlight
+        ctx.fillStyle = '#292524';
+        ctx.beginPath();
+        ctx.roundRect(2, 3, 60, 90, 4);
+        ctx.fill();
+
+        // Heavy Braided Coir Fiber Bed
+        ctx.fillStyle = '#9c663b';
+        ctx.fillRect(5, 6, 54, 84);
+
+        // Dense woven ribbing texture
+        for (let y = 6; y < 90; y += 3) {
+          ctx.fillStyle = (Math.floor(y / 3) % 2 === 0) ? '#ad7748' : '#885329';
+          ctx.fillRect(5, y, 54, 2);
+        }
+
+        // Inner Stenciled Border Box
+        ctx.strokeStyle = '#1c1917';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(9, 10, 46, 76);
+
+        ctx.strokeStyle = '#d97706';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(11, 12, 42, 72);
+
+        // Corner stencil accents
+        ctx.fillStyle = '#1c1917';
+        ctx.fillRect(9, 10, 4, 4);
+        ctx.fillRect(51, 10, 4, 4);
+        ctx.fillRect(9, 82, 4, 4);
+        ctx.fillRect(51, 82, 4, 4);
+
+        canvas.refresh();
+      }
+    }
