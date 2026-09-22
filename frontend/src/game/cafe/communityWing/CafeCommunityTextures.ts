@@ -1137,152 +1137,152 @@ export class CafeCommunityTextures {
             }
         }
 
-    // =========================================================================
-    // 16. WARM WALL LANTERN SCONCE (16x16)
-    // =========================================================================
-    if (!textures.exists('cafe_wing_wall_lantern')) {
-      const canvas = textures.createCanvas('cafe_wing_wall_lantern', 16, 16);
-      if (canvas) {
-        const ctx = canvas.getContext();
+        // =========================================================================
+        // 16. WARM WALL LANTERN SCONCE (16x16)
+        // =========================================================================
+        if (!textures.exists('cafe_wing_wall_lantern')) {
+            const canvas = textures.createCanvas('cafe_wing_wall_lantern', 16, 16);
+            if (canvas) {
+                const ctx = canvas.getContext();
 
-        // Dark iron bracket
-        ctx.fillStyle = '#1c1917';
-        ctx.fillRect(7, 3, 2, 10);
-        ctx.fillRect(5, 4, 6, 2);
-        ctx.fillRect(4, 11, 8, 2);
+                // Dark iron bracket
+                ctx.fillStyle = '#1c1917';
+                ctx.fillRect(7, 3, 2, 10);
+                ctx.fillRect(5, 4, 6, 2);
+                ctx.fillRect(4, 11, 8, 2);
 
-        // Warm Glowing Amber Lantern Glass
-        ctx.fillStyle = '#f59e0b';
-        ctx.fillRect(5, 6, 6, 5);
-        ctx.fillStyle = '#fef08a';
-        ctx.fillRect(6, 7, 4, 3);
-        ctx.fillStyle = '#ffffff';
-        ctx.fillRect(7, 7, 2, 2);
+                // Warm Glowing Amber Lantern Glass
+                ctx.fillStyle = '#f59e0b';
+                ctx.fillRect(5, 6, 6, 5);
+                ctx.fillStyle = '#fef08a';
+                ctx.fillRect(6, 7, 4, 3);
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(7, 7, 2, 2);
 
-        canvas.refresh();
-      }
-    }
-
-    // =========================================================================
-    // 17. SPHERICAL LUXURY POTTED PLANT POT (32x56)
-    // =========================================================================
-    if (!textures.exists('cafe_luxury_plant_pot')) {
-      const canvas = textures.createCanvas('cafe_luxury_plant_pot', 32, 56);
-      if (canvas) {
-        const ctx = canvas.getContext();
-
-        // Floor Shadow
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
-        ctx.beginPath();
-        ctx.ellipse(16, 52, 12, 3, 0, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Terracotta Pot Base
-        ctx.fillStyle = '#9a3412';
-        ctx.beginPath();
-        ctx.moveTo(8, 36);
-        ctx.lineTo(24, 36);
-        ctx.lineTo(21, 52);
-        ctx.lineTo(11, 52);
-        ctx.closePath();
-        ctx.fill();
-
-        // Pot Rim
-        ctx.fillStyle = '#c2410c';
-        ctx.fillRect(6, 33, 20, 4);
-
-        // White accent pot band
-        ctx.fillStyle = '#f8fafc';
-        ctx.fillRect(9, 41, 14, 3);
-
-        // Trunk / Stem
-        ctx.fillStyle = '#451a03';
-        ctx.fillRect(15, 20, 2, 14);
-
-        // Lush Spherical Foliage (Topiary sphere)
-        ctx.fillStyle = '#14532d';
-        ctx.beginPath();
-        ctx.arc(16, 16, 12, 0, Math.PI * 2);
-        ctx.fill();
-
-        ctx.fillStyle = '#16a34a';
-        ctx.beginPath();
-        ctx.arc(15, 14, 10, 0, Math.PI * 2);
-        ctx.fill();
-
-        ctx.fillStyle = '#4ade80';
-        ctx.beginPath();
-        ctx.arc(13, 12, 5, 0, Math.PI * 2);
-        ctx.fill();
-
-        canvas.refresh();
-      }
-    }
-
-    // =========================================================================
-    // 18. LO-FI BOHEMIAN GEOMETRIC AREA RUG (220x120)
-    // =========================================================================
-    if (!textures.exists('cafe_lofi_boho_rug')) {
-      const canvas = textures.createCanvas('cafe_lofi_boho_rug', 220, 120);
-      if (canvas) {
-        const ctx = canvas.getContext();
-
-        // Floor Shadow
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.22)';
-        ctx.fillRect(4, 4, 212, 112);
-
-        // Fringes on Left and Right ends
-        ctx.fillStyle = '#e7dfd5';
-        for (let y = 8; y < 112; y += 4) {
-          ctx.fillRect(0, y, 4, 2);
-          ctx.fillRect(216, y, 4, 2);
+                canvas.refresh();
+            }
         }
 
-        // Cream woven base field
-        ctx.fillStyle = '#f8f5ee';
-        ctx.fillRect(4, 4, 212, 112);
+        // =========================================================================
+        // 17. SPHERICAL LUXURY POTTED PLANT POT (32x56)
+        // =========================================================================
+        if (!textures.exists('cafe_luxury_plant_pot')) {
+            const canvas = textures.createCanvas('cafe_luxury_plant_pot', 32, 56);
+            if (canvas) {
+                const ctx = canvas.getContext();
 
-        // Outer terracotta border
-        ctx.fillStyle = '#9a3412';
-        ctx.fillRect(8, 8, 204, 3);
-        ctx.fillRect(8, 109, 204, 3);
-        ctx.fillRect(8, 8, 3, 104);
-        ctx.fillRect(209, 8, 3, 104);
+                // Floor Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+                ctx.beginPath();
+                ctx.ellipse(16, 52, 12, 3, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-        // Inner sage charcoal accent stripe
-        ctx.fillStyle = '#292524';
-        ctx.fillRect(14, 14, 192, 2);
-        ctx.fillRect(14, 104, 192, 2);
-        ctx.fillRect(14, 14, 2, 92);
-        ctx.fillRect(204, 14, 2, 92);
+                // Terracotta Pot Base
+                ctx.fillStyle = '#9a3412';
+                ctx.beginPath();
+                ctx.moveTo(8, 36);
+                ctx.lineTo(24, 36);
+                ctx.lineTo(21, 52);
+                ctx.lineTo(11, 52);
+                ctx.closePath();
+                ctx.fill();
 
-        // Diamond Aztec Motifs across center
-        const drawDiamond = (cx: number, cy: number, size: number, color: string) => {
-          ctx.fillStyle = color;
-          ctx.beginPath();
-          ctx.moveTo(cx, cy - size);
-          ctx.lineTo(cx + size, cy);
-          ctx.lineTo(cx, cy + size);
-          ctx.lineTo(cx - size, cy);
-          ctx.closePath();
-          ctx.fill();
-        };
+                // Pot Rim
+                ctx.fillStyle = '#c2410c';
+                ctx.fillRect(6, 33, 20, 4);
 
-        const centers = [40, 78, 110, 142, 180];
-        centers.forEach((cx) => {
-          drawDiamond(cx, 60, 22, '#ea580c');
-          drawDiamond(cx, 60, 16, '#f8f5ee');
-          drawDiamond(cx, 60, 11, '#0f766e');
-          drawDiamond(cx, 60, 5, '#f59e0b');
-        });
+                // White accent pot band
+                ctx.fillStyle = '#f8fafc';
+                ctx.fillRect(9, 41, 14, 3);
 
-        // Soft woven horizontal weave lines
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.04)';
-        for (let y = 18; y < 100; y += 3) {
-          ctx.fillRect(16, y, 188, 1);
+                // Trunk / Stem
+                ctx.fillStyle = '#451a03';
+                ctx.fillRect(15, 20, 2, 14);
+
+                // Lush Spherical Foliage (Topiary sphere)
+                ctx.fillStyle = '#14532d';
+                ctx.beginPath();
+                ctx.arc(16, 16, 12, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.fillStyle = '#16a34a';
+                ctx.beginPath();
+                ctx.arc(15, 14, 10, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.fillStyle = '#4ade80';
+                ctx.beginPath();
+                ctx.arc(13, 12, 5, 0, Math.PI * 2);
+                ctx.fill();
+
+                canvas.refresh();
+            }
         }
 
-        canvas.refresh();
-      }
-    }
+        // =========================================================================
+        // 18. LO-FI BOHEMIAN GEOMETRIC AREA RUG (220x120)
+        // =========================================================================
+        if (!textures.exists('cafe_lofi_boho_rug')) {
+            const canvas = textures.createCanvas('cafe_lofi_boho_rug', 220, 120);
+            if (canvas) {
+                const ctx = canvas.getContext();
+
+                // Floor Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.22)';
+                ctx.fillRect(4, 4, 212, 112);
+
+                // Fringes on Left and Right ends
+                ctx.fillStyle = '#e7dfd5';
+                for (let y = 8; y < 112; y += 4) {
+                    ctx.fillRect(0, y, 4, 2);
+                    ctx.fillRect(216, y, 4, 2);
+                }
+
+                // Cream woven base field
+                ctx.fillStyle = '#f8f5ee';
+                ctx.fillRect(4, 4, 212, 112);
+
+                // Outer terracotta border
+                ctx.fillStyle = '#9a3412';
+                ctx.fillRect(8, 8, 204, 3);
+                ctx.fillRect(8, 109, 204, 3);
+                ctx.fillRect(8, 8, 3, 104);
+                ctx.fillRect(209, 8, 3, 104);
+
+                // Inner sage charcoal accent stripe
+                ctx.fillStyle = '#292524';
+                ctx.fillRect(14, 14, 192, 2);
+                ctx.fillRect(14, 104, 192, 2);
+                ctx.fillRect(14, 14, 2, 92);
+                ctx.fillRect(204, 14, 2, 92);
+
+                // Diamond Aztec Motifs across center
+                const drawDiamond = (cx: number, cy: number, size: number, color: string) => {
+                    ctx.fillStyle = color;
+                    ctx.beginPath();
+                    ctx.moveTo(cx, cy - size);
+                    ctx.lineTo(cx + size, cy);
+                    ctx.lineTo(cx, cy + size);
+                    ctx.lineTo(cx - size, cy);
+                    ctx.closePath();
+                    ctx.fill();
+                };
+
+                const centers = [40, 78, 110, 142, 180];
+                centers.forEach((cx) => {
+                    drawDiamond(cx, 60, 22, '#ea580c');
+                    drawDiamond(cx, 60, 16, '#f8f5ee');
+                    drawDiamond(cx, 60, 11, '#0f766e');
+                    drawDiamond(cx, 60, 5, '#f59e0b');
+                });
+
+                // Soft woven horizontal weave lines
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.04)';
+                for (let y = 18; y < 100; y += 3) {
+                    ctx.fillRect(16, y, 188, 1);
+                }
+
+                canvas.refresh();
+            }
+        }
 
