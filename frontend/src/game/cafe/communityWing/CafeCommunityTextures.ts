@@ -239,3 +239,11 @@ export class CafeCommunityTextures {
                         ctx.fillRect(rx, 14, rw, 1);
                     }
                 }
+
+        // Base skirting line
+        ctx.fillStyle = '#3d3832';
+        ctx.fillRect(0, 19, 384, 1);
+
+        canvas.refresh();
+      }
+    }
