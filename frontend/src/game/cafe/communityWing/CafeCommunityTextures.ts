@@ -1895,55 +1895,55 @@ export class CafeCommunityTextures {
                 ctx.fillStyle = '#fef08a';
                 ctx.fillRect(17, 15, 10, 5);
 
-        // Warm Light Glow Aura
-        ctx.fillStyle = 'rgba(254, 240, 138, 0.25)';
-        ctx.beginPath();
-        ctx.moveTo(22, 20);
-        ctx.lineTo(12, 34);
-        ctx.lineTo(32, 34);
-        ctx.closePath();
-        ctx.fill();
+                // Warm Light Glow Aura
+                ctx.fillStyle = 'rgba(254, 240, 138, 0.25)';
+                ctx.beginPath();
+                ctx.moveTo(22, 20);
+                ctx.lineTo(12, 34);
+                ctx.lineTo(32, 34);
+                ctx.closePath();
+                ctx.fill();
 
-        canvas.refresh();
-      }
-    }
+                canvas.refresh();
+            }
+        }
 
-    // =========================================================================
-    // 26. ACOUSTIC GUITAR ON FLOOR STAND WITH MUSIC BASKET (26x44)
-    // =========================================================================
-    if (!textures.exists('cafe_lofi_guitar_stand')) {
-      const canvas = textures.createCanvas('cafe_lofi_guitar_stand', 26, 44);
-      if (canvas) {
-        const ctx = canvas.getContext();
+        // =========================================================================
+        // 26. ACOUSTIC GUITAR ON FLOOR STAND WITH MUSIC BASKET (26x44)
+        // =========================================================================
+        if (!textures.exists('cafe_lofi_guitar_stand')) {
+            const canvas = textures.createCanvas('cafe_lofi_guitar_stand', 26, 44);
+            if (canvas) {
+                const ctx = canvas.getContext();
 
-        // Floor Shadow
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
-        ctx.beginPath();
-        ctx.ellipse(13, 41, 11, 3, 0, 0, Math.PI * 2);
-        ctx.fill();
+                // Floor Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+                ctx.beginPath();
+                ctx.ellipse(13, 41, 11, 3, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-        // Tripod Stand
-        ctx.strokeStyle = '#27272a';
-        ctx.lineWidth = 1.5;
-        ctx.beginPath();
-        ctx.moveTo(6, 42);
-        ctx.lineTo(12, 26);
-        ctx.lineTo(18, 42);
-        ctx.stroke();
+                // Tripod Stand
+                ctx.strokeStyle = '#27272a';
+                ctx.lineWidth = 1.5;
+                ctx.beginPath();
+                ctx.moveTo(6, 42);
+                ctx.lineTo(12, 26);
+                ctx.lineTo(18, 42);
+                ctx.stroke();
 
-        // Guitar Lower Bout
-        ctx.fillStyle = '#5c2d13';
-        ctx.beginPath();
-        ctx.ellipse(12, 28, 7, 8, 0, 0, Math.PI * 2);
-        ctx.fill();
+                // Guitar Lower Bout
+                ctx.fillStyle = '#5c2d13';
+                ctx.beginPath();
+                ctx.ellipse(12, 28, 7, 8, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-        ctx.fillStyle = '#ca8a04';
-        ctx.beginPath();
-        ctx.ellipse(12, 28, 6, 7, 0, 0, Math.PI * 2);
-        ctx.fill();
+                ctx.fillStyle = '#ca8a04';
+                ctx.beginPath();
+                ctx.ellipse(12, 28, 6, 7, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-        // Guitar Upper Bout
-        ctx.fillStyle = '#5c2d13';
-        ctx.beginPath();
-        ctx.ellipse(12, 18, 5, 5, 0, 0, Math.PI * 2);
-        ctx.fill();
+                // Guitar Upper Bout
+                ctx.fillStyle = '#5c2d13';
+                ctx.beginPath();
+                ctx.ellipse(12, 18, 5, 5, 0, 0, Math.PI * 2);
+                ctx.fill();
