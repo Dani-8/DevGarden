@@ -1654,3 +1654,51 @@ export class CafeCommunityTextures {
                 ctx.strokeStyle = '#451a03';
                 ctx.lineWidth = 1;
                 ctx.strokeRect(16, 9, 14, 11);
+
+        // Ceramic Coffee Mug 1 (Speckled Oat with Latte Foam)
+        ctx.fillStyle = '#f5f5f4';
+        ctx.beginPath();
+        ctx.arc(38, 12, 3.5, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#78350f';
+        ctx.beginPath();
+        ctx.arc(38, 12, 2.5, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#fef08a';
+        ctx.fillRect(37, 11, 2, 2); // Latte heart
+
+        // Ceramic Coffee Mug 2 (Sage Green)
+        ctx.fillStyle = '#166534';
+        ctx.beginPath();
+        ctx.arc(47, 17, 3, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#451a03';
+        ctx.beginPath();
+        ctx.arc(47, 17, 2, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Vinyl Album Cover resting on table edge
+        ctx.fillStyle = '#0284c7';
+        ctx.fillRect(48, 8, 12, 10);
+        ctx.fillStyle = '#fde047';
+        ctx.beginPath();
+        ctx.arc(54, 13, 3, 0, Math.PI * 2);
+        ctx.fill();
+
+        canvas.refresh();
+      }
+    }
+
+    // =========================================================================
+    // 23. WOVEN ROUND FLOOR POUF / OTTOMAN (26x22)
+    // =========================================================================
+    if (!textures.exists('cafe_lofi_floor_pouf')) {
+      const canvas = textures.createCanvas('cafe_lofi_floor_pouf', 26, 22);
+      if (canvas) {
+        const ctx = canvas.getContext();
+
+        // Floor Shadow
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.28)';
+        ctx.beginPath();
+        ctx.ellipse(13, 19, 11, 3, 0, 0, Math.PI * 2);
+        ctx.fill();
