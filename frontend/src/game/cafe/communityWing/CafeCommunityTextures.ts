@@ -136,3 +136,55 @@ export class CafeCommunityTextures {
                 canvas.refresh();
             }
         }
+
+    if (!textures.exists('cafe_wing_floor_wood_2')) {
+      const canvas = textures.createCanvas('cafe_wing_floor_wood_2', 32, 32);
+      if (canvas) {
+        const ctx = canvas.getContext();
+
+        // Base Wood Alternate Variant
+        ctx.fillStyle = '#865433';
+        ctx.fillRect(0, 0, 32, 32);
+
+        // Plank 1
+        ctx.fillStyle = '#8a5735';
+        ctx.fillRect(0, 1, 32, 7);
+        ctx.fillStyle = '#9d6540';
+        ctx.fillRect(0, 2, 32, 1);
+        ctx.fillStyle = '#61381d';
+        ctx.fillRect(22, 1, 1, 7);
+
+        // Plank 2
+        ctx.fillStyle = '#905b39';
+        ctx.fillRect(0, 9, 32, 7);
+        ctx.fillStyle = '#a56c46';
+        ctx.fillRect(0, 10, 32, 1);
+        ctx.fillStyle = '#61381d';
+        ctx.fillRect(6, 9, 1, 7);
+
+        // Plank 3
+        ctx.fillStyle = '#825130';
+        ctx.fillRect(0, 17, 32, 7);
+        ctx.fillStyle = '#97603b';
+        ctx.fillRect(0, 18, 32, 1);
+        ctx.fillStyle = '#61381d';
+        ctx.fillRect(28, 17, 1, 7);
+
+        // Plank 4
+        ctx.fillStyle = '#8c5836';
+        ctx.fillRect(0, 25, 32, 7);
+        ctx.fillStyle = '#a16843';
+        ctx.fillRect(0, 26, 32, 1);
+        ctx.fillStyle = '#61381d';
+        ctx.fillRect(12, 25, 1, 7);
+
+        // Groove shadows
+        ctx.fillStyle = '#462611';
+        ctx.fillRect(0, 0, 32, 1);
+        ctx.fillRect(0, 8, 32, 1);
+        ctx.fillRect(0, 16, 32, 1);
+        ctx.fillRect(0, 24, 32, 1);
+
+        canvas.refresh();
+      }
+    }
