@@ -1475,3 +1475,120 @@ export class CafeCommunityTextures {
                 ctx.beginPath();
                 ctx.arc(11, 7, 3.5, 0, Math.PI * 2);
                 ctx.fill();
+
+        ctx.fillStyle = '#15803d';
+        ctx.beginPath();
+        ctx.ellipse(11, 14, 4, 2, -Math.PI / 4, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.ellipse(11, 11, 4, 2, Math.PI / 4, 0, Math.PI * 2);
+        ctx.fill();
+
+        canvas.refresh();
+      }
+    }
+
+    // =========================================================================
+    // 21. CURVED / L-SHAPED PLUSH SECTIONAL SOFA (118x56)
+    // =========================================================================
+    if (!textures.exists('cafe_lofi_l_sectional')) {
+      const canvas = textures.createCanvas('cafe_lofi_l_sectional', 118, 56);
+      if (canvas) {
+        const ctx = canvas.getContext();
+
+        // Floor Shadow
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.32)';
+        ctx.beginPath();
+        ctx.ellipse(59, 50, 56, 5, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Peg Legs
+        ctx.fillStyle = '#271206';
+        ctx.fillRect(8, 46, 4, 7);
+        ctx.fillRect(106, 46, 4, 7);
+        ctx.fillRect(56, 46, 4, 7);
+        ctx.fillRect(8, 26, 4, 7);
+
+        // Wooden Base Rim
+        ctx.fillStyle = '#451a03';
+        ctx.fillRect(6, 40, 106, 6);
+        ctx.fillRect(6, 20, 26, 26);
+
+        // Main Sofa Backrest (Sage / Forest Chenille)
+        ctx.fillStyle = '#1b3b27';
+        ctx.fillRect(6, 6, 106, 18);
+        ctx.fillStyle = '#275237';
+        ctx.fillRect(8, 8, 102, 14);
+
+        // Tufted Backrest Dimples
+        ctx.fillStyle = '#163121';
+        for (let x = 18; x < 105; x += 14) {
+          ctx.fillRect(x, 14, 2, 2);
+        }
+
+        // Left Chaise Backrest (extending vertically down on left)
+        ctx.fillStyle = '#1b3b27';
+        ctx.fillRect(6, 6, 12, 40);
+        ctx.fillStyle = '#275237';
+        ctx.fillRect(8, 8, 8, 36);
+
+        // Main Seat Cushions (Horizontal seats)
+        ctx.fillStyle = '#2d5f40';
+        ctx.fillRect(18, 22, 92, 18);
+        ctx.fillStyle = '#37754f';
+        ctx.fillRect(20, 24, 88, 14);
+
+        // Cushion division seams
+        ctx.fillStyle = '#1b3b27';
+        ctx.fillRect(48, 22, 2, 18);
+        ctx.fillRect(78, 22, 2, 18);
+
+        // Left Chaise Return Seat Cushion
+        ctx.fillStyle = '#2d5f40';
+        ctx.fillRect(18, 22, 22, 24);
+        ctx.fillStyle = '#37754f';
+        ctx.fillRect(19, 24, 20, 20);
+
+        // Right Armrest
+        ctx.fillStyle = '#1b3b27';
+        ctx.fillRect(108, 14, 8, 28);
+        ctx.fillStyle = '#275237';
+        ctx.fillRect(109, 16, 6, 24);
+
+        // --- ACCENT THROW PILLOWS ---
+        // Warm Mustard Velvet Pillow (Left Corner)
+        ctx.fillStyle = '#b45309';
+        ctx.fillRect(18, 14, 12, 12);
+        ctx.fillStyle = '#f59e0b';
+        ctx.fillRect(20, 16, 8, 8);
+
+        // Terracotta Rust Pillow (Center)
+        ctx.fillStyle = '#9a3412';
+        ctx.fillRect(52, 13, 11, 11);
+        ctx.fillStyle = '#ea580c';
+        ctx.fillRect(54, 15, 7, 7);
+
+        // Cream Woven Boho Pillow (Right)
+        ctx.fillStyle = '#78716c';
+        ctx.fillRect(94, 14, 12, 12);
+        ctx.fillStyle = '#f5f5f4';
+        ctx.fillRect(96, 16, 8, 8);
+        ctx.fillStyle = '#d97706';
+        ctx.fillRect(99, 19, 2, 2);
+
+        // Soft Chenille Blanket Draped on Chaise
+        ctx.fillStyle = '#e7e5e4';
+        ctx.fillRect(22, 34, 14, 14);
+        ctx.fillStyle = '#d6d3d1';
+        ctx.fillRect(23, 36, 12, 2);
+        ctx.fillRect(23, 40, 12, 2);
+        // Fringe
+        ctx.fillStyle = '#a8a29e';
+        for (let fx = 23; fx < 35; fx += 2) {
+          ctx.fillRect(fx, 48, 1, 3);
+        }
+
+        canvas.refresh();
+      }
+    }
+
