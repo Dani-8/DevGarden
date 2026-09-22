@@ -1843,3 +1843,55 @@ export class CafeCommunityTextures {
                 canvas.refresh();
             }
         }
+
+    // =========================================================================
+    // 25. VINTAGE CURVED ARC FLOOR READING LAMP (28x64)
+    // =========================================================================
+    if (!textures.exists('cafe_lofi_arc_lamp')) {
+      const canvas = textures.createCanvas('cafe_lofi_arc_lamp', 28, 64);
+      if (canvas) {
+        const ctx = canvas.getContext();
+
+        // Floor Shadow
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+        ctx.beginPath();
+        ctx.ellipse(8, 61, 7, 2.5, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Brass Base Plate
+        ctx.fillStyle = '#78350f';
+        ctx.fillRect(4, 58, 8, 3);
+        ctx.fillStyle = '#f59e0b';
+        ctx.fillRect(5, 57, 6, 2);
+
+        // Curved Brass Arc Stem
+        ctx.strokeStyle = '#b45309';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(8, 57);
+        ctx.lineTo(8, 30);
+        ctx.quadraticCurveTo(8, 8, 22, 8);
+        ctx.lineTo(22, 14);
+        ctx.stroke();
+
+        ctx.strokeStyle = '#fbbf24';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(8, 57);
+        ctx.lineTo(8, 30);
+        ctx.quadraticCurveTo(8, 9, 22, 9);
+        ctx.stroke();
+
+        // Warm Bell Shade
+        ctx.fillStyle = '#78350f';
+        ctx.beginPath();
+        ctx.moveTo(17, 14);
+        ctx.lineTo(27, 14);
+        ctx.lineTo(28, 20);
+        ctx.lineTo(16, 20);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.fillStyle = '#fef08a';
+        ctx.fillRect(17, 15, 10, 5);
+
