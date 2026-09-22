@@ -1426,52 +1426,52 @@ export class CafeCommunityTextures {
         }
 
 
-    // =========================================================================
-    // 20. FRAMED RETRO ALBUM ART POSTERS (22x22 each)
-    // =========================================================================
-    if (!textures.exists('cafe_vinyl_wall_art_1')) {
-      const canvas = textures.createCanvas('cafe_vinyl_wall_art_1', 22, 22);
-      if (canvas) {
-        const ctx = canvas.getContext();
+        // =========================================================================
+        // 20. FRAMED RETRO ALBUM ART POSTERS (22x22 each)
+        // =========================================================================
+        if (!textures.exists('cafe_vinyl_wall_art_1')) {
+            const canvas = textures.createCanvas('cafe_vinyl_wall_art_1', 22, 22);
+            if (canvas) {
+                const ctx = canvas.getContext();
 
-        // Black Gallery Frame
-        ctx.fillStyle = '#18181b';
-        ctx.fillRect(0, 0, 22, 22);
-        ctx.fillStyle = '#f8fafc';
-        ctx.fillRect(2, 2, 18, 18);
+                // Black Gallery Frame
+                ctx.fillStyle = '#18181b';
+                ctx.fillRect(0, 0, 22, 22);
+                ctx.fillStyle = '#f8fafc';
+                ctx.fillRect(2, 2, 18, 18);
 
-        // Warm Sunset / Retro Wave Art
-        ctx.fillStyle = '#0f172a';
-        ctx.fillRect(3, 3, 16, 16);
-        ctx.fillStyle = '#f97316';
-        ctx.beginPath();
-        ctx.arc(11, 10, 5, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.fillStyle = '#06b6d4';
-        ctx.fillRect(3, 12, 16, 7);
-        ctx.fillStyle = '#e0e7ff';
-        ctx.fillRect(4, 13, 14, 1);
+                // Warm Sunset / Retro Wave Art
+                ctx.fillStyle = '#0f172a';
+                ctx.fillRect(3, 3, 16, 16);
+                ctx.fillStyle = '#f97316';
+                ctx.beginPath();
+                ctx.arc(11, 10, 5, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = '#06b6d4';
+                ctx.fillRect(3, 12, 16, 7);
+                ctx.fillStyle = '#e0e7ff';
+                ctx.fillRect(4, 13, 14, 1);
 
-        canvas.refresh();
-      }
-    }
+                canvas.refresh();
+            }
+        }
 
-    if (!textures.exists('cafe_vinyl_wall_art_2')) {
-      const canvas = textures.createCanvas('cafe_vinyl_wall_art_2', 22, 22);
-      if (canvas) {
-        const ctx = canvas.getContext();
+        if (!textures.exists('cafe_vinyl_wall_art_2')) {
+            const canvas = textures.createCanvas('cafe_vinyl_wall_art_2', 22, 22);
+            if (canvas) {
+                const ctx = canvas.getContext();
 
-        // Teak Wooden Frame
-        ctx.fillStyle = '#451a03';
-        ctx.fillRect(0, 0, 22, 22);
-        ctx.fillStyle = '#fdf4ff';
-        ctx.fillRect(2, 2, 18, 18);
+                // Teak Wooden Frame
+                ctx.fillStyle = '#451a03';
+                ctx.fillRect(0, 0, 22, 22);
+                ctx.fillStyle = '#fdf4ff';
+                ctx.fillRect(2, 2, 18, 18);
 
-        // Minimalist Geometric Plant Art
-        ctx.fillStyle = '#f5f5f4';
-        ctx.fillRect(3, 3, 16, 16);
+                // Minimalist Geometric Plant Art
+                ctx.fillStyle = '#f5f5f4';
+                ctx.fillRect(3, 3, 16, 16);
 
-        ctx.fillStyle = '#d97706';
-        ctx.beginPath();
-        ctx.arc(11, 7, 3.5, 0, Math.PI * 2);
-        ctx.fill();
+                ctx.fillStyle = '#d97706';
+                ctx.beginPath();
+                ctx.arc(11, 7, 3.5, 0, Math.PI * 2);
+                ctx.fill();
