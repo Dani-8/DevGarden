@@ -2483,3 +2483,51 @@ export class CafeCommunityTextures {
             if (canvas) {
                 const ctx = canvas.getContext();
 
+        // Floor Shadow
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+        ctx.beginPath();
+        ctx.ellipse(9, 50, 7, 2.5, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Weighted Polished Brass Base
+        ctx.fillStyle = '#78350f';
+        ctx.fillRect(4, 48, 10, 3);
+        ctx.fillStyle = '#d97706';
+        ctx.fillRect(5, 47, 8, 2);
+
+        // Slim Brass Pole
+        ctx.fillStyle = '#b45309';
+        ctx.fillRect(8, 16, 2, 32);
+        ctx.fillStyle = '#f59e0b';
+        ctx.fillRect(8.5, 16, 1, 32);
+
+        // Warm Pleated Fabric Lampshade
+        ctx.fillStyle = '#d97706';
+        ctx.beginPath();
+        ctx.moveTo(3, 16);
+        ctx.lineTo(15, 16);
+        ctx.lineTo(13, 8);
+        ctx.lineTo(5, 8);
+        ctx.fill();
+
+        ctx.fillStyle = '#fef08a';
+        ctx.beginPath();
+        ctx.moveTo(4, 15);
+        ctx.lineTo(14, 15);
+        ctx.lineTo(12, 9);
+        ctx.lineTo(6, 9);
+        ctx.fill();
+
+        // Pleat lines
+        ctx.fillStyle = '#ca8a04';
+        for (let x = 6; x < 13; x += 2) {
+          ctx.fillRect(x, 9, 1, 6);
+        }
+
+        // Finial on top
+        ctx.fillStyle = '#d97706';
+        ctx.fillRect(8, 6, 2, 2);
+
+        canvas.refresh();
+      }
+    }
