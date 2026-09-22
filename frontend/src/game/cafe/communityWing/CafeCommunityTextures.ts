@@ -1739,54 +1739,54 @@ export class CafeCommunityTextures {
             }
         }
 
-    // =========================================================================
-    // 24. TALL INDOOR FIDDLE-LEAF FIG TREE IN CERAMIC PLANTER (36x68)
-    // =========================================================================
-    if (!textures.exists('cafe_lofi_fiddle_leaf_tree')) {
-      const canvas = textures.createCanvas('cafe_lofi_fiddle_leaf_tree', 36, 68);
-      if (canvas) {
-        const ctx = canvas.getContext();
+        // =========================================================================
+        // 24. TALL INDOOR FIDDLE-LEAF FIG TREE IN CERAMIC PLANTER (36x68)
+        // =========================================================================
+        if (!textures.exists('cafe_lofi_fiddle_leaf_tree')) {
+            const canvas = textures.createCanvas('cafe_lofi_fiddle_leaf_tree', 36, 68);
+            if (canvas) {
+                const ctx = canvas.getContext();
 
-        // Floor Shadow
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
-        ctx.beginPath();
-        ctx.ellipse(18, 65, 14, 3, 0, 0, Math.PI * 2);
-        ctx.fill();
+                // Floor Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+                ctx.beginPath();
+                ctx.ellipse(18, 65, 14, 3, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-        // Brass Tripod Stand
-        ctx.strokeStyle = '#b45309';
-        ctx.lineWidth = 1.5;
-        ctx.beginPath();
-        ctx.moveTo(10, 52);
-        ctx.lineTo(7, 65);
-        ctx.moveTo(26, 52);
-        ctx.lineTo(29, 65);
-        ctx.moveTo(18, 52);
-        ctx.lineTo(18, 66);
-        ctx.stroke();
+                // Brass Tripod Stand
+                ctx.strokeStyle = '#b45309';
+                ctx.lineWidth = 1.5;
+                ctx.beginPath();
+                ctx.moveTo(10, 52);
+                ctx.lineTo(7, 65);
+                ctx.moveTo(26, 52);
+                ctx.lineTo(29, 65);
+                ctx.moveTo(18, 52);
+                ctx.lineTo(18, 66);
+                ctx.stroke();
 
-        // White Fluted Ceramic Pot
-        ctx.fillStyle = '#e2e8f0';
-        ctx.beginPath();
-        ctx.moveTo(10, 42);
-        ctx.lineTo(26, 42);
-        ctx.lineTo(24, 56);
-        ctx.lineTo(12, 56);
-        ctx.closePath();
-        ctx.fill();
+                // White Fluted Ceramic Pot
+                ctx.fillStyle = '#e2e8f0';
+                ctx.beginPath();
+                ctx.moveTo(10, 42);
+                ctx.lineTo(26, 42);
+                ctx.lineTo(24, 56);
+                ctx.lineTo(12, 56);
+                ctx.closePath();
+                ctx.fill();
 
-        ctx.fillStyle = '#f8fafc';
-        ctx.fillRect(9, 40, 18, 3);
+                ctx.fillStyle = '#f8fafc';
+                ctx.fillRect(9, 40, 18, 3);
 
-        // Fluted vertical grooves
-        ctx.strokeStyle = '#cbd5e1';
-        ctx.lineWidth = 1;
-        ctx.beginPath();
-        ctx.moveTo(14, 43);
-        ctx.lineTo(14, 55);
-        ctx.moveTo(18, 43);
-        ctx.lineTo(18, 55);
-        ctx.moveTo(22, 43);
-        ctx.lineTo(22, 55);
-        ctx.stroke();
+                // Fluted vertical grooves
+                ctx.strokeStyle = '#cbd5e1';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(14, 43);
+                ctx.lineTo(14, 55);
+                ctx.moveTo(18, 43);
+                ctx.lineTo(18, 55);
+                ctx.moveTo(22, 43);
+                ctx.lineTo(22, 55);
+                ctx.stroke();
 
