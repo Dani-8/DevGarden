@@ -2777,53 +2777,53 @@ export class CafeCommunityTextures {
                 ctx.fillStyle = '#4ade80';
                 ctx.fillRect(36, 11, 2, 2);
 
-        // 2. Open Hardcover Book on Left
-        ctx.fillStyle = '#fef3c7';
-        ctx.fillRect(16, 10, 12, 8);
-        ctx.fillStyle = '#94a3b8';
-        ctx.fillRect(21.5, 10, 1, 8); // spine line
-        ctx.fillStyle = '#3b82f6';
-        ctx.fillRect(15, 10, 1, 8); // cover edge
-        ctx.fillRect(28, 10, 1, 8);
+                // 2. Open Hardcover Book on Left
+                ctx.fillStyle = '#fef3c7';
+                ctx.fillRect(16, 10, 12, 8);
+                ctx.fillStyle = '#94a3b8';
+                ctx.fillRect(21.5, 10, 1, 8); // spine line
+                ctx.fillStyle = '#3b82f6';
+                ctx.fillRect(15, 10, 1, 8); // cover edge
+                ctx.fillRect(28, 10, 1, 8);
 
-        // 3. Ceramic Mug with Latte Art on Right
-        ctx.fillStyle = '#f8fafc';
-        ctx.beginPath();
-        ctx.arc(54, 13, 4, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.fillStyle = '#78350f';
-        ctx.beginPath();
-        ctx.arc(54, 13, 2.5, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.fillStyle = '#fef08a';
-        ctx.fillRect(53, 12, 2, 2);
+                // 3. Ceramic Mug with Latte Art on Right
+                ctx.fillStyle = '#f8fafc';
+                ctx.beginPath();
+                ctx.arc(54, 13, 4, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = '#78350f';
+                ctx.beginPath();
+                ctx.arc(54, 13, 2.5, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = '#fef08a';
+                ctx.fillRect(53, 12, 2, 2);
 
-        canvas.refresh();
-      }
-    }
+                canvas.refresh();
+            }
+        }
 
-    // =========================================================================
-    // 39. GENEROUS ROUNDED EMERALD CLUB ARMCHAIR (34x34) [Concept 1]
-    // =========================================================================
-    if (!textures.exists('cafe_concept1_emerald_armchair')) {
-      const canvas = textures.createCanvas('cafe_concept1_emerald_armchair', 34, 34);
-      if (canvas) {
-        const ctx = canvas.getContext();
+        // =========================================================================
+        // 39. GENEROUS ROUNDED EMERALD CLUB ARMCHAIR (34x34) [Concept 1]
+        // =========================================================================
+        if (!textures.exists('cafe_concept1_emerald_armchair')) {
+            const canvas = textures.createCanvas('cafe_concept1_emerald_armchair', 34, 34);
+            if (canvas) {
+                const ctx = canvas.getContext();
 
-        // Floor Shadow
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.32)';
-        ctx.beginPath();
-        ctx.ellipse(17, 30, 14, 4, 0, 0, Math.PI * 2);
-        ctx.fill();
+                // Floor Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.32)';
+                ctx.beginPath();
+                ctx.ellipse(17, 30, 14, 4, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-        // Tapered Walnut Legs
-        ctx.fillStyle = '#271206';
-        ctx.fillRect(6, 24, 3, 6);
-        ctx.fillRect(25, 24, 3, 6);
+                // Tapered Walnut Legs
+                ctx.fillStyle = '#271206';
+                ctx.fillRect(6, 24, 3, 6);
+                ctx.fillRect(25, 24, 3, 6);
 
-        // Rounded Barrel Backrest (Deep Forest Emerald Velvet)
-        ctx.fillStyle = '#0f291e';
-        ctx.beginPath();
-        ctx.ellipse(17, 15, 14, 12, 0, 0, Math.PI * 2);
-        ctx.fill();
+                // Rounded Barrel Backrest (Deep Forest Emerald Velvet)
+                ctx.fillStyle = '#0f291e';
+                ctx.beginPath();
+                ctx.ellipse(17, 15, 14, 12, 0, 0, Math.PI * 2);
+                ctx.fill();
 
