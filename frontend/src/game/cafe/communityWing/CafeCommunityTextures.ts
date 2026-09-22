@@ -79,3 +79,60 @@ export class CafeCommunityTextures {
                 canvas.refresh();
             }
         }
+
+    // =========================================================================
+    // 2. 3-SECTION FLOOR: MEDIUM WARM BROWN WOOD FLOOR (32x32 Tileable)
+    // Main plank body: #8A5735 (distinct richer warm tone, separate from main cafe)
+    // =========================================================================
+    if (!textures.exists('cafe_wing_floor_wood_1')) {
+      const canvas = textures.createCanvas('cafe_wing_floor_wood_1', 32, 32);
+      if (canvas) {
+        const ctx = canvas.getContext();
+
+        // Base Wood
+        ctx.fillStyle = '#8a5735';
+        ctx.fillRect(0, 0, 32, 32);
+
+        // Horizontal Planks (8px high each)
+        // Plank 1 (y: 0 to 7)
+        ctx.fillStyle = '#8a5735';
+        ctx.fillRect(0, 1, 32, 7);
+        ctx.fillStyle = '#9f6742';
+        ctx.fillRect(0, 2, 32, 1); // Highlight
+        ctx.fillStyle = '#663c20';
+        ctx.fillRect(14, 1, 1, 7); // Vertical plank seam
+
+        // Plank 2 (y: 8 to 15)
+        ctx.fillStyle = '#835231';
+        ctx.fillRect(0, 9, 32, 7);
+        ctx.fillStyle = '#98613c';
+        ctx.fillRect(0, 10, 32, 1);
+        ctx.fillStyle = '#663c20';
+        ctx.fillRect(26, 9, 1, 7);
+
+        // Plank 3 (y: 16 to 23)
+        ctx.fillStyle = '#8e5937';
+        ctx.fillRect(0, 17, 32, 7);
+        ctx.fillStyle = '#a36a44';
+        ctx.fillRect(0, 18, 32, 1);
+        ctx.fillStyle = '#663c20';
+        ctx.fillRect(8, 17, 1, 7);
+
+        // Plank 4 (y: 24 to 31)
+        ctx.fillStyle = '#804f2f';
+        ctx.fillRect(0, 25, 32, 7);
+        ctx.fillStyle = '#945e39';
+        ctx.fillRect(0, 26, 32, 1);
+        ctx.fillStyle = '#663c20';
+        ctx.fillRect(20, 25, 1, 7);
+
+        // Plank separation groove shadows
+        ctx.fillStyle = '#4a2913';
+        ctx.fillRect(0, 0, 32, 1);
+        ctx.fillRect(0, 8, 32, 1);
+        ctx.fillRect(0, 16, 32, 1);
+        ctx.fillRect(0, 24, 32, 1);
+
+        canvas.refresh();
+      }
+    }
