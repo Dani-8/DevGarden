@@ -199,47 +199,47 @@ export class CafeCommunityWing {
         obstaclesGroup.add(armChairL);
         chairs.push({ x: 1108, y: 232, sprite: armChairL, dir: 'up', standPos: { x: 1108, y: 256 } });
 
-    // Right Emerald Club Armchair (at x=1196, y=232, facing UP towards coffee table)
-    const armChairR = scene.add.image(1196, 232, 'cafe_concept1_emerald_armchair');
-    armChairR.setDisplaySize(34, 34);
-    armChairR.setOrigin(0.5, 0.85);
-    armChairR.setDepth(232);
-    scene.physics.add.existing(armChairR, true);
-    const acBodyR = armChairR.body as Phaser.Physics.Arcade.StaticBody;
-    acBodyR.setSize(28, 20);
-    acBodyR.setOffset(3, 10);
-    obstaclesGroup.add(armChairR);
-    chairs.push({ x: 1196, y: 232, sprite: armChairR, dir: 'up', standPos: { x: 1196, y: 256 } });
+        // Right Emerald Club Armchair (at x=1196, y=232, facing UP towards coffee table)
+        const armChairR = scene.add.image(1196, 232, 'cafe_concept1_emerald_armchair');
+        armChairR.setDisplaySize(34, 34);
+        armChairR.setOrigin(0.5, 0.85);
+        armChairR.setDepth(232);
+        scene.physics.add.existing(armChairR, true);
+        const acBodyR = armChairR.body as Phaser.Physics.Arcade.StaticBody;
+        acBodyR.setSize(28, 20);
+        acBodyR.setOffset(3, 10);
+        obstaclesGroup.add(armChairR);
+        chairs.push({ x: 1196, y: 232, sprite: armChairR, dir: 'up', standPos: { x: 1196, y: 256 } });
 
-    // Small Round Wooden Side Table with Lit Candle (Between club chairs at x=1152, y=232)
-    const centerSideTable = scene.add.image(1152, 232, 'cafe_lounge_side_table_candle');
-    centerSideTable.setDisplaySize(18, 22);
-    centerSideTable.setOrigin(0.5, 0.85);
-    centerSideTable.setDepth(232);
-    scene.physics.add.existing(centerSideTable, true);
-    const cstBody = centerSideTable.body as Phaser.Physics.Arcade.StaticBody;
-    cstBody.setSize(14, 12);
-    cstBody.setOffset(2, 8);
-    obstaclesGroup.add(centerSideTable);
+        // Small Round Wooden Side Table with Lit Candle (Between club chairs at x=1152, y=232)
+        const centerSideTable = scene.add.image(1152, 232, 'cafe_lounge_side_table_candle');
+        centerSideTable.setDisplaySize(18, 22);
+        centerSideTable.setOrigin(0.5, 0.85);
+        centerSideTable.setDepth(232);
+        scene.physics.add.existing(centerSideTable, true);
+        const cstBody = centerSideTable.body as Phaser.Physics.Arcade.StaticBody;
+        cstBody.setSize(14, 12);
+        cstBody.setOffset(2, 8);
+        obstaclesGroup.add(centerSideTable);
 
-    // Top Corner Plants in Room (at x=1030 and x=1274, y=124)
-    addPot(1030, 124);
-    addPot(1274, 124);
+        // Top Corner Plants in Room (at x=1030 and x=1274, y=124)
+        addPot(1030, 124);
+        addPot(1274, 124);
 
-    // Flanking doorway entrance plants
-    addPot(1005, 170);
-    addPot(1005, 238);
+        // Flanking doorway entrance plants
+        addPot(1005, 170);
+        addPot(1005, 238);
 
-    // =========================================================================
-    // 4. ROOM 2: PROJECT SHOWCASE HUB (y = 300..500)
-    // =========================================================================
-    // Freestanding Deluxe Project Showcase Display Easel (Standing on floor at x=1152, y=360)
-    const showcaseBoard = scene.add.image(1152, 360, 'cafe_showcase_wall_board');
-    showcaseBoard.setDisplaySize(92, 68);
-    showcaseBoard.setOrigin(0.5, 0.92);
-    showcaseBoard.setDepth(360);
-    scene.physics.add.existing(showcaseBoard, true);
-    const sbBody = showcaseBoard.body as Phaser.Physics.Arcade.StaticBody;
-    sbBody.setSize(80, 16);
-    sbBody.setOffset(6, 46);
-    obstaclesGroup.add(showcaseBoard);
+        // =========================================================================
+        // 4. ROOM 2: PROJECT SHOWCASE HUB (y = 300..500)
+        // =========================================================================
+        // Freestanding Deluxe Project Showcase Display Easel (Standing on floor at x=1152, y=360)
+        const showcaseBoard = scene.add.image(1152, 360, 'cafe_showcase_wall_board');
+        showcaseBoard.setDisplaySize(92, 68);
+        showcaseBoard.setOrigin(0.5, 0.92);
+        showcaseBoard.setDepth(360);
+        scene.physics.add.existing(showcaseBoard, true);
+        const sbBody = showcaseBoard.body as Phaser.Physics.Arcade.StaticBody;
+        sbBody.setSize(80, 16);
+        sbBody.setOffset(6, 46);
+        obstaclesGroup.add(showcaseBoard);
