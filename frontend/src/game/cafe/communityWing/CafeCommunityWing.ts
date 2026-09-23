@@ -104,52 +104,52 @@ export class CafeCommunityWing {
 
         // Bottom Wall Enclosure for Room 3
         addHorizontalWall(708);
-        
-    // =========================================================================
-    // 3. ROOM 1: COZY SOFA LOUNGE (y = 100..300) [Concept 1 - Restored Full Scale]
-    // =========================================================================
-    // Sized Area Rug (208x124, centered at x=1152, y=190, leaving room margins)
-    const loungeRug = scene.add.image(1152, 190, 'cafe_lounge_emerald_gold_rug');
-    loungeRug.setDisplaySize(208, 124);
-    loungeRug.setOrigin(0.5, 0.5);
-    loungeRug.setDepth(5);
 
-    // Back Wall Mounted Mountain Landscape Artwork (Mounted ON the back wall at y=48)
-    const wallArt = scene.add.image(1152, 48, 'cafe_lounge_wall_landscape');
-    wallArt.setDisplaySize(84, 26);
-    wallArt.setOrigin(0.5, 0.5);
-    wallArt.setDepth(2);
+        // =========================================================================
+        // 3. ROOM 1: COZY SOFA LOUNGE (y = 100..300) [Concept 1 - Restored Full Scale]
+        // =========================================================================
+        // Sized Area Rug (208x124, centered at x=1152, y=190, leaving room margins)
+        const loungeRug = scene.add.image(1152, 190, 'cafe_lounge_emerald_gold_rug');
+        loungeRug.setDisplaySize(208, 124);
+        loungeRug.setOrigin(0.5, 0.5);
+        loungeRug.setDepth(5);
 
-    // Wall Draped Botanical Vines along Top Wall Beam
-    const wallVines = scene.add.image(1152, 14, 'cafe_concept1_wall_vines');
-    wallVines.setDisplaySize(180, 28);
-    wallVines.setOrigin(0.5, 0.5);
-    wallVines.setDepth(3);
+        // Back Wall Mounted Mountain Landscape Artwork (Mounted ON the back wall at y=48)
+        const wallArt = scene.add.image(1152, 48, 'cafe_lounge_wall_landscape');
+        wallArt.setDisplaySize(84, 26);
+        wallArt.setOrigin(0.5, 0.5);
+        wallArt.setDepth(2);
 
-    // Flanking Warm Amber Wall Lanterns on the Back Wall (y=48)
-    addLantern(1074, 48);
-    addLantern(1230, 48);
+        // Wall Draped Botanical Vines along Top Wall Beam
+        const wallVines = scene.add.image(1152, 14, 'cafe_concept1_wall_vines');
+        wallVines.setDisplaySize(180, 28);
+        wallVines.setOrigin(0.5, 0.5);
+        wallVines.setDepth(3);
 
-    // Grand Plush Cream & Honey-Oak Lounge Sofa (132x46, brought forward to y=140 away from wall)
-    const loungeSofa = scene.add.image(1152, 140, 'cafe_concept1_cream_sofa');
-    loungeSofa.setDisplaySize(132, 46);
-    loungeSofa.setOrigin(0.5, 0.85);
-    loungeSofa.setDepth(140);
-    scene.physics.add.existing(loungeSofa, true);
-    const sofaBody = loungeSofa.body as Phaser.Physics.Arcade.StaticBody;
-    sofaBody.setSize(124, 22);
-    sofaBody.setOffset(4, 16);
-    obstaclesGroup.add(loungeSofa);
+        // Flanking Warm Amber Wall Lanterns on the Back Wall (y=48)
+        addLantern(1074, 48);
+        addLantern(1230, 48);
 
-    // Interactive Sofa Seats (3 plush seating spots with forward egress)
-    const sSeat1 = scene.add.image(1114, 136, 'cafe_interior_chair');
-    sSeat1.setVisible(false);
-    chairs.push({ x: 1114, y: 136, sprite: sSeat1, dir: 'down', standPos: { x: 1114, y: 164 } });
+        // Grand Plush Cream & Honey-Oak Lounge Sofa (132x46, brought forward to y=140 away from wall)
+        const loungeSofa = scene.add.image(1152, 140, 'cafe_concept1_cream_sofa');
+        loungeSofa.setDisplaySize(132, 46);
+        loungeSofa.setOrigin(0.5, 0.85);
+        loungeSofa.setDepth(140);
+        scene.physics.add.existing(loungeSofa, true);
+        const sofaBody = loungeSofa.body as Phaser.Physics.Arcade.StaticBody;
+        sofaBody.setSize(124, 22);
+        sofaBody.setOffset(4, 16);
+        obstaclesGroup.add(loungeSofa);
 
-    const sSeat2 = scene.add.image(1152, 136, 'cafe_interior_chair');
-    sSeat2.setVisible(false);
-    chairs.push({ x: 1152, y: 136, sprite: sSeat2, dir: 'down', standPos: { x: 1152, y: 164 } });
+        // Interactive Sofa Seats (3 plush seating spots with forward egress)
+        const sSeat1 = scene.add.image(1114, 136, 'cafe_interior_chair');
+        sSeat1.setVisible(false);
+        chairs.push({ x: 1114, y: 136, sprite: sSeat1, dir: 'down', standPos: { x: 1114, y: 164 } });
 
-    const sSeat3 = scene.add.image(1190, 136, 'cafe_interior_chair');
-    sSeat3.setVisible(false);
-    chairs.push({ x: 1190, y: 136, sprite: sSeat3, dir: 'down', standPos: { x: 1190, y: 164 } });
+        const sSeat2 = scene.add.image(1152, 136, 'cafe_interior_chair');
+        sSeat2.setVisible(false);
+        chairs.push({ x: 1152, y: 136, sprite: sSeat2, dir: 'down', standPos: { x: 1152, y: 164 } });
+
+        const sSeat3 = scene.add.image(1190, 136, 'cafe_interior_chair');
+        sSeat3.setVisible(false);
+        chairs.push({ x: 1190, y: 136, sprite: sSeat3, dir: 'down', standPos: { x: 1190, y: 164 } });
