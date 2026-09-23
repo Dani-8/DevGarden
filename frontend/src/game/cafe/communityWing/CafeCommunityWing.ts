@@ -153,3 +153,48 @@ export class CafeCommunityWing {
         const sSeat3 = scene.add.image(1190, 136, 'cafe_interior_chair');
         sSeat3.setVisible(false);
         chairs.push({ x: 1190, y: 136, sprite: sSeat3, dir: 'down', standPos: { x: 1190, y: 164 } });
+
+    // Left Mushroom Floor Lamp (Beside sofa at x=1068, y=142)
+    const lampL = scene.add.image(1068, 142, 'cafe_concept1_mushroom_lamp');
+    lampL.setDisplaySize(18, 46);
+    lampL.setOrigin(0.5, 0.92);
+    lampL.setDepth(142);
+    scene.physics.add.existing(lampL, true);
+    const llBody = lampL.body as Phaser.Physics.Arcade.StaticBody;
+    llBody.setSize(12, 10);
+    llBody.setOffset(3, 34);
+    obstaclesGroup.add(lampL);
+
+    // Right Mushroom Floor Lamp (Beside sofa at x=1236, y=142)
+    const lampR = scene.add.image(1236, 142, 'cafe_concept1_mushroom_lamp');
+    lampR.setDisplaySize(18, 46);
+    lampR.setOrigin(0.5, 0.92);
+    lampR.setDepth(142);
+    scene.physics.add.existing(lampR, true);
+    const lrBody = lampR.body as Phaser.Physics.Arcade.StaticBody;
+    lrBody.setSize(12, 10);
+    lrBody.setOffset(3, 34);
+    obstaclesGroup.add(lampR);
+
+    // Generous Honey-Oak Coffee Table with Succulent & Book (74x36, at x=1152, y=186)
+    const coffeeTable = scene.add.image(1152, 186, 'cafe_concept1_coffee_table');
+    coffeeTable.setDisplaySize(74, 36);
+    coffeeTable.setOrigin(0.5, 0.85);
+    coffeeTable.setDepth(186);
+    scene.physics.add.existing(coffeeTable, true);
+    const ctBody = coffeeTable.body as Phaser.Physics.Arcade.StaticBody;
+    ctBody.setSize(70, 20);
+    ctBody.setOffset(2, 8);
+    obstaclesGroup.add(coffeeTable);
+
+    // Left Emerald Club Armchair (at x=1108, y=232, facing UP towards coffee table)
+    const armChairL = scene.add.image(1108, 232, 'cafe_concept1_emerald_armchair');
+    armChairL.setDisplaySize(34, 34);
+    armChairL.setOrigin(0.5, 0.85);
+    armChairL.setDepth(232);
+    scene.physics.add.existing(armChairL, true);
+    const acBodyL = armChairL.body as Phaser.Physics.Arcade.StaticBody;
+    acBodyL.setSize(28, 20);
+    acBodyL.setOffset(3, 10);
+    obstaclesGroup.add(armChairL);
+    chairs.push({ x: 1108, y: 232, sprite: armChairL, dir: 'up', standPos: { x: 1108, y: 256 } });
