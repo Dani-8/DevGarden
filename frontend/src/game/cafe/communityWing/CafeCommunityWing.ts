@@ -337,3 +337,31 @@ export class CafeCommunityWing {
         };
         addBtmMeetChair(1130);
         addBtmMeetChair(1174);
+
+    // Left Meeting Chair (Facing RIGHT towards table)
+    const leftChair = scene.add.image(1088, 622, 'cafe_chair_right');
+    leftChair.setOrigin(0.5, 0.85);
+    leftChair.setDepth(622);
+    scene.physics.add.existing(leftChair, true);
+    obstaclesGroup.add(leftChair);
+    chairs.push({ x: 1088, y: 622, sprite: leftChair, dir: 'right', standPos: { x: 1058, y: 622 } });
+
+    // Right Meeting Chair (Facing LEFT towards table)
+    const rightChair = scene.add.image(1216, 622, 'cafe_chair_left');
+    rightChair.setOrigin(0.5, 0.85);
+    rightChair.setDepth(622);
+    scene.physics.add.existing(rightChair, true);
+    obstaclesGroup.add(rightChair);
+    chairs.push({ x: 1216, y: 622, sprite: rightChair, dir: 'left', standPos: { x: 1246, y: 622 } });
+
+    // Flanking plants
+    addPot(1005, 540);
+    addPot(1005, 665);
+    addPot(1295, 665);
+
+    return {
+      showcaseX: 1152,
+      showcaseY: 360,
+    };
+  }
+}
