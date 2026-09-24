@@ -855,3 +855,57 @@ export class CafeCommunityTextures {
                 ctx.fillStyle = '#94a3b8';
                 ctx.fillRect(10, 62, 3, 2);
                 ctx.fillRect(27, 62, 3, 2);
+
+        // Right Horizontal T-Bar Base on Floor
+        ctx.fillStyle = '#1e293b';
+        ctx.fillRect(64, 57, 24, 4);
+        ctx.fillStyle = '#334155';
+        ctx.fillRect(65, 58, 22, 2);
+
+        // Right 2 Caster Wheels & Swivel Axles
+        ctx.fillStyle = '#0f172a';
+        ctx.fillRect(65, 61, 5, 4);
+        ctx.fillRect(82, 61, 5, 4);
+        ctx.fillStyle = '#94a3b8';
+        ctx.fillRect(66, 62, 3, 2);
+        ctx.fillRect(83, 62, 3, 2);
+
+        // Low Cross-Stabilizer Bar between the two T-bases
+        ctx.fillStyle = '#1e293b';
+        ctx.fillRect(20, 52, 56, 3);
+        ctx.fillStyle = '#475569';
+        ctx.fillRect(20, 52, 56, 1);
+
+        // Twin Vertical Steel Tubular Uprights
+        // Left Upright Post
+        ctx.fillStyle = '#1e293b';
+        ctx.fillRect(18, 6, 4, 52);
+        ctx.fillStyle = '#64748b';
+        ctx.fillRect(19, 6, 2, 52);
+
+        // Right Upright Post
+        ctx.fillStyle = '#1e293b';
+        ctx.fillRect(74, 6, 4, 52);
+        ctx.fillStyle = '#64748b';
+        ctx.fillRect(75, 6, 2, 52);
+
+        // Side Swivel Tilt Tightening Knobs
+        ctx.fillStyle = '#0f172a';
+        ctx.fillRect(16, 24, 8, 6);
+        ctx.fillRect(72, 24, 8, 6);
+        ctx.fillStyle = '#3b82f6';
+        ctx.fillRect(17, 26, 2, 2);
+        ctx.fillRect(77, 26, 2, 2);
+
+        // 3. Double-Sided Whiteboard Frame & Glossy Canvas
+        // Drop shadow from board onto rear frame
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+        ctx.fillRect(14, 8, 68, 38);
+
+        // Aluminum Outer Frame Bevel
+        ctx.fillStyle = '#1e293b';
+        ctx.fillRect(13, 6, 70, 38);
+        ctx.fillStyle = '#475569';
+        ctx.fillRect(14, 7, 68, 36);
+        ctx.fillStyle = '#94a3b8';
+        ctx.fillRect(15, 8, 66, 1);
