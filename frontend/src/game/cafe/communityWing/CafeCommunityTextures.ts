@@ -50,55 +50,55 @@ export class CafeCommunityTextures {
                 ctx.fillStyle = '#999285';
                 ctx.fillRect(0, 29, 6, 2);
 
-        // Block 2B (x: 9 to 22)
-        ctx.fillStyle = '#b8b1a3';
-        ctx.fillRect(9, 17, 14, 14);
-        ctx.fillStyle = '#d2ccbf';
-        ctx.fillRect(10, 18, 12, 2);
-        ctx.fillStyle = '#9f988b';
-        ctx.fillRect(10, 29, 12, 2);
-        ctx.fillStyle = '#aaa396';
-        ctx.fillRect(13, 22, 5, 3);
+                // Block 2B (x: 9 to 22)
+                ctx.fillStyle = '#b8b1a3';
+                ctx.fillRect(9, 17, 14, 14);
+                ctx.fillStyle = '#d2ccbf';
+                ctx.fillRect(10, 18, 12, 2);
+                ctx.fillStyle = '#9f988b';
+                ctx.fillRect(10, 29, 12, 2);
+                ctx.fillStyle = '#aaa396';
+                ctx.fillRect(13, 22, 5, 3);
 
-        // Block 2C (x: 25 to 31)
-        ctx.fillStyle = '#ada698';
-        ctx.fillRect(25, 17, 7, 14);
-        ctx.fillStyle = '#c5bfae';
-        ctx.fillRect(26, 18, 6, 2);
-        ctx.fillStyle = '#928b7e';
-        ctx.fillRect(26, 29, 6, 2);
+                // Block 2C (x: 25 to 31)
+                ctx.fillStyle = '#ada698';
+                ctx.fillRect(25, 17, 7, 14);
+                ctx.fillStyle = '#c5bfae';
+                ctx.fillRect(26, 18, 6, 2);
+                ctx.fillStyle = '#928b7e';
+                ctx.fillRect(26, 29, 6, 2);
 
-        // Mortar lines & shadow seams
-        ctx.fillStyle = '#524c44';
-        ctx.fillRect(0, 15, 32, 2);
-        ctx.fillRect(0, 31, 32, 1);
-        ctx.fillRect(15, 0, 2, 16);
-        ctx.fillRect(7, 16, 2, 16);
-        ctx.fillRect(23, 16, 2, 16);
+                // Mortar lines & shadow seams
+                ctx.fillStyle = '#524c44';
+                ctx.fillRect(0, 15, 32, 2);
+                ctx.fillRect(0, 31, 32, 1);
+                ctx.fillRect(15, 0, 2, 16);
+                ctx.fillRect(7, 16, 2, 16);
+                ctx.fillRect(23, 16, 2, 16);
 
-        canvas.refresh();
-      }
-    }
+                canvas.refresh();
+            }
+        }
 
-    // =========================================================================
-    // 2. 3-SECTION FLOOR: MEDIUM WARM BROWN WOOD FLOOR (32x32 Tileable)
-    // Main plank body: #8A5735 (distinct richer warm tone, separate from main cafe)
-    // =========================================================================
-    if (!textures.exists('cafe_wing_floor_wood_1')) {
-      const canvas = textures.createCanvas('cafe_wing_floor_wood_1', 32, 32);
-      if (canvas) {
-        const ctx = canvas.getContext();
+        // =========================================================================
+        // 2. 3-SECTION FLOOR: MEDIUM WARM BROWN WOOD FLOOR (32x32 Tileable)
+        // Main plank body: #8A5735 (distinct richer warm tone, separate from main cafe)
+        // =========================================================================
+        if (!textures.exists('cafe_wing_floor_wood_1')) {
+            const canvas = textures.createCanvas('cafe_wing_floor_wood_1', 32, 32);
+            if (canvas) {
+                const ctx = canvas.getContext();
 
-        // Base Wood
-        ctx.fillStyle = '#8a5735';
-        ctx.fillRect(0, 0, 32, 32);
+                // Base Wood
+                ctx.fillStyle = '#8a5735';
+                ctx.fillRect(0, 0, 32, 32);
 
-        // Horizontal Planks (8px high each)
-        // Plank 1 (y: 0 to 7)
-        ctx.fillStyle = '#8a5735';
-        ctx.fillRect(0, 1, 32, 7);
-        ctx.fillStyle = '#9f6742';
-        ctx.fillRect(0, 2, 32, 1); // Highlight
-        ctx.fillStyle = '#663c20';
-        ctx.fillRect(14, 1, 1, 7); // Vertical plank seam
+                // Horizontal Planks (8px high each)
+                // Plank 1 (y: 0 to 7)
+                ctx.fillStyle = '#8a5735';
+                ctx.fillRect(0, 1, 32, 7);
+                ctx.fillStyle = '#9f6742';
+                ctx.fillRect(0, 2, 32, 1); // Highlight
+                ctx.fillStyle = '#663c20';
+                ctx.fillRect(14, 1, 1, 7); // Vertical plank seam
 
