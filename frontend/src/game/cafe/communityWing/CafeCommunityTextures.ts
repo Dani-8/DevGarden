@@ -698,55 +698,55 @@ export class CafeCommunityTextures {
                 ctx.fillRect(58, 21, 11, 2);
                 ctx.fillRect(59, 25, 9, 1);
                 ctx.fillRect(59, 28, 5, 1);
-        // Golden Thumbtack
-        ctx.fillStyle = '#fbbf24';
-        ctx.fillRect(63, 19, 2, 2);
+                // Golden Thumbtack
+                ctx.fillStyle = '#fbbf24';
+                ctx.fillRect(63, 19, 2, 2);
 
-        // Top Brass Clamp securing board to mast
-        ctx.fillStyle = '#d97706';
-        ctx.fillRect(41, 3, 6, 5);
-        ctx.fillStyle = '#fbbf24';
-        ctx.fillRect(42, 4, 4, 3);
+                // Top Brass Clamp securing board to mast
+                ctx.fillStyle = '#d97706';
+                ctx.fillRect(41, 3, 6, 5);
+                ctx.fillStyle = '#fbbf24';
+                ctx.fillRect(42, 4, 4, 3);
 
-        // Shelf Accessories (Parchment scroll on ledge)
-        ctx.fillStyle = '#e2e8f0';
-        ctx.fillRect(22, 40, 14, 3);
-        ctx.fillStyle = '#94a3b8';
-        ctx.fillRect(22, 40, 2, 3);
-        ctx.fillRect(34, 40, 2, 3);
+                // Shelf Accessories (Parchment scroll on ledge)
+                ctx.fillStyle = '#e2e8f0';
+                ctx.fillRect(22, 40, 14, 3);
+                ctx.fillStyle = '#94a3b8';
+                ctx.fillRect(22, 40, 2, 3);
+                ctx.fillRect(34, 40, 2, 3);
 
-        canvas.refresh();
-      }
-    }
+                canvas.refresh();
+            }
+        }
 
-    // =========================================================================
-    // 10. LONG PROJECT SHOWCASE PRESENTATION TABLE (110x36)
-    // =========================================================================
-    if (!textures.exists('cafe_showcase_long_table')) {
-      const canvas = textures.createCanvas('cafe_showcase_long_table', 110, 36);
-      if (canvas) {
-        const ctx = canvas.getContext();
+        // =========================================================================
+        // 10. LONG PROJECT SHOWCASE PRESENTATION TABLE (110x36)
+        // =========================================================================
+        if (!textures.exists('cafe_showcase_long_table')) {
+            const canvas = textures.createCanvas('cafe_showcase_long_table', 110, 36);
+            if (canvas) {
+                const ctx = canvas.getContext();
 
-        // Floor Shadow
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
-        ctx.beginPath();
-        ctx.ellipse(55, 32, 52, 4, 0, 0, Math.PI * 2);
-        ctx.fill();
+                // Floor Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+                ctx.beginPath();
+                ctx.ellipse(55, 32, 52, 4, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-        // Legs
-        ctx.fillStyle = '#271206';
-        ctx.fillRect(8, 20, 4, 13);
-        ctx.fillRect(53, 20, 4, 13);
-        ctx.fillRect(98, 20, 4, 13);
+                // Legs
+                ctx.fillStyle = '#271206';
+                ctx.fillRect(8, 20, 4, 13);
+                ctx.fillRect(53, 20, 4, 13);
+                ctx.fillRect(98, 20, 4, 13);
 
-        // Solid Rich Wood Tabletop
-        ctx.fillStyle = '#451a03';
-        ctx.fillRect(4, 6, 102, 16);
-        ctx.fillStyle = '#78350f';
-        ctx.fillRect(6, 7, 98, 13);
-        ctx.fillStyle = '#9a3412';
-        ctx.fillRect(8, 8, 94, 3);
+                // Solid Rich Wood Tabletop
+                ctx.fillStyle = '#451a03';
+                ctx.fillRect(4, 6, 102, 16);
+                ctx.fillStyle = '#78350f';
+                ctx.fillRect(6, 7, 98, 13);
+                ctx.fillStyle = '#9a3412';
+                ctx.fillRect(8, 8, 94, 3);
 
-        // Spec Sheet Left
-        ctx.fillStyle = '#f8fafc';
-        ctx.fillRect(14, 9, 10, 8);
+                // Spec Sheet Left
+                ctx.fillStyle = '#f8fafc';
+                ctx.fillRect(14, 9, 10, 8);
