@@ -909,3 +909,55 @@ export class CafeCommunityTextures {
                 ctx.fillRect(14, 7, 68, 36);
                 ctx.fillStyle = '#94a3b8';
                 ctx.fillRect(15, 8, 66, 1);
+
+        // Glossy Crisp White Dry-Erase Board Surface
+        ctx.fillStyle = '#f8fafc';
+        ctx.fillRect(16, 9, 64, 32);
+
+        // Subtle Glass / Board Sheen Diagonal Highlights
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+        ctx.beginPath();
+        ctx.moveTo(35, 9);
+        ctx.lineTo(45, 9);
+        ctx.lineTo(20, 41);
+        ctx.lineTo(16, 41);
+        ctx.closePath();
+        ctx.fill();
+
+        // 4. Architecture Flowchart Graphics & System Diagram
+        // Node 1: API Gateway (Blue)
+        ctx.fillStyle = '#2563eb';
+        ctx.fillRect(19, 12, 14, 8);
+        ctx.fillStyle = '#93c5fd';
+        ctx.fillRect(20, 13, 12, 2);
+
+        // Node 2: Microservice Engine (Emerald Green)
+        ctx.fillStyle = '#16a34a';
+        ctx.fillRect(41, 12, 14, 8);
+        ctx.fillStyle = '#86efac';
+        ctx.fillRect(42, 13, 12, 2);
+
+        // Node 3: Database & Cache (Amber / Red)
+        ctx.fillStyle = '#dc2626';
+        ctx.fillRect(63, 12, 14, 8);
+        ctx.fillStyle = '#fca5a5';
+        ctx.fillRect(64, 13, 12, 2);
+
+        // Flowchart Connecting Vectors & Arrows
+        ctx.strokeStyle = '#334155';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(33, 16);
+        ctx.lineTo(41, 16);
+        ctx.moveTo(55, 16);
+        ctx.lineTo(63, 16);
+        ctx.stroke();
+
+        // 5. Colorful Post-it / Sticky Notes Grouping
+        // Yellow Sticky
+        ctx.fillStyle = '#fef08a';
+        ctx.fillRect(19, 23, 10, 9);
+        ctx.fillStyle = '#ca8a04';
+        ctx.fillRect(20, 24, 8, 1);
+        ctx.fillRect(20, 26, 6, 1);
+
