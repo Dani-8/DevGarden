@@ -801,3 +801,57 @@ export class CafeCommunityTextures {
                 ctx.fillStyle = '#0f172a';
                 ctx.fillRect(4, 4, 24, 42);
 
+        // Shelf 1: Golden Trophy
+        ctx.fillStyle = '#fbbf24';
+        ctx.beginPath();
+        ctx.ellipse(16, 16, 6, 4, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillRect(14, 16, 4, 6);
+        ctx.fillRect(11, 22, 10, 3);
+        ctx.fillStyle = '#fef08a';
+        ctx.fillRect(14, 14, 4, 3);
+
+        // Shelf 2: Award ribbon / plaque
+        ctx.fillStyle = '#38bdf8';
+        ctx.fillRect(8, 30, 7, 10);
+        ctx.fillStyle = '#a855f7';
+        ctx.fillRect(18, 32, 6, 8);
+
+        // Bottom drawer
+        ctx.fillStyle = '#3a1b0d';
+        ctx.fillRect(4, 48, 24, 4);
+        ctx.fillStyle = '#fbbf24';
+        ctx.fillRect(15, 49, 2, 2);
+
+        canvas.refresh();
+      }
+    }
+
+    // =========================================================================
+    // 12. FREESTANDING MOBILE ROLLING WHITEBOARD (96x66) - STANDS ON FLOOR
+    // =========================================================================
+    if (!textures.exists('cafe_collab_whiteboard')) {
+      const canvas = textures.createCanvas('cafe_collab_whiteboard', 96, 66);
+      if (canvas) {
+        const ctx = canvas.getContext();
+
+        // 1. Floor Drop Shadow (Soft ellipse directly under wheeled base)
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
+        ctx.beginPath();
+        ctx.ellipse(48, 62, 44, 4, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // 2. Heavy-Duty Wheeled Tubular Stand Structure
+        // Left Horizontal T-Bar Base on Floor
+        ctx.fillStyle = '#1e293b';
+        ctx.fillRect(8, 57, 24, 4);
+        ctx.fillStyle = '#334155';
+        ctx.fillRect(9, 58, 22, 2);
+
+        // Left 2 Caster Wheels & Swivel Axles
+        ctx.fillStyle = '#0f172a';
+        ctx.fillRect(9, 61, 5, 4);
+        ctx.fillRect(26, 61, 5, 4);
+        ctx.fillStyle = '#94a3b8';
+        ctx.fillRect(10, 62, 3, 2);
+        ctx.fillRect(27, 62, 3, 2);
