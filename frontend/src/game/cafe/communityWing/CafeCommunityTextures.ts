@@ -593,3 +593,56 @@ export class CafeCommunityTextures {
                 ctx.lineTo(71, 62);
                 ctx.closePath();
                 ctx.fill();
+
+        ctx.fillStyle = '#5a2a0c';
+        ctx.beginPath();
+        ctx.moveTo(43, 10);
+        ctx.lineTo(45, 10);
+        ctx.lineTo(74, 61);
+        ctx.lineTo(72, 61);
+        ctx.closePath();
+        ctx.fill();
+
+        // Brass Floor Feet Caps
+        ctx.fillStyle = '#b45309';
+        ctx.fillRect(12, 60, 6, 3);
+        ctx.fillRect(70, 60, 6, 3);
+        ctx.fillStyle = '#f59e0b';
+        ctx.fillRect(13, 61, 4, 1);
+        ctx.fillRect(71, 61, 4, 1);
+
+        // Horizontal Wooden Cross-Brace Bar
+        ctx.fillStyle = '#2d1405';
+        ctx.fillRect(20, 52, 48, 4);
+        ctx.fillStyle = '#4e2712';
+        ctx.fillRect(20, 53, 48, 2);
+
+        // Support Shelf Ledge (Holds the display board)
+        ctx.fillStyle = '#1c0c03';
+        ctx.fillRect(8, 41, 72, 5);
+        ctx.fillStyle = '#652e0e';
+        ctx.fillRect(9, 41, 70, 3);
+        ctx.fillStyle = '#b45309';
+        ctx.fillRect(15, 45, 4, 2);
+        ctx.fillRect(69, 45, 4, 2);
+
+        // 4. Mounted Display Board (Resting on easel shelf)
+        // Drop shadow behind board onto easel
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.45)';
+        ctx.fillRect(12, 7, 66, 36);
+
+        // Dark Walnut & Brass Trim Frame
+        ctx.fillStyle = '#1e0f05';
+        ctx.fillRect(10, 5, 68, 36);
+        ctx.fillStyle = '#4a240e';
+        ctx.fillRect(12, 7, 64, 32);
+
+        // Corner Brass Reinforcement Brackets
+        ctx.fillStyle = '#f59e0b';
+        ctx.fillRect(10, 5, 5, 5);
+        ctx.fillRect(73, 5, 5, 5);
+        ctx.fillRect(10, 36, 5, 5);
+        ctx.fillRect(73, 36, 5, 5);
+        ctx.fillStyle = '#fbbf24';
+        ctx.fillRect(11, 6, 3, 3);
+        ctx.fillRect(74, 6, 3, 3);
