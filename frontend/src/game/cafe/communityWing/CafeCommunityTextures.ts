@@ -259,3 +259,56 @@ export class CafeCommunityTextures {
                 }
             }
         }
+
+    // =========================================================================
+    // 4. VERTICAL DIVIDING WALL (20x64)
+    // Tiny dark neutral stone-brick column (slightly darker than horizontal dividers)
+    // Matches the stone material without being overly light or distracting.
+    // =========================================================================
+    if (!textures.exists('cafe_wing_div_wall_v')) {
+      const canvas = textures.createCanvas('cafe_wing_div_wall_v', 20, 64);
+      if (canvas) {
+        const ctx = canvas.getContext();
+
+        // Floor / boundary drop shadow on left
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
+        ctx.fillRect(0, 0, 3, 64);
+
+        // Dark outer stone edging / mortar
+        ctx.fillStyle = '#423d36';
+        ctx.fillRect(3, 0, 15, 64);
+
+        // Tiny darker stone-brick body (#9a9386 base, darker than #b8b1a3)
+        ctx.fillStyle = '#9a9386';
+        ctx.fillRect(4, 0, 13, 64);
+
+        // Stone blocks and joints across height (8px blocks)
+        for (let y = 0; y < 64; y += 8) {
+          const isAlt = (y / 8) % 2 === 0;
+          ctx.fillStyle = isAlt ? '#9e978a' : '#8e887b';
+          ctx.fillRect(5, y + 1, 11, 6);
+
+          // Top highlight
+          ctx.fillStyle = '#aba599';
+          ctx.fillRect(5, y + 1, 11, 1);
+
+          // Horizontal mortar joint
+          ctx.fillStyle = '#4e4840';
+          ctx.fillRect(4, y + 7, 13, 1);
+        }
+
+        // Inner vertical bevel line for solid structural depth
+        ctx.fillStyle = '#b5afa3';
+        ctx.fillRect(5, 0, 1, 64);
+
+        ctx.fillStyle = '#615a51';
+        ctx.fillRect(15, 0, 1, 64);
+
+        // Top and bottom stone cap seam
+        ctx.fillStyle = '#2b2722';
+        ctx.fillRect(3, 0, 15, 1);
+        ctx.fillRect(3, 63, 15, 1);
+
+        canvas.refresh();
+      }
+    }
