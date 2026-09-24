@@ -750,54 +750,54 @@ export class CafeCommunityTextures {
                 // Spec Sheet Left
                 ctx.fillStyle = '#f8fafc';
                 ctx.fillRect(14, 9, 10, 8);
-        ctx.fillStyle = '#ef4444';
-        ctx.fillRect(16, 10, 6, 2);
+                ctx.fillStyle = '#ef4444';
+                ctx.fillRect(16, 10, 6, 2);
 
-        // Open Blueprints
-        ctx.fillStyle = '#0284c7';
-        ctx.fillRect(32, 8, 16, 9);
-        ctx.fillStyle = '#bae6fd';
-        ctx.fillRect(34, 9, 12, 7);
+                // Open Blueprints
+                ctx.fillStyle = '#0284c7';
+                ctx.fillRect(32, 8, 16, 9);
+                ctx.fillStyle = '#bae6fd';
+                ctx.fillRect(34, 9, 12, 7);
 
-        // Center succulent plant pot
-        ctx.fillStyle = '#b45309';
-        ctx.beginPath();
-        ctx.arc(55, 14, 4, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.fillStyle = '#16a34a';
-        ctx.beginPath();
-        ctx.arc(55, 13, 3, 0, Math.PI * 2);
-        ctx.fill();
+                // Center succulent plant pot
+                ctx.fillStyle = '#b45309';
+                ctx.beginPath();
+                ctx.arc(55, 14, 4, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = '#16a34a';
+                ctx.beginPath();
+                ctx.arc(55, 13, 3, 0, Math.PI * 2);
+                ctx.fill();
 
-        // Notebooks Right
-        ctx.fillStyle = '#15803d';
-        ctx.fillRect(72, 9, 10, 8);
-        ctx.fillStyle = '#38bdf8';
-        ctx.fillRect(86, 9, 8, 8);
+                // Notebooks Right
+                ctx.fillStyle = '#15803d';
+                ctx.fillRect(72, 9, 10, 8);
+                ctx.fillStyle = '#38bdf8';
+                ctx.fillRect(86, 9, 8, 8);
 
-        canvas.refresh();
-      }
-    }
+                canvas.refresh();
+            }
+        }
 
-    // =========================================================================
-    // 11. DELUXE GLASS TROPHY & AWARDS CABINET (32x56)
-    // =========================================================================
-    if (!textures.exists('cafe_trophy_cabinet')) {
-      const canvas = textures.createCanvas('cafe_trophy_cabinet', 32, 56);
-      if (canvas) {
-        const ctx = canvas.getContext();
+        // =========================================================================
+        // 11. DELUXE GLASS TROPHY & AWARDS CABINET (32x56)
+        // =========================================================================
+        if (!textures.exists('cafe_trophy_cabinet')) {
+            const canvas = textures.createCanvas('cafe_trophy_cabinet', 32, 56);
+            if (canvas) {
+                const ctx = canvas.getContext();
 
-        // Shadow
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
-        ctx.fillRect(2, 4, 30, 52);
+                // Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+                ctx.fillRect(2, 4, 30, 52);
 
-        // Wooden cabinet frame
-        ctx.fillStyle = '#271206';
-        ctx.fillRect(0, 0, 32, 54);
-        ctx.fillStyle = '#4e2712';
-        ctx.fillRect(2, 2, 28, 50);
+                // Wooden cabinet frame
+                ctx.fillStyle = '#271206';
+                ctx.fillRect(0, 0, 32, 54);
+                ctx.fillStyle = '#4e2712';
+                ctx.fillRect(2, 2, 28, 50);
 
-        // Glass display area
-        ctx.fillStyle = '#0f172a';
-        ctx.fillRect(4, 4, 24, 42);
+                // Glass display area
+                ctx.fillStyle = '#0f172a';
+                ctx.fillRect(4, 4, 24, 42);
 
