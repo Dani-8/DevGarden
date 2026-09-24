@@ -961,47 +961,47 @@ export class CafeCommunityTextures {
                 ctx.fillRect(20, 24, 8, 1);
                 ctx.fillRect(20, 26, 6, 1);
 
-        // Pink Sticky
-        ctx.fillStyle = '#fbcfe8';
-        ctx.fillRect(33, 23, 10, 9);
-        ctx.fillStyle = '#db2777';
-        ctx.fillRect(34, 24, 8, 1);
-        ctx.fillRect(34, 26, 7, 1);
+                // Pink Sticky
+                ctx.fillStyle = '#fbcfe8';
+                ctx.fillRect(33, 23, 10, 9);
+                ctx.fillStyle = '#db2777';
+                ctx.fillRect(34, 24, 8, 1);
+                ctx.fillRect(34, 26, 7, 1);
 
-        // Mint Sticky
-        ctx.fillStyle = '#bbf7d0';
-        ctx.fillRect(47, 23, 10, 9);
-        ctx.fillStyle = '#15803d';
-        ctx.fillRect(48, 24, 8, 1);
-        ctx.fillRect(48, 26, 6, 1);
+                // Mint Sticky
+                ctx.fillStyle = '#bbf7d0';
+                ctx.fillRect(47, 23, 10, 9);
+                ctx.fillStyle = '#15803d';
+                ctx.fillRect(48, 24, 8, 1);
+                ctx.fillRect(48, 26, 6, 1);
 
-        // Orange Sticky
-        ctx.fillStyle = '#fed7aa';
-        ctx.fillRect(61, 23, 10, 9);
-        ctx.fillStyle = '#c2410c';
-        ctx.fillRect(62, 24, 8, 1);
-        ctx.fillRect(62, 26, 8, 1);
+                // Orange Sticky
+                ctx.fillStyle = '#fed7aa';
+                ctx.fillRect(61, 23, 10, 9);
+                ctx.fillStyle = '#c2410c';
+                ctx.fillRect(62, 24, 8, 1);
+                ctx.fillRect(62, 26, 8, 1);
 
-        // 6. Full-Width Marker & Felt Eraser Tray at Bottom Edge of Board
-        ctx.fillStyle = '#1e293b';
-        ctx.fillRect(22, 42, 52, 4);
-        ctx.fillStyle = '#475569';
-        ctx.fillRect(23, 42, 50, 2);
+                // 6. Full-Width Marker & Felt Eraser Tray at Bottom Edge of Board
+                ctx.fillStyle = '#1e293b';
+                ctx.fillRect(22, 42, 52, 4);
+                ctx.fillStyle = '#475569';
+                ctx.fillRect(23, 42, 50, 2);
 
-        // Dry Erase Markers (Red, Blue, Green)
-        ctx.fillStyle = '#ef4444';
-        ctx.fillRect(27, 41, 6, 2);
-        ctx.fillStyle = '#3b82f6';
-        ctx.fillRect(36, 41, 6, 2);
-        ctx.fillStyle = '#10b981';
-        ctx.fillRect(45, 41, 6, 2);
+                // Dry Erase Markers (Red, Blue, Green)
+                ctx.fillStyle = '#ef4444';
+                ctx.fillRect(27, 41, 6, 2);
+                ctx.fillStyle = '#3b82f6';
+                ctx.fillRect(36, 41, 6, 2);
+                ctx.fillStyle = '#10b981';
+                ctx.fillRect(45, 41, 6, 2);
 
-        // Dark Gray Felt Eraser Block
-        ctx.fillStyle = '#0f172a';
-        ctx.fillRect(56, 40, 10, 3);
-        ctx.fillStyle = '#334155';
-        ctx.fillRect(57, 40, 8, 1);
+                // Dark Gray Felt Eraser Block
+                ctx.fillStyle = '#0f172a';
+                ctx.fillRect(56, 40, 10, 3);
+                ctx.fillStyle = '#334155';
+                ctx.fillRect(57, 40, 8, 1);
 
-        canvas.refresh();
-      }
-    }
+                canvas.refresh();
+            }
+        }
