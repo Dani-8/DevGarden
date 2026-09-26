@@ -1134,3 +1134,391 @@ export class CafeCommunityTextures {
                 canvas.refresh();
             }
         }
+
+        // =========================================================================
+        // 16. WARM WALL LANTERN SCONCE (16x16)
+        // =========================================================================
+        if (!textures.exists('cafe_wing_wall_lantern')) {
+            const canvas = textures.createCanvas('cafe_wing_wall_lantern', 16, 16);
+            if (canvas) {
+                const ctx = canvas.getContext();
+
+                // Dark iron bracket
+                ctx.fillStyle = '#1c1917';
+                ctx.fillRect(7, 3, 2, 10);
+                ctx.fillRect(5, 4, 6, 2);
+                ctx.fillRect(4, 11, 8, 2);
+
+                // Warm Glowing Amber Lantern Glass
+                ctx.fillStyle = '#f59e0b';
+                ctx.fillRect(5, 6, 6, 5);
+                ctx.fillStyle = '#fef08a';
+                ctx.fillRect(6, 7, 4, 3);
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(7, 7, 2, 2);
+
+                canvas.refresh();
+            }
+        }
+
+        // =========================================================================
+        // 17. SPHERICAL LUXURY POTTED PLANT POT (32x56)
+        // =========================================================================
+        if (!textures.exists('cafe_luxury_plant_pot')) {
+            const canvas = textures.createCanvas('cafe_luxury_plant_pot', 32, 56);
+            if (canvas) {
+                const ctx = canvas.getContext();
+
+                // Floor Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+                ctx.beginPath();
+                ctx.ellipse(16, 52, 12, 3, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Terracotta Pot Base
+                ctx.fillStyle = '#9a3412';
+                ctx.beginPath();
+                ctx.moveTo(8, 36);
+                ctx.lineTo(24, 36);
+                ctx.lineTo(21, 52);
+                ctx.lineTo(11, 52);
+                ctx.closePath();
+                ctx.fill();
+
+                // Pot Rim
+                ctx.fillStyle = '#c2410c';
+                ctx.fillRect(6, 33, 20, 4);
+
+                // White accent pot band
+                ctx.fillStyle = '#f8fafc';
+                ctx.fillRect(9, 41, 14, 3);
+
+                // Trunk / Stem
+                ctx.fillStyle = '#451a03';
+                ctx.fillRect(15, 20, 2, 14);
+
+                // Lush Spherical Foliage (Topiary sphere)
+                ctx.fillStyle = '#14532d';
+                ctx.beginPath();
+                ctx.arc(16, 16, 12, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.fillStyle = '#16a34a';
+                ctx.beginPath();
+                ctx.arc(15, 14, 10, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.fillStyle = '#4ade80';
+                ctx.beginPath();
+                ctx.arc(13, 12, 5, 0, Math.PI * 2);
+                ctx.fill();
+
+                canvas.refresh();
+            }
+        }
+
+        // =========================================================================
+        // 18. LO-FI BOHEMIAN GEOMETRIC AREA RUG (220x120)
+        // =========================================================================
+        if (!textures.exists('cafe_lofi_boho_rug')) {
+            const canvas = textures.createCanvas('cafe_lofi_boho_rug', 220, 120);
+            if (canvas) {
+                const ctx = canvas.getContext();
+
+                // Floor Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.22)';
+                ctx.fillRect(4, 4, 212, 112);
+
+                // Fringes on Left and Right ends
+                ctx.fillStyle = '#e7dfd5';
+                for (let y = 8; y < 112; y += 4) {
+                    ctx.fillRect(0, y, 4, 2);
+                    ctx.fillRect(216, y, 4, 2);
+                }
+
+                // Cream woven base field
+                ctx.fillStyle = '#f8f5ee';
+                ctx.fillRect(4, 4, 212, 112);
+
+                // Outer terracotta border
+                ctx.fillStyle = '#9a3412';
+                ctx.fillRect(8, 8, 204, 3);
+                ctx.fillRect(8, 109, 204, 3);
+                ctx.fillRect(8, 8, 3, 104);
+                ctx.fillRect(209, 8, 3, 104);
+
+                // Inner sage charcoal accent stripe
+                ctx.fillStyle = '#292524';
+                ctx.fillRect(14, 14, 192, 2);
+                ctx.fillRect(14, 104, 192, 2);
+                ctx.fillRect(14, 14, 2, 92);
+                ctx.fillRect(204, 14, 2, 92);
+
+                // Diamond Aztec Motifs across center
+                const drawDiamond = (cx: number, cy: number, size: number, color: string) => {
+                    ctx.fillStyle = color;
+                    ctx.beginPath();
+                    ctx.moveTo(cx, cy - size);
+                    ctx.lineTo(cx + size, cy);
+                    ctx.lineTo(cx, cy + size);
+                    ctx.lineTo(cx - size, cy);
+                    ctx.closePath();
+                    ctx.fill();
+                };
+
+                const centers = [40, 78, 110, 142, 180];
+                centers.forEach((cx) => {
+                    drawDiamond(cx, 60, 22, '#ea580c');
+                    drawDiamond(cx, 60, 16, '#f8f5ee');
+                    drawDiamond(cx, 60, 11, '#0f766e');
+                    drawDiamond(cx, 60, 5, '#f59e0b');
+                });
+
+                // Soft woven horizontal weave lines
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.04)';
+                for (let y = 18; y < 100; y += 3) {
+                    ctx.fillRect(16, y, 188, 1);
+                }
+
+                canvas.refresh();
+            }
+        }
+
+        // =========================================================================
+        // 19. RETRO VINYL TURNTABLE & STEREO CREDENZA (92x48)
+        // =========================================================================
+        if (!textures.exists('cafe_vinyl_turntable_station')) {
+            const canvas = textures.createCanvas('cafe_vinyl_turntable_station', 92, 48);
+            if (canvas) {
+                const ctx = canvas.getContext();
+
+                // Floor Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+                ctx.beginPath();
+                ctx.ellipse(46, 44, 42, 4, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Tapered Mid-Century Wooden Peg Legs with Brass Tips
+                ctx.fillStyle = '#271206';
+                ctx.fillRect(10, 36, 4, 9);
+                ctx.fillRect(78, 36, 4, 9);
+                ctx.fillRect(32, 36, 3, 9);
+                ctx.fillRect(57, 36, 3, 9);
+                ctx.fillStyle = '#f59e0b';
+                ctx.fillRect(10, 42, 4, 3);
+                ctx.fillRect(78, 42, 4, 3);
+
+                // Teak Credenza Body
+                ctx.fillStyle = '#361502';
+                ctx.fillRect(4, 14, 84, 24);
+                ctx.fillStyle = '#5c2406';
+                ctx.fillRect(5, 15, 82, 22);
+
+                // Credenza Top Surface Lip
+                ctx.fillStyle = '#78350f';
+                ctx.fillRect(3, 12, 86, 3);
+                ctx.fillStyle = '#9a3412';
+                ctx.fillRect(4, 12, 84, 1);
+
+                // Lower Shelves with Stored Vinyl Record Spines
+                ctx.fillStyle = '#1c0c04';
+                ctx.fillRect(8, 22, 76, 13);
+
+                // Shelf Dividers
+                ctx.fillStyle = '#5c2406';
+                ctx.fillRect(32, 22, 2, 13);
+                ctx.fillRect(58, 22, 2, 13);
+
+                // Vinyl Album Spines (Colorful vertical slices)
+                const spineColors = [
+                    '#ef4444', '#f59e0b', '#10b981', '#3b82f6', '#8b5cf6', '#ec4899', '#f97316',
+                    '#e2e8f0', '#06b6d4', '#84cc16', '#a855f7', '#f43f5e', '#fbbf24', '#64748b'
+                ];
+                let px = 10;
+                for (let i = 0; px < 30; i++) {
+                    ctx.fillStyle = spineColors[i % spineColors.length];
+                    ctx.fillRect(px, 23, 2, 11);
+                    px += 2;
+                }
+
+                px = 35;
+                for (let i = 4; px < 56; i++) {
+                    ctx.fillStyle = spineColors[i % spineColors.length];
+                    ctx.fillRect(px, 23, 2, 11);
+                    px += 2;
+                }
+
+                px = 61;
+                for (let i = 8; px < 82; i++) {
+                    ctx.fillStyle = spineColors[i % spineColors.length];
+                    ctx.fillRect(px, 23, 2, 11);
+                    px += 2;
+                }
+
+                // --- TOP DECK EQUIPMENT ---
+                // Left Studio Monitor Speaker
+                ctx.fillStyle = '#1c1917';
+                ctx.fillRect(6, 2, 12, 11);
+                ctx.fillStyle = '#292524';
+                ctx.fillRect(7, 3, 10, 9);
+                ctx.fillStyle = '#d97706';
+                ctx.beginPath();
+                ctx.arc(12, 7, 3, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Right Studio Monitor Speaker
+                ctx.fillStyle = '#1c1917';
+                ctx.fillRect(74, 2, 12, 11);
+                ctx.fillStyle = '#292524';
+                ctx.fillRect(75, 3, 10, 9);
+                ctx.fillStyle = '#d97706';
+                ctx.beginPath();
+                ctx.arc(80, 7, 3, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Center-Left Turntable (Player)
+                ctx.fillStyle = '#1e293b';
+                ctx.fillRect(22, 3, 24, 10);
+                ctx.fillStyle = '#0f172a';
+                ctx.fillRect(23, 4, 22, 8);
+
+                // Spinning Vinyl Platter (Black disc with red label)
+                ctx.fillStyle = '#020617';
+                ctx.beginPath();
+                ctx.ellipse(33, 8, 7, 3.5, 0, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = '#ef4444';
+                ctx.beginPath();
+                ctx.ellipse(33, 8, 2.5, 1.2, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Silver Tonearm
+                ctx.strokeStyle = '#cbd5e1';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(42, 5);
+                ctx.lineTo(39, 7);
+                ctx.lineTo(36, 8);
+                ctx.stroke();
+
+                // Center-Right Vintage Receiver with Warm Amber Dials
+                ctx.fillStyle = '#27272a';
+                ctx.fillRect(50, 4, 20, 9);
+                ctx.fillStyle = '#18181b';
+                ctx.fillRect(51, 5, 18, 7);
+
+                // Glowing Amber Frequency Display
+                ctx.fillStyle = '#f59e0b';
+                ctx.fillRect(53, 6, 9, 3);
+                ctx.fillStyle = '#fbbf24';
+                ctx.fillRect(57, 6, 1, 3); // needle
+
+                // Dials
+                ctx.fillStyle = '#a1a1aa';
+                ctx.beginPath();
+                ctx.arc(65, 8, 1.5, 0, Math.PI * 2);
+                ctx.fill();
+
+                canvas.refresh();
+            }
+        }
+
+        // =========================================================================
+        // 20. FRAMED RETRO ALBUM ART POSTERS (22x22 each)
+        // =========================================================================
+        if (!textures.exists('cafe_vinyl_wall_art_1')) {
+            const canvas = textures.createCanvas('cafe_vinyl_wall_art_1', 22, 22);
+            if (canvas) {
+                const ctx = canvas.getContext();
+
+                // Black Gallery Frame
+                ctx.fillStyle = '#18181b';
+                ctx.fillRect(0, 0, 22, 22);
+                ctx.fillStyle = '#f8fafc';
+                ctx.fillRect(2, 2, 18, 18);
+
+                // Warm Sunset / Retro Wave Art
+                ctx.fillStyle = '#0f172a';
+                ctx.fillRect(3, 3, 16, 16);
+                ctx.fillStyle = '#f97316';
+                ctx.beginPath();
+                ctx.arc(11, 10, 5, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = '#06b6d4';
+                ctx.fillRect(3, 12, 16, 7);
+                ctx.fillStyle = '#e0e7ff';
+                ctx.fillRect(4, 13, 14, 1);
+
+                canvas.refresh();
+            }
+        }
+
+        if (!textures.exists('cafe_vinyl_wall_art_2')) {
+            const canvas = textures.createCanvas('cafe_vinyl_wall_art_2', 22, 22);
+            if (canvas) {
+                const ctx = canvas.getContext();
+
+                // Teak Wooden Frame
+                ctx.fillStyle = '#451a03';
+                ctx.fillRect(0, 0, 22, 22);
+                ctx.fillStyle = '#fdf4ff';
+                ctx.fillRect(2, 2, 18, 18);
+
+                // Minimalist Geometric Plant Art
+                ctx.fillStyle = '#f5f5f4';
+                ctx.fillRect(3, 3, 16, 16);
+
+                ctx.fillStyle = '#d97706';
+                ctx.beginPath();
+                ctx.arc(11, 7, 3.5, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.fillStyle = '#15803d';
+                ctx.beginPath();
+                ctx.ellipse(11, 14, 4, 2, -Math.PI / 4, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.beginPath();
+                ctx.ellipse(11, 11, 4, 2, Math.PI / 4, 0, Math.PI * 2);
+                ctx.fill();
+
+                canvas.refresh();
+            }
+        }
+
+        // =========================================================================
+        // 21. CURVED / L-SHAPED PLUSH SECTIONAL SOFA (118x56)
+        // =========================================================================
+        if (!textures.exists('cafe_lofi_l_sectional')) {
+            const canvas = textures.createCanvas('cafe_lofi_l_sectional', 118, 56);
+            if (canvas) {
+                const ctx = canvas.getContext();
+
+                // Floor Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.32)';
+                ctx.beginPath();
+                ctx.ellipse(59, 50, 56, 5, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Peg Legs
+                ctx.fillStyle = '#271206';
+                ctx.fillRect(8, 46, 4, 7);
+                ctx.fillRect(106, 46, 4, 7);
+                ctx.fillRect(56, 46, 4, 7);
+                ctx.fillRect(8, 26, 4, 7);
+
+                // Wooden Base Rim
+                ctx.fillStyle = '#451a03';
+                ctx.fillRect(6, 40, 106, 6);
+                ctx.fillRect(6, 20, 26, 26);
+
+                // Main Sofa Backrest (Sage / Forest Chenille)
+                ctx.fillStyle = '#1b3b27';
+                ctx.fillRect(6, 6, 106, 18);
+                ctx.fillStyle = '#275237';
+                ctx.fillRect(8, 8, 102, 14);
+
+                // Tufted Backrest Dimples
+                ctx.fillStyle = '#163121';
+                for (let x = 18; x < 105; x += 14) {
+                    ctx.fillRect(x, 14, 2, 2);
+                }
