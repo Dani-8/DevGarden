@@ -1407,18 +1407,18 @@ export class CafeCommunityTextures {
                 ctx.fillStyle = '#18181b';
                 ctx.fillRect(51, 5, 18, 7);
 
-        // Glowing Amber Frequency Display
-        ctx.fillStyle = '#f59e0b';
-        ctx.fillRect(53, 6, 9, 3);
-        ctx.fillStyle = '#fbbf24';
-        ctx.fillRect(57, 6, 1, 3); // needle
+                // Glowing Amber Frequency Display
+                ctx.fillStyle = '#f59e0b';
+                ctx.fillRect(53, 6, 9, 3);
+                ctx.fillStyle = '#fbbf24';
+                ctx.fillRect(57, 6, 1, 3); // needle
 
-        // Dials
-        ctx.fillStyle = '#a1a1aa';
-        ctx.beginPath();
-        ctx.arc(65, 8, 1.5, 0, Math.PI * 2);
-        ctx.fill();
+                // Dials
+                ctx.fillStyle = '#a1a1aa';
+                ctx.beginPath();
+                ctx.arc(65, 8, 1.5, 0, Math.PI * 2);
+                ctx.fill();
 
-        canvas.refresh();
-      }
-    }
+                canvas.refresh();
+            }
+        }
