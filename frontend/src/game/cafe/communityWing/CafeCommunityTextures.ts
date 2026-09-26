@@ -2117,3 +2117,53 @@ export class CafeCommunityTextures {
                 ctx.fillStyle = '#b45309';
                 ctx.fillRect(9, 17, 26, 2);
 
+        // Right Cushion
+        ctx.fillStyle = '#78350f';
+        ctx.fillRect(39, 16, 30, 11);
+        ctx.fillStyle = '#9a3412';
+        ctx.fillRect(40, 17, 28, 8);
+        ctx.fillStyle = '#b45309';
+        ctx.fillRect(41, 17, 26, 2);
+
+        // Center Seam
+        ctx.fillStyle = '#361502';
+        ctx.fillRect(37, 16, 2, 11);
+
+        // Padded Armrests
+        ctx.fillStyle = '#5c2406';
+        ctx.fillRect(3, 8, 5, 18);
+        ctx.fillRect(68, 8, 5, 18);
+        ctx.fillStyle = '#78350f';
+        ctx.fillRect(4, 9, 3, 16);
+        ctx.fillRect(69, 9, 3, 16);
+
+        // Left Throw Pillow (Deep Forest Emerald Velvet)
+        ctx.fillStyle = '#064e3b';
+        ctx.fillRect(9, 11, 9, 9);
+        ctx.fillStyle = '#047857';
+        ctx.fillRect(10, 12, 6, 6);
+
+        // Right Throw Pillow (Cream Gold Wool)
+        ctx.fillStyle = '#b45309';
+        ctx.fillRect(58, 11, 9, 9);
+        ctx.fillStyle = '#fde68a';
+        ctx.fillRect(59, 12, 6, 6);
+
+        canvas.refresh();
+      }
+    }
+
+    // =========================================================================
+    // 29. PERFECTLY PROPORTIONED WALNUT COFFEE TABLE (52x26)
+    // =========================================================================
+    if (!textures.exists('cafe_lounge_proportional_table')) {
+      const canvas = textures.createCanvas('cafe_lounge_proportional_table', 52, 26);
+      if (canvas) {
+        const ctx = canvas.getContext();
+
+        // Floor Shadow
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+        ctx.beginPath();
+        ctx.ellipse(26, 23, 23, 3, 0, 0, Math.PI * 2);
+        ctx.fill();
+
