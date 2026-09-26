@@ -2070,3 +2070,50 @@ export class CafeCommunityTextures {
             }
         }
 
+    // =========================================================================
+    // 28. PERFECTLY PROPORTIONED COGNAC LEATHER LOUNGE SOFA (76x36)
+    // =========================================================================
+    if (!textures.exists('cafe_lounge_proportional_sofa')) {
+      const canvas = textures.createCanvas('cafe_lounge_proportional_sofa', 76, 36);
+      if (canvas) {
+        const ctx = canvas.getContext();
+
+        // Floor Shadow
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.32)';
+        ctx.beginPath();
+        ctx.ellipse(38, 33, 35, 3.5, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Tapered Walnut Peg Legs
+        ctx.fillStyle = '#271206';
+        ctx.fillRect(8, 28, 3, 6);
+        ctx.fillRect(65, 28, 3, 6);
+        ctx.fillRect(36, 28, 3, 6);
+
+        // Solid Walnut Base Rim
+        ctx.fillStyle = '#361502';
+        ctx.fillRect(4, 24, 68, 5);
+
+        // Tufted Backrest (Cognac / Saddle Leather)
+        ctx.fillStyle = '#5c2406';
+        ctx.fillRect(5, 5, 66, 14);
+        ctx.fillStyle = '#78350f';
+        ctx.fillRect(6, 6, 64, 11);
+        ctx.fillStyle = '#9a3412';
+        ctx.fillRect(7, 7, 62, 3); // top highlight
+
+        // Button tufting on backrest
+        ctx.fillStyle = '#361502';
+        for (let x = 16; x < 65; x += 11) {
+          ctx.fillRect(x, 11, 2, 2);
+        }
+
+        // Twin Plush Seat Cushions
+        // Left Cushion
+        ctx.fillStyle = '#78350f';
+        ctx.fillRect(7, 16, 30, 11);
+        ctx.fillStyle = '#9a3412';
+        ctx.fillRect(8, 17, 28, 8);
+        ctx.fillStyle = '#b45309';
+        ctx.fillRect(9, 17, 26, 2);
+
