@@ -1135,53 +1135,53 @@ export class CafeCommunityTextures {
             }
         }
 
-    // =========================================================================
-    // 16. WARM WALL LANTERN SCONCE (16x16)
-    // =========================================================================
-    if (!textures.exists('cafe_wing_wall_lantern')) {
-      const canvas = textures.createCanvas('cafe_wing_wall_lantern', 16, 16);
-      if (canvas) {
-        const ctx = canvas.getContext();
+        // =========================================================================
+        // 16. WARM WALL LANTERN SCONCE (16x16)
+        // =========================================================================
+        if (!textures.exists('cafe_wing_wall_lantern')) {
+            const canvas = textures.createCanvas('cafe_wing_wall_lantern', 16, 16);
+            if (canvas) {
+                const ctx = canvas.getContext();
 
-        // Dark iron bracket
-        ctx.fillStyle = '#1c1917';
-        ctx.fillRect(7, 3, 2, 10);
-        ctx.fillRect(5, 4, 6, 2);
-        ctx.fillRect(4, 11, 8, 2);
+                // Dark iron bracket
+                ctx.fillStyle = '#1c1917';
+                ctx.fillRect(7, 3, 2, 10);
+                ctx.fillRect(5, 4, 6, 2);
+                ctx.fillRect(4, 11, 8, 2);
 
-        // Warm Glowing Amber Lantern Glass
-        ctx.fillStyle = '#f59e0b';
-        ctx.fillRect(5, 6, 6, 5);
-        ctx.fillStyle = '#fef08a';
-        ctx.fillRect(6, 7, 4, 3);
-        ctx.fillStyle = '#ffffff';
-        ctx.fillRect(7, 7, 2, 2);
+                // Warm Glowing Amber Lantern Glass
+                ctx.fillStyle = '#f59e0b';
+                ctx.fillRect(5, 6, 6, 5);
+                ctx.fillStyle = '#fef08a';
+                ctx.fillRect(6, 7, 4, 3);
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(7, 7, 2, 2);
 
-        canvas.refresh();
-      }
-    }
+                canvas.refresh();
+            }
+        }
 
-    // =========================================================================
-    // 17. SPHERICAL LUXURY POTTED PLANT POT (32x56)
-    // =========================================================================
-    if (!textures.exists('cafe_luxury_plant_pot')) {
-      const canvas = textures.createCanvas('cafe_luxury_plant_pot', 32, 56);
-      if (canvas) {
-        const ctx = canvas.getContext();
+        // =========================================================================
+        // 17. SPHERICAL LUXURY POTTED PLANT POT (32x56)
+        // =========================================================================
+        if (!textures.exists('cafe_luxury_plant_pot')) {
+            const canvas = textures.createCanvas('cafe_luxury_plant_pot', 32, 56);
+            if (canvas) {
+                const ctx = canvas.getContext();
 
-        // Floor Shadow
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
-        ctx.beginPath();
-        ctx.ellipse(16, 52, 12, 3, 0, 0, Math.PI * 2);
-        ctx.fill();
+                // Floor Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+                ctx.beginPath();
+                ctx.ellipse(16, 52, 12, 3, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-        // Terracotta Pot Base
-        ctx.fillStyle = '#9a3412';
-        ctx.beginPath();
-        ctx.moveTo(8, 36);
-        ctx.lineTo(24, 36);
-        ctx.lineTo(21, 52);
-        ctx.lineTo(11, 52);
-        ctx.closePath();
-        ctx.fill();
+                // Terracotta Pot Base
+                ctx.fillStyle = '#9a3412';
+                ctx.beginPath();
+                ctx.moveTo(8, 36);
+                ctx.lineTo(24, 36);
+                ctx.lineTo(21, 52);
+                ctx.lineTo(11, 52);
+                ctx.closePath();
+                ctx.fill();
 
