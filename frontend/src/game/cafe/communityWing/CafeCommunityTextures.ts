@@ -1236,50 +1236,50 @@ export class CafeCommunityTextures {
                     ctx.fillRect(216, y, 4, 2);
                 }
 
-        // Cream woven base field
-        ctx.fillStyle = '#f8f5ee';
-        ctx.fillRect(4, 4, 212, 112);
+                // Cream woven base field
+                ctx.fillStyle = '#f8f5ee';
+                ctx.fillRect(4, 4, 212, 112);
 
-        // Outer terracotta border
-        ctx.fillStyle = '#9a3412';
-        ctx.fillRect(8, 8, 204, 3);
-        ctx.fillRect(8, 109, 204, 3);
-        ctx.fillRect(8, 8, 3, 104);
-        ctx.fillRect(209, 8, 3, 104);
+                // Outer terracotta border
+                ctx.fillStyle = '#9a3412';
+                ctx.fillRect(8, 8, 204, 3);
+                ctx.fillRect(8, 109, 204, 3);
+                ctx.fillRect(8, 8, 3, 104);
+                ctx.fillRect(209, 8, 3, 104);
 
-        // Inner sage charcoal accent stripe
-        ctx.fillStyle = '#292524';
-        ctx.fillRect(14, 14, 192, 2);
-        ctx.fillRect(14, 104, 192, 2);
-        ctx.fillRect(14, 14, 2, 92);
-        ctx.fillRect(204, 14, 2, 92);
+                // Inner sage charcoal accent stripe
+                ctx.fillStyle = '#292524';
+                ctx.fillRect(14, 14, 192, 2);
+                ctx.fillRect(14, 104, 192, 2);
+                ctx.fillRect(14, 14, 2, 92);
+                ctx.fillRect(204, 14, 2, 92);
 
-        // Diamond Aztec Motifs across center
-        const drawDiamond = (cx: number, cy: number, size: number, color: string) => {
-          ctx.fillStyle = color;
-          ctx.beginPath();
-          ctx.moveTo(cx, cy - size);
-          ctx.lineTo(cx + size, cy);
-          ctx.lineTo(cx, cy + size);
-          ctx.lineTo(cx - size, cy);
-          ctx.closePath();
-          ctx.fill();
-        };
+                // Diamond Aztec Motifs across center
+                const drawDiamond = (cx: number, cy: number, size: number, color: string) => {
+                    ctx.fillStyle = color;
+                    ctx.beginPath();
+                    ctx.moveTo(cx, cy - size);
+                    ctx.lineTo(cx + size, cy);
+                    ctx.lineTo(cx, cy + size);
+                    ctx.lineTo(cx - size, cy);
+                    ctx.closePath();
+                    ctx.fill();
+                };
 
-        const centers = [40, 78, 110, 142, 180];
-        centers.forEach((cx) => {
-          drawDiamond(cx, 60, 22, '#ea580c');
-          drawDiamond(cx, 60, 16, '#f8f5ee');
-          drawDiamond(cx, 60, 11, '#0f766e');
-          drawDiamond(cx, 60, 5, '#f59e0b');
-        });
+                const centers = [40, 78, 110, 142, 180];
+                centers.forEach((cx) => {
+                    drawDiamond(cx, 60, 22, '#ea580c');
+                    drawDiamond(cx, 60, 16, '#f8f5ee');
+                    drawDiamond(cx, 60, 11, '#0f766e');
+                    drawDiamond(cx, 60, 5, '#f59e0b');
+                });
 
-        // Soft woven horizontal weave lines
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.04)';
-        for (let y = 18; y < 100; y += 3) {
-          ctx.fillRect(16, y, 188, 1);
+                // Soft woven horizontal weave lines
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.04)';
+                for (let y = 18; y < 100; y += 3) {
+                    ctx.fillRect(16, y, 188, 1);
+                }
+
+                canvas.refresh();
+            }
         }
-
-        canvas.refresh();
-      }
-    }
