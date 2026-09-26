@@ -2037,4 +2037,36 @@ export class CafeCommunityTextures {
                     ctx.fill();
                 };
 
+        // Outer medallion navy & gold
+        drawMedallion(90, 56, 32, 20, '#0f172a');
+        drawMedallion(90, 56, 28, 17, '#b45309');
+        drawMedallion(90, 56, 22, 13, '#7f1d1d');
+        drawMedallion(90, 56, 16, 9, '#f59e0b');
+        drawMedallion(90, 56, 9, 5, '#1e3a8a');
+        drawMedallion(90, 56, 4, 2.5, '#fef08a');
+
+        // Corner Medallion Ornaments
+        const drawCorner = (cx: number, cy: number) => {
+          ctx.fillStyle = '#b45309';
+          ctx.beginPath();
+          ctx.arc(cx, cy, 12, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.fillStyle = '#0f172a';
+          ctx.beginPath();
+          ctx.arc(cx, cy, 8, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.fillStyle = '#f59e0b';
+          ctx.beginPath();
+          ctx.arc(cx, cy, 4, 0, Math.PI * 2);
+          ctx.fill();
+        };
+
+        drawCorner(28, 28);
+        drawCorner(152, 28);
+        drawCorner(28, 84);
+        drawCorner(152, 84);
+
+        canvas.refresh();
+      }
+    }
 
