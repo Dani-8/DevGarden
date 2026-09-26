@@ -2315,30 +2315,30 @@ export class CafeCommunityTextures {
                 ctx.lineTo(32, 14);
                 ctx.fill();
 
-        ctx.fillStyle = '#475569';
-        ctx.beginPath();
-        ctx.moveTo(26, 14);
-        ctx.lineTo(40, 5);
-        ctx.lineTo(54, 14);
-        ctx.fill();
+                ctx.fillStyle = '#475569';
+                ctx.beginPath();
+                ctx.moveTo(26, 14);
+                ctx.lineTo(40, 5);
+                ctx.lineTo(54, 14);
+                ctx.fill();
 
-        // Forefront Evergreen Pine Forest Silhouette
-        ctx.fillStyle = '#143320';
-        for (let x = 6; x < 68; x += 5) {
-          ctx.beginPath();
-          ctx.moveTo(x, 18);
-          ctx.lineTo(x + 3, 9 + ((x % 3) * 2));
-          ctx.lineTo(x + 6, 18);
-          ctx.fill();
+                // Forefront Evergreen Pine Forest Silhouette
+                ctx.fillStyle = '#143320';
+                for (let x = 6; x < 68; x += 5) {
+                    ctx.beginPath();
+                    ctx.moveTo(x, 18);
+                    ctx.lineTo(x + 3, 9 + ((x % 3) * 2));
+                    ctx.lineTo(x + 6, 18);
+                    ctx.fill();
+                }
+
+                // Small Morning Sun
+                ctx.fillStyle = '#fef08a';
+                ctx.beginPath();
+                ctx.arc(58, 7, 3, 0, Math.PI * 2);
+                ctx.fill();
+
+                canvas.refresh();
+            }
         }
-
-        // Small Morning Sun
-        ctx.fillStyle = '#fef08a';
-        ctx.beginPath();
-        ctx.arc(58, 7, 3, 0, Math.PI * 2);
-        ctx.fill();
-
-        canvas.refresh();
-      }
-    }
 
