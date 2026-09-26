@@ -2210,56 +2210,56 @@ export class CafeCommunityTextures {
             }
         }
 
-    // =========================================================================
-    // 30. DEEP FOREST EMERALD & GOLD ACCENT AREA RUG (220x124) [Concept 1 & 5]
-    // =========================================================================
-    if (!textures.exists('cafe_lounge_emerald_gold_rug')) {
-      const canvas = textures.createCanvas('cafe_lounge_emerald_gold_rug', 220, 124);
-      if (canvas) {
-        const ctx = canvas.getContext();
+        // =========================================================================
+        // 30. DEEP FOREST EMERALD & GOLD ACCENT AREA RUG (220x124) [Concept 1 & 5]
+        // =========================================================================
+        if (!textures.exists('cafe_lounge_emerald_gold_rug')) {
+            const canvas = textures.createCanvas('cafe_lounge_emerald_gold_rug', 220, 124);
+            if (canvas) {
+                const ctx = canvas.getContext();
 
-        // Soft Floor Drop Shadow
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.28)';
-        ctx.fillRect(4, 4, 212, 116);
+                // Soft Floor Drop Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.28)';
+                ctx.fillRect(4, 4, 212, 116);
 
-        // Fringes on Left and Right ends
-        ctx.fillStyle = '#cfc6b8';
-        for (let y = 8; y < 116; y += 4) {
-          ctx.fillRect(0, y, 4, 2);
-          ctx.fillRect(216, y, 4, 2);
-        }
+                // Fringes on Left and Right ends
+                ctx.fillStyle = '#cfc6b8';
+                for (let y = 8; y < 116; y += 4) {
+                    ctx.fillRect(0, y, 4, 2);
+                    ctx.fillRect(216, y, 4, 2);
+                }
 
-        // Deep Forest Charcoal Outer Rim
-        ctx.fillStyle = '#0f2015';
-        ctx.fillRect(4, 4, 212, 116);
+                // Deep Forest Charcoal Outer Rim
+                ctx.fillStyle = '#0f2015';
+                ctx.fillRect(4, 4, 212, 116);
 
-        // Warm Polished Brass / Gold Inlay Band (From Concept 1)
-        ctx.fillStyle = '#b45309';
-        ctx.fillRect(8, 8, 204, 108);
-        ctx.fillStyle = '#d97706';
-        ctx.fillRect(9, 9, 202, 106);
-        ctx.fillStyle = '#f59e0b';
-        ctx.fillRect(10, 10, 200, 1);
-        ctx.fillRect(10, 113, 200, 1);
+                // Warm Polished Brass / Gold Inlay Band (From Concept 1)
+                ctx.fillStyle = '#b45309';
+                ctx.fillRect(8, 8, 204, 108);
+                ctx.fillStyle = '#d97706';
+                ctx.fillRect(9, 9, 202, 106);
+                ctx.fillStyle = '#f59e0b';
+                ctx.fillRect(10, 10, 200, 1);
+                ctx.fillRect(10, 113, 200, 1);
 
-        // Dark Moss Transition Border
-        ctx.fillStyle = '#143320';
-        ctx.fillRect(12, 12, 196, 100);
+                // Dark Moss Transition Border
+                ctx.fillStyle = '#143320';
+                ctx.fillRect(12, 12, 196, 100);
 
-        // Rich Forest Emerald Main Field
-        ctx.fillStyle = '#1b4332';
-        ctx.fillRect(15, 15, 190, 94);
-        ctx.fillStyle = '#245640';
-        ctx.fillRect(18, 18, 184, 88);
+                // Rich Forest Emerald Main Field
+                ctx.fillStyle = '#1b4332';
+                ctx.fillRect(15, 15, 190, 94);
+                ctx.fillStyle = '#245640';
+                ctx.fillRect(18, 18, 184, 88);
 
-        // Subtle Botanical Woven Cross-Grain
-        for (let y = 20; y < 104; y += 4) {
-          ctx.fillStyle = (Math.floor(y / 4) % 2 === 0) ? '#2a634a' : '#1f4c38';
-          ctx.fillRect(20, y, 180, 2);
-        }
+                // Subtle Botanical Woven Cross-Grain
+                for (let y = 20; y < 104; y += 4) {
+                    ctx.fillStyle = (Math.floor(y / 4) % 2 === 0) ? '#2a634a' : '#1f4c38';
+                    ctx.fillRect(20, y, 180, 2);
+                }
 
-        // Subtle Inner Gold Geometric Frame
-        ctx.strokeStyle = '#b45309';
-        ctx.lineWidth = 1;
-        ctx.strokeRect(26, 26, 168, 72);
+                // Subtle Inner Gold Geometric Frame
+                ctx.strokeStyle = '#b45309';
+                ctx.lineWidth = 1;
+                ctx.strokeRect(26, 26, 168, 72);
 
