@@ -2343,51 +2343,51 @@ export class CafeCommunityTextures {
         }
 
 
-    // =========================================================================
-    // 32. FREESTANDING WICKER RATTAN HANGING EGG CHAIR (34x50) [Concept 5]
-    // =========================================================================
-    if (!textures.exists('cafe_lounge_hanging_egg_chair')) {
-      const canvas = textures.createCanvas('cafe_lounge_hanging_egg_chair', 34, 50);
-      if (canvas) {
-        const ctx = canvas.getContext();
+        // =========================================================================
+        // 32. FREESTANDING WICKER RATTAN HANGING EGG CHAIR (34x50) [Concept 5]
+        // =========================================================================
+        if (!textures.exists('cafe_lounge_hanging_egg_chair')) {
+            const canvas = textures.createCanvas('cafe_lounge_hanging_egg_chair', 34, 50);
+            if (canvas) {
+                const ctx = canvas.getContext();
 
-        // Floor Shadow for Base
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
-        ctx.beginPath();
-        ctx.ellipse(17, 45, 14, 4, 0, 0, Math.PI * 2);
-        ctx.fill();
+                // Floor Shadow for Base
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+                ctx.beginPath();
+                ctx.ellipse(17, 45, 14, 4, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-        // Curved Wrought Iron Stand (Base & Arching Pole)
-        ctx.fillStyle = '#1c1917';
-        ctx.fillRect(6, 44, 22, 3); // floor disc
-        ctx.fillStyle = '#292524';
-        ctx.fillRect(23, 10, 3, 34); // vertical pole
-        // Curved top hook
-        ctx.fillRect(17, 4, 9, 3);
-        ctx.fillRect(15, 6, 3, 4);
+                // Curved Wrought Iron Stand (Base & Arching Pole)
+                ctx.fillStyle = '#1c1917';
+                ctx.fillRect(6, 44, 22, 3); // floor disc
+                ctx.fillStyle = '#292524';
+                ctx.fillRect(23, 10, 3, 34); // vertical pole
+                // Curved top hook
+                ctx.fillRect(17, 4, 9, 3);
+                ctx.fillRect(15, 6, 3, 4);
 
-        // Suspension Chain / Spring
-        ctx.fillStyle = '#94a3b8';
-        ctx.fillRect(16, 9, 1.5, 5);
+                // Suspension Chain / Spring
+                ctx.fillStyle = '#94a3b8';
+                ctx.fillRect(16, 9, 1.5, 5);
 
-        // Teardrop Woven Wicker Pod Shell (Natural Honey Rattan)
-        ctx.fillStyle = '#5c2d13';
-        ctx.beginPath();
-        ctx.ellipse(15, 27, 13, 16, 0, 0, Math.PI * 2);
-        ctx.fill();
+                // Teardrop Woven Wicker Pod Shell (Natural Honey Rattan)
+                ctx.fillStyle = '#5c2d13';
+                ctx.beginPath();
+                ctx.ellipse(15, 27, 13, 16, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-        ctx.fillStyle = '#9a3412';
-        ctx.beginPath();
-        ctx.ellipse(15, 27, 11, 14, 0, 0, Math.PI * 2);
-        ctx.fill();
+                ctx.fillStyle = '#9a3412';
+                ctx.beginPath();
+                ctx.ellipse(15, 27, 11, 14, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-        ctx.fillStyle = '#b45309';
-        ctx.beginPath();
-        ctx.ellipse(15, 27, 9.5, 12, 0, 0, Math.PI * 2);
-        ctx.fill();
+                ctx.fillStyle = '#b45309';
+                ctx.beginPath();
+                ctx.ellipse(15, 27, 9.5, 12, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-        // Wicker Cross-Weave Texture
-        ctx.fillStyle = '#78350f';
-        for (let y = 16; y < 38; y += 4) {
-          ctx.fillRect(6, y, 18, 1);
-        }
+                // Wicker Cross-Weave Texture
+                ctx.fillStyle = '#78350f';
+                for (let y = 16; y < 38; y += 4) {
+                    ctx.fillRect(6, y, 18, 1);
+                }
