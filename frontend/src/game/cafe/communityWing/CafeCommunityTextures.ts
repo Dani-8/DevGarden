@@ -2695,3 +2695,55 @@ export class CafeCommunityTextures {
                     ctx.fillStyle = '#d5c8b5';
                     ctx.fillRect(cx, 32, cushionWidth - 1, 2);
                 }
+
+        // Left Olive/Forest Green Accent Pillow (from user's image)
+        ctx.fillStyle = '#283e28';
+        ctx.fillRect(13, 13, 14, 14);
+        ctx.fillStyle = '#3d5a3a';
+        ctx.fillRect(14, 14, 12, 12);
+        ctx.fillStyle = '#537a4e';
+        ctx.fillRect(15, 15, 8, 8);
+        ctx.fillStyle = '#283e28';
+        ctx.fillRect(19, 19, 2, 2); // pillow button
+
+        // Right Olive/Forest Green Accent Pillow (from user's image)
+        ctx.fillStyle = '#283e28';
+        ctx.fillRect(105, 13, 14, 14);
+        ctx.fillStyle = '#3d5a3a';
+        ctx.fillRect(106, 14, 12, 12);
+        ctx.fillStyle = '#537a4e';
+        ctx.fillRect(107, 15, 8, 8);
+        ctx.fillStyle = '#283e28';
+        ctx.fillRect(111, 19, 2, 2); // pillow button
+
+        canvas.refresh();
+      }
+    }
+
+    // =========================================================================
+    // 38. GENEROUS HONEY-OAK COFFEE TABLE WITH SUCCULENT & BOOK (74x36) [Concept 1]
+    // =========================================================================
+    if (!textures.exists('cafe_concept1_coffee_table')) {
+      const canvas = textures.createCanvas('cafe_concept1_coffee_table', 74, 36);
+      if (canvas) {
+        const ctx = canvas.getContext();
+
+        // Soft Floor Shadow
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.32)';
+        ctx.beginPath();
+        ctx.ellipse(37, 32, 34, 4, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // 4 Warm Walnut Tapered Legs
+        ctx.fillStyle = '#3b1d09';
+        ctx.fillRect(8, 20, 3, 12);
+        ctx.fillRect(63, 20, 3, 12);
+        ctx.fillRect(16, 20, 3, 12);
+        ctx.fillRect(55, 20, 3, 12);
+
+        // Solid Honey-Oak Rounded Tabletop
+        ctx.fillStyle = '#4a250e';
+        ctx.beginPath();
+        ctx.roundRect(3, 8, 68, 18, 6);
+        ctx.fill();
+
