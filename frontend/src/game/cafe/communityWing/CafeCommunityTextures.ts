@@ -2443,3 +2443,52 @@ export class CafeCommunityTextures {
                 ctx.fillRect(17, 6, 8, 6);
                 ctx.fillStyle = '#22c55e';
                 ctx.fillRect(19, 10, 4, 4); // trailing ivy
+
+        // Shelf 2 (Row of colorful vintage book spines)
+        const spineColors = ['#dc2626', '#d97706', '#2563eb', '#16a34a', '#9333ea', '#ca8a04'];
+        let bx = 4;
+        spineColors.forEach((color, i) => {
+          ctx.fillStyle = color;
+          ctx.fillRect(bx, 17, 3, 10);
+          bx += 3.5;
+        });
+
+        // Shelf 3 (Stacked books horizontally & rolled scrolls)
+        ctx.fillStyle = '#0284c7';
+        ctx.fillRect(4, 34, 11, 3);
+        ctx.fillStyle = '#ea580c';
+        ctx.fillRect(5, 31, 9, 3);
+        ctx.fillStyle = '#fef08a';
+        ctx.fillRect(18, 30, 6, 10);
+
+        // Bottom Shelf (Large encyclopedia volumes & antique jug)
+        ctx.fillStyle = '#78350f';
+        ctx.fillRect(4, 43, 4, 9);
+        ctx.fillStyle = '#451a03';
+        ctx.fillRect(9, 43, 4, 9);
+        ctx.fillStyle = '#d97706';
+        ctx.fillRect(16, 44, 8, 8);
+
+        canvas.refresh();
+      }
+    }
+
+    // =========================================================================
+    // 34. CLASSIC BRASS FLOOR READING LAMP (18x54) [Concept 1 & 6]
+    // =========================================================================
+    if (!textures.exists('cafe_lounge_brass_floor_lamp')) {
+      const canvas = textures.createCanvas('cafe_lounge_brass_floor_lamp', 18, 54);
+      if (canvas) {
+        const ctx = canvas.getContext();
+
+        // Floor Shadow
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+        ctx.beginPath();
+        ctx.ellipse(9, 50, 7, 2.5, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Weighted Polished Brass Base
+        ctx.fillStyle = '#78350f';
+        ctx.fillRect(4, 48, 10, 3);
+        ctx.fillStyle = '#d97706';
+        ctx.fillRect(5, 47, 8, 2);
