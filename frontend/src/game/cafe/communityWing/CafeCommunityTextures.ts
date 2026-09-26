@@ -1523,52 +1523,52 @@ export class CafeCommunityTextures {
                     ctx.fillRect(x, 14, 2, 2);
                 }
 
-        // Left Chaise Backrest (extending vertically down on left)
-        ctx.fillStyle = '#1b3b27';
-        ctx.fillRect(6, 6, 12, 40);
-        ctx.fillStyle = '#275237';
-        ctx.fillRect(8, 8, 8, 36);
+                // Left Chaise Backrest (extending vertically down on left)
+                ctx.fillStyle = '#1b3b27';
+                ctx.fillRect(6, 6, 12, 40);
+                ctx.fillStyle = '#275237';
+                ctx.fillRect(8, 8, 8, 36);
 
-        // Main Seat Cushions (Horizontal seats)
-        ctx.fillStyle = '#2d5f40';
-        ctx.fillRect(18, 22, 92, 18);
-        ctx.fillStyle = '#37754f';
-        ctx.fillRect(20, 24, 88, 14);
+                // Main Seat Cushions (Horizontal seats)
+                ctx.fillStyle = '#2d5f40';
+                ctx.fillRect(18, 22, 92, 18);
+                ctx.fillStyle = '#37754f';
+                ctx.fillRect(20, 24, 88, 14);
 
-        // Cushion division seams
-        ctx.fillStyle = '#1b3b27';
-        ctx.fillRect(48, 22, 2, 18);
-        ctx.fillRect(78, 22, 2, 18);
+                // Cushion division seams
+                ctx.fillStyle = '#1b3b27';
+                ctx.fillRect(48, 22, 2, 18);
+                ctx.fillRect(78, 22, 2, 18);
 
-        // Left Chaise Return Seat Cushion
-        ctx.fillStyle = '#2d5f40';
-        ctx.fillRect(18, 22, 22, 24);
-        ctx.fillStyle = '#37754f';
-        ctx.fillRect(19, 24, 20, 20);
+                // Left Chaise Return Seat Cushion
+                ctx.fillStyle = '#2d5f40';
+                ctx.fillRect(18, 22, 22, 24);
+                ctx.fillStyle = '#37754f';
+                ctx.fillRect(19, 24, 20, 20);
 
-        // Right Armrest
-        ctx.fillStyle = '#1b3b27';
-        ctx.fillRect(108, 14, 8, 28);
-        ctx.fillStyle = '#275237';
-        ctx.fillRect(109, 16, 6, 24);
+                // Right Armrest
+                ctx.fillStyle = '#1b3b27';
+                ctx.fillRect(108, 14, 8, 28);
+                ctx.fillStyle = '#275237';
+                ctx.fillRect(109, 16, 6, 24);
 
-        // --- ACCENT THROW PILLOWS ---
-        // Warm Mustard Velvet Pillow (Left Corner)
-        ctx.fillStyle = '#b45309';
-        ctx.fillRect(18, 14, 12, 12);
-        ctx.fillStyle = '#f59e0b';
-        ctx.fillRect(20, 16, 8, 8);
+                // --- ACCENT THROW PILLOWS ---
+                // Warm Mustard Velvet Pillow (Left Corner)
+                ctx.fillStyle = '#b45309';
+                ctx.fillRect(18, 14, 12, 12);
+                ctx.fillStyle = '#f59e0b';
+                ctx.fillRect(20, 16, 8, 8);
 
-        // Terracotta Rust Pillow (Center)
-        ctx.fillStyle = '#9a3412';
-        ctx.fillRect(52, 13, 11, 11);
-        ctx.fillStyle = '#ea580c';
-        ctx.fillRect(54, 15, 7, 7);
+                // Terracotta Rust Pillow (Center)
+                ctx.fillStyle = '#9a3412';
+                ctx.fillRect(52, 13, 11, 11);
+                ctx.fillStyle = '#ea580c';
+                ctx.fillRect(54, 15, 7, 7);
 
-        // Cream Woven Boho Pillow (Right)
-        ctx.fillStyle = '#78716c';
-        ctx.fillRect(94, 14, 12, 12);
-        ctx.fillStyle = '#f5f5f4';
-        ctx.fillRect(96, 16, 8, 8);
-        ctx.fillStyle = '#d97706';
-        ctx.fillRect(99, 19, 2, 2);
+                // Cream Woven Boho Pillow (Right)
+                ctx.fillStyle = '#78716c';
+                ctx.fillRect(94, 14, 12, 12);
+                ctx.fillStyle = '#f5f5f4';
+                ctx.fillRect(96, 16, 8, 8);
+                ctx.fillStyle = '#d97706';
+                ctx.fillRect(99, 19, 2, 2);
