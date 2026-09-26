@@ -2070,3 +2070,275 @@ export class CafeCommunityTextures {
             }
         }
 
+        // =========================================================================
+        // 28. PERFECTLY PROPORTIONED COGNAC LEATHER LOUNGE SOFA (76x36)
+        // =========================================================================
+        if (!textures.exists('cafe_lounge_proportional_sofa')) {
+            const canvas = textures.createCanvas('cafe_lounge_proportional_sofa', 76, 36);
+            if (canvas) {
+                const ctx = canvas.getContext();
+
+                // Floor Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.32)';
+                ctx.beginPath();
+                ctx.ellipse(38, 33, 35, 3.5, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Tapered Walnut Peg Legs
+                ctx.fillStyle = '#271206';
+                ctx.fillRect(8, 28, 3, 6);
+                ctx.fillRect(65, 28, 3, 6);
+                ctx.fillRect(36, 28, 3, 6);
+
+                // Solid Walnut Base Rim
+                ctx.fillStyle = '#361502';
+                ctx.fillRect(4, 24, 68, 5);
+
+                // Tufted Backrest (Cognac / Saddle Leather)
+                ctx.fillStyle = '#5c2406';
+                ctx.fillRect(5, 5, 66, 14);
+                ctx.fillStyle = '#78350f';
+                ctx.fillRect(6, 6, 64, 11);
+                ctx.fillStyle = '#9a3412';
+                ctx.fillRect(7, 7, 62, 3); // top highlight
+
+                // Button tufting on backrest
+                ctx.fillStyle = '#361502';
+                for (let x = 16; x < 65; x += 11) {
+                    ctx.fillRect(x, 11, 2, 2);
+                }
+
+                // Twin Plush Seat Cushions
+                // Left Cushion
+                ctx.fillStyle = '#78350f';
+                ctx.fillRect(7, 16, 30, 11);
+                ctx.fillStyle = '#9a3412';
+                ctx.fillRect(8, 17, 28, 8);
+                ctx.fillStyle = '#b45309';
+                ctx.fillRect(9, 17, 26, 2);
+
+                // Right Cushion
+                ctx.fillStyle = '#78350f';
+                ctx.fillRect(39, 16, 30, 11);
+                ctx.fillStyle = '#9a3412';
+                ctx.fillRect(40, 17, 28, 8);
+                ctx.fillStyle = '#b45309';
+                ctx.fillRect(41, 17, 26, 2);
+
+                // Center Seam
+                ctx.fillStyle = '#361502';
+                ctx.fillRect(37, 16, 2, 11);
+
+                // Padded Armrests
+                ctx.fillStyle = '#5c2406';
+                ctx.fillRect(3, 8, 5, 18);
+                ctx.fillRect(68, 8, 5, 18);
+                ctx.fillStyle = '#78350f';
+                ctx.fillRect(4, 9, 3, 16);
+                ctx.fillRect(69, 9, 3, 16);
+
+                // Left Throw Pillow (Deep Forest Emerald Velvet)
+                ctx.fillStyle = '#064e3b';
+                ctx.fillRect(9, 11, 9, 9);
+                ctx.fillStyle = '#047857';
+                ctx.fillRect(10, 12, 6, 6);
+
+                // Right Throw Pillow (Cream Gold Wool)
+                ctx.fillStyle = '#b45309';
+                ctx.fillRect(58, 11, 9, 9);
+                ctx.fillStyle = '#fde68a';
+                ctx.fillRect(59, 12, 6, 6);
+
+                canvas.refresh();
+            }
+        }
+
+        // =========================================================================
+        // 29. PERFECTLY PROPORTIONED WALNUT COFFEE TABLE (52x26)
+        // =========================================================================
+        if (!textures.exists('cafe_lounge_proportional_table')) {
+            const canvas = textures.createCanvas('cafe_lounge_proportional_table', 52, 26);
+            if (canvas) {
+                const ctx = canvas.getContext();
+
+                // Floor Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+                ctx.beginPath();
+                ctx.ellipse(26, 23, 23, 3, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Hairpin Iron Legs
+                ctx.fillStyle = '#1c1917';
+                ctx.fillRect(8, 14, 2, 9);
+                ctx.fillRect(42, 14, 2, 9);
+
+                // Solid Walnut Oval Tabletop
+                ctx.fillStyle = '#361502';
+                ctx.beginPath();
+                ctx.ellipse(26, 12, 24, 9, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.fillStyle = '#5c2406';
+                ctx.beginPath();
+                ctx.ellipse(26, 11, 23, 8, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.fillStyle = '#78350f';
+                ctx.beginPath();
+                ctx.ellipse(26, 10, 20, 6, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Open Paperback Book
+                ctx.fillStyle = '#fef3c7';
+                ctx.fillRect(14, 7, 10, 6);
+                ctx.fillStyle = '#94a3b8';
+                ctx.fillRect(18, 7, 1, 6);
+
+                // Ceramic Coffee Mug with Latte Art
+                ctx.fillStyle = '#f8fafc';
+                ctx.beginPath();
+                ctx.arc(34, 9, 3, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = '#78350f';
+                ctx.beginPath();
+                ctx.arc(34, 9, 2, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = '#fef08a';
+                ctx.fillRect(33, 8, 1.5, 1.5);
+
+                canvas.refresh();
+            }
+        }
+
+        // =========================================================================
+        // 30. DEEP FOREST EMERALD & GOLD ACCENT AREA RUG (220x124) [Concept 1 & 5]
+        // =========================================================================
+        if (!textures.exists('cafe_lounge_emerald_gold_rug')) {
+            const canvas = textures.createCanvas('cafe_lounge_emerald_gold_rug', 220, 124);
+            if (canvas) {
+                const ctx = canvas.getContext();
+
+                // Soft Floor Drop Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.28)';
+                ctx.fillRect(4, 4, 212, 116);
+
+                // Fringes on Left and Right ends
+                ctx.fillStyle = '#cfc6b8';
+                for (let y = 8; y < 116; y += 4) {
+                    ctx.fillRect(0, y, 4, 2);
+                    ctx.fillRect(216, y, 4, 2);
+                }
+
+                // Deep Forest Charcoal Outer Rim
+                ctx.fillStyle = '#0f2015';
+                ctx.fillRect(4, 4, 212, 116);
+
+                // Warm Polished Brass / Gold Inlay Band (From Concept 1)
+                ctx.fillStyle = '#b45309';
+                ctx.fillRect(8, 8, 204, 108);
+                ctx.fillStyle = '#d97706';
+                ctx.fillRect(9, 9, 202, 106);
+                ctx.fillStyle = '#f59e0b';
+                ctx.fillRect(10, 10, 200, 1);
+                ctx.fillRect(10, 113, 200, 1);
+
+                // Dark Moss Transition Border
+                ctx.fillStyle = '#143320';
+                ctx.fillRect(12, 12, 196, 100);
+
+                // Rich Forest Emerald Main Field
+                ctx.fillStyle = '#1b4332';
+                ctx.fillRect(15, 15, 190, 94);
+                ctx.fillStyle = '#245640';
+                ctx.fillRect(18, 18, 184, 88);
+
+                // Subtle Botanical Woven Cross-Grain
+                for (let y = 20; y < 104; y += 4) {
+                    ctx.fillStyle = (Math.floor(y / 4) % 2 === 0) ? '#2a634a' : '#1f4c38';
+                    ctx.fillRect(20, y, 180, 2);
+                }
+
+                // Subtle Inner Gold Geometric Frame
+                ctx.strokeStyle = '#b45309';
+                ctx.lineWidth = 1;
+                ctx.strokeRect(26, 26, 168, 72);
+
+                // Corner Flourishes
+                const drawGoldCorner = (cx: number, cy: number) => {
+                    ctx.fillStyle = '#f59e0b';
+                    ctx.fillRect(cx - 2, cy - 2, 5, 5);
+                    ctx.fillStyle = '#1b4332';
+                    ctx.fillRect(cx - 1, cy - 1, 3, 3);
+                };
+                drawGoldCorner(26, 26);
+                drawGoldCorner(194, 26);
+                drawGoldCorner(26, 98);
+                drawGoldCorner(194, 98);
+
+                canvas.refresh();
+            }
+        }
+
+        // =========================================================================
+        // 31. FRAMED MOUNTAIN & PINE LANDSCAPE PAINTING (76x24) [Concept 1]
+        // =========================================================================
+        if (!textures.exists('cafe_lounge_wall_landscape')) {
+            const canvas = textures.createCanvas('cafe_lounge_wall_landscape', 76, 24);
+            if (canvas) {
+                const ctx = canvas.getContext();
+
+                // Dark Walnut Frame Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
+                ctx.fillRect(1, 2, 74, 22);
+
+                // Polished Walnut Frame
+                ctx.fillStyle = '#2e1205';
+                ctx.fillRect(0, 0, 76, 22);
+
+                // Inner Brass Bevel
+                ctx.fillStyle = '#b45309';
+                ctx.fillRect(2, 2, 72, 18);
+                ctx.fillStyle = '#d97706';
+                ctx.fillRect(3, 3, 70, 16);
+
+                // Canvas: Sky Gradient (Dawn Amber to Mountain Blue)
+                ctx.fillStyle = '#fed7aa';
+                ctx.fillRect(4, 4, 68, 14);
+                ctx.fillStyle = '#bae6fd';
+                ctx.fillRect(4, 4, 68, 7);
+
+                // Distant Misty Blue Peaks
+                ctx.fillStyle = '#64748b';
+                ctx.beginPath();
+                ctx.moveTo(8, 14);
+                ctx.lineTo(20, 6);
+                ctx.lineTo(32, 14);
+                ctx.fill();
+
+                ctx.fillStyle = '#475569';
+                ctx.beginPath();
+                ctx.moveTo(26, 14);
+                ctx.lineTo(40, 5);
+                ctx.lineTo(54, 14);
+                ctx.fill();
+
+                // Forefront Evergreen Pine Forest Silhouette
+                ctx.fillStyle = '#143320';
+                for (let x = 6; x < 68; x += 5) {
+                    ctx.beginPath();
+                    ctx.moveTo(x, 18);
+                    ctx.lineTo(x + 3, 9 + ((x % 3) * 2));
+                    ctx.lineTo(x + 6, 18);
+                    ctx.fill();
+                }
+
+                // Small Morning Sun
+                ctx.fillStyle = '#fef08a';
+                ctx.beginPath();
+                ctx.arc(58, 7, 3, 0, Math.PI * 2);
+                ctx.fill();
+
+                canvas.refresh();
+            }
+        }
+
