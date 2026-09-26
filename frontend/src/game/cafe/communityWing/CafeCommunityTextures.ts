@@ -2597,51 +2597,51 @@ export class CafeCommunityTextures {
                 ctx.ellipse(13, 11, 11, 9, 0, 0, Math.PI * 2);
                 ctx.fill();
 
-        ctx.fillStyle = '#1b4332';
-        ctx.beginPath();
-        ctx.ellipse(13, 11, 9.5, 7.5, 0, 0, Math.PI * 2);
-        ctx.fill();
+                ctx.fillStyle = '#1b4332';
+                ctx.beginPath();
+                ctx.ellipse(13, 11, 9.5, 7.5, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-        // Plush Circular Cushion
-        ctx.fillStyle = '#2d6a4f';
-        ctx.beginPath();
-        ctx.ellipse(13, 13, 7.5, 6, 0, 0, Math.PI * 2);
-        ctx.fill();
+                // Plush Circular Cushion
+                ctx.fillStyle = '#2d6a4f';
+                ctx.beginPath();
+                ctx.ellipse(13, 13, 7.5, 6, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-        // Gold Trim Highlight
-        ctx.fillStyle = '#b45309';
-        ctx.fillRect(6, 12, 1, 4);
-        ctx.fillRect(19, 12, 1, 4);
+                // Gold Trim Highlight
+                ctx.fillStyle = '#b45309';
+                ctx.fillRect(6, 12, 1, 4);
+                ctx.fillRect(19, 12, 1, 4);
 
-        canvas.refresh();
-      }
-    }
+                canvas.refresh();
+            }
+        }
 
-    // =========================================================================
-    // 37. GRAND PLUSH CREAM & WOOD FRAME LOUNGE SOFA (132x46) [Concept 1]
-    // =========================================================================
-    if (!textures.exists('cafe_concept1_cream_sofa')) {
-      const canvas = textures.createCanvas('cafe_concept1_cream_sofa', 132, 46);
-      if (canvas) {
-        const ctx = canvas.getContext();
+        // =========================================================================
+        // 37. GRAND PLUSH CREAM & WOOD FRAME LOUNGE SOFA (132x46) [Concept 1]
+        // =========================================================================
+        if (!textures.exists('cafe_concept1_cream_sofa')) {
+            const canvas = textures.createCanvas('cafe_concept1_cream_sofa', 132, 46);
+            if (canvas) {
+                const ctx = canvas.getContext();
 
-        // Soft Floor Drop Shadow
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
-        ctx.beginPath();
-        ctx.ellipse(66, 42, 64, 4, 0, 0, Math.PI * 2);
-        ctx.fill();
+                // Soft Floor Drop Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+                ctx.beginPath();
+                ctx.ellipse(66, 42, 64, 4, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-        // 4 Tapered Walnut Feet
-        ctx.fillStyle = '#3b1d09';
-        ctx.fillRect(10, 36, 4, 6);
-        ctx.fillRect(48, 36, 4, 6);
-        ctx.fillRect(80, 36, 4, 6);
-        ctx.fillRect(118, 36, 4, 6);
+                // 4 Tapered Walnut Feet
+                ctx.fillStyle = '#3b1d09';
+                ctx.fillRect(10, 36, 4, 6);
+                ctx.fillRect(48, 36, 4, 6);
+                ctx.fillRect(80, 36, 4, 6);
+                ctx.fillRect(118, 36, 4, 6);
 
-        // Solid Honey-Walnut Wood Base Rail
-        ctx.fillStyle = '#5c2d13';
-        ctx.fillRect(6, 33, 120, 5);
-        ctx.fillStyle = '#8a471b';
-        ctx.fillRect(7, 34, 118, 3);
-        ctx.fillStyle = '#a85924';
-        ctx.fillRect(8, 34, 116, 1);
+                // Solid Honey-Walnut Wood Base Rail
+                ctx.fillStyle = '#5c2d13';
+                ctx.fillRect(6, 33, 120, 5);
+                ctx.fillStyle = '#8a471b';
+                ctx.fillRect(7, 34, 118, 3);
+                ctx.fillStyle = '#a85924';
+                ctx.fillRect(8, 34, 116, 1);
