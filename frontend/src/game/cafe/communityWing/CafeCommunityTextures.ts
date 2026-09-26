@@ -2645,3 +2645,53 @@ export class CafeCommunityTextures {
                 ctx.fillRect(7, 34, 118, 3);
                 ctx.fillStyle = '#a85924';
                 ctx.fillRect(8, 34, 116, 1);
+
+        // Wooden Outer Armrests (Left & Right ends)
+        ctx.fillStyle = '#5c2d13';
+        ctx.fillRect(2, 8, 6, 26);
+        ctx.fillRect(124, 8, 6, 26);
+        ctx.fillStyle = '#8a471b';
+        ctx.fillRect(3, 9, 4, 24);
+        ctx.fillRect(125, 9, 4, 24);
+        ctx.fillStyle = '#a85924';
+        ctx.fillRect(4, 9, 2, 23);
+        ctx.fillRect(126, 9, 2, 23);
+
+        // 4-Section Tufted Plush Cream Backrest (y = 5 to 22)
+        ctx.fillStyle = '#ded3c2';
+        ctx.fillRect(7, 5, 118, 17);
+
+        // Individual Backrest Cushions (4 wide cushions)
+        const cushionWidth = 29;
+        for (let i = 0; i < 4; i++) {
+          const cx = 8 + (i * cushionWidth);
+          // Cushion Body
+          ctx.fillStyle = '#ede5d8';
+          ctx.fillRect(cx, 6, cushionWidth - 1, 15);
+          // Highlight
+          ctx.fillStyle = '#f8f4ec';
+          ctx.fillRect(cx + 1, 7, cushionWidth - 3, 11);
+          // Top Bevel
+          ctx.fillStyle = '#fffdfa';
+          ctx.fillRect(cx + 2, 7, cushionWidth - 5, 2);
+          // Tufting indentation
+          ctx.fillStyle = '#c5b8a5';
+          ctx.fillRect(cx + 13, 12, 2, 2);
+        }
+
+        // 4 Plush Cream Seat Cushions (y = 20 to 34)
+        for (let i = 0; i < 4; i++) {
+          const cx = 8 + (i * cushionWidth);
+          // Base shadow
+          ctx.fillStyle = '#ded3c2';
+          ctx.fillRect(cx, 20, cushionWidth - 1, 14);
+          // Cushion surface
+          ctx.fillStyle = '#f5f0e6';
+          ctx.fillRect(cx, 21, cushionWidth - 1, 12);
+          // Top highlight
+          ctx.fillStyle = '#fdfbf7';
+          ctx.fillRect(cx + 1, 21, cushionWidth - 3, 3);
+          // Bottom rounding shadow
+          ctx.fillStyle = '#d5c8b5';
+          ctx.fillRect(cx, 32, cushionWidth - 1, 2);
+        }
