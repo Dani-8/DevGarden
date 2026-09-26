@@ -1986,55 +1986,55 @@ export class CafeCommunityTextures {
             }
         }
 
-    // =========================================================================
-    // 27. RICH WINE-BURGUNDY & AMBER PERSIAN RUG (180x112)
-    // =========================================================================
-    if (!textures.exists('cafe_lounge_persian_carpet')) {
-      const canvas = textures.createCanvas('cafe_lounge_persian_carpet', 180, 112);
-      if (canvas) {
-        const ctx = canvas.getContext();
+        // =========================================================================
+        // 27. RICH WINE-BURGUNDY & AMBER PERSIAN RUG (180x112)
+        // =========================================================================
+        if (!textures.exists('cafe_lounge_persian_carpet')) {
+            const canvas = textures.createCanvas('cafe_lounge_persian_carpet', 180, 112);
+            if (canvas) {
+                const ctx = canvas.getContext();
 
-        // Floor Shadow
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
-        ctx.fillRect(4, 4, 172, 104);
+                // Floor Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+                ctx.fillRect(4, 4, 172, 104);
 
-        // Fringes on Left and Right ends
-        ctx.fillStyle = '#d6cbbe';
-        for (let y = 8; y < 104; y += 4) {
-          ctx.fillRect(0, y, 4, 2);
-          ctx.fillRect(176, y, 4, 2);
-        }
+                // Fringes on Left and Right ends
+                ctx.fillStyle = '#d6cbbe';
+                for (let y = 8; y < 104; y += 4) {
+                    ctx.fillRect(0, y, 4, 2);
+                    ctx.fillRect(176, y, 4, 2);
+                }
 
-        // Deep Navy Outer Border
-        ctx.fillStyle = '#0f172a';
-        ctx.fillRect(4, 4, 172, 104);
+                // Deep Navy Outer Border
+                ctx.fillStyle = '#0f172a';
+                ctx.fillRect(4, 4, 172, 104);
 
-        // Golden Ochre Accent Band
-        ctx.fillStyle = '#b45309';
-        ctx.fillRect(8, 8, 164, 96);
+                // Golden Ochre Accent Band
+                ctx.fillStyle = '#b45309';
+                ctx.fillRect(8, 8, 164, 96);
 
-        // Dark Walnut Divider Trim
-        ctx.fillStyle = '#271206';
-        ctx.fillRect(12, 12, 156, 88);
+                // Dark Walnut Divider Trim
+                ctx.fillStyle = '#271206';
+                ctx.fillRect(12, 12, 156, 88);
 
-        // Deep Rich Wine / Burgundy Field
-        ctx.fillStyle = '#581c1c';
-        ctx.fillRect(14, 14, 152, 84);
-        ctx.fillStyle = '#6b2020';
-        ctx.fillRect(16, 16, 148, 80);
+                // Deep Rich Wine / Burgundy Field
+                ctx.fillStyle = '#581c1c';
+                ctx.fillRect(14, 14, 152, 84);
+                ctx.fillStyle = '#6b2020';
+                ctx.fillRect(16, 16, 148, 80);
 
-        // Woven textile cross-grain
-        for (let y = 18; y < 94; y += 4) {
-          ctx.fillStyle = (Math.floor(y / 4) % 2 === 0) ? '#742323' : '#5f1e1e';
-          ctx.fillRect(18, y, 144, 2);
-        }
+                // Woven textile cross-grain
+                for (let y = 18; y < 94; y += 4) {
+                    ctx.fillStyle = (Math.floor(y / 4) % 2 === 0) ? '#742323' : '#5f1e1e';
+                    ctx.fillRect(18, y, 144, 2);
+                }
 
-        // Center Medallion (Classic Persian Diamond & Floral Core)
-        const drawMedallion = (cx: number, cy: number, rx: number, ry: number, color: string) => {
-          ctx.fillStyle = color;
-          ctx.beginPath();
-          ctx.ellipse(cx, cy, rx, ry, 0, 0, Math.PI * 2);
-          ctx.fill();
-        };
+                // Center Medallion (Classic Persian Diamond & Floral Core)
+                const drawMedallion = (cx: number, cy: number, rx: number, ry: number, color: string) => {
+                    ctx.fillStyle = color;
+                    ctx.beginPath();
+                    ctx.ellipse(cx, cy, rx, ry, 0, 0, Math.PI * 2);
+                    ctx.fill();
+                };
 
 
