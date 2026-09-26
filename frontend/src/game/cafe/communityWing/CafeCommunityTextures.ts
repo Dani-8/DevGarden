@@ -1878,3 +1878,52 @@ export class CafeCommunityTextures {
                 ctx.lineTo(8, 30);
                 ctx.quadraticCurveTo(8, 9, 22, 9);
                 ctx.stroke();
+
+        // Warm Bell Shade
+        ctx.fillStyle = '#78350f';
+        ctx.beginPath();
+        ctx.moveTo(17, 14);
+        ctx.lineTo(27, 14);
+        ctx.lineTo(28, 20);
+        ctx.lineTo(16, 20);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.fillStyle = '#fef08a';
+        ctx.fillRect(17, 15, 10, 5);
+
+        // Warm Light Glow Aura
+        ctx.fillStyle = 'rgba(254, 240, 138, 0.25)';
+        ctx.beginPath();
+        ctx.moveTo(22, 20);
+        ctx.lineTo(12, 34);
+        ctx.lineTo(32, 34);
+        ctx.closePath();
+        ctx.fill();
+
+        canvas.refresh();
+      }
+    }
+
+    // =========================================================================
+    // 26. ACOUSTIC GUITAR ON FLOOR STAND WITH MUSIC BASKET (26x44)
+    // =========================================================================
+    if (!textures.exists('cafe_lofi_guitar_stand')) {
+      const canvas = textures.createCanvas('cafe_lofi_guitar_stand', 26, 44);
+      if (canvas) {
+        const ctx = canvas.getContext();
+
+        // Floor Shadow
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+        ctx.beginPath();
+        ctx.ellipse(13, 41, 11, 3, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Tripod Stand
+        ctx.strokeStyle = '#27272a';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(6, 42);
+        ctx.lineTo(12, 26);
+        ctx.lineTo(18, 42);
+        ctx.stroke();
