@@ -2747,3 +2747,55 @@ export class CafeCommunityTextures {
                 ctx.roundRect(3, 8, 68, 18, 6);
                 ctx.fill();
 
+        ctx.fillStyle = '#78350f';
+        ctx.beginPath();
+        ctx.roundRect(4, 7, 66, 18, 5);
+        ctx.fill();
+
+        ctx.fillStyle = '#9a3412';
+        ctx.beginPath();
+        ctx.roundRect(5, 6, 64, 17, 5);
+        ctx.fill();
+
+        ctx.fillStyle = '#b45309';
+        ctx.beginPath();
+        ctx.roundRect(6, 6, 62, 15, 4);
+        ctx.fill();
+
+        // Center Table Items (from Concept 1):
+        // 1. Ceramic bowl with potted green succulent plant
+        ctx.fillStyle = '#f8fafc';
+        ctx.beginPath();
+        ctx.ellipse(37, 13, 6, 4, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#15803d';
+        ctx.beginPath();
+        ctx.arc(37, 12, 4, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#4ade80';
+        ctx.fillRect(36, 11, 2, 2);
+
+        // 2. Open Hardcover Book on Left
+        ctx.fillStyle = '#fef3c7';
+        ctx.fillRect(16, 10, 12, 8);
+        ctx.fillStyle = '#94a3b8';
+        ctx.fillRect(21.5, 10, 1, 8); // spine line
+        ctx.fillStyle = '#3b82f6';
+        ctx.fillRect(15, 10, 1, 8); // cover edge
+        ctx.fillRect(28, 10, 1, 8);
+
+        // 3. Ceramic Mug with Latte Art on Right
+        ctx.fillStyle = '#f8fafc';
+        ctx.beginPath();
+        ctx.arc(54, 13, 4, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#78350f';
+        ctx.beginPath();
+        ctx.arc(54, 13, 2.5, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#fef08a';
+        ctx.fillRect(53, 12, 2, 2);
+
+        canvas.refresh();
+      }
+    }
