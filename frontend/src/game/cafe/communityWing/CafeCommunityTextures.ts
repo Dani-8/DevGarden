@@ -1522,3 +1522,551 @@ export class CafeCommunityTextures {
                 for (let x = 18; x < 105; x += 14) {
                     ctx.fillRect(x, 14, 2, 2);
                 }
+
+                // Left Chaise Backrest (extending vertically down on left)
+                ctx.fillStyle = '#1b3b27';
+                ctx.fillRect(6, 6, 12, 40);
+                ctx.fillStyle = '#275237';
+                ctx.fillRect(8, 8, 8, 36);
+
+                // Main Seat Cushions (Horizontal seats)
+                ctx.fillStyle = '#2d5f40';
+                ctx.fillRect(18, 22, 92, 18);
+                ctx.fillStyle = '#37754f';
+                ctx.fillRect(20, 24, 88, 14);
+
+                // Cushion division seams
+                ctx.fillStyle = '#1b3b27';
+                ctx.fillRect(48, 22, 2, 18);
+                ctx.fillRect(78, 22, 2, 18);
+
+                // Left Chaise Return Seat Cushion
+                ctx.fillStyle = '#2d5f40';
+                ctx.fillRect(18, 22, 22, 24);
+                ctx.fillStyle = '#37754f';
+                ctx.fillRect(19, 24, 20, 20);
+
+                // Right Armrest
+                ctx.fillStyle = '#1b3b27';
+                ctx.fillRect(108, 14, 8, 28);
+                ctx.fillStyle = '#275237';
+                ctx.fillRect(109, 16, 6, 24);
+
+                // --- ACCENT THROW PILLOWS ---
+                // Warm Mustard Velvet Pillow (Left Corner)
+                ctx.fillStyle = '#b45309';
+                ctx.fillRect(18, 14, 12, 12);
+                ctx.fillStyle = '#f59e0b';
+                ctx.fillRect(20, 16, 8, 8);
+
+                // Terracotta Rust Pillow (Center)
+                ctx.fillStyle = '#9a3412';
+                ctx.fillRect(52, 13, 11, 11);
+                ctx.fillStyle = '#ea580c';
+                ctx.fillRect(54, 15, 7, 7);
+
+                // Cream Woven Boho Pillow (Right)
+                ctx.fillStyle = '#78716c';
+                ctx.fillRect(94, 14, 12, 12);
+                ctx.fillStyle = '#f5f5f4';
+                ctx.fillRect(96, 16, 8, 8);
+                ctx.fillStyle = '#d97706';
+                ctx.fillRect(99, 19, 2, 2);
+
+                // Soft Chenille Blanket Draped on Chaise
+                ctx.fillStyle = '#e7e5e4';
+                ctx.fillRect(22, 34, 14, 14);
+                ctx.fillStyle = '#d6d3d1';
+                ctx.fillRect(23, 36, 12, 2);
+                ctx.fillRect(23, 40, 12, 2);
+                // Fringe
+                ctx.fillStyle = '#a8a29e';
+                for (let fx = 23; fx < 35; fx += 2) {
+                    ctx.fillRect(fx, 48, 1, 3);
+                }
+
+                canvas.refresh();
+            }
+        }
+
+        // =========================================================================
+        // 22. RUSTIC LIVE-EDGE COFFEE TABLE WITH BOARD GAME & COFFEE (70x36)
+        // =========================================================================
+        if (!textures.exists('cafe_lofi_coffee_table')) {
+            const canvas = textures.createCanvas('cafe_lofi_coffee_table', 70, 36);
+            if (canvas) {
+                const ctx = canvas.getContext();
+
+                // Floor Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+                ctx.beginPath();
+                ctx.ellipse(35, 31, 31, 4, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Hairpin Iron Legs
+                ctx.strokeStyle = '#18181b';
+                ctx.lineWidth = 1.5;
+                ctx.beginPath();
+                ctx.moveTo(10, 18);
+                ctx.lineTo(8, 30);
+                ctx.moveTo(60, 18);
+                ctx.lineTo(62, 30);
+                ctx.stroke();
+
+                // Warm Teak Tabletop
+                ctx.fillStyle = '#451a03';
+                ctx.beginPath();
+                ctx.ellipse(35, 16, 31, 12, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.fillStyle = '#78350f';
+                ctx.beginPath();
+                ctx.ellipse(35, 15, 29, 10.5, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.fillStyle = '#9a3412';
+                ctx.beginPath();
+                ctx.ellipse(35, 14, 25, 8, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Live edge wood grain rings
+                ctx.strokeStyle = '#b45309';
+                ctx.lineWidth = 0.8;
+                ctx.beginPath();
+                ctx.ellipse(35, 14, 21, 6, 0, 0, Math.PI * 2);
+                ctx.stroke();
+
+                // --- ITEMS ON TABLE ---
+                // Wooden Board Game (Mini Chessboard Grid)
+                ctx.fillStyle = '#fef3c7';
+                ctx.fillRect(16, 9, 14, 11);
+                ctx.fillStyle = '#78350f';
+                for (let row = 0; row < 3; row++) {
+                    for (let col = 0; col < 4; col++) {
+                        if ((row + col) % 2 === 0) {
+                            ctx.fillRect(16 + col * 3.5, 9 + row * 3.5, 3.5, 3.5);
+                        }
+                    }
+                }
+                ctx.strokeStyle = '#451a03';
+                ctx.lineWidth = 1;
+                ctx.strokeRect(16, 9, 14, 11);
+
+                // Ceramic Coffee Mug 1 (Speckled Oat with Latte Foam)
+                ctx.fillStyle = '#f5f5f4';
+                ctx.beginPath();
+                ctx.arc(38, 12, 3.5, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = '#78350f';
+                ctx.beginPath();
+                ctx.arc(38, 12, 2.5, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = '#fef08a';
+                ctx.fillRect(37, 11, 2, 2); // Latte heart
+
+                // Ceramic Coffee Mug 2 (Sage Green)
+                ctx.fillStyle = '#166534';
+                ctx.beginPath();
+                ctx.arc(47, 17, 3, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = '#451a03';
+                ctx.beginPath();
+                ctx.arc(47, 17, 2, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Vinyl Album Cover resting on table edge
+                ctx.fillStyle = '#0284c7';
+                ctx.fillRect(48, 8, 12, 10);
+                ctx.fillStyle = '#fde047';
+                ctx.beginPath();
+                ctx.arc(54, 13, 3, 0, Math.PI * 2);
+                ctx.fill();
+
+                canvas.refresh();
+            }
+        }
+
+        // =========================================================================
+        // 23. WOVEN ROUND FLOOR POUF / OTTOMAN (26x22)
+        // =========================================================================
+        if (!textures.exists('cafe_lofi_floor_pouf')) {
+            const canvas = textures.createCanvas('cafe_lofi_floor_pouf', 26, 22);
+            if (canvas) {
+                const ctx = canvas.getContext();
+
+                // Floor Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.28)';
+                ctx.beginPath();
+                ctx.ellipse(13, 19, 11, 3, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Woven Knit Rust/Terracotta Body
+                ctx.fillStyle = '#7c2d12';
+                ctx.beginPath();
+                ctx.ellipse(13, 12, 11, 7, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.fillStyle = '#c2410c';
+                ctx.beginPath();
+                ctx.ellipse(13, 10, 10, 6, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.fillStyle = '#ea580c';
+                ctx.beginPath();
+                ctx.ellipse(13, 9, 8, 4.5, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Radial knit ribs
+                ctx.strokeStyle = '#9a3412';
+                ctx.lineWidth = 0.8;
+                for (let a = 0; a < Math.PI * 2; a += Math.PI / 4) {
+                    ctx.beginPath();
+                    ctx.moveTo(13, 9);
+                    ctx.lineTo(13 + Math.cos(a) * 8, 9 + Math.sin(a) * 4.5);
+                    ctx.stroke();
+                }
+
+                // Center button tuft
+                ctx.fillStyle = '#431407';
+                ctx.beginPath();
+                ctx.arc(13, 9, 1.5, 0, Math.PI * 2);
+                ctx.fill();
+
+                canvas.refresh();
+            }
+        }
+
+        // =========================================================================
+        // 24. TALL INDOOR FIDDLE-LEAF FIG TREE IN CERAMIC PLANTER (36x68)
+        // =========================================================================
+        if (!textures.exists('cafe_lofi_fiddle_leaf_tree')) {
+            const canvas = textures.createCanvas('cafe_lofi_fiddle_leaf_tree', 36, 68);
+            if (canvas) {
+                const ctx = canvas.getContext();
+
+                // Floor Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+                ctx.beginPath();
+                ctx.ellipse(18, 65, 14, 3, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Brass Tripod Stand
+                ctx.strokeStyle = '#b45309';
+                ctx.lineWidth = 1.5;
+                ctx.beginPath();
+                ctx.moveTo(10, 52);
+                ctx.lineTo(7, 65);
+                ctx.moveTo(26, 52);
+                ctx.lineTo(29, 65);
+                ctx.moveTo(18, 52);
+                ctx.lineTo(18, 66);
+                ctx.stroke();
+
+                // White Fluted Ceramic Pot
+                ctx.fillStyle = '#e2e8f0';
+                ctx.beginPath();
+                ctx.moveTo(10, 42);
+                ctx.lineTo(26, 42);
+                ctx.lineTo(24, 56);
+                ctx.lineTo(12, 56);
+                ctx.closePath();
+                ctx.fill();
+
+                ctx.fillStyle = '#f8fafc';
+                ctx.fillRect(9, 40, 18, 3);
+
+                // Fluted vertical grooves
+                ctx.strokeStyle = '#cbd5e1';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(14, 43);
+                ctx.lineTo(14, 55);
+                ctx.moveTo(18, 43);
+                ctx.lineTo(18, 55);
+                ctx.moveTo(22, 43);
+                ctx.lineTo(22, 55);
+                ctx.stroke();
+
+                // Soil
+                ctx.fillStyle = '#271206';
+                ctx.fillRect(11, 41, 14, 2);
+
+                // Natural Woody Trunk
+                ctx.fillStyle = '#5c2d13';
+                ctx.fillRect(17, 24, 3, 18);
+                ctx.fillRect(18, 12, 2, 14);
+
+                // Large Sculptural Fiddle Leaves
+                const drawLeaf = (cx: number, cy: number, rx: number, ry: number, angle: number) => {
+                    ctx.save();
+                    ctx.translate(cx, cy);
+                    ctx.rotate(angle);
+
+                    // Leaf body
+                    ctx.fillStyle = '#064e3b';
+                    ctx.beginPath();
+                    ctx.ellipse(0, 0, rx, ry, 0, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    ctx.fillStyle = '#047857';
+                    ctx.beginPath();
+                    ctx.ellipse(0, -1, rx - 1.5, ry - 1.5, 0, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    ctx.fillStyle = '#10b981';
+                    ctx.beginPath();
+                    ctx.ellipse(0, -2, rx - 3, ry - 3, 0, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    // Main leaf vein
+                    ctx.strokeStyle = '#6ee7b7';
+                    ctx.lineWidth = 0.8;
+                    ctx.beginPath();
+                    ctx.moveTo(0, ry - 2);
+                    ctx.lineTo(0, -ry + 2);
+                    ctx.stroke();
+
+                    ctx.restore();
+                };
+
+                drawLeaf(9, 36, 8, 5, -0.4);
+                drawLeaf(27, 34, 8, 5, 0.4);
+                drawLeaf(8, 24, 9, 6, -0.6);
+                drawLeaf(28, 22, 9, 6, 0.5);
+                drawLeaf(11, 14, 8, 5, -0.3);
+                drawLeaf(25, 12, 8, 5, 0.3);
+                drawLeaf(18, 6, 7, 5, 0);
+
+                canvas.refresh();
+            }
+        }
+
+        // =========================================================================
+        // 25. VINTAGE CURVED ARC FLOOR READING LAMP (28x64)
+        // =========================================================================
+        if (!textures.exists('cafe_lofi_arc_lamp')) {
+            const canvas = textures.createCanvas('cafe_lofi_arc_lamp', 28, 64);
+            if (canvas) {
+                const ctx = canvas.getContext();
+
+                // Floor Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+                ctx.beginPath();
+                ctx.ellipse(8, 61, 7, 2.5, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Brass Base Plate
+                ctx.fillStyle = '#78350f';
+                ctx.fillRect(4, 58, 8, 3);
+                ctx.fillStyle = '#f59e0b';
+                ctx.fillRect(5, 57, 6, 2);
+
+                // Curved Brass Arc Stem
+                ctx.strokeStyle = '#b45309';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(8, 57);
+                ctx.lineTo(8, 30);
+                ctx.quadraticCurveTo(8, 8, 22, 8);
+                ctx.lineTo(22, 14);
+                ctx.stroke();
+
+                ctx.strokeStyle = '#fbbf24';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(8, 57);
+                ctx.lineTo(8, 30);
+                ctx.quadraticCurveTo(8, 9, 22, 9);
+                ctx.stroke();
+
+                // Warm Bell Shade
+                ctx.fillStyle = '#78350f';
+                ctx.beginPath();
+                ctx.moveTo(17, 14);
+                ctx.lineTo(27, 14);
+                ctx.lineTo(28, 20);
+                ctx.lineTo(16, 20);
+                ctx.closePath();
+                ctx.fill();
+
+                ctx.fillStyle = '#fef08a';
+                ctx.fillRect(17, 15, 10, 5);
+
+                // Warm Light Glow Aura
+                ctx.fillStyle = 'rgba(254, 240, 138, 0.25)';
+                ctx.beginPath();
+                ctx.moveTo(22, 20);
+                ctx.lineTo(12, 34);
+                ctx.lineTo(32, 34);
+                ctx.closePath();
+                ctx.fill();
+
+                canvas.refresh();
+            }
+        }
+
+        // =========================================================================
+        // 26. ACOUSTIC GUITAR ON FLOOR STAND WITH MUSIC BASKET (26x44)
+        // =========================================================================
+        if (!textures.exists('cafe_lofi_guitar_stand')) {
+            const canvas = textures.createCanvas('cafe_lofi_guitar_stand', 26, 44);
+            if (canvas) {
+                const ctx = canvas.getContext();
+
+                // Floor Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+                ctx.beginPath();
+                ctx.ellipse(13, 41, 11, 3, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Tripod Stand
+                ctx.strokeStyle = '#27272a';
+                ctx.lineWidth = 1.5;
+                ctx.beginPath();
+                ctx.moveTo(6, 42);
+                ctx.lineTo(12, 26);
+                ctx.lineTo(18, 42);
+                ctx.stroke();
+
+                // Guitar Lower Bout
+                ctx.fillStyle = '#5c2d13';
+                ctx.beginPath();
+                ctx.ellipse(12, 28, 7, 8, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.fillStyle = '#ca8a04';
+                ctx.beginPath();
+                ctx.ellipse(12, 28, 6, 7, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Guitar Upper Bout
+                ctx.fillStyle = '#5c2d13';
+                ctx.beginPath();
+                ctx.ellipse(12, 18, 5, 5, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.fillStyle = '#ca8a04';
+                ctx.beginPath();
+                ctx.ellipse(12, 18, 4, 4, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Soundhole
+                ctx.fillStyle = '#271206';
+                ctx.beginPath();
+                ctx.arc(12, 22, 2, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Bridge
+                ctx.fillStyle = '#1c0c04';
+                ctx.fillRect(10, 30, 4, 1.5);
+
+                // Fretboard & Neck
+                ctx.fillStyle = '#271206';
+                ctx.fillRect(11, 4, 2, 14);
+
+                // Headstock with Tuning Pegs
+                ctx.fillStyle = '#5c2d13';
+                ctx.fillRect(10, 1, 4, 4);
+                ctx.fillStyle = '#fef08a';
+                ctx.fillRect(9, 2, 1, 1);
+                ctx.fillRect(9, 4, 1, 1);
+                ctx.fillRect(14, 2, 1, 1);
+                ctx.fillRect(14, 4, 1, 1);
+
+                // Canvas Basket with Sheet Music on Right Side
+                ctx.fillStyle = '#78350f';
+                ctx.fillRect(18, 30, 7, 10);
+                ctx.fillStyle = '#a16207';
+                ctx.fillRect(19, 31, 5, 8);
+                ctx.fillStyle = '#fef3c7';
+                ctx.fillRect(20, 26, 2, 8);
+                ctx.fillRect(22, 28, 2, 6);
+
+                canvas.refresh();
+            }
+        }
+
+        // =========================================================================
+        // 27. RICH WINE-BURGUNDY & AMBER PERSIAN RUG (180x112)
+        // =========================================================================
+        if (!textures.exists('cafe_lounge_persian_carpet')) {
+            const canvas = textures.createCanvas('cafe_lounge_persian_carpet', 180, 112);
+            if (canvas) {
+                const ctx = canvas.getContext();
+
+                // Floor Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+                ctx.fillRect(4, 4, 172, 104);
+
+                // Fringes on Left and Right ends
+                ctx.fillStyle = '#d6cbbe';
+                for (let y = 8; y < 104; y += 4) {
+                    ctx.fillRect(0, y, 4, 2);
+                    ctx.fillRect(176, y, 4, 2);
+                }
+
+                // Deep Navy Outer Border
+                ctx.fillStyle = '#0f172a';
+                ctx.fillRect(4, 4, 172, 104);
+
+                // Golden Ochre Accent Band
+                ctx.fillStyle = '#b45309';
+                ctx.fillRect(8, 8, 164, 96);
+
+                // Dark Walnut Divider Trim
+                ctx.fillStyle = '#271206';
+                ctx.fillRect(12, 12, 156, 88);
+
+                // Deep Rich Wine / Burgundy Field
+                ctx.fillStyle = '#581c1c';
+                ctx.fillRect(14, 14, 152, 84);
+                ctx.fillStyle = '#6b2020';
+                ctx.fillRect(16, 16, 148, 80);
+
+                // Woven textile cross-grain
+                for (let y = 18; y < 94; y += 4) {
+                    ctx.fillStyle = (Math.floor(y / 4) % 2 === 0) ? '#742323' : '#5f1e1e';
+                    ctx.fillRect(18, y, 144, 2);
+                }
+
+                // Center Medallion (Classic Persian Diamond & Floral Core)
+                const drawMedallion = (cx: number, cy: number, rx: number, ry: number, color: string) => {
+                    ctx.fillStyle = color;
+                    ctx.beginPath();
+                    ctx.ellipse(cx, cy, rx, ry, 0, 0, Math.PI * 2);
+                    ctx.fill();
+                };
+
+                // Outer medallion navy & gold
+                drawMedallion(90, 56, 32, 20, '#0f172a');
+                drawMedallion(90, 56, 28, 17, '#b45309');
+                drawMedallion(90, 56, 22, 13, '#7f1d1d');
+                drawMedallion(90, 56, 16, 9, '#f59e0b');
+                drawMedallion(90, 56, 9, 5, '#1e3a8a');
+                drawMedallion(90, 56, 4, 2.5, '#fef08a');
+
+                // Corner Medallion Ornaments
+                const drawCorner = (cx: number, cy: number) => {
+                    ctx.fillStyle = '#b45309';
+                    ctx.beginPath();
+                    ctx.arc(cx, cy, 12, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.fillStyle = '#0f172a';
+                    ctx.beginPath();
+                    ctx.arc(cx, cy, 8, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.fillStyle = '#f59e0b';
+                    ctx.beginPath();
+                    ctx.arc(cx, cy, 4, 0, Math.PI * 2);
+                    ctx.fill();
+                };
+
+                drawCorner(28, 28);
+                drawCorner(152, 28);
+                drawCorner(28, 84);
+                drawCorner(152, 84);
+
+                canvas.refresh();
+            }
+        }
+
