@@ -2544,55 +2544,55 @@ export class CafeCommunityTextures {
                 ctx.ellipse(9, 19, 8, 2.5, 0, 0, Math.PI * 2);
                 ctx.fill();
 
-        // Tripod Wood Legs
-        ctx.fillStyle = '#271206';
-        ctx.fillRect(4, 11, 2, 8);
-        ctx.fillRect(12, 11, 2, 8);
-        ctx.fillRect(8, 11, 2, 9);
+                // Tripod Wood Legs
+                ctx.fillStyle = '#271206';
+                ctx.fillRect(4, 11, 2, 8);
+                ctx.fillRect(12, 11, 2, 8);
+                ctx.fillRect(8, 11, 2, 9);
 
-        // Round Walnut Tabletop
-        ctx.fillStyle = '#3c1b09';
-        ctx.beginPath();
-        ctx.ellipse(9, 10, 8, 4, 0, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.fillStyle = '#5c2d13';
-        ctx.beginPath();
-        ctx.ellipse(9, 9, 7.5, 3.5, 0, 0, Math.PI * 2);
-        ctx.fill();
+                // Round Walnut Tabletop
+                ctx.fillStyle = '#3c1b09';
+                ctx.beginPath();
+                ctx.ellipse(9, 10, 8, 4, 0, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = '#5c2d13';
+                ctx.beginPath();
+                ctx.ellipse(9, 9, 7.5, 3.5, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-        // Glass Votive Candle (Glowing Amber Flame)
-        ctx.fillStyle = '#f8fafc';
-        ctx.fillRect(7.5, 4, 3, 4);
-        ctx.fillStyle = '#f59e0b';
-        ctx.fillRect(8, 2, 2, 3);
-        ctx.fillStyle = '#fef08a';
-        ctx.fillRect(8.5, 1, 1, 2);
+                // Glass Votive Candle (Glowing Amber Flame)
+                ctx.fillStyle = '#f8fafc';
+                ctx.fillRect(7.5, 4, 3, 4);
+                ctx.fillStyle = '#f59e0b';
+                ctx.fillRect(8, 2, 2, 3);
+                ctx.fillStyle = '#fef08a';
+                ctx.fillRect(8.5, 1, 1, 2);
 
-        canvas.refresh();
-      }
-    }
+                canvas.refresh();
+            }
+        }
 
-    // =========================================================================
-    // 36. ROUNDED COZY VELVET CLUB ARMCHAIR (26x26) [Concept 1]
-    // =========================================================================
-    if (!textures.exists('cafe_lounge_club_armchair')) {
-      const canvas = textures.createCanvas('cafe_lounge_club_armchair', 26, 26);
-      if (canvas) {
-        const ctx = canvas.getContext();
+        // =========================================================================
+        // 36. ROUNDED COZY VELVET CLUB ARMCHAIR (26x26) [Concept 1]
+        // =========================================================================
+        if (!textures.exists('cafe_lounge_club_armchair')) {
+            const canvas = textures.createCanvas('cafe_lounge_club_armchair', 26, 26);
+            if (canvas) {
+                const ctx = canvas.getContext();
 
-        // Shadow
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.32)';
-        ctx.beginPath();
-        ctx.ellipse(13, 23, 11, 3, 0, 0, Math.PI * 2);
-        ctx.fill();
+                // Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.32)';
+                ctx.beginPath();
+                ctx.ellipse(13, 23, 11, 3, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-        // Tapered Walnut Legs
-        ctx.fillStyle = '#271206';
-        ctx.fillRect(4, 18, 2, 5);
-        ctx.fillRect(20, 18, 2, 5);
+                // Tapered Walnut Legs
+                ctx.fillStyle = '#271206';
+                ctx.fillRect(4, 18, 2, 5);
+                ctx.fillRect(20, 18, 2, 5);
 
-        // Curved Barrel Backrest (Deep Forest Emerald Velvet)
-        ctx.fillStyle = '#0f291e';
-        ctx.beginPath();
-        ctx.ellipse(13, 11, 11, 9, 0, 0, Math.PI * 2);
-        ctx.fill();
+                // Curved Barrel Backrest (Deep Forest Emerald Velvet)
+                ctx.fillStyle = '#0f291e';
+                ctx.beginPath();
+                ctx.ellipse(13, 11, 11, 9, 0, 0, Math.PI * 2);
+                ctx.fill();
