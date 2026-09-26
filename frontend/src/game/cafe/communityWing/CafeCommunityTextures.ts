@@ -2800,52 +2800,52 @@ export class CafeCommunityTextures {
             }
         }
 
-    // =========================================================================
-    // 39. GENEROUS ROUNDED EMERALD CLUB ARMCHAIR (34x34) [Concept 1]
-    // =========================================================================
-    if (!textures.exists('cafe_concept1_emerald_armchair')) {
-      const canvas = textures.createCanvas('cafe_concept1_emerald_armchair', 34, 34);
-      if (canvas) {
-        const ctx = canvas.getContext();
+        // =========================================================================
+        // 39. GENEROUS ROUNDED EMERALD CLUB ARMCHAIR (34x34) [Concept 1]
+        // =========================================================================
+        if (!textures.exists('cafe_concept1_emerald_armchair')) {
+            const canvas = textures.createCanvas('cafe_concept1_emerald_armchair', 34, 34);
+            if (canvas) {
+                const ctx = canvas.getContext();
 
-        // Floor Shadow
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.32)';
-        ctx.beginPath();
-        ctx.ellipse(17, 30, 14, 4, 0, 0, Math.PI * 2);
-        ctx.fill();
+                // Floor Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.32)';
+                ctx.beginPath();
+                ctx.ellipse(17, 30, 14, 4, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-        // Tapered Walnut Legs
-        ctx.fillStyle = '#271206';
-        ctx.fillRect(6, 24, 3, 6);
-        ctx.fillRect(25, 24, 3, 6);
+                // Tapered Walnut Legs
+                ctx.fillStyle = '#271206';
+                ctx.fillRect(6, 24, 3, 6);
+                ctx.fillRect(25, 24, 3, 6);
 
-        // Rounded Barrel Backrest (Deep Forest Emerald Velvet)
-        ctx.fillStyle = '#0f291e';
-        ctx.beginPath();
-        ctx.ellipse(17, 15, 14, 12, 0, 0, Math.PI * 2);
-        ctx.fill();
+                // Rounded Barrel Backrest (Deep Forest Emerald Velvet)
+                ctx.fillStyle = '#0f291e';
+                ctx.beginPath();
+                ctx.ellipse(17, 15, 14, 12, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-        ctx.fillStyle = '#1b4332';
-        ctx.beginPath();
-        ctx.ellipse(17, 15, 12, 10, 0, 0, Math.PI * 2);
-        ctx.fill();
+                ctx.fillStyle = '#1b4332';
+                ctx.beginPath();
+                ctx.ellipse(17, 15, 12, 10, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-        // Deep Emerald Cushion
-        ctx.fillStyle = '#2d6a4f';
-        ctx.beginPath();
-        ctx.ellipse(17, 18, 10, 8, 0, 0, Math.PI * 2);
-        ctx.fill();
+                // Deep Emerald Cushion
+                ctx.fillStyle = '#2d6a4f';
+                ctx.beginPath();
+                ctx.ellipse(17, 18, 10, 8, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-        ctx.fillStyle = '#40916c';
-        ctx.beginPath();
-        ctx.ellipse(17, 18, 8, 6, 0, 0, Math.PI * 2);
-        ctx.fill();
+                ctx.fillStyle = '#40916c';
+                ctx.beginPath();
+                ctx.ellipse(17, 18, 8, 6, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-        // Gold Trim Piping Accent
-        ctx.fillStyle = '#b45309';
-        ctx.fillRect(6, 16, 2, 5);
-        ctx.fillRect(26, 16, 2, 5);
+                // Gold Trim Piping Accent
+                ctx.fillStyle = '#b45309';
+                ctx.fillRect(6, 16, 2, 5);
+                ctx.fillRect(26, 16, 2, 5);
 
-        canvas.refresh();
-      }
-    }
+                canvas.refresh();
+            }
+        }
