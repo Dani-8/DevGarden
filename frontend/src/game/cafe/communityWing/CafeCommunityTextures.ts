@@ -1774,3 +1774,57 @@ export class CafeCommunityTextures {
 
                 ctx.fillStyle = '#f8fafc';
                 ctx.fillRect(9, 40, 18, 3);
+
+        // Fluted vertical grooves
+        ctx.strokeStyle = '#cbd5e1';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(14, 43);
+        ctx.lineTo(14, 55);
+        ctx.moveTo(18, 43);
+        ctx.lineTo(18, 55);
+        ctx.moveTo(22, 43);
+        ctx.lineTo(22, 55);
+        ctx.stroke();
+
+        // Soil
+        ctx.fillStyle = '#271206';
+        ctx.fillRect(11, 41, 14, 2);
+
+        // Natural Woody Trunk
+        ctx.fillStyle = '#5c2d13';
+        ctx.fillRect(17, 24, 3, 18);
+        ctx.fillRect(18, 12, 2, 14);
+
+        // Large Sculptural Fiddle Leaves
+        const drawLeaf = (cx: number, cy: number, rx: number, ry: number, angle: number) => {
+          ctx.save();
+          ctx.translate(cx, cy);
+          ctx.rotate(angle);
+
+          // Leaf body
+          ctx.fillStyle = '#064e3b';
+          ctx.beginPath();
+          ctx.ellipse(0, 0, rx, ry, 0, 0, Math.PI * 2);
+          ctx.fill();
+
+          ctx.fillStyle = '#047857';
+          ctx.beginPath();
+          ctx.ellipse(0, -1, rx - 1.5, ry - 1.5, 0, 0, Math.PI * 2);
+          ctx.fill();
+
+          ctx.fillStyle = '#10b981';
+          ctx.beginPath();
+          ctx.ellipse(0, -2, rx - 3, ry - 3, 0, 0, Math.PI * 2);
+          ctx.fill();
+
+          // Main leaf vein
+          ctx.strokeStyle = '#6ee7b7';
+          ctx.lineWidth = 0.8;
+          ctx.beginPath();
+          ctx.moveTo(0, ry - 2);
+          ctx.lineTo(0, -ry + 2);
+          ctx.stroke();
+
+          ctx.restore();
+        };
