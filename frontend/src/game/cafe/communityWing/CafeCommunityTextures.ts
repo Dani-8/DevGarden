@@ -2342,3 +2342,510 @@ export class CafeCommunityTextures {
             }
         }
 
+
+        // =========================================================================
+        // 32. FREESTANDING WICKER RATTAN HANGING EGG CHAIR (34x50) [Concept 5]
+        // =========================================================================
+        if (!textures.exists('cafe_lounge_hanging_egg_chair')) {
+            const canvas = textures.createCanvas('cafe_lounge_hanging_egg_chair', 34, 50);
+            if (canvas) {
+                const ctx = canvas.getContext();
+
+                // Floor Shadow for Base
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+                ctx.beginPath();
+                ctx.ellipse(17, 45, 14, 4, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Curved Wrought Iron Stand (Base & Arching Pole)
+                ctx.fillStyle = '#1c1917';
+                ctx.fillRect(6, 44, 22, 3); // floor disc
+                ctx.fillStyle = '#292524';
+                ctx.fillRect(23, 10, 3, 34); // vertical pole
+                // Curved top hook
+                ctx.fillRect(17, 4, 9, 3);
+                ctx.fillRect(15, 6, 3, 4);
+
+                // Suspension Chain / Spring
+                ctx.fillStyle = '#94a3b8';
+                ctx.fillRect(16, 9, 1.5, 5);
+
+                // Teardrop Woven Wicker Pod Shell (Natural Honey Rattan)
+                ctx.fillStyle = '#5c2d13';
+                ctx.beginPath();
+                ctx.ellipse(15, 27, 13, 16, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.fillStyle = '#9a3412';
+                ctx.beginPath();
+                ctx.ellipse(15, 27, 11, 14, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.fillStyle = '#b45309';
+                ctx.beginPath();
+                ctx.ellipse(15, 27, 9.5, 12, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Wicker Cross-Weave Texture
+                ctx.fillStyle = '#78350f';
+                for (let y = 16; y < 38; y += 4) {
+                    ctx.fillRect(6, y, 18, 1);
+                }
+
+                // Plush Tufted Cream Nest Cushion
+                ctx.fillStyle = '#fef3c7';
+                ctx.beginPath();
+                ctx.ellipse(15, 30, 8, 9, 0, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = '#fde68a';
+                ctx.beginPath();
+                ctx.ellipse(15, 32, 7, 6, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Sage Velvet Accent Pillow
+                ctx.fillStyle = '#065f46';
+                ctx.fillRect(12, 26, 6, 6);
+                ctx.fillStyle = '#047857';
+                ctx.fillRect(13, 27, 4, 4);
+
+                canvas.refresh();
+            }
+        }
+
+        // =========================================================================
+        // 33. SLIM FLOOR-STANDING LIBRARY BOOKCASE (28x56) [Concept 1 & 6]
+        // =========================================================================
+        if (!textures.exists('cafe_lounge_tall_bookshelf')) {
+            const canvas = textures.createCanvas('cafe_lounge_tall_bookshelf', 28, 56);
+            if (canvas) {
+                const ctx = canvas.getContext();
+
+                // Floor Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+                ctx.fillRect(2, 52, 24, 4);
+
+                // Solid Walnut Outer Frame
+                ctx.fillStyle = '#271206';
+                ctx.fillRect(0, 0, 28, 52);
+                ctx.fillStyle = '#3c1b09';
+                ctx.fillRect(2, 2, 24, 48);
+
+                // 3 Shelf Planks
+                ctx.fillStyle = '#1c0c04';
+                ctx.fillRect(2, 14, 24, 3);
+                ctx.fillRect(2, 27, 24, 3);
+                ctx.fillRect(2, 40, 24, 3);
+
+                // Top Shelf (Small potted ivy plant & books)
+                ctx.fillStyle = '#b45309';
+                ctx.fillRect(4, 8, 5, 6);
+                ctx.fillStyle = '#16a34a';
+                ctx.fillRect(17, 6, 8, 6);
+                ctx.fillStyle = '#22c55e';
+                ctx.fillRect(19, 10, 4, 4); // trailing ivy
+
+                // Shelf 2 (Row of colorful vintage book spines)
+                const spineColors = ['#dc2626', '#d97706', '#2563eb', '#16a34a', '#9333ea', '#ca8a04'];
+                let bx = 4;
+                spineColors.forEach((color, i) => {
+                    ctx.fillStyle = color;
+                    ctx.fillRect(bx, 17, 3, 10);
+                    bx += 3.5;
+                });
+
+                // Shelf 3 (Stacked books horizontally & rolled scrolls)
+                ctx.fillStyle = '#0284c7';
+                ctx.fillRect(4, 34, 11, 3);
+                ctx.fillStyle = '#ea580c';
+                ctx.fillRect(5, 31, 9, 3);
+                ctx.fillStyle = '#fef08a';
+                ctx.fillRect(18, 30, 6, 10);
+
+                // Bottom Shelf (Large encyclopedia volumes & antique jug)
+                ctx.fillStyle = '#78350f';
+                ctx.fillRect(4, 43, 4, 9);
+                ctx.fillStyle = '#451a03';
+                ctx.fillRect(9, 43, 4, 9);
+                ctx.fillStyle = '#d97706';
+                ctx.fillRect(16, 44, 8, 8);
+
+                canvas.refresh();
+            }
+        }
+
+        // =========================================================================
+        // 34. CLASSIC BRASS FLOOR READING LAMP (18x54) [Concept 1 & 6]
+        // =========================================================================
+        if (!textures.exists('cafe_lounge_brass_floor_lamp')) {
+            const canvas = textures.createCanvas('cafe_lounge_brass_floor_lamp', 18, 54);
+            if (canvas) {
+                const ctx = canvas.getContext();
+
+                // Floor Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+                ctx.beginPath();
+                ctx.ellipse(9, 50, 7, 2.5, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Weighted Polished Brass Base
+                ctx.fillStyle = '#78350f';
+                ctx.fillRect(4, 48, 10, 3);
+                ctx.fillStyle = '#d97706';
+                ctx.fillRect(5, 47, 8, 2);
+
+                // Slim Brass Pole
+                ctx.fillStyle = '#b45309';
+                ctx.fillRect(8, 16, 2, 32);
+                ctx.fillStyle = '#f59e0b';
+                ctx.fillRect(8.5, 16, 1, 32);
+
+                // Warm Pleated Fabric Lampshade
+                ctx.fillStyle = '#d97706';
+                ctx.beginPath();
+                ctx.moveTo(3, 16);
+                ctx.lineTo(15, 16);
+                ctx.lineTo(13, 8);
+                ctx.lineTo(5, 8);
+                ctx.fill();
+
+                ctx.fillStyle = '#fef08a';
+                ctx.beginPath();
+                ctx.moveTo(4, 15);
+                ctx.lineTo(14, 15);
+                ctx.lineTo(12, 9);
+                ctx.lineTo(6, 9);
+                ctx.fill();
+
+                // Pleat lines
+                ctx.fillStyle = '#ca8a04';
+                for (let x = 6; x < 13; x += 2) {
+                    ctx.fillRect(x, 9, 1, 6);
+                }
+
+                // Finial on top
+                ctx.fillStyle = '#d97706';
+                ctx.fillRect(8, 6, 2, 2);
+
+                canvas.refresh();
+            }
+        }
+
+        // =========================================================================
+        // 35. CIRCULAR WALNUT SIDE TABLE WITH LIT CANDLE (18x22) [Concept 1]
+        // =========================================================================
+        if (!textures.exists('cafe_lounge_side_table_candle')) {
+            const canvas = textures.createCanvas('cafe_lounge_side_table_candle', 18, 22);
+            if (canvas) {
+                const ctx = canvas.getContext();
+
+                // Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+                ctx.beginPath();
+                ctx.ellipse(9, 19, 8, 2.5, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Tripod Wood Legs
+                ctx.fillStyle = '#271206';
+                ctx.fillRect(4, 11, 2, 8);
+                ctx.fillRect(12, 11, 2, 8);
+                ctx.fillRect(8, 11, 2, 9);
+
+                // Round Walnut Tabletop
+                ctx.fillStyle = '#3c1b09';
+                ctx.beginPath();
+                ctx.ellipse(9, 10, 8, 4, 0, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = '#5c2d13';
+                ctx.beginPath();
+                ctx.ellipse(9, 9, 7.5, 3.5, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Glass Votive Candle (Glowing Amber Flame)
+                ctx.fillStyle = '#f8fafc';
+                ctx.fillRect(7.5, 4, 3, 4);
+                ctx.fillStyle = '#f59e0b';
+                ctx.fillRect(8, 2, 2, 3);
+                ctx.fillStyle = '#fef08a';
+                ctx.fillRect(8.5, 1, 1, 2);
+
+                canvas.refresh();
+            }
+        }
+
+        // =========================================================================
+        // 36. ROUNDED COZY VELVET CLUB ARMCHAIR (26x26) [Concept 1]
+        // =========================================================================
+        if (!textures.exists('cafe_lounge_club_armchair')) {
+            const canvas = textures.createCanvas('cafe_lounge_club_armchair', 26, 26);
+            if (canvas) {
+                const ctx = canvas.getContext();
+
+                // Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.32)';
+                ctx.beginPath();
+                ctx.ellipse(13, 23, 11, 3, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Tapered Walnut Legs
+                ctx.fillStyle = '#271206';
+                ctx.fillRect(4, 18, 2, 5);
+                ctx.fillRect(20, 18, 2, 5);
+
+                // Curved Barrel Backrest (Deep Forest Emerald Velvet)
+                ctx.fillStyle = '#0f291e';
+                ctx.beginPath();
+                ctx.ellipse(13, 11, 11, 9, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.fillStyle = '#1b4332';
+                ctx.beginPath();
+                ctx.ellipse(13, 11, 9.5, 7.5, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Plush Circular Cushion
+                ctx.fillStyle = '#2d6a4f';
+                ctx.beginPath();
+                ctx.ellipse(13, 13, 7.5, 6, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Gold Trim Highlight
+                ctx.fillStyle = '#b45309';
+                ctx.fillRect(6, 12, 1, 4);
+                ctx.fillRect(19, 12, 1, 4);
+
+                canvas.refresh();
+            }
+        }
+
+        // =========================================================================
+        // 37. GRAND PLUSH CREAM & WOOD FRAME LOUNGE SOFA (132x46) [Concept 1]
+        // =========================================================================
+        if (!textures.exists('cafe_concept1_cream_sofa')) {
+            const canvas = textures.createCanvas('cafe_concept1_cream_sofa', 132, 46);
+            if (canvas) {
+                const ctx = canvas.getContext();
+
+                // Soft Floor Drop Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+                ctx.beginPath();
+                ctx.ellipse(66, 42, 64, 4, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                // 4 Tapered Walnut Feet
+                ctx.fillStyle = '#3b1d09';
+                ctx.fillRect(10, 36, 4, 6);
+                ctx.fillRect(48, 36, 4, 6);
+                ctx.fillRect(80, 36, 4, 6);
+                ctx.fillRect(118, 36, 4, 6);
+
+                // Solid Honey-Walnut Wood Base Rail
+                ctx.fillStyle = '#5c2d13';
+                ctx.fillRect(6, 33, 120, 5);
+                ctx.fillStyle = '#8a471b';
+                ctx.fillRect(7, 34, 118, 3);
+                ctx.fillStyle = '#a85924';
+                ctx.fillRect(8, 34, 116, 1);
+
+                // Wooden Outer Armrests (Left & Right ends)
+                ctx.fillStyle = '#5c2d13';
+                ctx.fillRect(2, 8, 6, 26);
+                ctx.fillRect(124, 8, 6, 26);
+                ctx.fillStyle = '#8a471b';
+                ctx.fillRect(3, 9, 4, 24);
+                ctx.fillRect(125, 9, 4, 24);
+                ctx.fillStyle = '#a85924';
+                ctx.fillRect(4, 9, 2, 23);
+                ctx.fillRect(126, 9, 2, 23);
+
+                // 4-Section Tufted Plush Cream Backrest (y = 5 to 22)
+                ctx.fillStyle = '#ded3c2';
+                ctx.fillRect(7, 5, 118, 17);
+
+                // Individual Backrest Cushions (4 wide cushions)
+                const cushionWidth = 29;
+                for (let i = 0; i < 4; i++) {
+                    const cx = 8 + (i * cushionWidth);
+                    // Cushion Body
+                    ctx.fillStyle = '#ede5d8';
+                    ctx.fillRect(cx, 6, cushionWidth - 1, 15);
+                    // Highlight
+                    ctx.fillStyle = '#f8f4ec';
+                    ctx.fillRect(cx + 1, 7, cushionWidth - 3, 11);
+                    // Top Bevel
+                    ctx.fillStyle = '#fffdfa';
+                    ctx.fillRect(cx + 2, 7, cushionWidth - 5, 2);
+                    // Tufting indentation
+                    ctx.fillStyle = '#c5b8a5';
+                    ctx.fillRect(cx + 13, 12, 2, 2);
+                }
+
+                // 4 Plush Cream Seat Cushions (y = 20 to 34)
+                for (let i = 0; i < 4; i++) {
+                    const cx = 8 + (i * cushionWidth);
+                    // Base shadow
+                    ctx.fillStyle = '#ded3c2';
+                    ctx.fillRect(cx, 20, cushionWidth - 1, 14);
+                    // Cushion surface
+                    ctx.fillStyle = '#f5f0e6';
+                    ctx.fillRect(cx, 21, cushionWidth - 1, 12);
+                    // Top highlight
+                    ctx.fillStyle = '#fdfbf7';
+                    ctx.fillRect(cx + 1, 21, cushionWidth - 3, 3);
+                    // Bottom rounding shadow
+                    ctx.fillStyle = '#d5c8b5';
+                    ctx.fillRect(cx, 32, cushionWidth - 1, 2);
+                }
+
+                // Left Olive/Forest Green Accent Pillow (from user's image)
+                ctx.fillStyle = '#283e28';
+                ctx.fillRect(13, 13, 14, 14);
+                ctx.fillStyle = '#3d5a3a';
+                ctx.fillRect(14, 14, 12, 12);
+                ctx.fillStyle = '#537a4e';
+                ctx.fillRect(15, 15, 8, 8);
+                ctx.fillStyle = '#283e28';
+                ctx.fillRect(19, 19, 2, 2); // pillow button
+
+                // Right Olive/Forest Green Accent Pillow (from user's image)
+                ctx.fillStyle = '#283e28';
+                ctx.fillRect(105, 13, 14, 14);
+                ctx.fillStyle = '#3d5a3a';
+                ctx.fillRect(106, 14, 12, 12);
+                ctx.fillStyle = '#537a4e';
+                ctx.fillRect(107, 15, 8, 8);
+                ctx.fillStyle = '#283e28';
+                ctx.fillRect(111, 19, 2, 2); // pillow button
+
+                canvas.refresh();
+            }
+        }
+
+        // =========================================================================
+        // 38. GENEROUS HONEY-OAK COFFEE TABLE WITH SUCCULENT & BOOK (74x36) [Concept 1]
+        // =========================================================================
+        if (!textures.exists('cafe_concept1_coffee_table')) {
+            const canvas = textures.createCanvas('cafe_concept1_coffee_table', 74, 36);
+            if (canvas) {
+                const ctx = canvas.getContext();
+
+                // Soft Floor Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.32)';
+                ctx.beginPath();
+                ctx.ellipse(37, 32, 34, 4, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                // 4 Warm Walnut Tapered Legs
+                ctx.fillStyle = '#3b1d09';
+                ctx.fillRect(8, 20, 3, 12);
+                ctx.fillRect(63, 20, 3, 12);
+                ctx.fillRect(16, 20, 3, 12);
+                ctx.fillRect(55, 20, 3, 12);
+
+                // Solid Honey-Oak Rounded Tabletop
+                ctx.fillStyle = '#4a250e';
+                ctx.beginPath();
+                ctx.roundRect(3, 8, 68, 18, 6);
+                ctx.fill();
+
+                ctx.fillStyle = '#78350f';
+                ctx.beginPath();
+                ctx.roundRect(4, 7, 66, 18, 5);
+                ctx.fill();
+
+                ctx.fillStyle = '#9a3412';
+                ctx.beginPath();
+                ctx.roundRect(5, 6, 64, 17, 5);
+                ctx.fill();
+
+                ctx.fillStyle = '#b45309';
+                ctx.beginPath();
+                ctx.roundRect(6, 6, 62, 15, 4);
+                ctx.fill();
+
+                // Center Table Items (from Concept 1):
+                // 1. Ceramic bowl with potted green succulent plant
+                ctx.fillStyle = '#f8fafc';
+                ctx.beginPath();
+                ctx.ellipse(37, 13, 6, 4, 0, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = '#15803d';
+                ctx.beginPath();
+                ctx.arc(37, 12, 4, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = '#4ade80';
+                ctx.fillRect(36, 11, 2, 2);
+
+                // 2. Open Hardcover Book on Left
+                ctx.fillStyle = '#fef3c7';
+                ctx.fillRect(16, 10, 12, 8);
+                ctx.fillStyle = '#94a3b8';
+                ctx.fillRect(21.5, 10, 1, 8); // spine line
+                ctx.fillStyle = '#3b82f6';
+                ctx.fillRect(15, 10, 1, 8); // cover edge
+                ctx.fillRect(28, 10, 1, 8);
+
+                // 3. Ceramic Mug with Latte Art on Right
+                ctx.fillStyle = '#f8fafc';
+                ctx.beginPath();
+                ctx.arc(54, 13, 4, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = '#78350f';
+                ctx.beginPath();
+                ctx.arc(54, 13, 2.5, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = '#fef08a';
+                ctx.fillRect(53, 12, 2, 2);
+
+                canvas.refresh();
+            }
+        }
+
+        // =========================================================================
+        // 39. GENEROUS ROUNDED EMERALD CLUB ARMCHAIR (34x34) [Concept 1]
+        // =========================================================================
+        if (!textures.exists('cafe_concept1_emerald_armchair')) {
+            const canvas = textures.createCanvas('cafe_concept1_emerald_armchair', 34, 34);
+            if (canvas) {
+                const ctx = canvas.getContext();
+
+                // Floor Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.32)';
+                ctx.beginPath();
+                ctx.ellipse(17, 30, 14, 4, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Tapered Walnut Legs
+                ctx.fillStyle = '#271206';
+                ctx.fillRect(6, 24, 3, 6);
+                ctx.fillRect(25, 24, 3, 6);
+
+                // Rounded Barrel Backrest (Deep Forest Emerald Velvet)
+                ctx.fillStyle = '#0f291e';
+                ctx.beginPath();
+                ctx.ellipse(17, 15, 14, 12, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.fillStyle = '#1b4332';
+                ctx.beginPath();
+                ctx.ellipse(17, 15, 12, 10, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Deep Emerald Cushion
+                ctx.fillStyle = '#2d6a4f';
+                ctx.beginPath();
+                ctx.ellipse(17, 18, 10, 8, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.fillStyle = '#40916c';
+                ctx.beginPath();
+                ctx.ellipse(17, 18, 8, 6, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Gold Trim Piping Accent
+                ctx.fillStyle = '#b45309';
+                ctx.fillRect(6, 16, 2, 5);
+                ctx.fillRect(26, 16, 2, 5);
+
+                canvas.refresh();
+            }
+        }
