@@ -1472,3 +1472,53 @@ export class CafeCommunityTextures {
                 ctx.beginPath();
                 ctx.arc(11, 7, 3.5, 0, Math.PI * 2);
                 ctx.fill();
+
+        ctx.fillStyle = '#15803d';
+        ctx.beginPath();
+        ctx.ellipse(11, 14, 4, 2, -Math.PI / 4, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.ellipse(11, 11, 4, 2, Math.PI / 4, 0, Math.PI * 2);
+        ctx.fill();
+
+        canvas.refresh();
+      }
+    }
+
+    // =========================================================================
+    // 21. CURVED / L-SHAPED PLUSH SECTIONAL SOFA (118x56)
+    // =========================================================================
+    if (!textures.exists('cafe_lofi_l_sectional')) {
+      const canvas = textures.createCanvas('cafe_lofi_l_sectional', 118, 56);
+      if (canvas) {
+        const ctx = canvas.getContext();
+
+        // Floor Shadow
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.32)';
+        ctx.beginPath();
+        ctx.ellipse(59, 50, 56, 5, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Peg Legs
+        ctx.fillStyle = '#271206';
+        ctx.fillRect(8, 46, 4, 7);
+        ctx.fillRect(106, 46, 4, 7);
+        ctx.fillRect(56, 46, 4, 7);
+        ctx.fillRect(8, 26, 4, 7);
+
+        // Wooden Base Rim
+        ctx.fillStyle = '#451a03';
+        ctx.fillRect(6, 40, 106, 6);
+        ctx.fillRect(6, 20, 26, 26);
+
+        // Main Sofa Backrest (Sage / Forest Chenille)
+        ctx.fillStyle = '#1b3b27';
+        ctx.fillRect(6, 6, 106, 18);
+        ctx.fillStyle = '#275237';
+        ctx.fillRect(8, 8, 102, 14);
+
+        // Tufted Backrest Dimples
+        ctx.fillStyle = '#163121';
+        for (let x = 18; x < 105; x += 14) {
+          ctx.fillRect(x, 14, 2, 2);
+        }
