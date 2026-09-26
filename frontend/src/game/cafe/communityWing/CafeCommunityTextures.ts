@@ -1355,54 +1355,54 @@ export class CafeCommunityTextures {
                     px += 2;
                 }
 
-        // --- TOP DECK EQUIPMENT ---
-        // Left Studio Monitor Speaker
-        ctx.fillStyle = '#1c1917';
-        ctx.fillRect(6, 2, 12, 11);
-        ctx.fillStyle = '#292524';
-        ctx.fillRect(7, 3, 10, 9);
-        ctx.fillStyle = '#d97706';
-        ctx.beginPath();
-        ctx.arc(12, 7, 3, 0, Math.PI * 2);
-        ctx.fill();
+                // --- TOP DECK EQUIPMENT ---
+                // Left Studio Monitor Speaker
+                ctx.fillStyle = '#1c1917';
+                ctx.fillRect(6, 2, 12, 11);
+                ctx.fillStyle = '#292524';
+                ctx.fillRect(7, 3, 10, 9);
+                ctx.fillStyle = '#d97706';
+                ctx.beginPath();
+                ctx.arc(12, 7, 3, 0, Math.PI * 2);
+                ctx.fill();
 
-        // Right Studio Monitor Speaker
-        ctx.fillStyle = '#1c1917';
-        ctx.fillRect(74, 2, 12, 11);
-        ctx.fillStyle = '#292524';
-        ctx.fillRect(75, 3, 10, 9);
-        ctx.fillStyle = '#d97706';
-        ctx.beginPath();
-        ctx.arc(80, 7, 3, 0, Math.PI * 2);
-        ctx.fill();
+                // Right Studio Monitor Speaker
+                ctx.fillStyle = '#1c1917';
+                ctx.fillRect(74, 2, 12, 11);
+                ctx.fillStyle = '#292524';
+                ctx.fillRect(75, 3, 10, 9);
+                ctx.fillStyle = '#d97706';
+                ctx.beginPath();
+                ctx.arc(80, 7, 3, 0, Math.PI * 2);
+                ctx.fill();
 
-        // Center-Left Turntable (Player)
-        ctx.fillStyle = '#1e293b';
-        ctx.fillRect(22, 3, 24, 10);
-        ctx.fillStyle = '#0f172a';
-        ctx.fillRect(23, 4, 22, 8);
+                // Center-Left Turntable (Player)
+                ctx.fillStyle = '#1e293b';
+                ctx.fillRect(22, 3, 24, 10);
+                ctx.fillStyle = '#0f172a';
+                ctx.fillRect(23, 4, 22, 8);
 
-        // Spinning Vinyl Platter (Black disc with red label)
-        ctx.fillStyle = '#020617';
-        ctx.beginPath();
-        ctx.ellipse(33, 8, 7, 3.5, 0, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.fillStyle = '#ef4444';
-        ctx.beginPath();
-        ctx.ellipse(33, 8, 2.5, 1.2, 0, 0, Math.PI * 2);
-        ctx.fill();
+                // Spinning Vinyl Platter (Black disc with red label)
+                ctx.fillStyle = '#020617';
+                ctx.beginPath();
+                ctx.ellipse(33, 8, 7, 3.5, 0, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = '#ef4444';
+                ctx.beginPath();
+                ctx.ellipse(33, 8, 2.5, 1.2, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-        // Silver Tonearm
-        ctx.strokeStyle = '#cbd5e1';
-        ctx.lineWidth = 1;
-        ctx.beginPath();
-        ctx.moveTo(42, 5);
-        ctx.lineTo(39, 7);
-        ctx.lineTo(36, 8);
-        ctx.stroke();
+                // Silver Tonearm
+                ctx.strokeStyle = '#cbd5e1';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(42, 5);
+                ctx.lineTo(39, 7);
+                ctx.lineTo(36, 8);
+                ctx.stroke();
 
-        // Center-Right Vintage Receiver with Warm Amber Dials
-        ctx.fillStyle = '#27272a';
-        ctx.fillRect(50, 4, 20, 9);
-        ctx.fillStyle = '#18181b';
-        ctx.fillRect(51, 5, 18, 7);
+                // Center-Right Vintage Receiver with Warm Amber Dials
+                ctx.fillStyle = '#27272a';
+                ctx.fillRect(50, 4, 20, 9);
+                ctx.fillStyle = '#18181b';
+                ctx.fillRect(51, 5, 18, 7);
