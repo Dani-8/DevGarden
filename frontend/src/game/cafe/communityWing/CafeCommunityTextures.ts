@@ -1573,54 +1573,54 @@ export class CafeCommunityTextures {
                 ctx.fillStyle = '#d97706';
                 ctx.fillRect(99, 19, 2, 2);
 
-        // Soft Chenille Blanket Draped on Chaise
-        ctx.fillStyle = '#e7e5e4';
-        ctx.fillRect(22, 34, 14, 14);
-        ctx.fillStyle = '#d6d3d1';
-        ctx.fillRect(23, 36, 12, 2);
-        ctx.fillRect(23, 40, 12, 2);
-        // Fringe
-        ctx.fillStyle = '#a8a29e';
-        for (let fx = 23; fx < 35; fx += 2) {
-          ctx.fillRect(fx, 48, 1, 3);
+                // Soft Chenille Blanket Draped on Chaise
+                ctx.fillStyle = '#e7e5e4';
+                ctx.fillRect(22, 34, 14, 14);
+                ctx.fillStyle = '#d6d3d1';
+                ctx.fillRect(23, 36, 12, 2);
+                ctx.fillRect(23, 40, 12, 2);
+                // Fringe
+                ctx.fillStyle = '#a8a29e';
+                for (let fx = 23; fx < 35; fx += 2) {
+                    ctx.fillRect(fx, 48, 1, 3);
+                }
+
+                canvas.refresh();
+            }
         }
 
-        canvas.refresh();
-      }
-    }
+        // =========================================================================
+        // 22. RUSTIC LIVE-EDGE COFFEE TABLE WITH BOARD GAME & COFFEE (70x36)
+        // =========================================================================
+        if (!textures.exists('cafe_lofi_coffee_table')) {
+            const canvas = textures.createCanvas('cafe_lofi_coffee_table', 70, 36);
+            if (canvas) {
+                const ctx = canvas.getContext();
 
-    // =========================================================================
-    // 22. RUSTIC LIVE-EDGE COFFEE TABLE WITH BOARD GAME & COFFEE (70x36)
-    // =========================================================================
-    if (!textures.exists('cafe_lofi_coffee_table')) {
-      const canvas = textures.createCanvas('cafe_lofi_coffee_table', 70, 36);
-      if (canvas) {
-        const ctx = canvas.getContext();
+                // Floor Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+                ctx.beginPath();
+                ctx.ellipse(35, 31, 31, 4, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-        // Floor Shadow
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
-        ctx.beginPath();
-        ctx.ellipse(35, 31, 31, 4, 0, 0, Math.PI * 2);
-        ctx.fill();
+                // Hairpin Iron Legs
+                ctx.strokeStyle = '#18181b';
+                ctx.lineWidth = 1.5;
+                ctx.beginPath();
+                ctx.moveTo(10, 18);
+                ctx.lineTo(8, 30);
+                ctx.moveTo(60, 18);
+                ctx.lineTo(62, 30);
+                ctx.stroke();
 
-        // Hairpin Iron Legs
-        ctx.strokeStyle = '#18181b';
-        ctx.lineWidth = 1.5;
-        ctx.beginPath();
-        ctx.moveTo(10, 18);
-        ctx.lineTo(8, 30);
-        ctx.moveTo(60, 18);
-        ctx.lineTo(62, 30);
-        ctx.stroke();
+                // Warm Teak Tabletop
+                ctx.fillStyle = '#451a03';
+                ctx.beginPath();
+                ctx.ellipse(35, 16, 31, 12, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-        // Warm Teak Tabletop
-        ctx.fillStyle = '#451a03';
-        ctx.beginPath();
-        ctx.ellipse(35, 16, 31, 12, 0, 0, Math.PI * 2);
-        ctx.fill();
-
-        ctx.fillStyle = '#78350f';
-        ctx.beginPath();
-        ctx.ellipse(35, 15, 29, 10.5, 0, 0, Math.PI * 2);
-        ctx.fill();
+                ctx.fillStyle = '#78350f';
+                ctx.beginPath();
+                ctx.ellipse(35, 15, 29, 10.5, 0, 0, Math.PI * 2);
+                ctx.fill();
 
