@@ -1829,52 +1829,52 @@ export class CafeCommunityTextures {
                     ctx.restore();
                 };
 
-        drawLeaf(9, 36, 8, 5, -0.4);
-        drawLeaf(27, 34, 8, 5, 0.4);
-        drawLeaf(8, 24, 9, 6, -0.6);
-        drawLeaf(28, 22, 9, 6, 0.5);
-        drawLeaf(11, 14, 8, 5, -0.3);
-        drawLeaf(25, 12, 8, 5, 0.3);
-        drawLeaf(18, 6, 7, 5, 0);
+                drawLeaf(9, 36, 8, 5, -0.4);
+                drawLeaf(27, 34, 8, 5, 0.4);
+                drawLeaf(8, 24, 9, 6, -0.6);
+                drawLeaf(28, 22, 9, 6, 0.5);
+                drawLeaf(11, 14, 8, 5, -0.3);
+                drawLeaf(25, 12, 8, 5, 0.3);
+                drawLeaf(18, 6, 7, 5, 0);
 
-        canvas.refresh();
-      }
-    }
+                canvas.refresh();
+            }
+        }
 
-    // =========================================================================
-    // 25. VINTAGE CURVED ARC FLOOR READING LAMP (28x64)
-    // =========================================================================
-    if (!textures.exists('cafe_lofi_arc_lamp')) {
-      const canvas = textures.createCanvas('cafe_lofi_arc_lamp', 28, 64);
-      if (canvas) {
-        const ctx = canvas.getContext();
+        // =========================================================================
+        // 25. VINTAGE CURVED ARC FLOOR READING LAMP (28x64)
+        // =========================================================================
+        if (!textures.exists('cafe_lofi_arc_lamp')) {
+            const canvas = textures.createCanvas('cafe_lofi_arc_lamp', 28, 64);
+            if (canvas) {
+                const ctx = canvas.getContext();
 
-        // Floor Shadow
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
-        ctx.beginPath();
-        ctx.ellipse(8, 61, 7, 2.5, 0, 0, Math.PI * 2);
-        ctx.fill();
+                // Floor Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+                ctx.beginPath();
+                ctx.ellipse(8, 61, 7, 2.5, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-        // Brass Base Plate
-        ctx.fillStyle = '#78350f';
-        ctx.fillRect(4, 58, 8, 3);
-        ctx.fillStyle = '#f59e0b';
-        ctx.fillRect(5, 57, 6, 2);
+                // Brass Base Plate
+                ctx.fillStyle = '#78350f';
+                ctx.fillRect(4, 58, 8, 3);
+                ctx.fillStyle = '#f59e0b';
+                ctx.fillRect(5, 57, 6, 2);
 
-        // Curved Brass Arc Stem
-        ctx.strokeStyle = '#b45309';
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        ctx.moveTo(8, 57);
-        ctx.lineTo(8, 30);
-        ctx.quadraticCurveTo(8, 8, 22, 8);
-        ctx.lineTo(22, 14);
-        ctx.stroke();
+                // Curved Brass Arc Stem
+                ctx.strokeStyle = '#b45309';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(8, 57);
+                ctx.lineTo(8, 30);
+                ctx.quadraticCurveTo(8, 8, 22, 8);
+                ctx.lineTo(22, 14);
+                ctx.stroke();
 
-        ctx.strokeStyle = '#fbbf24';
-        ctx.lineWidth = 1;
-        ctx.beginPath();
-        ctx.moveTo(8, 57);
-        ctx.lineTo(8, 30);
-        ctx.quadraticCurveTo(8, 9, 22, 9);
-        ctx.stroke();
+                ctx.strokeStyle = '#fbbf24';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(8, 57);
+                ctx.lineTo(8, 30);
+                ctx.quadraticCurveTo(8, 9, 22, 9);
+                ctx.stroke();
