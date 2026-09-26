@@ -2392,54 +2392,54 @@ export class CafeCommunityTextures {
                     ctx.fillRect(6, y, 18, 1);
                 }
 
-        // Plush Tufted Cream Nest Cushion
-        ctx.fillStyle = '#fef3c7';
-        ctx.beginPath();
-        ctx.ellipse(15, 30, 8, 9, 0, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.fillStyle = '#fde68a';
-        ctx.beginPath();
-        ctx.ellipse(15, 32, 7, 6, 0, 0, Math.PI * 2);
-        ctx.fill();
+                // Plush Tufted Cream Nest Cushion
+                ctx.fillStyle = '#fef3c7';
+                ctx.beginPath();
+                ctx.ellipse(15, 30, 8, 9, 0, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = '#fde68a';
+                ctx.beginPath();
+                ctx.ellipse(15, 32, 7, 6, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-        // Sage Velvet Accent Pillow
-        ctx.fillStyle = '#065f46';
-        ctx.fillRect(12, 26, 6, 6);
-        ctx.fillStyle = '#047857';
-        ctx.fillRect(13, 27, 4, 4);
+                // Sage Velvet Accent Pillow
+                ctx.fillStyle = '#065f46';
+                ctx.fillRect(12, 26, 6, 6);
+                ctx.fillStyle = '#047857';
+                ctx.fillRect(13, 27, 4, 4);
 
-        canvas.refresh();
-      }
-    }
+                canvas.refresh();
+            }
+        }
 
-    // =========================================================================
-    // 33. SLIM FLOOR-STANDING LIBRARY BOOKCASE (28x56) [Concept 1 & 6]
-    // =========================================================================
-    if (!textures.exists('cafe_lounge_tall_bookshelf')) {
-      const canvas = textures.createCanvas('cafe_lounge_tall_bookshelf', 28, 56);
-      if (canvas) {
-        const ctx = canvas.getContext();
+        // =========================================================================
+        // 33. SLIM FLOOR-STANDING LIBRARY BOOKCASE (28x56) [Concept 1 & 6]
+        // =========================================================================
+        if (!textures.exists('cafe_lounge_tall_bookshelf')) {
+            const canvas = textures.createCanvas('cafe_lounge_tall_bookshelf', 28, 56);
+            if (canvas) {
+                const ctx = canvas.getContext();
 
-        // Floor Shadow
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
-        ctx.fillRect(2, 52, 24, 4);
+                // Floor Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+                ctx.fillRect(2, 52, 24, 4);
 
-        // Solid Walnut Outer Frame
-        ctx.fillStyle = '#271206';
-        ctx.fillRect(0, 0, 28, 52);
-        ctx.fillStyle = '#3c1b09';
-        ctx.fillRect(2, 2, 24, 48);
+                // Solid Walnut Outer Frame
+                ctx.fillStyle = '#271206';
+                ctx.fillRect(0, 0, 28, 52);
+                ctx.fillStyle = '#3c1b09';
+                ctx.fillRect(2, 2, 24, 48);
 
-        // 3 Shelf Planks
-        ctx.fillStyle = '#1c0c04';
-        ctx.fillRect(2, 14, 24, 3);
-        ctx.fillRect(2, 27, 24, 3);
-        ctx.fillRect(2, 40, 24, 3);
+                // 3 Shelf Planks
+                ctx.fillStyle = '#1c0c04';
+                ctx.fillRect(2, 14, 24, 3);
+                ctx.fillRect(2, 27, 24, 3);
+                ctx.fillRect(2, 40, 24, 3);
 
-        // Top Shelf (Small potted ivy plant & books)
-        ctx.fillStyle = '#b45309';
-        ctx.fillRect(4, 8, 5, 6);
-        ctx.fillStyle = '#16a34a';
-        ctx.fillRect(17, 6, 8, 6);
-        ctx.fillStyle = '#22c55e';
-        ctx.fillRect(19, 10, 4, 4); // trailing ivy
+                // Top Shelf (Small potted ivy plant & books)
+                ctx.fillStyle = '#b45309';
+                ctx.fillRect(4, 8, 5, 6);
+                ctx.fillStyle = '#16a34a';
+                ctx.fillRect(17, 6, 8, 6);
+                ctx.fillStyle = '#22c55e';
+                ctx.fillRect(19, 10, 4, 4); // trailing ivy
