@@ -2167,46 +2167,46 @@ export class CafeCommunityTextures {
                 ctx.ellipse(26, 23, 23, 3, 0, 0, Math.PI * 2);
                 ctx.fill();
 
-        // Hairpin Iron Legs
-        ctx.fillStyle = '#1c1917';
-        ctx.fillRect(8, 14, 2, 9);
-        ctx.fillRect(42, 14, 2, 9);
+                // Hairpin Iron Legs
+                ctx.fillStyle = '#1c1917';
+                ctx.fillRect(8, 14, 2, 9);
+                ctx.fillRect(42, 14, 2, 9);
 
-        // Solid Walnut Oval Tabletop
-        ctx.fillStyle = '#361502';
-        ctx.beginPath();
-        ctx.ellipse(26, 12, 24, 9, 0, 0, Math.PI * 2);
-        ctx.fill();
+                // Solid Walnut Oval Tabletop
+                ctx.fillStyle = '#361502';
+                ctx.beginPath();
+                ctx.ellipse(26, 12, 24, 9, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-        ctx.fillStyle = '#5c2406';
-        ctx.beginPath();
-        ctx.ellipse(26, 11, 23, 8, 0, 0, Math.PI * 2);
-        ctx.fill();
+                ctx.fillStyle = '#5c2406';
+                ctx.beginPath();
+                ctx.ellipse(26, 11, 23, 8, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-        ctx.fillStyle = '#78350f';
-        ctx.beginPath();
-        ctx.ellipse(26, 10, 20, 6, 0, 0, Math.PI * 2);
-        ctx.fill();
+                ctx.fillStyle = '#78350f';
+                ctx.beginPath();
+                ctx.ellipse(26, 10, 20, 6, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-        // Open Paperback Book
-        ctx.fillStyle = '#fef3c7';
-        ctx.fillRect(14, 7, 10, 6);
-        ctx.fillStyle = '#94a3b8';
-        ctx.fillRect(18, 7, 1, 6);
+                // Open Paperback Book
+                ctx.fillStyle = '#fef3c7';
+                ctx.fillRect(14, 7, 10, 6);
+                ctx.fillStyle = '#94a3b8';
+                ctx.fillRect(18, 7, 1, 6);
 
-        // Ceramic Coffee Mug with Latte Art
-        ctx.fillStyle = '#f8fafc';
-        ctx.beginPath();
-        ctx.arc(34, 9, 3, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.fillStyle = '#78350f';
-        ctx.beginPath();
-        ctx.arc(34, 9, 2, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.fillStyle = '#fef08a';
-        ctx.fillRect(33, 8, 1.5, 1.5);
+                // Ceramic Coffee Mug with Latte Art
+                ctx.fillStyle = '#f8fafc';
+                ctx.beginPath();
+                ctx.arc(34, 9, 3, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = '#78350f';
+                ctx.beginPath();
+                ctx.arc(34, 9, 2, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = '#fef08a';
+                ctx.fillRect(33, 8, 1.5, 1.5);
 
-        canvas.refresh();
-      }
-    }
+                canvas.refresh();
+            }
+        }
 
