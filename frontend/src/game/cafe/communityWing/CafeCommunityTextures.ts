@@ -1185,3 +1185,54 @@ export class CafeCommunityTextures {
                 ctx.closePath();
                 ctx.fill();
 
+        // Pot Rim
+        ctx.fillStyle = '#c2410c';
+        ctx.fillRect(6, 33, 20, 4);
+
+        // White accent pot band
+        ctx.fillStyle = '#f8fafc';
+        ctx.fillRect(9, 41, 14, 3);
+
+        // Trunk / Stem
+        ctx.fillStyle = '#451a03';
+        ctx.fillRect(15, 20, 2, 14);
+
+        // Lush Spherical Foliage (Topiary sphere)
+        ctx.fillStyle = '#14532d';
+        ctx.beginPath();
+        ctx.arc(16, 16, 12, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = '#16a34a';
+        ctx.beginPath();
+        ctx.arc(15, 14, 10, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = '#4ade80';
+        ctx.beginPath();
+        ctx.arc(13, 12, 5, 0, Math.PI * 2);
+        ctx.fill();
+
+        canvas.refresh();
+      }
+    }
+
+    // =========================================================================
+    // 18. LO-FI BOHEMIAN GEOMETRIC AREA RUG (220x120)
+    // =========================================================================
+    if (!textures.exists('cafe_lofi_boho_rug')) {
+      const canvas = textures.createCanvas('cafe_lofi_boho_rug', 220, 120);
+      if (canvas) {
+        const ctx = canvas.getContext();
+
+        // Floor Shadow
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.22)';
+        ctx.fillRect(4, 4, 212, 112);
+
+        // Fringes on Left and Right ends
+        ctx.fillStyle = '#e7dfd5';
+        for (let y = 8; y < 112; y += 4) {
+          ctx.fillRect(0, y, 4, 2);
+          ctx.fillRect(216, y, 4, 2);
+        }
+
