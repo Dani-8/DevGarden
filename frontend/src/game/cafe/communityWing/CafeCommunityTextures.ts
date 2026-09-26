@@ -1624,3 +1624,52 @@ export class CafeCommunityTextures {
                 ctx.ellipse(35, 15, 29, 10.5, 0, 0, Math.PI * 2);
                 ctx.fill();
 
+        ctx.fillStyle = '#9a3412';
+        ctx.beginPath();
+        ctx.ellipse(35, 14, 25, 8, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Live edge wood grain rings
+        ctx.strokeStyle = '#b45309';
+        ctx.lineWidth = 0.8;
+        ctx.beginPath();
+        ctx.ellipse(35, 14, 21, 6, 0, 0, Math.PI * 2);
+        ctx.stroke();
+
+        // --- ITEMS ON TABLE ---
+        // Wooden Board Game (Mini Chessboard Grid)
+        ctx.fillStyle = '#fef3c7';
+        ctx.fillRect(16, 9, 14, 11);
+        ctx.fillStyle = '#78350f';
+        for (let row = 0; row < 3; row++) {
+          for (let col = 0; col < 4; col++) {
+            if ((row + col) % 2 === 0) {
+              ctx.fillRect(16 + col * 3.5, 9 + row * 3.5, 3.5, 3.5);
+            }
+          }
+        }
+        ctx.strokeStyle = '#451a03';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(16, 9, 14, 11);
+
+        // Ceramic Coffee Mug 1 (Speckled Oat with Latte Foam)
+        ctx.fillStyle = '#f5f5f4';
+        ctx.beginPath();
+        ctx.arc(38, 12, 3.5, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#78350f';
+        ctx.beginPath();
+        ctx.arc(38, 12, 2.5, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#fef08a';
+        ctx.fillRect(37, 11, 2, 2); // Latte heart
+
+        // Ceramic Coffee Mug 2 (Sage Green)
+        ctx.fillStyle = '#166534';
+        ctx.beginPath();
+        ctx.arc(47, 17, 3, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#451a03';
+        ctx.beginPath();
+        ctx.arc(47, 17, 2, 0, Math.PI * 2);
+        ctx.fill();
