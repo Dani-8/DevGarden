@@ -3025,3 +3025,54 @@ export class CafeCommunityTextures {
                 ctx.fillStyle = '#a85924';
                 ctx.fillRect(3.5, 7, 1, 14);
                 ctx.fillRect(75.5, 7, 1, 14);
+
+        // 3-Section Plush Cream Backrest (y = 4 to 15)
+        ctx.fillStyle = '#ded3c2';
+        ctx.fillRect(5, 4, 70, 11);
+
+        const cWidth = 23;
+        for (let i = 0; i < 3; i++) {
+          const cx = 6 + (i * cWidth);
+          ctx.fillStyle = '#ede5d8';
+          ctx.fillRect(cx, 5, cWidth - 1, 10);
+          ctx.fillStyle = '#f8f4ec';
+          ctx.fillRect(cx + 1, 5, cWidth - 3, 8);
+          ctx.fillStyle = '#fffdfa';
+          ctx.fillRect(cx + 2, 5, cWidth - 5, 2);
+          ctx.fillStyle = '#c5b8a5';
+          ctx.fillRect(cx + 10, 9, 2, 2);
+        }
+
+        // 3 Plush Cream Seat Cushions (y = 14 to 22)
+        for (let i = 0; i < 3; i++) {
+          const cx = 6 + (i * cWidth);
+          ctx.fillStyle = '#ded3c2';
+          ctx.fillRect(cx, 14, cWidth - 1, 9);
+          ctx.fillStyle = '#f5f0e6';
+          ctx.fillRect(cx, 14, cWidth - 1, 8);
+          ctx.fillStyle = '#fdfbf7';
+          ctx.fillRect(cx + 1, 14, cWidth - 3, 2);
+          ctx.fillStyle = '#d5c8b5';
+          ctx.fillRect(cx, 21, cWidth - 1, 1);
+        }
+
+        // Left Olive/Forest Green Accent Pillow
+        ctx.fillStyle = '#283e28';
+        ctx.fillRect(9, 9, 9, 9);
+        ctx.fillStyle = '#3d5a3a';
+        ctx.fillRect(10, 10, 7, 7);
+        ctx.fillStyle = '#537a4e';
+        ctx.fillRect(11, 11, 5, 5);
+
+        // Right Olive/Forest Green Accent Pillow
+        ctx.fillStyle = '#283e28';
+        ctx.fillRect(62, 9, 9, 9);
+        ctx.fillStyle = '#3d5a3a';
+        ctx.fillRect(63, 10, 7, 7);
+        ctx.fillStyle = '#537a4e';
+        ctx.fillRect(64, 11, 5, 5);
+
+        canvas.refresh();
+      }
+    }
+
