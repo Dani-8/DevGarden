@@ -2985,3 +2985,43 @@ export class CafeCommunityTextures {
                 canvas.refresh();
             }
         }
+
+    // =========================================================================
+    // 43. PERFECTLY SCALED PLUSH CREAM & WALNUT SOFA (80x30)
+    // =========================================================================
+    if (!textures.exists('cafe_concept1_centered_sofa')) {
+      const canvas = textures.createCanvas('cafe_concept1_centered_sofa', 80, 30);
+      if (canvas) {
+        const ctx = canvas.getContext();
+
+        // Floor Shadow
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+        ctx.beginPath();
+        ctx.ellipse(40, 27, 38, 3, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // 4 Walnut Feet
+        ctx.fillStyle = '#3b1d09';
+        ctx.fillRect(6, 23, 3, 4);
+        ctx.fillRect(30, 23, 3, 4);
+        ctx.fillRect(48, 23, 3, 4);
+        ctx.fillRect(71, 23, 3, 4);
+
+        // Honey-Walnut Base Rail
+        ctx.fillStyle = '#5c2d13';
+        ctx.fillRect(4, 21, 72, 4);
+        ctx.fillStyle = '#8a471b';
+        ctx.fillRect(5, 21, 70, 3);
+        ctx.fillStyle = '#a85924';
+        ctx.fillRect(6, 21, 68, 1);
+
+        // Wooden Outer Armrests
+        ctx.fillStyle = '#5c2d13';
+        ctx.fillRect(2, 6, 4, 17);
+        ctx.fillRect(74, 6, 4, 17);
+        ctx.fillStyle = '#8a471b';
+        ctx.fillRect(3, 7, 2, 15);
+        ctx.fillRect(75, 7, 2, 15);
+        ctx.fillStyle = '#a85924';
+        ctx.fillRect(3.5, 7, 1, 14);
+        ctx.fillRect(75.5, 7, 1, 14);
