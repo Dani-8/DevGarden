@@ -2849,3 +2849,53 @@ export class CafeCommunityTextures {
                 canvas.refresh();
             }
         }
+
+    // =========================================================================
+    // 40. MUSHROOM FLOOR LAMP WITH AMBER GLOW (18x46) [From User's Image!]
+    // =========================================================================
+    if (!textures.exists('cafe_concept1_mushroom_lamp')) {
+      const canvas = textures.createCanvas('cafe_concept1_mushroom_lamp', 18, 46);
+      if (canvas) {
+        const ctx = canvas.getContext();
+
+        // Shadow
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+        ctx.beginPath();
+        ctx.ellipse(9, 43, 7, 2.5, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Weighted Dark Bronze Round Base
+        ctx.fillStyle = '#292524';
+        ctx.fillRect(4, 40, 10, 3);
+        ctx.fillStyle = '#44403c';
+        ctx.fillRect(5, 39, 8, 2);
+
+        // Slim Stand Pole
+        ctx.fillStyle = '#292524';
+        ctx.fillRect(8, 14, 2, 26);
+
+        // Glowing Mushroom Dome Lampshade (Warm Amber / Golden Glow)
+        ctx.fillStyle = '#b45309';
+        ctx.beginPath();
+        ctx.ellipse(9, 12, 8, 7, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = '#f59e0b';
+        ctx.beginPath();
+        ctx.ellipse(9, 11, 7, 6, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = '#fef08a';
+        ctx.beginPath();
+        ctx.ellipse(9, 10, 5, 4, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Center light bulb highlight
+        ctx.fillStyle = '#ffffff';
+        ctx.beginPath();
+        ctx.arc(9, 9, 2, 0, Math.PI * 2);
+        ctx.fill();
+
+        canvas.refresh();
+      }
+    }
