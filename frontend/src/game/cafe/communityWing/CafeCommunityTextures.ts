@@ -3075,56 +3075,56 @@ export class CafeCommunityTextures {
                 canvas.refresh();
             }
         }
-    // =========================================================================
-    // 44. PERFECTLY SCALED HONEY-OAK COFFEE TABLE (48x24)
-    // =========================================================================
-    if (!textures.exists('cafe_concept1_centered_table')) {
-      const canvas = textures.createCanvas('cafe_concept1_centered_table', 48, 24);
-      if (canvas) {
-        const ctx = canvas.getContext();
+        // =========================================================================
+        // 44. PERFECTLY SCALED HONEY-OAK COFFEE TABLE (48x24)
+        // =========================================================================
+        if (!textures.exists('cafe_concept1_centered_table')) {
+            const canvas = textures.createCanvas('cafe_concept1_centered_table', 48, 24);
+            if (canvas) {
+                const ctx = canvas.getContext();
 
-        // Floor Shadow
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.28)';
-        ctx.beginPath();
-        ctx.ellipse(24, 21, 22, 3, 0, 0, Math.PI * 2);
-        ctx.fill();
+                // Floor Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.28)';
+                ctx.beginPath();
+                ctx.ellipse(24, 21, 22, 3, 0, 0, Math.PI * 2);
+                ctx.fill();
 
-        // 4 Legs
-        ctx.fillStyle = '#3b1d09';
-        ctx.fillRect(5, 13, 2, 8);
-        ctx.fillRect(41, 13, 2, 8);
-        ctx.fillRect(11, 13, 2, 8);
-        ctx.fillRect(35, 13, 2, 8);
+                // 4 Legs
+                ctx.fillStyle = '#3b1d09';
+                ctx.fillRect(5, 13, 2, 8);
+                ctx.fillRect(41, 13, 2, 8);
+                ctx.fillRect(11, 13, 2, 8);
+                ctx.fillRect(35, 13, 2, 8);
 
-        // Rounded Tabletop
-        ctx.fillStyle = '#4a250e';
-        ctx.beginPath();
-        ctx.roundRect(2, 5, 44, 12, 4);
-        ctx.fill();
+                // Rounded Tabletop
+                ctx.fillStyle = '#4a250e';
+                ctx.beginPath();
+                ctx.roundRect(2, 5, 44, 12, 4);
+                ctx.fill();
 
-        ctx.fillStyle = '#78350f';
-        ctx.beginPath();
-        ctx.roundRect(3, 4, 42, 12, 3);
-        ctx.fill();
+                ctx.fillStyle = '#78350f';
+                ctx.beginPath();
+                ctx.roundRect(3, 4, 42, 12, 3);
+                ctx.fill();
 
-        ctx.fillStyle = '#9a3412';
-        ctx.beginPath();
-        ctx.roundRect(4, 3, 40, 11, 3);
-        ctx.fill();
+                ctx.fillStyle = '#9a3412';
+                ctx.beginPath();
+                ctx.roundRect(4, 3, 40, 11, 3);
+                ctx.fill();
 
-        ctx.fillStyle = '#b45309';
-        ctx.beginPath();
-        ctx.roundRect(5, 3, 38, 10, 2);
-        ctx.fill();
+                ctx.fillStyle = '#b45309';
+                ctx.beginPath();
+                ctx.roundRect(5, 3, 38, 10, 2);
+                ctx.fill();
 
-        // Succulent Dish in Center
-        ctx.fillStyle = '#f8fafc';
-        ctx.beginPath();
-        ctx.ellipse(24, 7, 4, 3, 0, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.fillStyle = '#15803d';
-        ctx.beginPath();
-        ctx.arc(24, 7, 2.5, 0, Math.PI * 2);
-        ctx.fill();
+                // Succulent Dish in Center
+                ctx.fillStyle = '#f8fafc';
+                ctx.beginPath();
+                ctx.ellipse(24, 7, 4, 3, 0, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = '#15803d';
+                ctx.beginPath();
+                ctx.arc(24, 7, 2.5, 0, Math.PI * 2);
+                ctx.fill();
 
 
