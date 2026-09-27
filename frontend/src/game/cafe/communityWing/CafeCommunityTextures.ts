@@ -2342,7 +2342,6 @@ export class CafeCommunityTextures {
             }
         }
 
-
         // =========================================================================
         // 32. FREESTANDING WICKER RATTAN HANGING EGG CHAIR (34x50) [Concept 5]
         // =========================================================================
@@ -3147,3 +3146,47 @@ export class CafeCommunityTextures {
                 canvas.refresh();
             }
         }
+
+        // =========================================================================
+        // 45. SCALED MUSHROOM FLOOR LAMP (14x36)
+        // =========================================================================
+        if (!textures.exists('cafe_concept1_centered_lamp')) {
+            const canvas = textures.createCanvas('cafe_concept1_centered_lamp', 14, 36);
+            if (canvas) {
+                const ctx = canvas.getContext();
+
+                // Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.28)';
+                ctx.beginPath();
+                ctx.ellipse(7, 33, 5, 2, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Base
+                ctx.fillStyle = '#292524';
+                ctx.fillRect(3, 31, 8, 2);
+
+                // Slim Pole
+                ctx.fillStyle = '#292524';
+                ctx.fillRect(6, 10, 2, 21);
+
+                // Mushroom Amber Dome Shade
+                ctx.fillStyle = '#b45309';
+                ctx.beginPath();
+                ctx.ellipse(7, 9, 6, 5, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.fillStyle = '#f59e0b';
+                ctx.beginPath();
+                ctx.ellipse(7, 8, 5, 4, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.fillStyle = '#fef08a';
+                ctx.beginPath();
+                ctx.ellipse(7, 7, 3.5, 2.5, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                canvas.refresh();
+            }
+        }
+    }
+}
