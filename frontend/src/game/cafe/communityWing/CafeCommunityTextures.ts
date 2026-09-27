@@ -2929,59 +2929,59 @@ export class CafeCommunityTextures {
             }
         }
 
-    // =========================================================================
-    // 42. CENTERED HARMONIC FOREST EMERALD & GOLD RUG (160x104)
-    // =========================================================================
-    if (!textures.exists('cafe_concept1_centered_rug')) {
-      const canvas = textures.createCanvas('cafe_concept1_centered_rug', 160, 104);
-      if (canvas) {
-        const ctx = canvas.getContext();
+        // =========================================================================
+        // 42. CENTERED HARMONIC FOREST EMERALD & GOLD RUG (160x104)
+        // =========================================================================
+        if (!textures.exists('cafe_concept1_centered_rug')) {
+            const canvas = textures.createCanvas('cafe_concept1_centered_rug', 160, 104);
+            if (canvas) {
+                const ctx = canvas.getContext();
 
-        // Floor Shadow
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
-        ctx.fillRect(4, 4, 152, 96);
+                // Floor Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
+                ctx.fillRect(4, 4, 152, 96);
 
-        // Fringes on Left and Right
-        ctx.fillStyle = '#d4ccbf';
-        for (let y = 6; y < 98; y += 4) {
-          ctx.fillRect(0, y, 3, 2);
-          ctx.fillRect(157, y, 3, 2);
+                // Fringes on Left and Right
+                ctx.fillStyle = '#d4ccbf';
+                for (let y = 6; y < 98; y += 4) {
+                    ctx.fillRect(0, y, 3, 2);
+                    ctx.fillRect(157, y, 3, 2);
+                }
+
+                // Dark Charcoal-Green Border
+                ctx.fillStyle = '#0f2015';
+                ctx.fillRect(3, 3, 154, 98);
+
+                // Gold Inlay Band
+                ctx.fillStyle = '#b45309';
+                ctx.fillRect(6, 6, 148, 92);
+                ctx.fillStyle = '#d97706';
+                ctx.fillRect(7, 7, 146, 90);
+                ctx.fillStyle = '#f59e0b';
+                ctx.fillRect(8, 8, 144, 1);
+                ctx.fillRect(8, 95, 144, 1);
+
+                // Deep Moss Transition
+                ctx.fillStyle = '#143320';
+                ctx.fillRect(9, 9, 142, 86);
+
+                // Rich Forest Emerald Field
+                ctx.fillStyle = '#1b4332';
+                ctx.fillRect(12, 12, 136, 80);
+                ctx.fillStyle = '#245640';
+                ctx.fillRect(14, 14, 132, 76);
+
+                // Subtle Woven Cross-Grain
+                for (let y = 16; y < 88; y += 4) {
+                    ctx.fillStyle = (Math.floor(y / 4) % 2 === 0) ? '#2a634a' : '#1f4c38';
+                    ctx.fillRect(16, y, 128, 2);
+                }
+
+                // Inner Gold Accent Line
+                ctx.strokeStyle = '#b45309';
+                ctx.lineWidth = 1;
+                ctx.strokeRect(20, 20, 120, 64);
+
+                canvas.refresh();
+            }
         }
-
-        // Dark Charcoal-Green Border
-        ctx.fillStyle = '#0f2015';
-        ctx.fillRect(3, 3, 154, 98);
-
-        // Gold Inlay Band
-        ctx.fillStyle = '#b45309';
-        ctx.fillRect(6, 6, 148, 92);
-        ctx.fillStyle = '#d97706';
-        ctx.fillRect(7, 7, 146, 90);
-        ctx.fillStyle = '#f59e0b';
-        ctx.fillRect(8, 8, 144, 1);
-        ctx.fillRect(8, 95, 144, 1);
-
-        // Deep Moss Transition
-        ctx.fillStyle = '#143320';
-        ctx.fillRect(9, 9, 142, 86);
-
-        // Rich Forest Emerald Field
-        ctx.fillStyle = '#1b4332';
-        ctx.fillRect(12, 12, 136, 80);
-        ctx.fillStyle = '#245640';
-        ctx.fillRect(14, 14, 132, 76);
-
-        // Subtle Woven Cross-Grain
-        for (let y = 16; y < 88; y += 4) {
-          ctx.fillStyle = (Math.floor(y / 4) % 2 === 0) ? '#2a634a' : '#1f4c38';
-          ctx.fillRect(16, y, 128, 2);
-        }
-
-        // Inner Gold Accent Line
-        ctx.strokeStyle = '#b45309';
-        ctx.lineWidth = 1;
-        ctx.strokeRect(20, 20, 120, 64);
-
-        canvas.refresh();
-      }
-    }
