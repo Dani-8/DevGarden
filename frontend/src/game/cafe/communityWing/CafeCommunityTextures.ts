@@ -2849,3 +2849,301 @@ export class CafeCommunityTextures {
                 canvas.refresh();
             }
         }
+
+        // =========================================================================
+        // 40. MUSHROOM FLOOR LAMP WITH AMBER GLOW (18x46) [From User's Image!]
+        // =========================================================================
+        if (!textures.exists('cafe_concept1_mushroom_lamp')) {
+            const canvas = textures.createCanvas('cafe_concept1_mushroom_lamp', 18, 46);
+            if (canvas) {
+                const ctx = canvas.getContext();
+
+                // Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+                ctx.beginPath();
+                ctx.ellipse(9, 43, 7, 2.5, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Weighted Dark Bronze Round Base
+                ctx.fillStyle = '#292524';
+                ctx.fillRect(4, 40, 10, 3);
+                ctx.fillStyle = '#44403c';
+                ctx.fillRect(5, 39, 8, 2);
+
+                // Slim Stand Pole
+                ctx.fillStyle = '#292524';
+                ctx.fillRect(8, 14, 2, 26);
+
+                // Glowing Mushroom Dome Lampshade (Warm Amber / Golden Glow)
+                ctx.fillStyle = '#b45309';
+                ctx.beginPath();
+                ctx.ellipse(9, 12, 8, 7, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.fillStyle = '#f59e0b';
+                ctx.beginPath();
+                ctx.ellipse(9, 11, 7, 6, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.fillStyle = '#fef08a';
+                ctx.beginPath();
+                ctx.ellipse(9, 10, 5, 4, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Center light bulb highlight
+                ctx.fillStyle = '#ffffff';
+                ctx.beginPath();
+                ctx.arc(9, 9, 2, 0, Math.PI * 2);
+                ctx.fill();
+
+                canvas.refresh();
+            }
+        }
+
+        // =========================================================================
+        // 41. WALL DRAPED BOTANICAL VINES (180x28) [From User's Image!]
+        // =========================================================================
+        if (!textures.exists('cafe_concept1_wall_vines')) {
+            const canvas = textures.createCanvas('cafe_concept1_wall_vines', 180, 28);
+            if (canvas) {
+                const ctx = canvas.getContext();
+
+                // Trailing vines along top wall beam
+                ctx.fillStyle = '#166534';
+                for (let x = 6; x < 174; x += 14) {
+                    const drop = 8 + ((x * 7) % 16);
+                    // Vine stem
+                    ctx.fillRect(x, 0, 2, drop);
+                    // Leaf clusters
+                    ctx.fillStyle = '#15803d';
+                    ctx.beginPath();
+                    ctx.arc(x - 2, drop - 4, 3, 0, Math.PI * 2);
+                    ctx.arc(x + 3, drop - 2, 3, 0, Math.PI * 2);
+                    ctx.arc(x, drop, 3.5, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.fillStyle = '#4ade80';
+                    ctx.fillRect(x - 1, drop - 3, 2, 2);
+                }
+
+                canvas.refresh();
+            }
+        }
+
+        // =========================================================================
+        // 42. CENTERED HARMONIC FOREST EMERALD & GOLD RUG (160x104)
+        // =========================================================================
+        if (!textures.exists('cafe_concept1_centered_rug')) {
+            const canvas = textures.createCanvas('cafe_concept1_centered_rug', 160, 104);
+            if (canvas) {
+                const ctx = canvas.getContext();
+
+                // Floor Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
+                ctx.fillRect(4, 4, 152, 96);
+
+                // Fringes on Left and Right
+                ctx.fillStyle = '#d4ccbf';
+                for (let y = 6; y < 98; y += 4) {
+                    ctx.fillRect(0, y, 3, 2);
+                    ctx.fillRect(157, y, 3, 2);
+                }
+
+                // Dark Charcoal-Green Border
+                ctx.fillStyle = '#0f2015';
+                ctx.fillRect(3, 3, 154, 98);
+
+                // Gold Inlay Band
+                ctx.fillStyle = '#b45309';
+                ctx.fillRect(6, 6, 148, 92);
+                ctx.fillStyle = '#d97706';
+                ctx.fillRect(7, 7, 146, 90);
+                ctx.fillStyle = '#f59e0b';
+                ctx.fillRect(8, 8, 144, 1);
+                ctx.fillRect(8, 95, 144, 1);
+
+                // Deep Moss Transition
+                ctx.fillStyle = '#143320';
+                ctx.fillRect(9, 9, 142, 86);
+
+                // Rich Forest Emerald Field
+                ctx.fillStyle = '#1b4332';
+                ctx.fillRect(12, 12, 136, 80);
+                ctx.fillStyle = '#245640';
+                ctx.fillRect(14, 14, 132, 76);
+
+                // Subtle Woven Cross-Grain
+                for (let y = 16; y < 88; y += 4) {
+                    ctx.fillStyle = (Math.floor(y / 4) % 2 === 0) ? '#2a634a' : '#1f4c38';
+                    ctx.fillRect(16, y, 128, 2);
+                }
+
+                // Inner Gold Accent Line
+                ctx.strokeStyle = '#b45309';
+                ctx.lineWidth = 1;
+                ctx.strokeRect(20, 20, 120, 64);
+
+                canvas.refresh();
+            }
+        }
+
+        // =========================================================================
+        // 43. PERFECTLY SCALED PLUSH CREAM & WALNUT SOFA (80x30)
+        // =========================================================================
+        if (!textures.exists('cafe_concept1_centered_sofa')) {
+            const canvas = textures.createCanvas('cafe_concept1_centered_sofa', 80, 30);
+            if (canvas) {
+                const ctx = canvas.getContext();
+
+                // Floor Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+                ctx.beginPath();
+                ctx.ellipse(40, 27, 38, 3, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                // 4 Walnut Feet
+                ctx.fillStyle = '#3b1d09';
+                ctx.fillRect(6, 23, 3, 4);
+                ctx.fillRect(30, 23, 3, 4);
+                ctx.fillRect(48, 23, 3, 4);
+                ctx.fillRect(71, 23, 3, 4);
+
+                // Honey-Walnut Base Rail
+                ctx.fillStyle = '#5c2d13';
+                ctx.fillRect(4, 21, 72, 4);
+                ctx.fillStyle = '#8a471b';
+                ctx.fillRect(5, 21, 70, 3);
+                ctx.fillStyle = '#a85924';
+                ctx.fillRect(6, 21, 68, 1);
+
+                // Wooden Outer Armrests
+                ctx.fillStyle = '#5c2d13';
+                ctx.fillRect(2, 6, 4, 17);
+                ctx.fillRect(74, 6, 4, 17);
+                ctx.fillStyle = '#8a471b';
+                ctx.fillRect(3, 7, 2, 15);
+                ctx.fillRect(75, 7, 2, 15);
+                ctx.fillStyle = '#a85924';
+                ctx.fillRect(3.5, 7, 1, 14);
+                ctx.fillRect(75.5, 7, 1, 14);
+
+                // 3-Section Plush Cream Backrest (y = 4 to 15)
+                ctx.fillStyle = '#ded3c2';
+                ctx.fillRect(5, 4, 70, 11);
+
+                const cWidth = 23;
+                for (let i = 0; i < 3; i++) {
+                    const cx = 6 + (i * cWidth);
+                    ctx.fillStyle = '#ede5d8';
+                    ctx.fillRect(cx, 5, cWidth - 1, 10);
+                    ctx.fillStyle = '#f8f4ec';
+                    ctx.fillRect(cx + 1, 5, cWidth - 3, 8);
+                    ctx.fillStyle = '#fffdfa';
+                    ctx.fillRect(cx + 2, 5, cWidth - 5, 2);
+                    ctx.fillStyle = '#c5b8a5';
+                    ctx.fillRect(cx + 10, 9, 2, 2);
+                }
+
+                // 3 Plush Cream Seat Cushions (y = 14 to 22)
+                for (let i = 0; i < 3; i++) {
+                    const cx = 6 + (i * cWidth);
+                    ctx.fillStyle = '#ded3c2';
+                    ctx.fillRect(cx, 14, cWidth - 1, 9);
+                    ctx.fillStyle = '#f5f0e6';
+                    ctx.fillRect(cx, 14, cWidth - 1, 8);
+                    ctx.fillStyle = '#fdfbf7';
+                    ctx.fillRect(cx + 1, 14, cWidth - 3, 2);
+                    ctx.fillStyle = '#d5c8b5';
+                    ctx.fillRect(cx, 21, cWidth - 1, 1);
+                }
+
+                // Left Olive/Forest Green Accent Pillow
+                ctx.fillStyle = '#283e28';
+                ctx.fillRect(9, 9, 9, 9);
+                ctx.fillStyle = '#3d5a3a';
+                ctx.fillRect(10, 10, 7, 7);
+                ctx.fillStyle = '#537a4e';
+                ctx.fillRect(11, 11, 5, 5);
+
+                // Right Olive/Forest Green Accent Pillow
+                ctx.fillStyle = '#283e28';
+                ctx.fillRect(62, 9, 9, 9);
+                ctx.fillStyle = '#3d5a3a';
+                ctx.fillRect(63, 10, 7, 7);
+                ctx.fillStyle = '#537a4e';
+                ctx.fillRect(64, 11, 5, 5);
+
+                canvas.refresh();
+            }
+        }
+
+        // =========================================================================
+        // 44. PERFECTLY SCALED HONEY-OAK COFFEE TABLE (48x24)
+        // =========================================================================
+        if (!textures.exists('cafe_concept1_centered_table')) {
+            const canvas = textures.createCanvas('cafe_concept1_centered_table', 48, 24);
+            if (canvas) {
+                const ctx = canvas.getContext();
+
+                // Floor Shadow
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.28)';
+                ctx.beginPath();
+                ctx.ellipse(24, 21, 22, 3, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                // 4 Legs
+                ctx.fillStyle = '#3b1d09';
+                ctx.fillRect(5, 13, 2, 8);
+                ctx.fillRect(41, 13, 2, 8);
+                ctx.fillRect(11, 13, 2, 8);
+                ctx.fillRect(35, 13, 2, 8);
+
+                // Rounded Tabletop
+                ctx.fillStyle = '#4a250e';
+                ctx.beginPath();
+                ctx.roundRect(2, 5, 44, 12, 4);
+                ctx.fill();
+
+                ctx.fillStyle = '#78350f';
+                ctx.beginPath();
+                ctx.roundRect(3, 4, 42, 12, 3);
+                ctx.fill();
+
+                ctx.fillStyle = '#9a3412';
+                ctx.beginPath();
+                ctx.roundRect(4, 3, 40, 11, 3);
+                ctx.fill();
+
+                ctx.fillStyle = '#b45309';
+                ctx.beginPath();
+                ctx.roundRect(5, 3, 38, 10, 2);
+                ctx.fill();
+
+                // Succulent Dish in Center
+                ctx.fillStyle = '#f8fafc';
+                ctx.beginPath();
+                ctx.ellipse(24, 7, 4, 3, 0, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = '#15803d';
+                ctx.beginPath();
+                ctx.arc(24, 7, 2.5, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Open Book on Left
+                ctx.fillStyle = '#fef3c7';
+                ctx.fillRect(10, 6, 8, 5);
+                ctx.fillStyle = '#94a3b8';
+                ctx.fillRect(13.5, 6, 1, 5);
+
+                // Coffee Mug on Right
+                ctx.fillStyle = '#f8fafc';
+                ctx.beginPath();
+                ctx.arc(36, 7, 2.5, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = '#78350f';
+                ctx.beginPath();
+                ctx.arc(36, 7, 1.5, 0, Math.PI * 2);
+                ctx.fill();
+
+                canvas.refresh();
+            }
+        }
