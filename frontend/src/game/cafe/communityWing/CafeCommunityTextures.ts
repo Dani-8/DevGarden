@@ -3128,4 +3128,22 @@ export class CafeCommunityTextures {
                 ctx.arc(24, 7, 2.5, 0, Math.PI * 2);
                 ctx.fill();
 
+        // Open Book on Left
+        ctx.fillStyle = '#fef3c7';
+        ctx.fillRect(10, 6, 8, 5);
+        ctx.fillStyle = '#94a3b8';
+        ctx.fillRect(13.5, 6, 1, 5);
 
+        // Coffee Mug on Right
+        ctx.fillStyle = '#f8fafc';
+        ctx.beginPath();
+        ctx.arc(36, 7, 2.5, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#78350f';
+        ctx.beginPath();
+        ctx.arc(36, 7, 1.5, 0, Math.PI * 2);
+        ctx.fill();
+
+        canvas.refresh();
+      }
+    }
